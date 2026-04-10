@@ -4,187 +4,182 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gabi ♥ — Guia de Quimioterapia</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
 :root {
-  --bg: #F8F4EF;
-  --surface: #FFFDF9;
-  --surface2: #F2EDE6;
-  --ink: #1A2420;
-  --ink2: #4A5E52;
-  --ink3: #8A9E94;
-  --sage: #6B9E8A;
-  --sage-light: #A8CCB8;
-  --sage-dark: #3D6B56;
-  --sage-bg: rgba(107,158,138,0.10);
-  --gold: #C4995A;
-  --gold-light: #E8D4A8;
-  --gold-bg: rgba(196,153,90,0.12);
-  --blush: #D4896A;
-  --blush-bg: rgba(212,137,106,0.12);
-  --red: #B84040;
-  --red-bg: #FAEAEA;
-  --amber: #A06828;
-  --amber-bg: #FBF0E0;
-  --border: rgba(107,158,138,0.18);
-  --border2: rgba(107,158,138,0.30);
-  --radius: 14px;
-  --radius-sm: 8px;
+  --bg: #F9F6F0;
+  --surface: #FFFFFF;
+  --surface-hover: #FDFBFC;
+  --ink: #2C3631;
+  --ink2: #5C6E64;
+  --ink3: #95A69D;
+  --sage: #7AAB96;
+  --sage-light: #B4D4C4;
+  --sage-dark: #2F5C48;
+  --sage-bg: #EAF2EE;
+  --gold: #D4A373;
+  --gold-bg: #FDF6EE;
+  --red-intense: #D64545;
+  --red-bg: #FDF0F0;
+  --amber: #C9822B;
+  --amber-bg: #FDF7EE;
+  --border: rgba(122, 171, 150, 0.15);
+  --border-focus: rgba(122, 171, 150, 0.4);
+  --shadow-sm: 0 4px 12px rgba(44, 54, 49, 0.03);
+  --shadow-md: 0 8px 24px rgba(44, 54, 49, 0.06);
+  --radius: 18px;
+  --radius-sm: 12px;
 }
-* { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior:smooth; }
-body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; font-size:14px; line-height:1.6; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; font-size:14px; line-height:1.6; padding-bottom: env(safe-area-inset-bottom); }
 
+/* HEADER & HERO */
 header {
-  background: linear-gradient(145deg,#1A2420 0%,#2A3C34 60%,#1E3028 100%);
-  color:white; padding:3rem 1.5rem 2.5rem; text-align:center; position:relative; overflow:hidden;
+  background: linear-gradient(135deg, #1E2B25 0%, #31473D 100%);
+  color:white; padding:3.5rem 1.5rem 3rem; text-align:center; position:relative; overflow:hidden;
+  border-bottom-left-radius: 24px; border-bottom-right-radius: 24px;
+  box-shadow: 0 10px 30px rgba(30, 43, 37, 0.15);
 }
 header::before {
   content:''; position:absolute; inset:0;
-  background: radial-gradient(ellipse at 20% 80%,rgba(107,158,138,0.3) 0%,transparent 55%),
-              radial-gradient(ellipse at 85% 15%,rgba(196,153,90,0.2) 0%,transparent 50%);
+  background: radial-gradient(circle at 10% 90%, rgba(122,171,150,0.2) 0%, transparent 60%),
+              radial-gradient(circle at 90% 10%, rgba(212,163,115,0.15) 0%, transparent 50%);
 }
 .header-inner { position:relative; z-index:1; }
 .header-pill {
-  display:inline-block; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
-  color:var(--sage-light); background:rgba(107,158,138,0.2); border:0.5px solid rgba(107,158,138,0.4);
-  padding:4px 14px; border-radius:20px; margin-bottom:1rem;
+  display:inline-flex; align-items:center; gap:6px; font-size:10px; font-weight:700; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--sage-light); background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1);
+  padding:6px 16px; border-radius:30px; margin-bottom:1.2rem; backdrop-filter: blur(4px);
 }
-header h1 { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,7vw,3.4rem); font-weight:400; line-height:1.1; color:#fff; }
-header h1 .heart { color:#E8A0A0; }
-.header-meta { margin-top:1rem; display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
-.header-badge { font-size:11px; font-weight:500; background:rgba(255,255,255,0.1); border:0.5px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.85); padding:4px 12px; border-radius:20px; }
+header h1 { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,8vw,3.8rem); font-weight:400; line-height:1; margin-bottom: 0.5rem; }
+.heart { display:inline-block; color:#E8A0A0; animation: pulse 2s infinite ease-in-out; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.header-meta { margin-top:1.5rem; display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.header-badge { display:flex; align-items:center; gap:4px; font-size:12px; font-weight:500; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); padding:6px 14px; border-radius:20px; backdrop-filter: blur(4px); }
 
-.emergency-bar { background:var(--red); padding:1rem 1.5rem; display:flex; align-items:flex-start; gap:12px; }
-.em-icon { font-size:22px; flex-shrink:0; margin-top:1px; }
-.em-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:3px; }
-.em-text { font-size:12px; color:rgba(255,255,255,0.92); line-height:1.5; }
+/* EMERGENCY BAR */
+.emergency-bar { background:var(--red-intense); padding:1rem 1.5rem; display:flex; align-items:flex-start; gap:14px; margin: -1.5rem 1rem 1.5rem; position: relative; z-index: 2; border-radius: var(--radius); box-shadow: var(--shadow-md); color: white; cursor: pointer; }
+.em-icon { font-size:24px; color:#FFF; flex-shrink:0; background: rgba(255,255,255,0.2); width: 40px; height: 40px; display:flex; align-items:center; justify-content:center; border-radius:50%; }
+.em-title { font-size:15px; font-weight:700; color:#fff; margin-bottom:2px; }
+.em-text { font-size:13px; color:rgba(255,255,255,0.95); line-height:1.5; }
 
-main { max-width:700px; margin:0 auto; padding:1.5rem 1rem 5rem; }
+main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 
-.progress-wrap { margin-bottom:1.2rem; }
-.progress-header { display:flex; justify-content:space-between; margin-bottom:5px; }
-.progress-label { font-size:12px; color:var(--ink2); }
-.progress-val { font-size:12px; font-weight:600; color:var(--sage-dark); }
-.progress-track { background:var(--surface2); border-radius:20px; height:10px; overflow:hidden; }
-.progress-fill { height:100%; background:linear-gradient(90deg,var(--sage-dark),var(--sage-light)); border-radius:20px; transition:width 0.6s ease; }
+/* PROGRESS BAR */
+.progress-wrap { background: var(--surface); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom:1.5rem; border: 1px solid var(--border); }
+.progress-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:10px; }
+.progress-label { font-size:13px; font-weight:500; color:var(--ink2); }
+.progress-val { font-size:20px; font-weight:700; color:var(--sage-dark); line-height: 1; }
+.progress-track { background:var(--sage-bg); border-radius:20px; height:12px; overflow:hidden; position: relative; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius:20px; transition:width 1s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
 
-.tab-nav { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:1.5rem; }
-.tab-btn {
-  background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm);
-  padding:10px 4px; font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
-  color:var(--ink2); cursor:pointer; transition:all 0.2s;
-  display:flex; flex-direction:column; align-items:center; gap:4px;
-}
-.tab-btn .ico { font-size:18px; }
-.tab-btn:hover { background:var(--sage-bg); color:var(--sage-dark); border-color:var(--border2); }
-.tab-btn.active { background:var(--ink); color:#fff; border-color:var(--ink); box-shadow:0 4px 14px rgba(26,36,32,0.25); }
-.tab-pane { display:none; animation:fadein 0.25s ease; }
+/* NAVIGATION TABS */
+.tab-nav { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:2rem; }
+.tab-btn { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 6px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:var(--ink2); cursor:pointer; transition:all 0.3s; display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow: var(--shadow-sm); }
+.tab-btn i { font-size:24px; transition: transform 0.3s; }
+.tab-btn.active { background:var(--ink); color:#fff; border-color:var(--ink); box-shadow:0 8px 20px rgba(44, 54, 49, 0.25); }
+.tab-btn.active i { color: var(--gold); }
+.tab-pane { display:none; animation:fadein 0.4s ease forwards; opacity: 0; transform: translateY(10px); }
 .tab-pane.active { display:block; }
-@keyframes fadein { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+@keyframes fadein { to { opacity:1; transform:none; } }
 
-.sec-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:400; color:var(--ink); margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1.5px solid var(--border); }
+/* TYPOGRAPHY */
+.sec-title { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:600; color:var(--ink); margin-bottom:1.2rem; display: flex; align-items: center; gap: 8px; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sec-title-left { display: flex; align-items: center; gap: 8px; }
+.btn-edit { background: var(--sage-bg); border: 1px solid var(--sage-light); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--sage-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s; }
+.date-input { font-family: 'Inter'; font-size: 14px; font-weight: 700; color: var(--ink); border: 1px solid var(--sage-light); border-radius: 6px; padding: 4px 8px; background: var(--surface); display: none; outline: none; }
+.is-editing .date-input { display: inline-block; }
+.is-editing .date-text { display: none; }
 
-.metrics { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:1rem; }
-.metric { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm); padding:14px; text-align:center; }
-.metric-val { font-size:22px; font-weight:600; color:var(--ink); }
-.metric-lbl { font-size:11px; color:var(--ink3); margin-top:2px; }
+/* CALENDÁRIO: MÉTRICAS */
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
+.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px 10px; text-align: center; box-shadow: var(--shadow-sm); }
+.metric-val { font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.metric-lbl { font-size: 12px; font-weight: 500; color: var(--ink3); }
 
-.chemo-row {
-  background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm);
-  display:grid; grid-template-columns:28px 1fr auto auto; align-items:center;
-  gap:10px; padding:11px 14px; margin-bottom:6px; transition:all 0.15s;
-}
-.chemo-row:hover { background:var(--sage-bg); }
-.chemo-row.today { border-color:var(--gold); background:var(--gold-bg); }
-.chemo-num { width:24px; height:24px; border-radius:50%; background:var(--sage-bg); color:var(--sage-dark); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.chemo-date { font-size:13px; font-weight:600; color:var(--ink); }
-.chemo-sub { font-size:11px; color:var(--ink3); }
-.pill { font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; white-space:nowrap; }
-.pill-red { background:var(--red-bg); color:var(--red); }
-.pill-amber { background:var(--amber-bg); color:var(--amber); }
-.pill-sage { background:var(--sage-bg); color:var(--sage-dark); }
-.pill-done { background:#EAF5EA; color:#2A6A2A; text-decoration:line-through; opacity:0.6; }
-.pill-green { background:#EAF5EA; color:#2A6A2A; }
+/* CALENDÁRIO: SESSÕES (CARD STYLE) */
+.session-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: var(--shadow-sm); transition: all 0.2s; }
+.session-left { display: flex; align-items: center; gap: 14px; }
+.session-num { width: 32px; height: 32px; border-radius: 50%; background: var(--sage-bg); color: var(--sage-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; }
+.session-info { display: flex; flex-direction: column; }
+.session-date { font-size: 15px; font-weight: 700; color: var(--ink); }
+.session-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+.session-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
-.med-card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius); padding:15px 18px; margin-bottom:8px; transition:all 0.2s; }
-.med-card:hover { box-shadow:0 4px 20px rgba(26,36,32,0.08); transform:translateY(-1px); }
-.med-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:6px; }
-.med-name { font-size:14px; font-weight:600; color:var(--ink); }
-.med-dose { font-size:11px; font-weight:600; background:var(--sage-bg); color:var(--sage-dark); padding:3px 10px; border-radius:20px; flex-shrink:0; white-space:nowrap; }
-.med-instr { font-size:13px; color:var(--ink2); line-height:1.6; }
-.badge { display:inline-block; font-size:10px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; padding:3px 10px; border-radius:20px; margin-top:6px; }
+/* PÍLULAS */
+.pill-nadir { background: var(--red-bg); color: var(--red-intense); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.pill-toggle { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; outline: none; }
+.pill-pending { background: #F5F5F5; color: #888; border-color: #E0E0E0; }
+.pill-done { background: #EAF5EA; color: #2A6A2A; text-decoration: line-through; border-color: transparent; }
+
+.session-card.done { background: #FAFAFA; opacity: 0.8; }
+.session-card.done .session-num { background: #EAF5EA; color: #2A6A2A; }
+.session-card.done .session-date { color: var(--ink2); }
+
+/* EXAMES (MANTÉM O ESTILO CARD PARA PADRONIZAR) */
+.exam-row { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--sage-light); border-radius:var(--radius-sm); display:flex; align-items: center; justify-content: space-between; gap:12px; padding:16px; margin-bottom:10px; box-shadow: var(--shadow-sm); }
+.exam-row.done { opacity: 0.7; background: #FAFAFA; border-left-color: var(--sage-dark); }
+.exam-info { display: flex; flex-direction: column; gap: 2px; }
+.exam-date { font-size:15px; font-weight:700; color:var(--ink); }
+.exam-sub { font-size:12px; color:var(--ink3); }
+
+/* CARDS GERAIS (Medicações, Hospital, Orientações) */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow: var(--shadow-sm); }
+.card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px; }
+.card-title { font-size:15px; font-weight:700; color:var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.card-body { font-size:13.5px; color:var(--ink2); line-height:1.6; }
+.med-dose { font-size:12px; font-weight:700; background:var(--sage-bg); color:var(--sage-dark); padding:4px 12px; border-radius:20px; flex-shrink:0; }
+.badge { display:inline-flex; font-size:11px; font-weight:700; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-top:10px; }
 .badge-purple { background:#F0EEFA; color:#5A3A9A; }
 .badge-amber { background:var(--amber-bg); color:var(--amber); }
 .badge-green { background:#EAF5EA; color:#2A6A2A; }
-.badge-red { background:var(--red-bg); color:var(--red); }
+.badge-red { background:var(--red-bg); color:var(--red-intense); }
+.hosp-emergency { border-left: 4px solid var(--red-intense); background: var(--red-bg); }
+.hosp-option { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--red-intense); margin-bottom: 4px; display: block; }
+.info-box { background:var(--sage-bg); border:1px solid var(--border-focus); border-left:4px solid var(--sage-dark); border-radius:var(--radius-sm); padding:16px; font-size:13px; color:var(--ink2); line-height:1.6; margin-bottom: 1.5rem; display: flex; gap: 10px; }
 
-.sym-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.sym-card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; transition:border-color 0.2s; }
-.sym-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink3); margin-bottom:6px; }
+/* WATER TRACKER */
+.water-wrap { background:linear-gradient(135deg, #F0F7F4 0%, #E0EFE8 100%); border-radius:var(--radius); padding:24px; text-align:center; box-shadow: var(--shadow-sm); margin-bottom: 2rem; border: 1px solid var(--sage-light); }
+.water-glasses-row { display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom: 16px; }
+.wg { width: 22px; height: 32px; border: 2px solid rgba(61,107,86,0.25); border-radius: 2px 2px 6px 6px; position: relative; cursor: pointer; overflow: hidden; background: rgba(255,255,255,0.6); transition: transform 0.2s; }
+.wg:hover { transform: scale(1.1); border-color: var(--sage-dark); }
+.wg-fill { position:absolute; bottom:0; left:0; right:0; background: var(--sage-dark); transition: height 0.3s ease; }
+.water-bar-track { background:rgba(122, 171, 150, 0.2); border-radius:20px; height:10px; overflow:hidden; margin:12px 0; }
+.water-bar-fill { height:100%; background:linear-gradient(90deg, var(--sage-light), var(--sage-dark)); border-radius:20px; transition:width 0.5s ease; }
+
+/* SYMPTOM GRID (DROPDOWNS) */
+.sym-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom: 1.5rem; }
+.sym-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; box-shadow: var(--shadow-sm); }
+.sym-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink3); margin-bottom:8px; }
 .sym-row { display:flex; align-items:center; gap:8px; }
-.sym-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; transition:background 0.3s; }
-.sym-sel { width:100%; font-family:'Inter',sans-serif; font-size:12px; color:var(--ink); background:transparent; border:none; outline:none; cursor:pointer; border-bottom:1px solid var(--border); padding:2px 0; margin-top:4px; appearance:none; -webkit-appearance:none; }
-.sym-note { font-size:11px; margin-top:4px; font-style:italic; min-height:14px; }
+.sym-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; transition:background 0.3s; }
+.sym-sel { width:100%; font-family:'Inter',sans-serif; font-size:14px; color:var(--ink); background:transparent; border:none; outline:none; cursor:pointer; border-bottom:1px solid var(--border); padding:4px 0; appearance:none; -webkit-appearance:none; }
+.sym-note { font-size:12px; margin-top:8px; font-style:italic; }
 
-.water-wrap { background:linear-gradient(135deg,#EAF5F0 0%,#D4EDE4 100%); border:0.5px solid var(--border2); border-radius:var(--radius); padding:20px; margin-bottom:10px; text-align:center; }
-.water-title { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--sage-dark); margin-bottom:3px; }
-.water-subtitle { font-size:12px; color:var(--ink2); margin-bottom:18px; }
-.water-glasses-row { display:flex; justify-content:center; gap:6px; align-items:flex-end; margin-bottom:16px; flex-wrap:wrap; }
-.wg {
-  width:32px; border-radius:4px 4px 6px 6px;
-  border:2px solid rgba(61,107,86,0.3); position:relative;
-  cursor:pointer; transition:all 0.2s; background:rgba(255,255,255,0.6); overflow:hidden;
-}
-.wg:hover { transform:scale(1.08); border-color:var(--sage-dark); }
-.wg-fill { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,#3D7A60,#6BB8A0); transition:height 0.4s cubic-bezier(0.34,1.56,0.64,1); border-radius:0 0 3px 3px; }
-.wg-lbl { position:absolute; bottom:2px; left:0; right:0; text-align:center; font-size:8px; font-weight:700; color:rgba(255,255,255,0.9); z-index:2; }
-.wg-lbl.empty { color:var(--sage-dark); }
-.water-counter { font-size:32px; font-weight:700; color:var(--sage-dark); }
-.water-unit { font-size:13px; color:var(--ink2); }
-.water-bar-track { background:rgba(107,158,138,0.2); border-radius:20px; height:8px; overflow:hidden; margin:12px 0 6px; }
-.water-bar-fill { height:100%; background:linear-gradient(90deg,#3D7A60,#6BB8A0); border-radius:20px; transition:width 0.5s ease; }
-.water-msg { font-size:13px; font-weight:500; color:var(--sage-dark); margin-bottom:14px; }
-.water-btns { display:flex; gap:8px; justify-content:center; }
-.btn-w { font-family:'Inter',sans-serif; font-size:13px; font-weight:500; padding:8px 18px; border-radius:20px; cursor:pointer; border:none; transition:all 0.15s; }
-.btn-add-w { background:var(--sage-dark); color:#fff; }
-.btn-add-w:hover { background:var(--sage); }
-.btn-reset-w { background:rgba(107,158,138,0.15); color:var(--sage-dark); }
-.btn-reset-w:hover { background:rgba(107,158,138,0.3); }
-
-.diary-row { display:flex; gap:8px; margin-bottom:10px; }
-.diary-input { font-family:'Inter',sans-serif; font-size:13px; border:0.5px solid var(--border2); border-radius:var(--radius-sm); padding:9px 12px; background:var(--surface); color:var(--ink); outline:none; transition:border-color 0.2s; }
-.diary-input:focus { border-color:var(--sage); }
-.d-date { flex-shrink:0; }
+/* DIARY */
+.diary-row { display:flex; gap:10px; margin-bottom:12px; }
+.diary-input { font-family:'Inter',sans-serif; font-size:14px; border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 16px; background:var(--surface); color:var(--ink); outline:none; transition:all 0.2s; }
+.diary-input:focus { border-color:var(--sage-dark); }
+.d-date { flex-shrink:0; width: 140px; }
 .d-text { flex:1; }
-.btn-primary { width:100%; font-family:'Inter',sans-serif; font-size:13px; font-weight:500; background:var(--ink); color:#fff; border:none; border-radius:var(--radius-sm); padding:10px; cursor:pointer; transition:all 0.15s; }
+.btn-primary { width:100%; font-family:'Inter',sans-serif; font-size:15px; font-weight:600; background:var(--ink); color:#fff; border:none; border-radius:var(--radius-sm); padding:14px; cursor:pointer; transition:all 0.2s; }
 .btn-primary:hover { background:var(--sage-dark); }
-.diary-entry { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:6px; animation:fadein 0.2s ease; }
-.d-tag { font-size:11px; font-weight:600; color:var(--sage-dark); margin-bottom:3px; text-transform:capitalize; }
-.d-body { font-size:13px; color:var(--ink); }
-.btn-del { background:none; border:none; font-size:18px; color:var(--ink3); cursor:pointer; padding:0 4px; flex-shrink:0; }
-.btn-del:hover { color:var(--red); }
+.diary-entry { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; box-shadow: var(--shadow-sm); }
+.d-tag { font-size:12px; font-weight:700; color:var(--sage-dark); margin-bottom:6px; display:flex; align-items:center; gap:4px; }
+.btn-del { background:var(--red-bg); border:none; width: 32px; height: 32px; border-radius: 8px; color:var(--red-intense); cursor:pointer; display: flex; align-items: center; justify-content: center; flex-shrink:0; transition: all 0.2s; }
 
-.info-box { background:var(--sage-bg); border:0.5px solid var(--border2); border-left:3px solid var(--sage); border-radius:var(--radius-sm); padding:13px 15px; font-size:12px; color:var(--ink2); line-height:1.65; margin-bottom:10px; }
-.info-box strong { color:var(--sage-dark); }
+footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--ink3); max-width:700px; margin:0 auto; }
 
-.card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius); padding:16px 18px; margin-bottom:10px; transition:all 0.2s; }
-.card:hover { box-shadow:0 4px 20px rgba(26,36,32,0.07); transform:translateY(-1px); }
-.card-title { font-size:14px; font-weight:600; color:var(--ink); margin-bottom:5px; }
-.card-body { font-size:13px; color:var(--ink2); line-height:1.6; }
-
-.hosp-card { background:var(--surface); border:0.5px solid var(--border); border-left:3px solid var(--sage); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:8px; }
-.hosp-card.gold { border-left-color:var(--gold); }
-.hosp-title { font-size:13px; font-weight:600; color:var(--ink); margin-bottom:4px; }
-.hosp-body { font-size:13px; color:var(--ink2); line-height:1.6; }
-.hosp-body a { color:var(--sage-dark); }
-
-footer { text-align:center; padding:2rem 1rem; font-size:12px; color:var(--ink3); border-top:0.5px solid var(--border); max-width:700px; margin:0 auto; }
-
-@media(max-width:420px){
-  .chemo-row { grid-template-columns:24px 1fr; }
-  .pill { display:none; }
-  .sym-grid { grid-template-columns:1fr; }
+@media(max-width:500px){
+  .tab-btn span { display: none; }
+  .tab-btn i { font-size: 28px; }
+  .sec-title { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn-edit { align-self: flex-start; }
+  .session-card { flex-direction: column; align-items: flex-start; }
+  .session-right { width: 100%; justify-content: flex-start; margin-left: 46px; }
+  .sym-grid { grid-template-columns: 1fr; }
   .diary-row { flex-direction:column; }
   .d-date { width:100%; }
 }
@@ -194,112 +189,106 @@ footer { text-align:center; padding:2rem 1rem; font-size:12px; color:var(--ink3)
 
 <header>
   <div class="header-inner">
-    <div class="header-pill">Guia de cuidados · Quimioterapia</div>
-    <h1>Gabi <span class="heart">♥</span></h1>
+    <div class="header-pill"><i class="ph-fill ph-plant"></i> Guia Gabi</div>
+    <h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1>
     <div class="header-meta">
-      <span class="header-badge">Paclitaxel 80 mg/m²</span>
-      <span class="header-badge">Semanal · 12 sessões</span>
-      <span class="header-badge">Início 16/04/2026</span>
-      <span class="header-badge">Hospital da Mulher · SP</span>
+      <span class="header-badge"><i class="ph ph-calendar-check"></i> 16 Sessões</span>
+      <span class="header-badge"><i class="ph ph-病院"></i> Hospital da Mulher</span>
     </div>
   </div>
 </header>
 
-<div class="emergency-bar">
-  <span class="em-icon">🚨</span>
+<div class="emergency-bar" onclick="switchTab('hospital', document.querySelector('[onclick*=\'hospital\']'))">
+  <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
   <div>
-    <div class="em-title">Febre ≥ 37,8 °C → Pronto-socorro imediatamente</div>
-    <div class="em-text">Informe: <strong>"Estou em quimioterapia com paclitaxel semanal."</strong> Não tome antitérmico antes de ser avaliada.</div>
+    <div class="em-title">Febre ≥ 37,8 °C → PS Imediatamente</div>
+    <div class="em-text">Clique para ver os hospitais de emergência.</div>
   </div>
 </div>
 
 <main>
-  <div class="progress-wrap" style="margin-top:1.2rem;">
+  <div class="progress-wrap">
     <div class="progress-header">
-      <span class="progress-label" id="prog-label">Progresso do tratamento</span>
+      <span class="progress-label" id="prog-label">Tratamento Geral</span>
       <span class="progress-val" id="prog-val">0%</span>
     </div>
     <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
 
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('calendario',this)"><span class="ico">📅</span>Calendário</button>
-    <button class="tab-btn" onclick="switchTab('medicacoes',this)"><span class="ico">💊</span>Medicações</button>
-    <button class="tab-btn" onclick="switchTab('sintomas',this)"><span class="ico">📋</span>Sintomas</button>
-    <button class="tab-btn" onclick="switchTab('exames',this)"><span class="ico">🩸</span>Exames</button>
-    <button class="tab-btn" onclick="switchTab('hospital',this)"><span class="ico">🏥</span>Hospital</button>
-    <button class="tab-btn" onclick="switchTab('orientacoes',this)"><span class="ico">📖</span>Orientações</button>
+    <button class="tab-btn active" onclick="switchTab('calendario',this)"><i class="ph-fill ph-calendar-heart"></i><span>Calendário</span></button>
+    <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
+    <button class="tab-btn" onclick="switchTab('sintomas',this)"><i class="ph-fill ph-activity"></i><span>Sintomas</span></button>
+    <button class="tab-btn" onclick="switchTab('exames',this)"><i class="ph-fill ph-drop"></i><span>Exames</span></button>
+    <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Hospital</span></button>
+    <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
   </div>
 
-  <!-- CALENDÁRIO -->
   <div id="tab-calendario" class="tab-pane active">
-    <div class="sec-title">📅 Calendário de sessões</div>
-    <div class="metrics">
-      <div class="metric"><div class="metric-val">12</div><div class="metric-lbl">Sessões total</div></div>
-      <div class="metric"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div>
-      <div class="metric"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div>
-      <div class="metric"><div class="metric-val">02/07</div><div class="metric-lbl">Término previsto</div></div>
+    
+    <div class="sec-title">
+      <div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div>
+      <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
     </div>
-    <div id="chemo-grid"></div>
-    <div class="info-box"><strong>Nadir</strong> = baixa imunidade D+7 a D+10. <strong>Exame</strong> = coleta 48h antes de cada quimio.</div>
-  </div>
 
-  <!-- MEDICAÇÕES -->
-  <div id="tab-medicacoes" class="tab-pane">
-    <div class="sec-title">💊 Medicações de suporte</div>
-    <div class="med-card">
-      <div class="med-head"><div class="med-name">Cloridrato de Ondansetrona</div><span class="med-dose">8 mg</span></div>
-      <div class="med-instr">1 comprimido a cada <strong>8 horas</strong> enquanto houver náuseas ou vômitos.</div>
-      <span class="badge badge-purple">🤢 Náuseas · Vômitos</span>
-    </div>
-    <div class="med-card">
-      <div class="med-head"><div class="med-name">Cloridrato de Metoclopramida</div><span class="med-dose">10 mg</span></div>
-      <div class="med-instr">1 comprimido a cada <strong>8 horas</strong> se náuseas ou vômitos persistirem.</div>
-      <span class="badge badge-purple">🤢 Náuseas · Vômitos</span>
-    </div>
-    <div class="med-card">
-      <div class="med-head"><div class="med-name">Cloridrato de Loperamida</div><span class="med-dose">2 mg</span></div>
-      <div class="med-instr">1 comprimido após <strong>cada episódio</strong> de diarreia. Usar somente se houver diarreia.</div>
-      <span class="badge badge-amber">💧 Somente se diarreia</span>
-    </div>
-    <div class="med-card">
-      <div class="med-head"><div class="med-name">Lactulose</div><span class="med-dose">667 mg/mL</span></div>
-      <div class="med-instr"><strong>20 mL a cada 8 horas</strong> se houver constipação (intestino preso).</div>
-      <span class="badge badge-green">🌿 Somente se constipação</span>
-    </div>
-    <div class="med-card">
-      <div class="med-head"><div class="med-name">Dipirona</div><span class="med-dose">500 mg</span></div>
-      <div class="med-instr"><strong>2 comprimidos (1g)</strong> em caso de dor. <em>Se houver febre junto à dor → pronto-socorro. Não use dipirona para mascarar febre.</em></div>
-      <span class="badge badge-red">⚠️ Somente para dor</span>
-    </div>
-  </div>
-
-  <!-- SINTOMAS -->
-  <div id="tab-sintomas" class="tab-pane">
-    <div class="sec-title">📋 Monitorar sintomas</div>
-    <div class="sym-grid" id="sym-grid"></div>
-    <div id="fever-alert" style="display:none;margin-top:10px;" class="emergency-bar">
-      <span class="em-icon">🚨</span>
-      <div><div class="em-title">Febre detectada!</div>
-      <div class="em-text">Vá imediatamente ao pronto-socorro. Informe: "Estou em quimioterapia com paclitaxel semanal."</div></div>
-    </div>
-    <div class="info-box" style="margin-top:12px;"><strong>Pronto-socorro se:</strong> febre ≥ 37,8 °C, calafrios intensos, falta de ar, sangramento, vômitos que impeçam alimentação por >24h ou diarreia intensa com desidratação.</div>
-
-    <div class="sec-title" style="margin-top:1.5rem;">💧 Hidratação diária</div>
-    <div class="water-wrap">
-      <div class="water-title">Meta: 3 litros por dia</div>
-      <div class="water-subtitle">10 copos de 300 ml — clique para marcar</div>
-      <div class="water-glasses-row" id="wglasses"></div>
-      <div><span class="water-counter" id="w-ml">0</span><span class="water-unit"> ml / 3000 ml</span></div>
-      <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
-      <div class="water-msg" id="w-msg">Vamos começar! Hidratação é essencial 💪</div>
-      <div class="water-btns">
-        <button class="btn-w btn-add-w" onclick="addWater()">+ 1 copo (300ml)</button>
-        <button class="btn-w btn-reset-w" onclick="resetWater()">Reiniciar</button>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-val" id="met-total">16</div>
+        <div class="metric-lbl">Sessões total</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" id="met-done">0</div>
+        <div class="metric-lbl">Realizadas</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" id="met-next">—</div>
+        <div class="metric-lbl">Próxima sessão</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" id="met-end">—</div>
+        <div class="metric-lbl">Término previsto</div>
       </div>
     </div>
 
-    <div class="sec-title" style="margin-top:1.5rem;">📓 Diário de sintomas</div>
+    <h3 style="font-size:14px; margin: 1.5rem 0 10px; color: var(--ink2);">Fase 1: Branca (Paclitaxel 80 mg)</h3>
+    <div id="grid-white"></div>
+    
+    <h3 style="font-size:14px; margin: 2rem 0 10px; color: var(--red-intense);">Fase 2: Vermelha (AC)</h3>
+    <div id="grid-red"></div>
+
+  </div>
+
+  <div id="tab-medicacoes" class="tab-pane">
+    <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
+    <div class="card"><div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Enquanto houver náuseas ou vômitos.</div><span class="badge badge-purple">Náuseas</span></div>
+    <div class="card"><div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Se náuseas persistirem com Ondansetrona.</div><span class="badge badge-purple">Náuseas</span></div>
+    <div class="card"><div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div><div class="card-body">Somente em caso de diarreia.</div><span class="badge badge-amber">Diarreia</span></div>
+    <div class="card"><div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div><div class="card-body">Somente se o intestino prender.</div><span class="badge badge-green">Constipação</span></div>
+    <div class="card" style="border-color: var(--red-bg);"><div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div><div class="card-body">Para dor. Não use para mascarar febre.</div><span class="badge badge-red">Dor</span></div>
+  </div>
+
+  <div id="tab-sintomas" class="tab-pane">
+    
+    <div class="sec-title"><i class="ph-fill ph-drop"></i> Hidratação Diária (Meta: 3L)</div>
+    <div class="water-wrap">
+      <div class="water-glasses-row" id="wglasses"></div>
+      <div style="font-size: 28px; font-weight: 700; color: var(--sage-dark);"><span id="w-ml">0</span> / 3000 ml</div>
+      <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
+      <div id="w-msg" style="margin-bottom: 12px; font-weight: 600; color: var(--sage-dark);">Vamos começar! 💪</div>
+      <div style="display: flex; gap: 8px; justify-content: center;">
+        <button class="btn-edit" style="background: var(--ink); color: white; padding: 10px 20px;" onclick="addWater()">+ 1 Copo (200ml)</button>
+        <button class="btn-edit" style="padding: 10px 20px;" onclick="resetWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button>
+      </div>
+    </div>
+
+    <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-clipboard-text"></i> Monitorar sintomas</h2>
+    <div class="sym-grid" id="sym-grid"></div>
+    <div id="fever-alert" style="display:none;" class="emergency-bar">
+      <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
+      <div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div>
+    </div>
+
+    <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2>
     <div class="card">
       <div class="diary-row">
         <input type="date" id="d-date" class="diary-input d-date">
@@ -308,34 +297,31 @@ footer { text-align:center; padding:2rem 1rem; font-size:12px; color:var(--ink3)
       <button class="btn-primary" onclick="addDiary()">+ Adicionar anotação</button>
     </div>
     <div id="diary-list"></div>
+
   </div>
 
-  <!-- EXAMES -->
   <div id="tab-exames" class="tab-pane">
-    <div class="sec-title">🩸 Exames obrigatórios</div>
-    <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, plaquetas e hemoglobina. Essencial para liberar a quimioterapia.</div></div>
+    <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Exames Obrigatórios</h2>
+    <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, plaquetas e hemoglobina. Essencial para liberar a sessão.</div></div>
     <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
-    <div class="info-box"><strong>Importante:</strong> coletar <strong>48 horas antes</strong> de cada sessão. Leve os resultados no dia da infusão. <strong>Não é necessário jejum.</strong></div>
-    <div class="sec-title" style="margin-top:1.5rem;">📅 Datas de coleta</div>
+    
+    <div class="sec-title" style="margin-top: 2rem;">
+      <div class="sec-title-left">Coletas (48h antes)</div>
+      <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
+    </div>
     <div id="exam-grid"></div>
   </div>
 
-  <!-- HOSPITAL -->
   <div id="tab-hospital" class="tab-pane">
-    <div class="sec-title">🏥 Hospital da Mulher — CRSM</div>
-    <div class="hosp-card"><div class="hosp-title">📍 Endereço</div><div class="hosp-body">Av. Rio Branco, 1162 — Campos Elísios, São Paulo-SP<br><span style="font-size:12px;color:var(--ink3);">Em frente ao Terminal de Ônibus Princesa Isabel</span></div></div>
-    <div class="hosp-card"><div class="hosp-title">🏨 Quimioterapia — 4º andar</div><div class="hosp-body">Chegue com <strong>1 hora de antecedência</strong>.<br><strong>Kit lanche gratuito</strong> no refeitório do térreo — apresentar comprovante.<br>Permitido <strong>1 acompanhante</strong> adulto, não gestante.</div></div>
-    <div class="hosp-card"><div class="hosp-title">📞 Informações e cancelamento</div><div class="hosp-body">Telefone: <strong>3367-3900</strong><br>Cancelar com no mínimo <strong>48h de antecedência</strong>.<br>Reagendamento: presencialmente na recepção no dia da sessão.</div></div>
-    <div class="hosp-card"><div class="hosp-title">🚌 Transporte gratuito — SAME</div><div class="hosp-body">Leva e traz das <strong>07:00 às 14:00</strong>.<br>Bilhete Único Especial: <a href="https://www.sptrans.com.br">www.sptrans.com.br</a></div></div>
-    <div class="hosp-card"><div class="hosp-title">💊 Medicações pós-quimio — AME Bourroul</div><div class="hosp-body">Rua Martins Fontes, 208<br>Segunda a sexta: <strong>07:30 às 15:00</strong></div></div>
-    <div class="hosp-card gold"><div class="hosp-title">📱 WhatsApp — Navegação Oncológica</div><div class="hosp-body">Segunda a sexta: <strong>08:00 às 17:00</strong><br><strong>(11) 97076-5142</strong> — apenas mensagens</div></div>
-    <div class="hosp-card gold"><div class="hosp-title">✂️ Projeto Amor e Cuidado</div><div class="hosp-body">Corte de cabelo e doação de perucas — voluntariado<br>Segunda, quarta e quinta: <strong>10h às 14:30h</strong> — 4º andar</div></div>
-    <div class="info-box"><strong>Documentos obrigatórios:</strong> CPF, RG ou CNH (originais), Cartão SUS, Comprovante de Endereço e Encaminhamento Médico.</div>
+    <h2 class="sec-title"><i class="ph-fill ph-warning-octagon" style="color: var(--red-intense);"></i> Emergência</h2>
+    <div class="card hosp-emergency"><span class="hosp-option">1ª Opção (Preferencial)</span><div class="card-title">UPA Vila Santa Catarina</div><div class="card-body">Av. Santa Catarina, 2785.</div></div>
+    <div class="card hosp-emergency"><span class="hosp-option">2ª Opção</span><div class="card-title">UPA Jabaquara</div><div class="card-body">Rua Dr. Gastão Mesquita, 185.</div></div>
+    <div class="card hosp-emergency"><span class="hosp-option">3ª Opção</span><div class="card-title">Hospital Municipal Saboya</div><div class="card-body">Av. Francisco de Paula Quintanilha Ribeiro, 860.</div></div>
   </div>
 
-  <!-- ORIENTAÇÕES -->
   <div id="tab-orientacoes" class="tab-pane">
-    <div class="sec-title">📖 Orientações pré-quimioterapia</div>
+    <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia</h2>
+    
     <div class="card"><div class="card-title">1. Exames laboratoriais</div><div class="card-body">Hemograma, creatinina e função hepática feitos <strong>48h antes</strong>. Sem necessidade de jejum. Leve os resultados no dia.</div></div>
     <div class="card"><div class="card-title">2. Alimentação</div><div class="card-body">Esteja bem alimentada com refeições leves. Evite comidas gordurosas, bebidas alcoólicas, carnes cruas, peixes crus. Frutas e verduras bem higienizadas. Evite comer fora. Evite ambientes onde se cozinha feijão e carne (piora náusea).</div></div>
     <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio. <strong>Meta: 3 litros/dia.</strong> Protege os rins e facilita o acesso venoso.</div></div>
@@ -344,172 +330,273 @@ footer { text-align:center; padding:2rem 1rem; font-size:12px; color:var(--ink3)
     <div class="card"><div class="card-title">6. Fortalecer as veias</div><div class="card-body">Aperte bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.</div></div>
     <div class="card"><div class="card-title">7. Evite multidões e locais fechados</div><div class="card-body">Proteja-se de infecções nos dias que antecedem a quimio. Use máscara se necessário. Comunique viagens ao médico. Atenção a pessoas gripadas.</div></div>
     <div class="card"><div class="card-title">8. Leve companhia</div><div class="card-body">1 acompanhante adulto permitido. Pode ajudar na marcação de próximas medicações e exames.</div></div>
-    <div class="card" style="border-left:3px solid var(--gold);"><div class="card-title">📓 Anote no diário</div><div class="card-body">· Sintomas percebidos com data<br>· Temperatura corporal<br>· Idas ao banheiro e consistência das fezes<br>· Dúvidas para a próxima consulta</div></div>
-    <div class="info-box"><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
+    
+    <div class="card" style="border-left: 4px solid var(--gold);">
+      <div class="card-title"><i class="ph-fill ph-notebook"></i> Anote no diário</div>
+      <div class="card-body">
+        · Sintomas percebidos com data<br>
+        · Temperatura corporal<br>
+        · Idas ao banheiro e consistência das fezes<br>
+        · Dúvidas para a próxima consulta
+      </div>
+    </div>
+    
+    <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;">
+      <div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
+    </div>
   </div>
+
 </main>
 
-<footer>♥ Guia de cuidados pessoal · Gabriela Salamandac Moysés<br>Em emergências, sempre acione o pronto-socorro mais próximo.</footer>
+<footer>Feito com amor para a Gabi ♥</footer>
 
 <script>
-const START = new Date(2026,3,16);
-const addD = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
-const fmt = d => d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
-const fmtS = d => d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-const dayN = d => d.toLocaleDateString('pt-BR',{weekday:'short'}).replace('.','');
-const today = new Date(); today.setHours(0,0,0,0);
+// --- DATAS E SESSÕES ---
+const STORAGE_KEY = 'gabi_quimio_final_v5';
+let isEditing = false;
+let sessions = [];
 
-const sessions = Array.from({length:12},(_,i)=>{
-  const adm=addD(START,i*7);
-  return {num:i+1,adm,nadirS:addD(adm,7),nadirE:addD(adm,10),exam:addD(adm,-2)};
-});
+const toYMD = (d) => { const tz = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tz).toISOString().split('T')[0]; };
+const fromYMD = (ymd) => new Date(ymd + 'T12:00:00');
+const fmtFull = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+const fmtShort = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+const getWeekDay = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3).toLowerCase();
+const addDaysYMD = (ymd, d) => { const r = fromYMD(ymd); r.setDate(r.getDate() + d); return toYMD(r); };
+const todayYMD = toYMD(new Date());
 
-// progress
-const done=sessions.filter(s=>{const d=new Date(s.adm);d.setHours(0,0,0,0);return d<today;}).length;
-const nextS=sessions.find(s=>{const d=new Date(s.adm);d.setHours(0,0,0,0);return d>=today;});
-document.getElementById('met-done').textContent=done;
-if(nextS){
-  const diff=Math.round((new Date(nextS.adm)-today)/86400000);
-  document.getElementById('met-next').textContent=diff===0?'Hoje!':diff+' dias';
+function generateDefaultSessions() {
+  const arr = [];
+  const START = new Date(2026, 3, 16, 12, 0, 0); // 16/04/2026
+  for(let i=0; i<12; i++) {
+    const d = new Date(START); d.setDate(d.getDate() + (i * 7));
+    arr.push({ id: i, num: i+1, phaseNum: i+1, type: 'BRANCA', phase: 1, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: (i===0) });
+  }
+  const lastWhite = fromYMD(arr[11].date);
+  for(let i=0; i<4; i++) {
+    const d = new Date(lastWhite); d.setDate(d.getDate() + 7 + (i * 21));
+    arr.push({ id: i+12, num: i+13, phaseNum: i+1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false });
+  }
+  return arr;
 }
-const pct=Math.round(done/12*100);
-document.getElementById('prog-val').textContent=pct+'%';
-document.getElementById('prog-fill').style.width=pct+'%';
-document.getElementById('prog-label').textContent=`Progresso: ${done} de 12 sessões concluídas`;
 
-// chemo grid
-const cg=document.getElementById('chemo-grid');
-sessions.forEach(s=>{
-  const d=new Date(s.adm);d.setHours(0,0,0,0);
-  const isPast=d<today,isToday=d.getTime()===today.getTime();
-  const row=document.createElement('div');
-  row.className='chemo-row'+(isToday?' today':'');
-  row.style.opacity=isPast?'0.5':'1';
-  row.innerHTML=`
-    <div class="chemo-num" style="${isPast?'background:#EAF5EA;color:#2A6A2A;':isToday?'background:var(--gold-bg);color:var(--gold);':''}">${isPast?'✓':isToday?'★':s.num}</div>
-    <div>
-      <div class="chemo-date">${fmt(s.adm)}${isToday?' <span style="color:var(--gold);font-size:11px;font-weight:700;"> HOJE</span>':''}</div>
-      <div class="chemo-sub">${dayN(s.adm)} · Sessão ${s.num} de 12</div>
-    </div>
-    <div class="pill pill-red">Nadir ${fmtS(s.nadirS)}–${fmtS(s.nadirE)}</div>
-    <div class="pill ${s.num===1?'pill-done':'pill-amber'}">${s.num===1?'✓ Feito':'Exam '+fmtS(s.exam)}</div>
-  `;
-  cg.appendChild(row);
-});
+function loadSessions() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  sessions = saved ? JSON.parse(saved) : generateDefaultSessions();
+  renderUI();
+}
 
-// exam grid
-const eg=document.getElementById('exam-grid');
-sessions.forEach(s=>{
-  const d1=s.num===1;
-  const row=document.createElement('div');
-  row.className='chemo-row';
-  row.style.opacity=d1?'0.5':'1';
-  row.innerHTML=`
-    <div class="chemo-num" style="${d1?'background:#EAF5EA;color:#2A6A2A;':''}">${d1?'✓':s.num}</div>
-    <div>
-      <div class="chemo-date" style="${d1?'text-decoration:line-through;color:var(--ink3);':''}">${fmt(s.exam)}</div>
-      <div class="chemo-sub">${d1?'Já realizado':'48h antes da sessão '+s.num+' ('+fmtS(s.adm)+')'}</div>
-    </div>
-    <div class="pill ${d1?'pill-green':'pill-sage'}">${d1?'✓ Realizado':'Hemograma + Creatinina'}</div>
-  `;
-  eg.appendChild(row);
-});
+function saveSessions() { localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions)); }
 
-// symptoms
-const syms=[
-  {id:'nausea',label:'Náusea',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Tome Ondansetrona + Metoclopramida. Se vômitos >24h, pronto-socorro.'},
-  {id:'vomito',label:'Vômito',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se >5x em 24h ou desidratação, pronto-socorro.'},
-  {id:'diarreia',label:'Diarreia',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Tome Loperamida e hidrate-se. Se >4 episódios, pronto-socorro.'},
-  {id:'constipacao',label:'Constipação',opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'],alert:'Tome Lactulose 20mL a cada 8h. Se >3 dias, avise o médico.'},
-  {id:'dor',label:'Dor',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Tome Dipirona 1g (2 comprimidos). Com febre → pronto-socorro.'},
-  {id:'fadiga',label:'Fadiga',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Descanse e hidrate-se. Avise o médico na próxima consulta.'},
-  {id:'formig',label:'Formigamento',opts:['Nenhum','Leve','Moderado','Intenso'],alert:'Avise o médico — pode ser necessário ajustar a dose.'},
-  {id:'febre',label:'Febre',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE: Pronto-socorro IMEDIATAMENTE!'},
+function toggleEditMode() {
+  isEditing = !isEditing;
+  document.body.classList.toggle('is-editing', isEditing);
+  const btns = [document.getElementById('btn-edit-cal'), document.getElementById('btn-edit-exam')];
+  btns.forEach(b => {
+    if(b){
+      b.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar';
+      b.style.background = isEditing ? 'var(--ink)' : 'var(--sage-bg)';
+      b.style.color = isEditing ? 'white' : 'var(--sage-dark)';
+    }
+  });
+}
+
+function updateDate(index, val) { if(val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); saveSessions(); renderUI(); } }
+function updateExam(index, val) { if(val) { sessions[index].examDate = val; saveSessions(); renderUI(); } }
+function toggleDone(index) { sessions[index].done = !sessions[index].done; saveSessions(); renderUI(); }
+function toggleExamDone(index) { sessions[index].examDone = !sessions[index].examDone; saveSessions(); renderUI(); }
+
+function renderUI() {
+  const gW = document.getElementById('grid-white'); const gR = document.getElementById('grid-red'); const eG = document.getElementById('exam-grid');
+  gW.innerHTML = ''; gR.innerHTML = ''; eG.innerHTML = '';
+  
+  let doneCount = 0;
+  let nextSessionDate = null;
+  let endDate = sessions[sessions.length-1].date;
+
+  sessions.forEach((s, i) => {
+    if(s.done) doneCount++;
+    
+    // Cálculo de Próxima Sessão
+    if(!s.done && !nextSessionDate && s.date >= todayYMD) {
+       nextSessionDate = s.date;
+    }
+
+    const nadirS = fmtShort(addDaysYMD(s.date,7));
+    const nadirE = fmtShort(addDaysYMD(s.date,10));
+    
+    // CARD DE SESSÃO NOVO ESTILO
+    const row = document.createElement('div');
+    row.className = `session-card ${s.done ? 'done' : ''}`;
+    row.innerHTML = `
+      <div class="session-left">
+        <div class="session-num">${s.num}</div>
+        <div class="session-info">
+          <div class="session-date">
+             <span class="date-text">${fmtFull(s.date)}</span>
+             <input type="date" class="date-input" value="${s.date}" onchange="updateDate(${i}, this.value)">
+          </div>
+          <div class="session-sub">${getWeekDay(s.date)} · Sessão ${s.num} de 16</div>
+        </div>
+      </div>
+      <div class="session-right">
+        <span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>
+        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
+           ${s.done ? '✓ Feito' : 'Pendente'}
+        </button>
+      </div>
+    `;
+    if(s.phase === 1) gW.appendChild(row); else gR.appendChild(row);
+
+    // CARD DE EXAMES
+    const exRow = document.createElement('div');
+    exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
+    exRow.innerHTML = `
+      <div class="exam-info">
+         <div class="exam-date">
+            <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
+            <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
+         </div>
+         <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+      </div>
+      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
+         ${s.examDone ? '✓ Feito' : 'Pendente'}
+      </button>
+    `;
+    eG.appendChild(exRow);
+  });
+
+  // ATUALIZA MÉTRICAS
+  document.getElementById('met-done').textContent = doneCount;
+  document.getElementById('met-end').textContent = fmtShort(endDate);
+  
+  let nextDaysText = "—";
+  if(nextSessionDate) {
+      const diffTime = fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
+  }
+  document.getElementById('met-next').textContent = nextDaysText;
+
+  // Barra de progresso global
+  const pct = Math.round((doneCount / 16) * 100);
+  document.getElementById('prog-val').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+}
+
+function switchTab(n, b){
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active'); b.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// --- HIDRATAÇÃO ---
+const TOTAL_GLASSES = 15;
+const ML_PER_GLASS = 200;
+let water = parseInt(localStorage.getItem('gabi_water_v3') || '0');
+
+function renderWater() {
+  const cont = document.getElementById('wglasses'); cont.innerHTML = '';
+  for(let i=0; i<TOTAL_GLASSES; i++) {
+    const g = document.createElement('div'); g.className = 'wg';
+    g.onclick = () => { water = (i + 1 === water) ? i : i + 1; saveWater(); };
+    g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`;
+    cont.appendChild(g);
+  }
+  document.getElementById('w-ml').textContent = water * ML_PER_GLASS;
+  const p = (water / TOTAL_GLASSES) * 100;
+  document.getElementById('w-bar').style.width = p + '%';
+  const m = document.getElementById('w-msg');
+  if(water === 0) m.innerHTML = '<i class="ph-fill ph-star"></i> Vamos começar!';
+  else if(water < 8) m.innerHTML = '<i class="ph-fill ph-drop"></i> Hidrate-se para proteger as veias e os rins!';
+  else if(water < 15) m.innerHTML = '<i class="ph-fill ph-thumbs-up"></i> Quase lá, falta pouco!';
+  else m.innerHTML = '<i class="ph-fill ph-trophy"></i> Meta atingida! Perfeito! 🎉';
+}
+function addWater() { if(water < TOTAL_GLASSES) { water++; saveWater(); } }
+function resetWater() { if(confirm("Zerar hidratação do dia?")) { water = 0; saveWater(); } }
+function saveWater() { localStorage.setItem('gabi_water_v3', water); renderWater(); }
+
+// --- SINTOMAS (MENU SUSPENSO EM GRADE) ---
+const syms = [
+  {id:'nausea',label:'NÁUSEA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Ondansetrona + Metoclopramida.'},
+  {id:'vomito',label:'VÔMITO',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se muito frequente, vá ao PS.'},
+  {id:'diarreia',label:'DIARREIA',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Use Loperamida após cada episódio.'},
+  {id:'constipacao',label:'CONSTIPAÇÃO',opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'],alert:'Tome Lactulose. Se >3 dias, avise o médico.'},
+  {id:'dor',label:'DOR',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Dipirona. Se houver febre, vá ao PS.'},
+  {id:'fadiga',label:'FADIGA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Descanse e hidrate-se.'},
+  {id:'formig',label:'FORMIGAMENTO',opts:['Nenhum','Leve','Moderado','Intenso'],alert:'Avise o médico na próxima consulta.'},
+  {id:'febre',label:'FEBRE',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE ALTA: PS IMEDIATAMENTE!'}
 ];
-const dotC=['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
-const sg=document.getElementById('sym-grid');
+const dotC = ['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
+const sg = document.getElementById('sym-grid');
 syms.forEach(s=>{
-  const c=document.createElement('div');c.className='sym-card';
-  c.innerHTML=`<div class="sym-label">${s.label}</div>
-    <div class="sym-row"><span class="sym-dot" id="dot-${s.id}" style="background:${dotC[0]}"></span>
-    <select class="sym-sel" id="sel-${s.id}" onchange="updSym('${s.id}')">
-      ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
-    </select></div>
-    <div class="sym-note" id="note-${s.id}"></div>`;
+  const c = document.createElement('div'); c.className = 'sym-card';
+  c.innerHTML = `
+    <div class="sym-label">${s.label}</div>
+    <div class="sym-row">
+      <span class="sym-dot" id="dot-${s.id}" style="background:${dotC[0]}"></span>
+      <select class="sym-sel" id="sel-${s.id}" onchange="updSym('${s.id}')">
+        ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
+      </select>
+    </div>
+    <div class="sym-note" id="note-${s.id}"></div>
+  `;
   sg.appendChild(c);
 });
 function updSym(id){
-  const v=parseInt(document.getElementById('sel-'+id).value);
-  document.getElementById('dot-'+id).style.background=dotC[v];
-  const sym=syms.find(s=>s.id===id);
-  const note=document.getElementById('note-'+id);
-  if(v>=2){note.textContent=(v===3?'⚠️ ':'')+sym.alert;note.style.color=v===3?'var(--red)':'var(--amber)';}
-  else note.textContent='';
-  const fv=parseInt(document.getElementById('sel-febre').value||0);
-  document.getElementById('fever-alert').style.display=fv>=1?'flex':'none';
-}
-
-// ─── WATER: 10 glasses × 300ml = 3000ml ───
-const GLASSES=10, ML_CUP=300;
-let wCount=parseInt(localStorage.getItem('gabi-water')||'0');
-const wMsgs=['Vamos começar! 💪','Boa, continue! 🌿','Na metade, ótimo! 👏','Quase lá! ✨','Meta de 3L atingida! 🎉'];
-function renderWater(){
-  const cont=document.getElementById('wglasses');if(!cont)return;
-  cont.innerHTML='';
-  for(let i=0;i<GLASSES;i++){
-    const filled=i<wCount;
-    const h=44+i*2;
-    const g=document.createElement('div');
-    g.className='wg'; g.style.height=h+'px';
-    g.title=(i+1)*ML_CUP+' ml';
-    g.onclick=()=>{wCount=wCount===i+1?i:i+1;localStorage.setItem('gabi-water',wCount);renderWater();};
-    g.innerHTML=`<div class="wg-fill" style="height:${filled?100:0}%"></div><div class="wg-lbl ${filled?'':'empty'}">${(i+1)*ML_CUP>=1000?((i+1)*ML_CUP/1000).toFixed(1)+'L':(i+1)*ML_CUP}</div>`;
-    cont.appendChild(g);
+  const v = parseInt(document.getElementById('sel-'+id).value);
+  document.getElementById('dot-'+id).style.background = dotC[v];
+  const sym = syms.find(s=>s.id===id);
+  const note = document.getElementById('note-'+id);
+  if(v >= 2){
+    note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`;
+    note.style.color = v === 3 ? 'var(--red-intense)' : 'var(--amber)';
+  } else {
+    note.innerHTML = '';
   }
-  const ml=wCount*ML_CUP;
-  document.getElementById('w-ml').textContent=ml;
-  document.getElementById('w-bar').style.width=Math.min(100,Math.round(wCount/GLASSES*100))+'%';
-  const mi=wCount===0?0:wCount<=2?1:wCount<=5?2:wCount<=8?3:4;
-  document.getElementById('w-msg').textContent=wMsgs[mi];
+  const fv = parseInt(document.getElementById('sel-febre').value || 0);
+  document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
 }
-function addWater(){if(wCount<GLASSES){wCount++;localStorage.setItem('gabi-water',wCount);renderWater();}}
-function resetWater(){wCount=0;localStorage.setItem('gabi-water',0);renderWater();}
-renderWater();
 
-// diary
-const dd=document.getElementById('d-date');
-if(dd)dd.value=new Date().toISOString().split('T')[0];
-let diary=JSON.parse(localStorage.getItem('gabi-diary')||'[]');
-function renderDiary(){
-  const list=document.getElementById('diary-list');if(!list)return;
-  list.innerHTML='';
-  if(!diary.length){list.innerHTML='<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--ink3);">Nenhuma anotação ainda.</div>';return;}
-  [...diary].reverse().forEach((e,ri)=>{
-    const realI=diary.length-1-ri;
-    const div=document.createElement('div');div.className='diary-entry';
-    div.innerHTML=`<div><div class="d-tag">${new Date(e.date+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div><div class="d-body">${e.text}</div></div><button class="btn-del" onclick="delDiary(${realI})">×</button>`;
+// --- DIÁRIO DE SINTOMAS ---
+const dd = document.getElementById('d-date');
+if(dd) dd.value = toYMD(new Date());
+let diary = JSON.parse(localStorage.getItem('gabi_diary_v4') || '[]');
+
+function renderDiary() {
+  const list = document.getElementById('diary-list');
+  list.innerHTML = '';
+  if(!diary.length) { 
+    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>'; 
+    return; 
+  }
+  [...diary].reverse().forEach((e, ri) => {
+    const realI = diary.length - 1 - ri;
+    const div = document.createElement('div'); div.className = 'diary-entry';
+    div.innerHTML = `
+      <div>
+        <div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div>
+        <div style="font-size: 14px; color: var(--ink); margin-top: 4px;">${e.text}</div>
+      </div>
+      <button class="btn-del" onclick="delDiary(${realI})"><i class="ph-bold ph-trash"></i></button>
+    `;
     list.appendChild(div);
   });
 }
 function addDiary(){
-  const date=document.getElementById('d-date').value;
-  const text=document.getElementById('d-text').value.trim();
-  if(!date||!text)return;
-  diary.push({date,text});
-  localStorage.setItem('gabi-diary',JSON.stringify(diary));
-  document.getElementById('d-text').value='';
+  const date = document.getElementById('d-date').value;
+  const text = document.getElementById('d-text').value.trim();
+  if(!date || !text) return;
+  diary.push({date, text});
+  localStorage.setItem('gabi_diary_v4', JSON.stringify(diary));
+  document.getElementById('d-text').value = '';
   renderDiary();
 }
-function delDiary(i){diary.splice(i,1);localStorage.setItem('gabi-diary',JSON.stringify(diary));renderDiary();}
-renderDiary();
+function delDiary(i){ diary.splice(i,1); localStorage.setItem('gabi_diary_v4', JSON.stringify(diary)); renderDiary(); }
 
-// tabs
-function switchTab(name,btn){
-  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  btn.classList.add('active');
-}
+loadSessions();
+renderWater();
+renderDiary();
 </script>
 </body>
 </html>
