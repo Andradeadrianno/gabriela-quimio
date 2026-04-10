@@ -3,814 +3,513 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cuidados Gabriela — Quimioterapia</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Gabi ♥ — Guia de Quimioterapia</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream: #FAF7F2;
-    --warm-white: #FFFEF9;
-    --sage: #7A9E8E;
-    --sage-light: #B8D4C8;
-    --sage-dark: #4A6E5E;
-    --blush: #E8C4B0;
-    --blush-dark: #C4896A;
-    --gold: #C9A96E;
-    --gold-light: #EDD9B0;
-    --ink: #1C2B22;
-    --ink-muted: #4A5E52;
-    --ink-soft: #7A8E82;
-    --danger: #C04A3A;
-    --danger-light: #F5E8E6;
-    --warning: #B07830;
-    --warning-light: #F5EDD8;
-    --border: rgba(74,110,94,0.15);
-    --shadow: 0 2px 24px rgba(28,43,34,0.08);
-  }
+:root {
+  --bg: #F8F4EF;
+  --surface: #FFFDF9;
+  --surface2: #F2EDE6;
+  --ink: #1A2420;
+  --ink2: #4A5E52;
+  --ink3: #8A9E94;
+  --sage: #6B9E8A;
+  --sage-light: #A8CCB8;
+  --sage-dark: #3D6B56;
+  --sage-bg: rgba(107,158,138,0.10);
+  --gold: #C4995A;
+  --gold-light: #E8D4A8;
+  --gold-bg: rgba(196,153,90,0.12);
+  --blush: #D4896A;
+  --blush-bg: rgba(212,137,106,0.12);
+  --red: #B84040;
+  --red-bg: #FAEAEA;
+  --amber: #A06828;
+  --amber-bg: #FBF0E0;
+  --border: rgba(107,158,138,0.18);
+  --border2: rgba(107,158,138,0.30);
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; font-size:14px; line-height:1.6; }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+header {
+  background: linear-gradient(145deg,#1A2420 0%,#2A3C34 60%,#1E3028 100%);
+  color:white; padding:3rem 1.5rem 2.5rem; text-align:center; position:relative; overflow:hidden;
+}
+header::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(ellipse at 20% 80%,rgba(107,158,138,0.3) 0%,transparent 55%),
+              radial-gradient(ellipse at 85% 15%,rgba(196,153,90,0.2) 0%,transparent 50%);
+}
+.header-inner { position:relative; z-index:1; }
+.header-pill {
+  display:inline-block; font-size:10px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase;
+  color:var(--sage-light); background:rgba(107,158,138,0.2); border:0.5px solid rgba(107,158,138,0.4);
+  padding:4px 14px; border-radius:20px; margin-bottom:1rem;
+}
+header h1 { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,7vw,3.4rem); font-weight:400; line-height:1.1; color:#fff; }
+header h1 .heart { color:#E8A0A0; }
+.header-meta { margin-top:1rem; display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
+.header-badge { font-size:11px; font-weight:500; background:rgba(255,255,255,0.1); border:0.5px solid rgba(255,255,255,0.2); color:rgba(255,255,255,0.85); padding:4px 12px; border-radius:20px; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    min-height: 100vh;
-  }
+.emergency-bar { background:var(--red); padding:1rem 1.5rem; display:flex; align-items:flex-start; gap:12px; }
+.em-icon { font-size:22px; flex-shrink:0; margin-top:1px; }
+.em-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:3px; }
+.em-text { font-size:12px; color:rgba(255,255,255,0.92); line-height:1.5; }
 
-  /* HEADER */
-  header {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 2.5rem 1.5rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  header::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(122,158,142,0.25) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(201,169,110,0.15) 0%, transparent 50%);
-    pointer-events: none;
-  }
-  .header-tag {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--sage-light);
-    margin-bottom: 0.5rem;
-  }
-  header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 400;
-    line-height: 1.15;
-    color: var(--warm-white);
-    margin-bottom: 0.4rem;
-  }
-  header h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-  .header-sub {
-    font-size: 13px;
-    color: var(--sage-light);
-    font-weight: 300;
-    margin-top: 0.3rem;
-  }
+main { max-width:700px; margin:0 auto; padding:1.5rem 1rem 5rem; }
 
-  /* EMERGENCY BANNER */
-  .emergency {
-    background: var(--danger);
-    color: #fff;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    position: relative;
-  }
-  .emergency-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .emergency strong {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 2px;
-  }
-  .emergency p {
-    font-size: 13px;
-    line-height: 1.5;
-    opacity: 0.92;
-  }
+.progress-wrap { margin-bottom:1.2rem; }
+.progress-header { display:flex; justify-content:space-between; margin-bottom:5px; }
+.progress-label { font-size:12px; color:var(--ink2); }
+.progress-val { font-size:12px; font-weight:600; color:var(--sage-dark); }
+.progress-track { background:var(--surface2); border-radius:20px; height:10px; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--sage-dark),var(--sage-light)); border-radius:20px; transition:width 0.6s ease; }
 
-  /* MAIN */
-  main {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 1.5rem 1rem 4rem;
-  }
+.tab-nav { display:grid; grid-template-columns:repeat(3,1fr); gap:6px; margin-bottom:1.5rem; }
+.tab-btn {
+  background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm);
+  padding:10px 4px; font-family:'Inter',sans-serif; font-size:12px; font-weight:500;
+  color:var(--ink2); cursor:pointer; transition:all 0.2s;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.tab-btn .ico { font-size:18px; }
+.tab-btn:hover { background:var(--sage-bg); color:var(--sage-dark); border-color:var(--border2); }
+.tab-btn.active { background:var(--ink); color:#fff; border-color:var(--ink); box-shadow:0 4px 14px rgba(26,36,32,0.25); }
+.tab-pane { display:none; animation:fadein 0.25s ease; }
+.tab-pane.active { display:block; }
+@keyframes fadein { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
 
-  /* SECTION */
-  .section {
-    margin-bottom: 1.5rem;
-  }
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1.5px solid var(--border);
-  }
-  .section-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-  .icon-sage { background: rgba(122,158,142,0.18); }
-  .icon-gold { background: rgba(201,169,110,0.2); }
-  .icon-blush { background: rgba(232,196,176,0.35); }
-  .icon-danger { background: var(--danger-light); }
+.sec-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:400; color:var(--ink); margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1.5px solid var(--border); }
 
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--ink);
-  }
+.metrics { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:1rem; }
+.metric { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm); padding:14px; text-align:center; }
+.metric-val { font-size:22px; font-weight:600; color:var(--ink); }
+.metric-lbl { font-size:11px; color:var(--ink3); margin-top:2px; }
 
-  /* CHEMO SCHEDULE */
-  .chemo-grid {
-    display: grid;
-    gap: 8px;
-  }
-  .chemo-row {
-    background: var(--warm-white);
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    display: grid;
-    grid-template-columns: 28px 1fr auto auto;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    transition: background 0.15s;
-  }
-  .chemo-row:hover { background: #f5f2ec; }
-  .chemo-num {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--sage-dark);
-    text-align: center;
-    background: rgba(122,158,142,0.15);
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .chemo-date-main {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink);
-  }
-  .chemo-date-sub {
-    font-size: 11px;
-    color: var(--ink-soft);
-    margin-top: 1px;
-  }
-  .chemo-nadir {
-    font-size: 11px;
-    color: var(--danger);
-    background: var(--danger-light);
-    padding: 3px 8px;
-    border-radius: 20px;
-    text-align: center;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .chemo-exam {
-    font-size: 11px;
-    color: var(--warning);
-    background: var(--warning-light);
-    padding: 3px 8px;
-    border-radius: 20px;
-    text-align: center;
-    font-weight: 500;
-    white-space: nowrap;
-  }
+.chemo-row {
+  background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm);
+  display:grid; grid-template-columns:28px 1fr auto auto; align-items:center;
+  gap:10px; padding:11px 14px; margin-bottom:6px; transition:all 0.15s;
+}
+.chemo-row:hover { background:var(--sage-bg); }
+.chemo-row.today { border-color:var(--gold); background:var(--gold-bg); }
+.chemo-num { width:24px; height:24px; border-radius:50%; background:var(--sage-bg); color:var(--sage-dark); font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.chemo-date { font-size:13px; font-weight:600; color:var(--ink); }
+.chemo-sub { font-size:11px; color:var(--ink3); }
+.pill { font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; white-space:nowrap; }
+.pill-red { background:var(--red-bg); color:var(--red); }
+.pill-amber { background:var(--amber-bg); color:var(--amber); }
+.pill-sage { background:var(--sage-bg); color:var(--sage-dark); }
+.pill-done { background:#EAF5EA; color:#2A6A2A; text-decoration:line-through; opacity:0.6; }
+.pill-green { background:#EAF5EA; color:#2A6A2A; }
 
-  /* MEDS */
-  .med-card {
-    background: var(--warm-white);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-  }
-  .med-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-  .med-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.3;
-  }
-  .med-dose {
-    font-size: 11px;
-    background: rgba(122,158,142,0.15);
-    color: var(--sage-dark);
-    padding: 3px 9px;
-    border-radius: 20px;
-    font-weight: 500;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-  .med-instruction {
-    font-size: 13px;
-    color: var(--ink-muted);
-    line-height: 1.55;
-  }
-  .med-condition {
-    display: inline-block;
-    margin-top: 5px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 4px;
-  }
-  .cond-nausea { background: #EEE8F5; color: #6B3FA0; }
-  .cond-diarreia { background: #FFF3E0; color: #B06000; }
-  .cond-constipacao { background: #E8F5E9; color: #2E7D32; }
-  .cond-dor { background: var(--danger-light); color: var(--danger); }
+.med-card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius); padding:15px 18px; margin-bottom:8px; transition:all 0.2s; }
+.med-card:hover { box-shadow:0 4px 20px rgba(26,36,32,0.08); transform:translateY(-1px); }
+.med-head { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:6px; }
+.med-name { font-size:14px; font-weight:600; color:var(--ink); }
+.med-dose { font-size:11px; font-weight:600; background:var(--sage-bg); color:var(--sage-dark); padding:3px 10px; border-radius:20px; flex-shrink:0; white-space:nowrap; }
+.med-instr { font-size:13px; color:var(--ink2); line-height:1.6; }
+.badge { display:inline-block; font-size:10px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; padding:3px 10px; border-radius:20px; margin-top:6px; }
+.badge-purple { background:#F0EEFA; color:#5A3A9A; }
+.badge-amber { background:var(--amber-bg); color:var(--amber); }
+.badge-green { background:#EAF5EA; color:#2A6A2A; }
+.badge-red { background:var(--red-bg); color:var(--red); }
 
-  /* EXAMS */
-  .exam-card {
-    background: var(--warm-white);
-    border: 0.5px solid var(--border);
-    border-left: 3px solid var(--gold);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-  }
-  .exam-title {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .exam-desc {
-    font-size: 13px;
-    color: var(--ink-muted);
-    line-height: 1.5;
-  }
+.sym-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.sym-card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; transition:border-color 0.2s; }
+.sym-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink3); margin-bottom:6px; }
+.sym-row { display:flex; align-items:center; gap:8px; }
+.sym-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; transition:background 0.3s; }
+.sym-sel { width:100%; font-family:'Inter',sans-serif; font-size:12px; color:var(--ink); background:transparent; border:none; outline:none; cursor:pointer; border-bottom:1px solid var(--border); padding:2px 0; margin-top:4px; appearance:none; -webkit-appearance:none; }
+.sym-note { font-size:11px; margin-top:4px; font-style:italic; min-height:14px; }
 
-  /* SYMPTOMS */
-  .symptom-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-  .symptom-card {
-    background: var(--warm-white);
-    border: 0.5px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
-  }
-  .symptom-label {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--ink-soft);
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 5px;
-  }
-  .symptom-status {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .sym-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .sym-none { background: #A5D6A7; }
-  .sym-mild { background: #FFE082; }
-  .sym-moderate { background: #FFAB40; }
-  .sym-severe { background: #EF5350; }
-  .symptom-select {
-    width: 100%;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    color: var(--ink);
-    background: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    margin-top: 4px;
-    padding: 2px 0;
-    border-bottom: 1px solid var(--border);
-    appearance: none;
-    -webkit-appearance: none;
-  }
-  .symptom-note {
-    font-size: 11px;
-    color: var(--ink-soft);
-    margin-top: 3px;
-    font-style: italic;
-  }
+.water-wrap { background:linear-gradient(135deg,#EAF5F0 0%,#D4EDE4 100%); border:0.5px solid var(--border2); border-radius:var(--radius); padding:20px; margin-bottom:10px; text-align:center; }
+.water-title { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--sage-dark); margin-bottom:3px; }
+.water-subtitle { font-size:12px; color:var(--ink2); margin-bottom:18px; }
+.water-glasses-row { display:flex; justify-content:center; gap:6px; align-items:flex-end; margin-bottom:16px; flex-wrap:wrap; }
+.wg {
+  width:32px; border-radius:4px 4px 6px 6px;
+  border:2px solid rgba(61,107,86,0.3); position:relative;
+  cursor:pointer; transition:all 0.2s; background:rgba(255,255,255,0.6); overflow:hidden;
+}
+.wg:hover { transform:scale(1.08); border-color:var(--sage-dark); }
+.wg-fill { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(to top,#3D7A60,#6BB8A0); transition:height 0.4s cubic-bezier(0.34,1.56,0.64,1); border-radius:0 0 3px 3px; }
+.wg-lbl { position:absolute; bottom:2px; left:0; right:0; text-align:center; font-size:8px; font-weight:700; color:rgba(255,255,255,0.9); z-index:2; }
+.wg-lbl.empty { color:var(--sage-dark); }
+.water-counter { font-size:32px; font-weight:700; color:var(--sage-dark); }
+.water-unit { font-size:13px; color:var(--ink2); }
+.water-bar-track { background:rgba(107,158,138,0.2); border-radius:20px; height:8px; overflow:hidden; margin:12px 0 6px; }
+.water-bar-fill { height:100%; background:linear-gradient(90deg,#3D7A60,#6BB8A0); border-radius:20px; transition:width 0.5s ease; }
+.water-msg { font-size:13px; font-weight:500; color:var(--sage-dark); margin-bottom:14px; }
+.water-btns { display:flex; gap:8px; justify-content:center; }
+.btn-w { font-family:'Inter',sans-serif; font-size:13px; font-weight:500; padding:8px 18px; border-radius:20px; cursor:pointer; border:none; transition:all 0.15s; }
+.btn-add-w { background:var(--sage-dark); color:#fff; }
+.btn-add-w:hover { background:var(--sage); }
+.btn-reset-w { background:rgba(107,158,138,0.15); color:var(--sage-dark); }
+.btn-reset-w:hover { background:rgba(107,158,138,0.3); }
 
-  /* INFO BOX */
-  .info-box {
-    background: rgba(122,158,142,0.1);
-    border: 0.5px solid rgba(122,158,142,0.3);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--ink-muted);
-    line-height: 1.6;
-  }
-  .info-box strong { color: var(--sage-dark); }
+.diary-row { display:flex; gap:8px; margin-bottom:10px; }
+.diary-input { font-family:'Inter',sans-serif; font-size:13px; border:0.5px solid var(--border2); border-radius:var(--radius-sm); padding:9px 12px; background:var(--surface); color:var(--ink); outline:none; transition:border-color 0.2s; }
+.diary-input:focus { border-color:var(--sage); }
+.d-date { flex-shrink:0; }
+.d-text { flex:1; }
+.btn-primary { width:100%; font-family:'Inter',sans-serif; font-size:13px; font-weight:500; background:var(--ink); color:#fff; border:none; border-radius:var(--radius-sm); padding:10px; cursor:pointer; transition:all 0.15s; }
+.btn-primary:hover { background:var(--sage-dark); }
+.diary-entry { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius-sm); padding:12px 14px; display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:6px; animation:fadein 0.2s ease; }
+.d-tag { font-size:11px; font-weight:600; color:var(--sage-dark); margin-bottom:3px; text-transform:capitalize; }
+.d-body { font-size:13px; color:var(--ink); }
+.btn-del { background:none; border:none; font-size:18px; color:var(--ink3); cursor:pointer; padding:0 4px; flex-shrink:0; }
+.btn-del:hover { color:var(--red); }
 
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 12px;
-    color: var(--ink-soft);
-    border-top: 0.5px solid var(--border);
-    max-width: 680px;
-    margin: 0 auto;
-  }
+.info-box { background:var(--sage-bg); border:0.5px solid var(--border2); border-left:3px solid var(--sage); border-radius:var(--radius-sm); padding:13px 15px; font-size:12px; color:var(--ink2); line-height:1.65; margin-bottom:10px; }
+.info-box strong { color:var(--sage-dark); }
 
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 0;
-    background: rgba(28,43,34,0.06);
-    border-radius: 10px;
-    padding: 3px;
-    margin-bottom: 1.2rem;
-  }
-  .tab-btn {
-    flex: 1;
-    background: none;
-    border: none;
-    padding: 8px 4px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-soft);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .tab-btn.active {
-    background: var(--warm-white);
-    color: var(--ink);
-    box-shadow: 0 1px 6px rgba(28,43,34,0.1);
-  }
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
+.card { background:var(--surface); border:0.5px solid var(--border); border-radius:var(--radius); padding:16px 18px; margin-bottom:10px; transition:all 0.2s; }
+.card:hover { box-shadow:0 4px 20px rgba(26,36,32,0.07); transform:translateY(-1px); }
+.card-title { font-size:14px; font-weight:600; color:var(--ink); margin-bottom:5px; }
+.card-body { font-size:13px; color:var(--ink2); line-height:1.6; }
 
-  @media (max-width: 400px) {
-    .chemo-row { grid-template-columns: 22px 1fr; }
-    .chemo-nadir, .chemo-exam { display: none; }
-    .symptom-grid { grid-template-columns: 1fr; }
-  }
+.hosp-card { background:var(--surface); border:0.5px solid var(--border); border-left:3px solid var(--sage); border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:8px; }
+.hosp-card.gold { border-left-color:var(--gold); }
+.hosp-title { font-size:13px; font-weight:600; color:var(--ink); margin-bottom:4px; }
+.hosp-body { font-size:13px; color:var(--ink2); line-height:1.6; }
+.hosp-body a { color:var(--sage-dark); }
+
+footer { text-align:center; padding:2rem 1rem; font-size:12px; color:var(--ink3); border-top:0.5px solid var(--border); max-width:700px; margin:0 auto; }
+
+@media(max-width:420px){
+  .chemo-row { grid-template-columns:24px 1fr; }
+  .pill { display:none; }
+  .sym-grid { grid-template-columns:1fr; }
+  .diary-row { flex-direction:column; }
+  .d-date { width:100%; }
+}
 </style>
 </head>
 <body>
 
 <header>
-  <p class="header-tag">Guia de cuidados · Quimioterapia</p>
-  <h1>Gabi <em>♥</em></h1>
-  <p class="header-sub">Paclitaxel 80 mg/m² semanal · 12 sessões · Início 16/04/2026</p>
+  <div class="header-inner">
+    <div class="header-pill">Guia de cuidados · Quimioterapia</div>
+    <h1>Gabi <span class="heart">♥</span></h1>
+    <div class="header-meta">
+      <span class="header-badge">Paclitaxel 80 mg/m²</span>
+      <span class="header-badge">Semanal · 12 sessões</span>
+      <span class="header-badge">Início 16/04/2026</span>
+      <span class="header-badge">Hospital da Mulher · SP</span>
+    </div>
+  </div>
 </header>
 
-<div class="emergency">
-  <span class="emergency-icon">🚨</span>
+<div class="emergency-bar">
+  <span class="em-icon">🚨</span>
   <div>
-    <strong>Febre igual ou acima de 37,8 °C → Pronto-socorro imediatamente</strong>
-    <p>Informe ao atendimento: <strong>"Estou em tratamento de quimioterapia com paclitaxel semanal."</strong> Não espere. Não tome antitérmico antes de ser avaliada.</p>
+    <div class="em-title">Febre ≥ 37,8 °C → Pronto-socorro imediatamente</div>
+    <div class="em-text">Informe: <strong>"Estou em quimioterapia com paclitaxel semanal."</strong> Não tome antitérmico antes de ser avaliada.</div>
   </div>
 </div>
 
 <main>
-
-  <!-- TABS -->
-  <div class="tabs" role="tablist" style="flex-wrap:wrap; gap:4px;">
-    <button class="tab-btn active" onclick="switchTab('calendario')">Calendário</button>
-    <button class="tab-btn" onclick="switchTab('medicacoes')">Medicações</button>
-    <button class="tab-btn" onclick="switchTab('sintomas')">Sintomas</button>
-    <button class="tab-btn" onclick="switchTab('exames')">Exames</button>
-    <button class="tab-btn" onclick="switchTab('hospital')">Hospital</button>
-    <button class="tab-btn" onclick="switchTab('orientacoes')">Orientações</button>
+  <div class="progress-wrap" style="margin-top:1.2rem;">
+    <div class="progress-header">
+      <span class="progress-label" id="prog-label">Progresso do tratamento</span>
+      <span class="progress-val" id="prog-val">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
 
-  <!-- TAB: CALENDÁRIO -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('calendario',this)"><span class="ico">📅</span>Calendário</button>
+    <button class="tab-btn" onclick="switchTab('medicacoes',this)"><span class="ico">💊</span>Medicações</button>
+    <button class="tab-btn" onclick="switchTab('sintomas',this)"><span class="ico">📋</span>Sintomas</button>
+    <button class="tab-btn" onclick="switchTab('exames',this)"><span class="ico">🩸</span>Exames</button>
+    <button class="tab-btn" onclick="switchTab('hospital',this)"><span class="ico">🏥</span>Hospital</button>
+    <button class="tab-btn" onclick="switchTab('orientacoes',this)"><span class="ico">📖</span>Orientações</button>
+  </div>
+
+  <!-- CALENDÁRIO -->
   <div id="tab-calendario" class="tab-pane active">
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon icon-sage">💊</div>
-        <h2 class="section-title">Sessões de quimioterapia</h2>
-      </div>
-      <div class="chemo-grid" id="chemo-grid"></div>
-      <br>
-      <div class="info-box">
-        <strong>Legenda:</strong> <span style="color:var(--danger);font-weight:600;">Nadir</span> = período de baixa imunidade (D+7 a D+10). <span style="color:var(--warning);font-weight:600;">Exame</span> = coleta de sangue 48h antes da quimio.
-      </div>
+    <div class="sec-title">📅 Calendário de sessões</div>
+    <div class="metrics">
+      <div class="metric"><div class="metric-val">12</div><div class="metric-lbl">Sessões total</div></div>
+      <div class="metric"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div>
+      <div class="metric"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div>
+      <div class="metric"><div class="metric-val">02/07</div><div class="metric-lbl">Término previsto</div></div>
     </div>
+    <div id="chemo-grid"></div>
+    <div class="info-box"><strong>Nadir</strong> = baixa imunidade D+7 a D+10. <strong>Exame</strong> = coleta 48h antes de cada quimio.</div>
   </div>
 
-  <!-- TAB: MEDICAÇÕES -->
+  <!-- MEDICAÇÕES -->
   <div id="tab-medicacoes" class="tab-pane">
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon icon-blush">💊</div>
-        <h2 class="section-title">Medicações de suporte</h2>
-      </div>
-
-      <div class="med-card">
-        <div class="med-header">
-          <div class="med-name">Cloridrato de Ondansetrona</div>
-          <span class="med-dose">8 mg</span>
-        </div>
-        <div class="med-instruction">Tomar <strong>1 comprimido a cada 8 horas</strong> enquanto houver náuseas ou vômitos.</div>
-        <span class="med-condition cond-nausea">🤢 Náuseas · Vômitos</span>
-      </div>
-
-      <div class="med-card">
-        <div class="med-header">
-          <div class="med-name">Cloridrato de Metoclopramida</div>
-          <span class="med-dose">10 mg</span>
-        </div>
-        <div class="med-instruction">Tomar <strong>1 comprimido a cada 8 horas</strong> se náuseas ou vômitos persistirem.</div>
-        <span class="med-condition cond-nausea">🤢 Náuseas · Vômitos</span>
-      </div>
-
-      <div class="med-card">
-        <div class="med-header">
-          <div class="med-name">Cloridrato de Loperamida</div>
-          <span class="med-dose">2 mg</span>
-        </div>
-        <div class="med-instruction">Tomar <strong>1 comprimido após cada episódio de diarreia.</strong> Usar somente se houver diarreia.</div>
-        <span class="med-condition cond-diarreia">💧 Somente se diarreia</span>
-      </div>
-
-      <div class="med-card">
-        <div class="med-header">
-          <div class="med-name">Lactulose</div>
-          <span class="med-dose">667 mg/mL</span>
-        </div>
-        <div class="med-instruction">Tomar <strong>20 mL a cada 8 horas</strong> se houver constipação (intestino preso).</div>
-        <span class="med-condition cond-constipacao">🌿 Somente se constipação</span>
-      </div>
-
-      <div class="med-card">
-        <div class="med-header">
-          <div class="med-name">Dipirona</div>
-          <span class="med-dose">500 mg</span>
-        </div>
-        <div class="med-instruction">Tomar <strong>2 comprimidos (1g)</strong> em caso de dor. <em>Atenção: se tiver febre, ir ao pronto-socorro — não use dipirona para mascarar a febre.</em></div>
-        <span class="med-condition cond-dor">⚠️ Somente para dor</span>
-      </div>
+    <div class="sec-title">💊 Medicações de suporte</div>
+    <div class="med-card">
+      <div class="med-head"><div class="med-name">Cloridrato de Ondansetrona</div><span class="med-dose">8 mg</span></div>
+      <div class="med-instr">1 comprimido a cada <strong>8 horas</strong> enquanto houver náuseas ou vômitos.</div>
+      <span class="badge badge-purple">🤢 Náuseas · Vômitos</span>
+    </div>
+    <div class="med-card">
+      <div class="med-head"><div class="med-name">Cloridrato de Metoclopramida</div><span class="med-dose">10 mg</span></div>
+      <div class="med-instr">1 comprimido a cada <strong>8 horas</strong> se náuseas ou vômitos persistirem.</div>
+      <span class="badge badge-purple">🤢 Náuseas · Vômitos</span>
+    </div>
+    <div class="med-card">
+      <div class="med-head"><div class="med-name">Cloridrato de Loperamida</div><span class="med-dose">2 mg</span></div>
+      <div class="med-instr">1 comprimido após <strong>cada episódio</strong> de diarreia. Usar somente se houver diarreia.</div>
+      <span class="badge badge-amber">💧 Somente se diarreia</span>
+    </div>
+    <div class="med-card">
+      <div class="med-head"><div class="med-name">Lactulose</div><span class="med-dose">667 mg/mL</span></div>
+      <div class="med-instr"><strong>20 mL a cada 8 horas</strong> se houver constipação (intestino preso).</div>
+      <span class="badge badge-green">🌿 Somente se constipação</span>
+    </div>
+    <div class="med-card">
+      <div class="med-head"><div class="med-name">Dipirona</div><span class="med-dose">500 mg</span></div>
+      <div class="med-instr"><strong>2 comprimidos (1g)</strong> em caso de dor. <em>Se houver febre junto à dor → pronto-socorro. Não use dipirona para mascarar febre.</em></div>
+      <span class="badge badge-red">⚠️ Somente para dor</span>
     </div>
   </div>
 
-  <!-- TAB: SINTOMAS -->
+  <!-- SINTOMAS -->
   <div id="tab-sintomas" class="tab-pane">
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon icon-gold">📋</div>
-        <h2 class="section-title">Monitorar sintomas</h2>
-      </div>
+    <div class="sec-title">📋 Monitorar sintomas</div>
+    <div class="sym-grid" id="sym-grid"></div>
+    <div id="fever-alert" style="display:none;margin-top:10px;" class="emergency-bar">
+      <span class="em-icon">🚨</span>
+      <div><div class="em-title">Febre detectada!</div>
+      <div class="em-text">Vá imediatamente ao pronto-socorro. Informe: "Estou em quimioterapia com paclitaxel semanal."</div></div>
+    </div>
+    <div class="info-box" style="margin-top:12px;"><strong>Pronto-socorro se:</strong> febre ≥ 37,8 °C, calafrios intensos, falta de ar, sangramento, vômitos que impeçam alimentação por >24h ou diarreia intensa com desidratação.</div>
 
-      <div class="symptom-grid" id="symptom-grid">
-        <!-- Rendered by JS -->
-      </div>
-
-      <br>
-      <div id="symptom-alert" style="display:none;" class="emergency" style="border-radius:10px;">
-        <span class="emergency-icon">🚨</span>
-        <div>
-          <strong>Sintoma grave identificado</strong>
-          <p id="symptom-alert-text"></p>
-        </div>
-      </div>
-
-      <div class="info-box" style="margin-top:1rem;">
-        <strong>Quando ir ao pronto-socorro:</strong> febre ≥ 37,8 °C, calafrios intensos, falta de ar, sangramento, vômitos que impeçam alimentação por mais de 24h ou diarreia intensa com sinais de desidratação.
+    <div class="sec-title" style="margin-top:1.5rem;">💧 Hidratação diária</div>
+    <div class="water-wrap">
+      <div class="water-title">Meta: 3 litros por dia</div>
+      <div class="water-subtitle">10 copos de 300 ml — clique para marcar</div>
+      <div class="water-glasses-row" id="wglasses"></div>
+      <div><span class="water-counter" id="w-ml">0</span><span class="water-unit"> ml / 3000 ml</span></div>
+      <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
+      <div class="water-msg" id="w-msg">Vamos começar! Hidratação é essencial 💪</div>
+      <div class="water-btns">
+        <button class="btn-w btn-add-w" onclick="addWater()">+ 1 copo (300ml)</button>
+        <button class="btn-w btn-reset-w" onclick="resetWater()">Reiniciar</button>
       </div>
     </div>
+
+    <div class="sec-title" style="margin-top:1.5rem;">📓 Diário de sintomas</div>
+    <div class="card">
+      <div class="diary-row">
+        <input type="date" id="d-date" class="diary-input d-date">
+        <input type="text" id="d-text" class="diary-input d-text" placeholder="Como você está se sentindo hoje?">
+      </div>
+      <button class="btn-primary" onclick="addDiary()">+ Adicionar anotação</button>
+    </div>
+    <div id="diary-list"></div>
   </div>
 
-  <!-- TAB: EXAMES -->
+  <!-- EXAMES -->
   <div id="tab-exames" class="tab-pane">
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon icon-gold">🩸</div>
-        <h2 class="section-title">Exames semanais</h2>
-      </div>
-
-      <div class="exam-card">
-        <div class="exam-title">Hemograma Completo</div>
-        <div class="exam-desc">Avalia leucócitos (imunidade), neutrófilos, plaquetas e hemoglobina. Essencial para liberar a quimioterapia.</div>
-      </div>
-      <div class="exam-card">
-        <div class="exam-title">Creatinina</div>
-        <div class="exam-desc">Avalia a função renal antes de cada sessão.</div>
-      </div>
-
-      <br>
-      <div class="info-box">
-        <strong>Importante:</strong> coletar o sangue <strong>48 horas antes de cada sessão de quimioterapia.</strong> Leve os resultados impressos ou no celular no dia da infusão.
-      </div>
-
-      <br>
-      <div class="section-header">
-        <div class="section-icon icon-gold">📅</div>
-        <h2 class="section-title">Datas para coleta</h2>
-      </div>
-      <div id="exam-grid" class="chemo-grid"></div>
-    </div>
+    <div class="sec-title">🩸 Exames obrigatórios</div>
+    <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, plaquetas e hemoglobina. Essencial para liberar a quimioterapia.</div></div>
+    <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
+    <div class="info-box"><strong>Importante:</strong> coletar <strong>48 horas antes</strong> de cada sessão. Leve os resultados no dia da infusão. <strong>Não é necessário jejum.</strong></div>
+    <div class="sec-title" style="margin-top:1.5rem;">📅 Datas de coleta</div>
+    <div id="exam-grid"></div>
   </div>
 
-  <!-- TAB: HOSPITAL -->
+  <!-- HOSPITAL -->
   <div id="tab-hospital" class="tab-pane">
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon icon-sage">🏥</div>
-        <h2 class="section-title">Hospital da Mulher — CRSM</h2>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">Endereço</div>
-        <div class="med-instruction">Avenida Rio Branco, 1162 — Campos Elísios, São Paulo-SP<br>
-        <span style="font-size:12px;color:var(--ink-soft);">Ponto de referência: em frente ao Terminal de Ônibus Princesa Isabel — Região Central de SP</span></div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">Quimioterapia</div>
-        <div class="med-instruction">Atendimento no <strong>4º andar</strong>. Chegue com <strong>1 hora de antecedência</strong> do horário marcado.<br>
-        O hospital disponibiliza <strong>lanche gratuito</strong> no refeitório no térreo — apresentar comprovante de agendamento da quimio.<br>
-        É permitida a entrada de <strong>1 acompanhante</strong> (adulto, não gestante).</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">Informações e cancelamento</div>
-        <div class="med-instruction">Telefone: <strong>3367-3900</strong><br>
-        Cancelar com no mínimo <strong>48h de antecedência</strong>.<br>
-        Reagendamento de datas: fazer pessoalmente na recepção central da quimioterapia no dia da sessão.</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">Transporte gratuito — SAME</div>
-        <div class="med-instruction">O hospital disponibiliza transporte gratuito (sistema de leva e traz) das <strong>07:00 às 14:00</strong>.<br>
-        Bilhete Único Especial: <a href="https://www.sptrans.com.br" style="color:var(--sage-dark);">www.sptrans.com.br</a></div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">Medicações pós-quimio — AME Bourroul</div>
-        <div class="med-instruction">Rua Martins Fontes, 208<br>
-        Segunda a sexta: <strong>07:30 às 15:00</strong></div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">📱 WhatsApp — Navegação Oncológica</div>
-        <div class="med-instruction">Segunda a sexta: <strong>08:00 às 17:00</strong><br>
-        <strong>(11) 97076-5142</strong> — apenas mensagens</div>
-      </div>
-
-      <div class="med-card" style="border-left: 3px solid var(--gold);">
-        <div class="med-name" style="margin-bottom:6px;">✂️ Projeto Amor e Cuidado — Voluntariado</div>
-        <div class="med-instruction">Corte de cabelo e doação de perucas<br>
-        Segunda, quarta e quinta: <strong>10h às 14:30h</strong> — 4º andar</div>
-      </div>
-
-      <div class="info-box" style="margin-top:1rem;">
-        <strong>Documentos obrigatórios no dia:</strong> CPF, RG, CNH ou Certidão de Nascimento (originais), Cartão SUS, Comprovante de Endereço e Encaminhamento Médico. Trazer exames anteriores se tiver.
-      </div>
-    </div>
+    <div class="sec-title">🏥 Hospital da Mulher — CRSM</div>
+    <div class="hosp-card"><div class="hosp-title">📍 Endereço</div><div class="hosp-body">Av. Rio Branco, 1162 — Campos Elísios, São Paulo-SP<br><span style="font-size:12px;color:var(--ink3);">Em frente ao Terminal de Ônibus Princesa Isabel</span></div></div>
+    <div class="hosp-card"><div class="hosp-title">🏨 Quimioterapia — 4º andar</div><div class="hosp-body">Chegue com <strong>1 hora de antecedência</strong>.<br><strong>Kit lanche gratuito</strong> no refeitório do térreo — apresentar comprovante.<br>Permitido <strong>1 acompanhante</strong> adulto, não gestante.</div></div>
+    <div class="hosp-card"><div class="hosp-title">📞 Informações e cancelamento</div><div class="hosp-body">Telefone: <strong>3367-3900</strong><br>Cancelar com no mínimo <strong>48h de antecedência</strong>.<br>Reagendamento: presencialmente na recepção no dia da sessão.</div></div>
+    <div class="hosp-card"><div class="hosp-title">🚌 Transporte gratuito — SAME</div><div class="hosp-body">Leva e traz das <strong>07:00 às 14:00</strong>.<br>Bilhete Único Especial: <a href="https://www.sptrans.com.br">www.sptrans.com.br</a></div></div>
+    <div class="hosp-card"><div class="hosp-title">💊 Medicações pós-quimio — AME Bourroul</div><div class="hosp-body">Rua Martins Fontes, 208<br>Segunda a sexta: <strong>07:30 às 15:00</strong></div></div>
+    <div class="hosp-card gold"><div class="hosp-title">📱 WhatsApp — Navegação Oncológica</div><div class="hosp-body">Segunda a sexta: <strong>08:00 às 17:00</strong><br><strong>(11) 97076-5142</strong> — apenas mensagens</div></div>
+    <div class="hosp-card gold"><div class="hosp-title">✂️ Projeto Amor e Cuidado</div><div class="hosp-body">Corte de cabelo e doação de perucas — voluntariado<br>Segunda, quarta e quinta: <strong>10h às 14:30h</strong> — 4º andar</div></div>
+    <div class="info-box"><strong>Documentos obrigatórios:</strong> CPF, RG ou CNH (originais), Cartão SUS, Comprovante de Endereço e Encaminhamento Médico.</div>
   </div>
 
-  <!-- TAB: ORIENTAÇÕES -->
+  <!-- ORIENTAÇÕES -->
   <div id="tab-orientacoes" class="tab-pane">
-    <div class="section">
-      <div class="section-header">
-        <div class="section-icon icon-gold">📋</div>
-        <h2 class="section-title">Orientações pré-quimioterapia</h2>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">1. Exames laboratoriais</div>
-        <div class="med-instruction">Certifique-se de que hemograma, creatinina e função hepática estejam feitos <strong>48h (2 dias) antes</strong>.<br>
-        Os exames de sangue para quimioterapia <strong>não precisam de jejum</strong>.<br>
-        Leve os resultados no dia da infusão.</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">2. Alimentação</div>
-        <div class="med-instruction">Jejum <strong>não é necessário</strong>. Esteja bem alimentada — faça refeições leves antes da sessão.<br>
-        Evite comidas gordurosas ou muito temperadas no dia da infusão.<br>
-        Evite bebidas alcoólicas, carnes cruas ou mal passadas e peixes crus.<br>
-        Frutas, verduras e legumes devem estar bem higienizados. Evite comer fora de casa.<br>
-        Evite ficar no mesmo ambiente em que se cozinha feijão e carne — pode piorar náusea e vômito.</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">3. Hidratação</div>
-        <div class="med-instruction">Beba bastante água no dia anterior e no dia da quimio (salvo restrição médica).<br>
-        Uma boa hidratação protege os rins e facilita o acesso venoso.</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">4. Medicações prévias</div>
-        <div class="med-instruction">Se tomar remédio contínuo (pressão, diabetes), tomar normalmente e trazer junto.<br>
-        Siga rigorosamente os horários e dosagens das medicações de suporte prescritas.<br>
-        <strong>Vacinas somente com autorização médica.</strong></div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">5. Roupas e cuidados pessoais</div>
-        <div class="med-instruction">Vista roupas folgadas que facilitem o acesso ao braço ou cateter (PICC, port-a-cath).<br>
-        Evitar retirar cutículas das unhas e espremer cravos e espinhas (risco de infecção).<br>
-        Atenção ao uso de barbeadores, procedimentos estéticos e dentários.<br>
-        Cuidado com exposição solar — paclitaxel pode promover hiperpigmentação da pele.</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">6. Fortalecer as veias</div>
-        <div class="med-instruction">Faça exercícios para fortalecer as veias dos braços: apertar bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.<br>
-        <span style="font-size:12px;color:var(--ink-soft);">Se usar o braço para a quimio, o chá pode usar apenas água morna.</span></div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">7. Evite multidões e locais fechados</div>
-        <div class="med-instruction">Nos dias que antecedem a quimio, proteja-se de infecções. Evite aglomerações e use máscara se necessário.<br>
-        Viagens às praias e piscinas precisam ser comunicadas ao médico.<br>
-        Atenção para contato com pessoas gripadas — sua imunidade pode estar baixa.</div>
-      </div>
-
-      <div class="med-card">
-        <div class="med-name" style="margin-bottom:6px;">8. Leve companhia, se possível</div>
-        <div class="med-instruction">É permitida a companhia de 1 acompanhante adulto, não gestante.<br>
-        O acompanhante pode ajudar na marcação das próximas medicações e exames.</div>
-      </div>
-
-      <div class="med-card" style="border-left:3px solid var(--gold);">
-        <div class="med-name" style="margin-bottom:6px;">📓 Dica final: mantenha um caderno com</div>
-        <div class="med-instruction">· Sintomas percebidos (com data)<br>
-        · Temperatura corporal<br>
-        · Idas ao banheiro e consistência das fezes<br>
-        · Dúvidas a esclarecer</div>
-      </div>
-
-      <div class="info-box" style="margin-top:1rem;">
-        <strong>Comunique imediatamente:</strong> febre, tosse, dor, diarreia, feridas na boca ou qualquer sintoma novo antes da sessão — inclusive se esteve no pronto-socorro após a última quimio, ou usou antibióticos, fez transfusão ou ficou internada.
-      </div>
-    </div>
+    <div class="sec-title">📖 Orientações pré-quimioterapia</div>
+    <div class="card"><div class="card-title">1. Exames laboratoriais</div><div class="card-body">Hemograma, creatinina e função hepática feitos <strong>48h antes</strong>. Sem necessidade de jejum. Leve os resultados no dia.</div></div>
+    <div class="card"><div class="card-title">2. Alimentação</div><div class="card-body">Esteja bem alimentada com refeições leves. Evite comidas gordurosas, bebidas alcoólicas, carnes cruas, peixes crus. Frutas e verduras bem higienizadas. Evite comer fora. Evite ambientes onde se cozinha feijão e carne (piora náusea).</div></div>
+    <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio. <strong>Meta: 3 litros/dia.</strong> Protege os rins e facilita o acesso venoso.</div></div>
+    <div class="card"><div class="card-title">4. Medicações prévias</div><div class="card-body">Remédios contínuos (pressão, diabetes): tomar normalmente e levar junto. Vacinas somente com autorização médica.</div></div>
+    <div class="card"><div class="card-title">5. Roupas e cuidados pessoais</div><div class="card-body">Roupas folgadas para facilitar acesso ao braço ou cateter. Evite retirar cutículas e espremer cravos (risco de infecção). Cuidado com exposição solar — paclitaxel pode causar hiperpigmentação.</div></div>
+    <div class="card"><div class="card-title">6. Fortalecer as veias</div><div class="card-body">Aperte bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.</div></div>
+    <div class="card"><div class="card-title">7. Evite multidões e locais fechados</div><div class="card-body">Proteja-se de infecções nos dias que antecedem a quimio. Use máscara se necessário. Comunique viagens ao médico. Atenção a pessoas gripadas.</div></div>
+    <div class="card"><div class="card-title">8. Leve companhia</div><div class="card-body">1 acompanhante adulto permitido. Pode ajudar na marcação de próximas medicações e exames.</div></div>
+    <div class="card" style="border-left:3px solid var(--gold);"><div class="card-title">📓 Anote no diário</div><div class="card-body">· Sintomas percebidos com data<br>· Temperatura corporal<br>· Idas ao banheiro e consistência das fezes<br>· Dúvidas para a próxima consulta</div></div>
+    <div class="info-box"><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
   </div>
-
 </main>
 
-<footer>
-  Documento de cuidados pessoal · Gabriela Salamandac Moysés<br>
-  Em emergências, sempre acione o pronto-socorro mais próximo.
-</footer>
+<footer>♥ Guia de cuidados pessoal · Gabriela Salamandac Moysés<br>Em emergências, sempre acione o pronto-socorro mais próximo.</footer>
 
 <script>
-  // --- DATA ---
-  const start = new Date(2026, 3, 16);
-  const addDays = (d, n) => { const r = new Date(d); r.setDate(r.getDate()+n); return r; };
-  const fmt = d => d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' });
-  const fmtShort = d => d.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit' });
-  const dayName = d => d.toLocaleDateString('pt-BR', { weekday:'short' }).replace('.','');
+const START = new Date(2026,3,16);
+const addD = (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
+const fmt = d => d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+const fmtS = d => d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+const dayN = d => d.toLocaleDateString('pt-BR',{weekday:'short'}).replace('.','');
+const today = new Date(); today.setHours(0,0,0,0);
 
-  // Sessions
-  const sessions = Array.from({length:12}, (_,i) => {
-    const adm = addDays(start, i*7);
-    const nadirS = addDays(adm, 7);
-    const nadirE = addDays(adm, 10);
-    const exam = addDays(adm, -2);
-    return { num: i+1, adm, nadirS, nadirE, exam };
-  });
+const sessions = Array.from({length:12},(_,i)=>{
+  const adm=addD(START,i*7);
+  return {num:i+1,adm,nadirS:addD(adm,7),nadirE:addD(adm,10),exam:addD(adm,-2)};
+});
 
-  // CHEMO GRID
-  const chemoGrid = document.getElementById('chemo-grid');
-  sessions.forEach(s => {
-    const row = document.createElement('div');
-    row.className = 'chemo-row';
-    row.innerHTML = `
-      <div class="chemo-num">${s.num}</div>
-      <div>
-        <div class="chemo-date-main">${fmt(s.adm)}</div>
-        <div class="chemo-date-sub">${dayName(s.adm)} · Sessão ${s.num} de 12</div>
-      </div>
-      <div class="chemo-nadir">Nadir ${fmtShort(s.nadirS)}–${fmtShort(s.nadirE)}</div>
-      <div class="chemo-exam" style="${s.num===1 ? 'text-decoration:line-through;opacity:0.5;' : ''}">${s.num===1 ? '✓ Feito' : 'Exame ' + fmtShort(s.exam)}</div>
-    `;
-    chemoGrid.appendChild(row);
-  });
+// progress
+const done=sessions.filter(s=>{const d=new Date(s.adm);d.setHours(0,0,0,0);return d<today;}).length;
+const nextS=sessions.find(s=>{const d=new Date(s.adm);d.setHours(0,0,0,0);return d>=today;});
+document.getElementById('met-done').textContent=done;
+if(nextS){
+  const diff=Math.round((new Date(nextS.adm)-today)/86400000);
+  document.getElementById('met-next').textContent=diff===0?'Hoje!':diff+' dias';
+}
+const pct=Math.round(done/12*100);
+document.getElementById('prog-val').textContent=pct+'%';
+document.getElementById('prog-fill').style.width=pct+'%';
+document.getElementById('prog-label').textContent=`Progresso: ${done} de 12 sessões concluídas`;
 
-  // EXAM GRID
-  const examGrid = document.getElementById('exam-grid');
-  sessions.forEach(s => {
-    const row = document.createElement('div');
-    row.className = 'chemo-row';
-    const done = s.num === 1;
-    row.style.opacity = done ? '0.55' : '1';
-    row.innerHTML = `
-      <div class="chemo-num" style="${done ? 'background:rgba(122,158,142,0.35);' : ''}">${done ? '✓' : s.num}</div>
-      <div>
-        <div class="chemo-date-main" style="${done ? 'text-decoration:line-through;color:var(--ink-soft);' : ''}">Coleta: ${fmt(s.exam)}</div>
-        <div class="chemo-date-sub">${done ? 'Já realizado' : '48h antes da sessão ' + s.num + ' (' + fmtShort(s.adm) + ')'}</div>
-      </div>
-      <div style="font-size:11px;color:${done ? 'var(--sage-dark)' : 'var(--sage-dark)'};background:${done ? 'rgba(122,158,142,0.15)' : 'rgba(122,158,142,0.15)'};padding:3px 8px;border-radius:20px;font-weight:500;white-space:nowrap;">${done ? '✓ Realizado' : 'Hemograma + Creatinina'}</div>
-    `;
-    examGrid.appendChild(row);
-  });
+// chemo grid
+const cg=document.getElementById('chemo-grid');
+sessions.forEach(s=>{
+  const d=new Date(s.adm);d.setHours(0,0,0,0);
+  const isPast=d<today,isToday=d.getTime()===today.getTime();
+  const row=document.createElement('div');
+  row.className='chemo-row'+(isToday?' today':'');
+  row.style.opacity=isPast?'0.5':'1';
+  row.innerHTML=`
+    <div class="chemo-num" style="${isPast?'background:#EAF5EA;color:#2A6A2A;':isToday?'background:var(--gold-bg);color:var(--gold);':''}">${isPast?'✓':isToday?'★':s.num}</div>
+    <div>
+      <div class="chemo-date">${fmt(s.adm)}${isToday?' <span style="color:var(--gold);font-size:11px;font-weight:700;"> HOJE</span>':''}</div>
+      <div class="chemo-sub">${dayN(s.adm)} · Sessão ${s.num} de 12</div>
+    </div>
+    <div class="pill pill-red">Nadir ${fmtS(s.nadirS)}–${fmtS(s.nadirE)}</div>
+    <div class="pill ${s.num===1?'pill-done':'pill-amber'}">${s.num===1?'✓ Feito':'Exam '+fmtS(s.exam)}</div>
+  `;
+  cg.appendChild(row);
+});
 
-  // SYMPTOMS
-  const symptoms = [
-    { id:'nausea', label:'Náusea', opts:['Nenhuma','Leve','Moderada','Intensa'], alert:'Náusea intensa: tome Ondansetrona + Metoclopramida. Se vômitos impedirem alimentação por >24h, vá ao pronto-socorro.' },
-    { id:'vomito', label:'Vômito', opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'], alert:'Vômitos frequentes: hidrate-se. Se mais de 5x em 24h ou sinais de desidratação, vá ao pronto-socorro.' },
-    { id:'diarreia', label:'Diarreia', opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'], alert:'Diarreia intensa: tome Loperamida e hidrate-se. Se > 4 episódios ou sinais de desidratação, vá ao pronto-socorro.' },
-    { id:'constipacao', label:'Constipação', opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'], alert:'Constipação prolongada: tome Lactulose 20mL a cada 8h. Se > 3 dias sem evacuar, avise seu médico.' },
-    { id:'dor', label:'Dor', opts:['Nenhuma','Leve','Moderada','Intensa'], alert:'Dor intensa: tome Dipirona 1g (2 comprimidos). Se febre junto com a dor, vá ao pronto-socorro.' },
-    { id:'fadiga', label:'Fadiga', opts:['Nenhuma','Leve','Moderada','Intensa'], alert:'Fadiga intensa: descanse e mantenha boa hidratação. Avise seu médico na próxima consulta.' },
-    { id:'formigamento', label:'Formig. mãos/pés', opts:['Nenhum','Leve','Moderado','Intenso'], alert:'Formigamento intenso (neuropatia): avise seu médico — pode ser necessário ajustar a dose.' },
-    { id:'febre', label:'Febre', opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'], alert:'🚨 FEBRE: Vá IMEDIATAMENTE ao pronto-socorro! Informe que está em quimioterapia. Não tome antitérmico antes.' },
-  ];
+// exam grid
+const eg=document.getElementById('exam-grid');
+sessions.forEach(s=>{
+  const d1=s.num===1;
+  const row=document.createElement('div');
+  row.className='chemo-row';
+  row.style.opacity=d1?'0.5':'1';
+  row.innerHTML=`
+    <div class="chemo-num" style="${d1?'background:#EAF5EA;color:#2A6A2A;':''}">${d1?'✓':s.num}</div>
+    <div>
+      <div class="chemo-date" style="${d1?'text-decoration:line-through;color:var(--ink3);':''}">${fmt(s.exam)}</div>
+      <div class="chemo-sub">${d1?'Já realizado':'48h antes da sessão '+s.num+' ('+fmtS(s.adm)+')'}</div>
+    </div>
+    <div class="pill ${d1?'pill-green':'pill-sage'}">${d1?'✓ Realizado':'Hemograma + Creatinina'}</div>
+  `;
+  eg.appendChild(row);
+});
 
-  const dotColors = ['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
-  const grid = document.getElementById('symptom-grid');
-  symptoms.forEach(s => {
-    const card = document.createElement('div');
-    card.className = 'symptom-card';
-    card.innerHTML = `
-      <div class="symptom-label">${s.label}</div>
-      <div class="symptom-status">
-        <span class="sym-dot" id="dot-${s.id}" style="background:${dotColors[0]}"></span>
-        <select class="symptom-select" id="sel-${s.id}" onchange="updateSymptom('${s.id}')">
-          ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
-        </select>
-      </div>
-      <div class="symptom-note" id="note-${s.id}"></div>
-    `;
-    grid.appendChild(card);
-  });
+// symptoms
+const syms=[
+  {id:'nausea',label:'Náusea',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Tome Ondansetrona + Metoclopramida. Se vômitos >24h, pronto-socorro.'},
+  {id:'vomito',label:'Vômito',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se >5x em 24h ou desidratação, pronto-socorro.'},
+  {id:'diarreia',label:'Diarreia',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Tome Loperamida e hidrate-se. Se >4 episódios, pronto-socorro.'},
+  {id:'constipacao',label:'Constipação',opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'],alert:'Tome Lactulose 20mL a cada 8h. Se >3 dias, avise o médico.'},
+  {id:'dor',label:'Dor',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Tome Dipirona 1g (2 comprimidos). Com febre → pronto-socorro.'},
+  {id:'fadiga',label:'Fadiga',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Descanse e hidrate-se. Avise o médico na próxima consulta.'},
+  {id:'formig',label:'Formigamento',opts:['Nenhum','Leve','Moderado','Intenso'],alert:'Avise o médico — pode ser necessário ajustar a dose.'},
+  {id:'febre',label:'Febre',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE: Pronto-socorro IMEDIATAMENTE!'},
+];
+const dotC=['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
+const sg=document.getElementById('sym-grid');
+syms.forEach(s=>{
+  const c=document.createElement('div');c.className='sym-card';
+  c.innerHTML=`<div class="sym-label">${s.label}</div>
+    <div class="sym-row"><span class="sym-dot" id="dot-${s.id}" style="background:${dotC[0]}"></span>
+    <select class="sym-sel" id="sel-${s.id}" onchange="updSym('${s.id}')">
+      ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
+    </select></div>
+    <div class="sym-note" id="note-${s.id}"></div>`;
+  sg.appendChild(c);
+});
+function updSym(id){
+  const v=parseInt(document.getElementById('sel-'+id).value);
+  document.getElementById('dot-'+id).style.background=dotC[v];
+  const sym=syms.find(s=>s.id===id);
+  const note=document.getElementById('note-'+id);
+  if(v>=2){note.textContent=(v===3?'⚠️ ':'')+sym.alert;note.style.color=v===3?'var(--red)':'var(--amber)';}
+  else note.textContent='';
+  const fv=parseInt(document.getElementById('sel-febre').value||0);
+  document.getElementById('fever-alert').style.display=fv>=1?'flex':'none';
+}
 
-  function updateSymptom(id) {
-    const sel = document.getElementById('sel-'+id);
-    const dot = document.getElementById('dot-'+id);
-    const note = document.getElementById('note-'+id);
-    const val = parseInt(sel.value);
-    dot.style.background = dotColors[val];
-    const sym = symptoms.find(s=>s.id===id);
-    if (val >= 2) {
-      note.textContent = val === 3 ? '⚠️ ' + sym.alert : 'Monitore de perto.';
-      note.style.color = val === 3 ? 'var(--danger)' : 'var(--warning)';
-    } else {
-      note.textContent = '';
-    }
-    // Show global alert if febre or severe
-    const febreSel = document.getElementById('sel-febre');
-    const alertBox = document.getElementById('symptom-alert');
-    const alertText = document.getElementById('symptom-alert-text');
-    if (febreSel && parseInt(febreSel.value) >= 1) {
-      alertBox.style.display = 'flex';
-      alertText.textContent = 'Febre detectada! Vá imediatamente ao pronto-socorro e informe que está em quimioterapia com paclitaxel semanal.';
-    } else {
-      alertBox.style.display = 'none';
-    }
+// ─── WATER: 10 glasses × 300ml = 3000ml ───
+const GLASSES=10, ML_CUP=300;
+let wCount=parseInt(localStorage.getItem('gabi-water')||'0');
+const wMsgs=['Vamos começar! 💪','Boa, continue! 🌿','Na metade, ótimo! 👏','Quase lá! ✨','Meta de 3L atingida! 🎉'];
+function renderWater(){
+  const cont=document.getElementById('wglasses');if(!cont)return;
+  cont.innerHTML='';
+  for(let i=0;i<GLASSES;i++){
+    const filled=i<wCount;
+    const h=44+i*2;
+    const g=document.createElement('div');
+    g.className='wg'; g.style.height=h+'px';
+    g.title=(i+1)*ML_CUP+' ml';
+    g.onclick=()=>{wCount=wCount===i+1?i:i+1;localStorage.setItem('gabi-water',wCount);renderWater();};
+    g.innerHTML=`<div class="wg-fill" style="height:${filled?100:0}%"></div><div class="wg-lbl ${filled?'':'empty'}">${(i+1)*ML_CUP>=1000?((i+1)*ML_CUP/1000).toFixed(1)+'L':(i+1)*ML_CUP}</div>`;
+    cont.appendChild(g);
   }
+  const ml=wCount*ML_CUP;
+  document.getElementById('w-ml').textContent=ml;
+  document.getElementById('w-bar').style.width=Math.min(100,Math.round(wCount/GLASSES*100))+'%';
+  const mi=wCount===0?0:wCount<=2?1:wCount<=5?2:wCount<=8?3:4;
+  document.getElementById('w-msg').textContent=wMsgs[mi];
+}
+function addWater(){if(wCount<GLASSES){wCount++;localStorage.setItem('gabi-water',wCount);renderWater();}}
+function resetWater(){wCount=0;localStorage.setItem('gabi-water',0);renderWater();}
+renderWater();
 
-  // TABS
-  function switchTab(name) {
-    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-'+name).classList.add('active');
-    event.target.classList.add('active');
-  }
+// diary
+const dd=document.getElementById('d-date');
+if(dd)dd.value=new Date().toISOString().split('T')[0];
+let diary=JSON.parse(localStorage.getItem('gabi-diary')||'[]');
+function renderDiary(){
+  const list=document.getElementById('diary-list');if(!list)return;
+  list.innerHTML='';
+  if(!diary.length){list.innerHTML='<div style="text-align:center;padding:1.5rem;font-size:13px;color:var(--ink3);">Nenhuma anotação ainda.</div>';return;}
+  [...diary].reverse().forEach((e,ri)=>{
+    const realI=diary.length-1-ri;
+    const div=document.createElement('div');div.className='diary-entry';
+    div.innerHTML=`<div><div class="d-tag">${new Date(e.date+'T12:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long',year:'numeric'})}</div><div class="d-body">${e.text}</div></div><button class="btn-del" onclick="delDiary(${realI})">×</button>`;
+    list.appendChild(div);
+  });
+}
+function addDiary(){
+  const date=document.getElementById('d-date').value;
+  const text=document.getElementById('d-text').value.trim();
+  if(!date||!text)return;
+  diary.push({date,text});
+  localStorage.setItem('gabi-diary',JSON.stringify(diary));
+  document.getElementById('d-text').value='';
+  renderDiary();
+}
+function delDiary(i){diary.splice(i,1);localStorage.setItem('gabi-diary',JSON.stringify(diary));renderDiary();}
+renderDiary();
+
+// tabs
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
