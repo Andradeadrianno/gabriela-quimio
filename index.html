@@ -625,7 +625,13 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 
       const nadirS = fmtShort(addDaysYMD(s.date,7)); 
       const nadirE = fmtShort(addDaysYMD(s.date,10));
-      const examHtml = (i === 0) ? '' : `<span class="pill-exam">Exam ${fmtShort(s.examDate)}</span>`;
+      
+      // NOVA PÍLULA DE EXAME QUE VIRA UM CAMPO DE DATA QUANDO EM MODO DE EDIÇÃO
+      const examHtml = (i === 0) ? '' : `
+        <span class="pill-exam">
+          <span class="date-text">Exam ${fmtShort(s.examDate)}</span>
+          <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent; border:none; color:inherit; font-family:inherit; font-size:11px; font-weight:700; padding:0; outline:none; height:14px;">
+        </span>`;
       
       const row = document.createElement('div'); 
       row.className = `session-card ${s.done ? 'done' : ''}`;
