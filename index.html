@@ -3,9 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gabi ♥ — Guia de Quimioterapia</title>
+<title>Guia de Cuidados</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+
 <style>
 :root {
   --bg: #FDFCFB;
@@ -34,6 +39,19 @@
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior:smooth; }
 body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; font-size:14px; line-height:1.6; padding-bottom: env(safe-area-inset-bottom); }
+
+/* TELAS DE CONTROLE (LOGIN) */
+#app-content { display: none; }
+#login-screen { position: fixed; inset: 0; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center; }
+.login-box { background: var(--surface); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow-md); width: 100%; max-width: 360px; border: 1px solid var(--border); }
+.login-input { width: 100%; font-family: 'Inter'; font-size: 15px; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; outline: none; transition: border 0.2s; }
+.login-input:focus { border-color: var(--sage-dark); }
+.btn-login { width: 100%; background: var(--sage-dark); color: white; border: none; padding: 14px; font-size: 15px; font-weight: 700; border-radius: var(--radius-sm); cursor: pointer; margin-bottom: 12px; transition: background 0.2s; }
+.btn-login:hover { background: var(--ink); }
+.btn-register { width: 100%; background: transparent; color: var(--ink2); border: 1px solid var(--border); padding: 14px; font-size: 15px; font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s; }
+.btn-register:hover { background: var(--surface-hover); }
+#login-error { color: var(--red-intense); font-size: 13px; margin-bottom: 12px; display: none; font-weight: 600; background: var(--red-bg); padding: 10px; border-radius: 6px; border: 1px solid rgba(214, 69, 69, 0.2); }
+.btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); }
 
 /* HEADER & HERO */
 header {
@@ -145,11 +163,6 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .card-title { font-size:14px; font-weight:700; color:var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
 .card-body { font-size:13.5px; color:var(--ink2); line-height:1.6; }
 .med-dose { font-size:12px; font-weight:700; background:var(--sage-bg); color:var(--sage-dark); padding:4px 12px; border-radius:20px; flex-shrink:0; }
-.badge { display:inline-flex; font-size:11px; font-weight:700; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-top:10px; }
-.badge-purple { background:#F0EEFA; color:#5A3A9A; }
-.badge-amber { background:var(--amber-bg); color:var(--amber); }
-.badge-green { background:#EAF5EA; color:#2A6A2A; }
-.badge-red { background:var(--red-bg); color:var(--red-intense); }
 
 /* NAVEGAÇÃO DE DATAS NO DIÁRIO */
 .date-nav { display: flex; align-items: center; justify-content: space-between; background: var(--surface); padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 2rem; }
@@ -210,647 +223,698 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div class="header-pill"><i class="ph-fill ph-plant"></i> Guia de Cuidados</div>
-    <h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1>
-    <div class="header-meta">
-      <span class="header-badge" style="cursor: default;"><i class="ph ph-calendar-check"></i> 16 Sessões</span>
-      <a href="https://maps.app.goo.gl/eLpvxBZZUe2xwQKV8" target="_blank" style="color: inherit; text-decoration: none;">
-        <span class="header-badge"><i class="ph ph-hospital"></i> Centro de referência: Hospital da Mulher - Av. Rio Branco, 1162 - Campos Elíseos</span>
-      </a>
-    </div>
-  </div>
-</header>
-
-<div class="emergency-bar" onclick="switchTab('hospital', document.querySelector('[onclick*=\'hospital\']'))">
-  <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
-  <div>
-    <div class="em-title">Febre ≥ 37,8 °C → PS Imediatamente</div>
-    <div class="em-text">Clique para ver os hospitais de emergência.</div>
+<div id="login-screen">
+  <div style="margin-bottom: 20px; color: var(--sage-dark);"><i class="ph-fill ph-plant" style="font-size: 48px;"></i></div>
+  <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 24px; color: var(--ink);">Guia de Cuidados</h2>
+  <div class="login-box">
+    <div id="login-error"></div>
+    <input type="email" id="auth-email" class="login-input" placeholder="E-mail">
+    <input type="password" id="auth-password" class="login-input" placeholder="Senha">
+    <button class="btn-login" onclick="login()">Entrar</button>
+    <button class="btn-register" onclick="register()">Criar nova conta</button>
   </div>
 </div>
 
-<main>
-  <div class="progress-wrap">
-    <div class="progress-header">
-      <span class="progress-label" id="prog-label">Tratamento Geral</span>
-      <span class="progress-val" id="prog-val">0%</span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-  </div>
-
-  <div class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('calendario',this)"><i class="ph-fill ph-calendar-heart"></i><span>Calendário</span></button>
-    <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
-    <button class="tab-btn" onclick="switchTab('sintomas',this)"><i class="ph-fill ph-activity"></i><span>Sintomas</span></button>
-    <button class="tab-btn" onclick="switchTab('exames',this)"><i class="ph-fill ph-drop"></i><span>Exames</span></button>
-    <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Hospital</span></button>
-    <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
-  </div>
-
-  <div id="tab-calendario" class="tab-pane active">
-    
-    <div class="sec-title">
-      <div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div>
-      <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
-    </div>
-
-    <div class="metrics-grid">
-      <div class="metric-card"><div class="metric-val" id="met-total">16</div><div class="metric-lbl">Sessões total</div></div>
-      <div class="metric-card"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div>
-      <div class="metric-card"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div>
-      <div class="metric-card"><div class="metric-val" id="met-end">—</div><div class="metric-lbl">Término previsto</div></div>
-    </div>
-
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
-       <h3 style="font-size:14px; color: var(--ink2);">Fase 1: Branca (Paclitaxel 80 mg)</h3>
-    </div>
-    
-    <div id="grid-white"></div>
-    
-    <h3 style="font-size:14px; margin: 2rem 0 12px; color: var(--red-intense);">Fase 2: Vermelha (AC)</h3>
-    <div id="grid-red"></div>
-  </div>
-
-  <div id="tab-medicacoes" class="tab-pane">
-    <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
-    <div class="card"><div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Enquanto houver náuseas ou vômitos.</div></div>
-    <div class="card"><div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Se náuseas persistirem com Ondansetrona.</div></div>
-    <div class="card"><div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div><div class="card-body">Somente em caso de diarreia.</div></div>
-    <div class="card"><div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div><div class="card-body">Somente se o intestino prender.</div></div>
-    <div class="card" style="border-color: var(--red-bg);"><div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div><div class="card-body">Para dor. Não use para mascarar febre.</div></div>
-  </div>
-
-  <div id="tab-sintomas" class="tab-pane">
-    
-    <div class="date-nav">
-      <button class="date-nav-btn" onclick="shiftLogDate(-1)"><i class="ph-bold ph-caret-left"></i></button>
-      <div class="date-nav-center">
-        <span class="date-nav-lbl">Registro do Dia</span>
-        <input type="date" id="log-date-input" class="date-nav-input" onchange="setLogDate(this.value)">
-      </div>
-      <button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button>
-    </div>
-
-    <div class="sec-title"><i class="ph-fill ph-drop"></i> Hidratação Diária (Meta: 3L)</div>
-    <div class="water-wrap">
-      <div class="water-glasses-row" id="wglasses"></div>
-      <div style="font-size: 28px; font-weight: 700; color: #2A6A2A;"><span id="w-ml">0</span> / 3000 ml</div>
-      <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
-      <div id="w-msg" style="margin-bottom: 12px; font-weight: 600; color: #2A6A2A;">Vamos começar! 💪</div>
-      <div style="display: flex; gap: 8px; justify-content: center;">
-        <button class="btn-edit" style="background: #1F2937; color: white; padding: 8px 16px;" onclick="addDailyWater()">+ 1 Copo (200ml)</button>
-        <button class="btn-edit" style="padding: 8px 16px; background: transparent; border: 1px solid #BEE3C4;" onclick="resetDailyWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button>
+<div id="app-content">
+  <header>
+    <button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button>
+    <div class="header-inner">
+      <div class="header-pill"><i class="ph-fill ph-plant"></i> Guia de Cuidados</div>
+      <h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1>
+      <div class="header-meta">
+        <span class="header-badge" style="cursor: default;"><i class="ph ph-calendar-check"></i> 16 Sessões</span>
+        <a href="https://maps.app.goo.gl/eLpvxBZZUe2xwQKV8" target="_blank" style="color: inherit; text-decoration: none;">
+          <span class="header-badge"><i class="ph ph-hospital"></i> Centro de referência: Hospital da Mulher - Av. Rio Branco, 1162 - Campos Elíseos</span>
+        </a>
       </div>
     </div>
+  </header>
 
-    <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-clipboard-text"></i> Monitorar sintomas</h2>
-    <div class="sym-grid" id="sym-grid"></div>
-    <div id="fever-alert" style="display:none;" class="emergency-bar">
-      <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
-      <div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div>
-    </div>
-
-    <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2>
-    <div class="card">
-      <div class="diary-row">
-        <input type="date" id="d-date" class="diary-input d-date">
-        <input type="text" id="d-text" class="diary-input d-text" placeholder="Como você está se sentindo hoje?">
-      </div>
-      <button class="btn-primary" onclick="addDiary()">+ Adicionar anotação</button>
-    </div>
-    <div id="diary-list"></div>
-
-    <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-export"></i> Compartilhar</h2>
-    <div class="card" style="text-align: center;">
-      <div style="font-size: 13px; color: var(--ink2); margin-bottom: 12px;">Gere um resumo deste dia para mandar para o médico.</div>
-      <button class="btn-primary" style="background: var(--sage-dark);" onclick="gerarRelatorio()"><i class="ph-bold ph-copy"></i> Copiar Relatório do Dia</button>
-    </div>
-
-  </div>
-
-  <div id="tab-exames" class="tab-pane">
-    <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Exames Obrigatórios</h2>
-    <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, plaquetas e hemoglobina. Essencial para liberar a sessão.</div></div>
-    <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
-    
-    <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-file-text"></i> Resultados do Laboratório</h2>
-    <div class="card">
-      <div style="margin-bottom: 12px;">
-        <label class="exam-label">Data da Coleta</label>
-        <input type="date" id="e-date" class="exam-input">
-      </div>
-      <div class="exam-input-grid">
-        <div><label class="exam-label">Leucócitos</label><input type="number" id="e-leuco" class="exam-input" placeholder="Ex: 4500"></div>
-        <div><label class="exam-label">Neutrófilos</label><input type="number" id="e-neutro" class="exam-input" placeholder="Ex: 2100"></div>
-        <div><label class="exam-label">Plaquetas</label><input type="number" id="e-plaq" class="exam-input" placeholder="Ex: 250000"></div>
-        <div><label class="exam-label">Hemoglobina</label><input type="number" id="e-hemo" class="exam-input" placeholder="Ex: 12.5" step="0.1"></div>
-        <div style="grid-column: span 2;"><label class="exam-label">Creatinina</label><input type="number" id="e-crea" class="exam-input" placeholder="Ex: 0.8" step="0.01"></div>
-      </div>
-      <button class="btn-primary" onclick="addExamResult()"><i class="ph-bold ph-plus"></i> Salvar Resultado</button>
-    </div>
-    <div id="exam-results-list"></div>
-    
-    <div class="sec-title" style="margin-top: 2rem;">
-      <div class="sec-title-left">Coletas (48h antes)</div>
-      <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
-    </div>
-    <div id="exam-grid"></div>
-  </div>
-
-  <div id="tab-hospital" class="tab-pane">
-    <h2 class="sec-title"><i class="ph-fill ph-warning-octagon" style="color: var(--red-intense);"></i> Emergência - Onde ir?</h2>
-    <div class="info-box"><i class="ph-fill ph-info"></i> Informe sempre na recepção: <strong>"Paciente em quimioterapia, risco de febre neutropênica."</strong></div>
-
-    <div class="card hosp-emergency">
-      <span class="hosp-option">1ª Opção (Preferencial)</span>
-      <div class="card-title">UPA Vila Santa Catarina</div>
-      <div class="card-body">
-        R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br>
-        <a href="https://maps.google.com/?cid=13498587269798681710&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
-      </div>
-    </div>
-
-    <div class="card hosp-emergency">
-      <span class="hosp-option">2ª Opção</span>
-      <div class="card-title">UPA Jabaquara</div>
-      <div class="card-body">
-        Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br>
-        <a href="https://maps.google.com/?cid=7297070624864957169&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
-      </div>
-    </div>
-
-    <div class="card hosp-emergency">
-      <span class="hosp-option">3ª Opção</span>
-      <div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div>
-      <div class="card-body">
-        Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br>
-        <a href="https://maps.google.com/?cid=16510485783602391528&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div id="tab-orientacoes" class="tab-pane">
-    <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia</h2>
-    
-    <div class="card"><div class="card-title">1. Exames laboratoriais</div><div class="card-body">Hemograma, creatinina e função hepática feitos <strong>48h antes</strong>. Sem necessidade de jejum. Leve os resultados no dia.</div></div>
-    <div class="card"><div class="card-title">2. Alimentação</div><div class="card-body">Esteja bem alimentada com refeições leves. Evite comidas gordurosas, bebidas alcoólicas, carnes cruas, peixes crus. Frutas e verduras bem higienizadas. Evite comer fora. Evite ambientes onde se cozinha feijão e carne (piora náusea).</div></div>
-    <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio. <strong>Meta: 3 litros/dia.</strong> Protege os rins e facilita o acesso venoso.</div></div>
-    <div class="card"><div class="card-title">4. Medicações prévias</div><div class="card-body">Remédios contínuos (pressão, diabetes): tomar normalmente e levar junto. Vacinas somente com autorização médica.</div></div>
-    <div class="card"><div class="card-title">5. Roupas e cuidados pessoais</div><div class="card-body">Roupas folgadas para facilitar acesso ao braço ou cateter. Evite retirar cutículas e espremer cravos (risco de infecção). Cuidado com exposição solar — paclitaxel pode causar hiperpigmentação.</div></div>
-    <div class="card"><div class="card-title">6. Fortalecer as veias</div><div class="card-body">Aperte bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.</div></div>
-    <div class="card"><div class="card-title">7. Evite multidões e locais fechados</div><div class="card-body">Proteja-se de infecções nos dias que antecedem a quimio. Use máscara se necessário. Comunique viagens ao médico. Atenção a pessoas gripadas.</div></div>
-    <div class="card"><div class="card-title">8. Leve companhia</div><div class="card-body">1 acompanhante adulto permitido. Pode ajudar na marcação de próximas medicações e exames.</div></div>
-    
-    <div class="card" style="border-left: 4px solid var(--gold);">
-      <div class="card-title"><i class="ph-fill ph-notebook"></i> Anote no diário</div>
-      <div class="card-body">
-        · Sintomas percebidos com data<br>
-        · Temperatura corporal<br>
-        · Idas ao banheiro e consistência das fezes<br>
-        · Dúvidas para a próxima consulta
-      </div>
-    </div>
-    
-    <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;">
-      <div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
+  <div class="emergency-bar" onclick="switchTab('hospital', document.querySelector('[onclick*=\'hospital\']'))">
+    <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
+    <div>
+      <div class="em-title">Febre ≥ 37,8 °C → PS Imediatamente</div>
+      <div class="em-text">Clique para ver os hospitais de emergência.</div>
     </div>
   </div>
 
-</main>
+  <main>
+    <div class="progress-wrap">
+      <div class="progress-header">
+        <span class="progress-label" id="prog-label">Tratamento Geral</span>
+        <span class="progress-val" id="prog-val">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
 
-<footer>Feito com amor para a Gabi ♥</footer>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('calendario',this)"><i class="ph-fill ph-calendar-heart"></i><span>Calendário</span></button>
+      <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
+      <button class="tab-btn" onclick="switchTab('sintomas',this)"><i class="ph-fill ph-activity"></i><span>Sintomas</span></button>
+      <button class="tab-btn" onclick="switchTab('exames',this)"><i class="ph-fill ph-drop"></i><span>Exames</span></button>
+      <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Hospital</span></button>
+      <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
+    </div>
 
-<script>
-// --- HELPERS GERAIS ---
-const toYMD = (d) => { const tz = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tz).toISOString().split('T')[0]; };
-const fromYMD = (ymd) => new Date(ymd + 'T12:00:00');
-const fmtFull = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
-const fmtShort = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-const getWeekDay = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3).toLowerCase();
-const addDaysYMD = (ymd, d) => { const r = fromYMD(ymd); r.setDate(r.getDate() + d); return toYMD(r); };
-const todayYMD = toYMD(new Date());
+    <div id="tab-calendario" class="tab-pane active">
+      <div class="sec-title">
+        <div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div>
+        <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
+      </div>
 
-// --- CALENDÁRIO E SESSÕES ---
-const SESSIONS_KEY = 'gabi_quimio_clean_v1';
-let isEditing = false;
-let sessions = [];
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-val" id="met-total">16</div><div class="metric-lbl">Sessões total</div></div>
+        <div class="metric-card"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div>
+        <div class="metric-card"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div>
+        <div class="metric-card"><div class="metric-val" id="met-end">—</div><div class="metric-lbl">Término previsto</div></div>
+      </div>
 
-function generateDefaultSessions() {
-  const arr = [];
-  const START = new Date(2026, 3, 16, 12, 0, 0); // 16/04/2026
-  for(let i=0; i<12; i++) {
-    const d = new Date(START); d.setDate(d.getDate() + (i * 7));
-    arr.push({ id: i, num: i+1, phaseNum: i+1, type: 'BRANCA', phase: 1, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: (i===0) });
-  }
-  const lastWhite = fromYMD(arr[11].date);
-  for(let i=0; i<4; i++) {
-    const d = new Date(lastWhite); d.setDate(d.getDate() + 7 + (i * 21));
-    arr.push({ id: i+12, num: i+13, phaseNum: i+1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false });
-  }
-  return arr;
-}
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
+         <h3 style="font-size:14px; color: var(--ink2);">Fase 1: Branca (Paclitaxel 80 mg)</h3>
+      </div>
+      
+      <div id="grid-white"></div>
+      
+      <h3 style="font-size:14px; margin: 2rem 0 12px; color: var(--red-intense);">Fase 2: Vermelha (AC)</h3>
+      <div id="grid-red"></div>
+    </div>
 
-function loadSessions() {
-  const saved = localStorage.getItem(SESSIONS_KEY);
-  sessions = saved ? JSON.parse(saved) : generateDefaultSessions();
-  renderSessions();
-}
+    <div id="tab-medicacoes" class="tab-pane">
+      <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
+      <div class="card"><div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Enquanto houver náuseas ou vômitos.</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Se náuseas persistirem com Ondansetrona.</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div><div class="card-body">Somente em caso de diarreia.</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div><div class="card-body">Somente se o intestino prender.</div></div>
+      <div class="card" style="border-color: var(--red-bg);"><div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div><div class="card-body">Para dor. Não use para mascarar febre.</div></div>
+    </div>
 
-function saveSessions() { localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions)); }
+    <div id="tab-sintomas" class="tab-pane">
+      <div class="date-nav">
+        <button class="date-nav-btn" onclick="shiftLogDate(-1)"><i class="ph-bold ph-caret-left"></i></button>
+        <div class="date-nav-center">
+          <span class="date-nav-lbl">Registro do Dia</span>
+          <input type="date" id="log-date-input" class="date-nav-input" onchange="setLogDate(this.value)">
+        </div>
+        <button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button>
+      </div>
 
-function toggleEditMode() {
-  isEditing = !isEditing;
-  document.body.classList.toggle('is-editing', isEditing);
-  const btns = [document.getElementById('btn-edit-cal'), document.getElementById('btn-edit-exam')];
-  btns.forEach(b => {
-    if(b){
-      b.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
-      b.style.background = isEditing ? 'var(--ink)' : '';
-      b.style.color = isEditing ? 'white' : '';
-    }
-  });
-}
-
-function updateDate(index, val) { if(val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); saveSessions(); renderSessions(); } }
-function updateExam(index, val) { if(val) { sessions[index].examDate = val; saveSessions(); renderSessions(); } }
-function toggleDone(index) { sessions[index].done = !sessions[index].done; saveSessions(); renderSessions(); }
-function toggleExamDone(index) { sessions[index].examDone = !sessions[index].examDone; saveSessions(); renderSessions(); }
-
-function renderSessions() {
-  const gW = document.getElementById('grid-white'); const gR = document.getElementById('grid-red'); const eG = document.getElementById('exam-grid');
-  gW.innerHTML = ''; gR.innerHTML = ''; eG.innerHTML = '';
-  
-  let doneCount = 0;
-  let nextSessionDate = null;
-  let endDate = sessions[sessions.length-1].date;
-
-  sessions.forEach((s, i) => {
-    if(s.done) doneCount++;
-    if(!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
-
-    const nadirS = fmtShort(addDaysYMD(s.date,7));
-    const nadirE = fmtShort(addDaysYMD(s.date,10));
-    
-    // A primeira sessão de todas, se já feita, pode não ter o pill do exame no visual
-    const examHtml = (i === 0) ? '' : `<span class="pill-exam">Exam ${fmtShort(s.examDate)}</span>`;
-    
-    const row = document.createElement('div');
-    row.className = `session-card ${s.done ? 'done' : ''}`;
-    row.innerHTML = `
-      <div class="session-left">
-        <div class="session-num">${s.num}</div>
-        <div class="session-info">
-          <div class="session-date">
-             <span class="date-text">${fmtFull(s.date)}</span>
-             <input type="date" class="date-input" value="${s.date}" onchange="updateDate(${i}, this.value)">
-          </div>
-          <div class="session-sub">${getWeekDay(s.date)} - Sessão ${s.phaseNum} de ${s.type === 'BRANCA' ? 12 : 4}</div>
+      <div class="sec-title"><i class="ph-fill ph-drop"></i> Hidratação Diária (Meta: 3L)</div>
+      <div class="water-wrap">
+        <div class="water-glasses-row" id="wglasses"></div>
+        <div style="font-size: 28px; font-weight: 700; color: #2A6A2A;"><span id="w-ml">0</span> / 3000 ml</div>
+        <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
+        <div id="w-msg" style="margin-bottom: 12px; font-weight: 600; color: #2A6A2A;">Vamos começar! 💪</div>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <button class="btn-edit" style="background: #1F2937; color: white; padding: 8px 16px;" onclick="addDailyWater()">+ 1 Copo (200ml)</button>
+          <button class="btn-edit" style="padding: 8px 16px; background: transparent; border: 1px solid #BEE3C4;" onclick="resetDailyWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button>
         </div>
       </div>
-      <div class="session-right">
-        <span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>
-        ${examHtml}
-        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
-           ${s.done ? '✓ Feito' : 'Pendente'}
-        </button>
+
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-clipboard-text"></i> Monitorar sintomas</h2>
+      <div class="sym-grid" id="sym-grid"></div>
+      <div id="fever-alert" style="display:none;" class="emergency-bar">
+        <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
+        <div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div>
       </div>
-    `;
-    if(s.phase === 1) gW.appendChild(row); else gR.appendChild(row);
 
-    // GRID DE EXAMES (ABA EXAMES)
-    const exRow = document.createElement('div');
-    exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
-    exRow.innerHTML = `
-      <div class="exam-info">
-         <div class="exam-date">
-            <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
-            <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
-         </div>
-         <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2>
+      <div class="card">
+        <div class="diary-row">
+          <input type="date" id="d-date" class="diary-input d-date">
+          <input type="text" id="d-text" class="diary-input d-text" placeholder="Como você está se sentindo hoje?">
+        </div>
+        <button class="btn-primary" onclick="addDiary()">+ Adicionar anotação</button>
       </div>
-      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
-         ${s.examDone ? '✓ Feito' : 'Pendente'}
-      </button>
-    `;
-    eG.appendChild(exRow);
-  });
+      <div id="diary-list"></div>
 
-  document.getElementById('met-done').textContent = doneCount;
-  document.getElementById('met-end').textContent = fmtShort(endDate);
-  
-  let nextDaysText = "—";
-  if(nextSessionDate) {
-      const diffTime = fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
-  }
-  document.getElementById('met-next').textContent = nextDaysText;
-
-  const pct = Math.round((doneCount / 16) * 100);
-  document.getElementById('prog-val').textContent = pct + '%';
-  document.getElementById('prog-fill').style.width = pct + '%';
-}
-
-
-// --- LÓGICA DIÁRIA (SINTOMAS E ÁGUA SALVOS POR DATA) ---
-const LOGS_KEY = 'gabi_daily_logs_v2';
-let currentLogDate = todayYMD;
-let dailyLogs = JSON.parse(localStorage.getItem(LOGS_KEY) || '{}');
-
-const TOTAL_GLASSES = 15;
-const ML_PER_GLASS = 200;
-
-const symsDef = [
-  {id:'nausea',label:'NÁUSEA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Ondansetrona + Metoclopramida.'},
-  {id:'vomito',label:'VÔMITO',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se muito frequente, vá ao PS.'},
-  {id:'diarreia',label:'DIARREIA',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Use Loperamida após cada episódio.'},
-  {id:'constipacao',label:'CONSTIPAÇÃO',opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'],alert:'Tome Lactulose.'},
-  {id:'dor',label:'DOR',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Dipirona.'},
-  {id:'fadiga',label:'FADIGA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Descanse.'},
-  {id:'formig',label:'FORMIGAMENTO',opts:['Nenhum','Leve','Moderado','Intenso'],alert:'Avise o médico na consulta.'},
-  {id:'febre',label:'FEBRE',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE ALTA: PS IMEDIATAMENTE!'}
-];
-const dotC = ['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
-
-function getDailyLog(dateStr) {
-  if(!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {} };
-  return dailyLogs[dateStr];
-}
-function saveDailyLogs() { localStorage.setItem(LOGS_KEY, JSON.stringify(dailyLogs)); }
-
-function shiftLogDate(days) { setLogDate(addDaysYMD(currentLogDate, days)); }
-function setLogDate(dateStr) {
-  if(!dateStr) return;
-  currentLogDate = dateStr;
-  document.getElementById('log-date-input').value = currentLogDate;
-  renderDailyWater();
-  renderDailySyms();
-}
-
-function renderDailyWater() {
-  const log = getDailyLog(currentLogDate);
-  const water = log.water;
-  const cont = document.getElementById('wglasses'); 
-  cont.innerHTML = '';
-  
-  for(let i=0; i<TOTAL_GLASSES; i++) {
-    const g = document.createElement('div'); 
-    g.className = 'wg';
-    g.onclick = () => { 
-      let dayLog = getDailyLog(currentLogDate);
-      dayLog.water = (i + 1 === dayLog.water) ? i : i + 1; 
-      saveDailyLogs();
-      renderDailyWater();
-    };
-    g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`;
-    cont.appendChild(g);
-  }
-  
-  document.getElementById('w-ml').textContent = water * ML_PER_GLASS;
-  document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
-}
-
-function addDailyWater() {
-  let log = getDailyLog(currentLogDate);
-  if(log.water < TOTAL_GLASSES) { log.water++; saveDailyLogs(); renderDailyWater(); }
-}
-function resetDailyWater() {
-  if(confirm("Zerar hidratação DESTE DIA?")) { 
-    getDailyLog(currentLogDate).water = 0; 
-    saveDailyLogs(); 
-    renderDailyWater(); 
-  }
-}
-
-function buildSymGrid() {
-  const sg = document.getElementById('sym-grid');
-  symsDef.forEach(s => {
-    const c = document.createElement('div'); c.className = 'sym-card';
-    c.innerHTML = `
-      <div class="sym-label">${s.label}</div>
-      <div class="sym-row">
-        <span class="sym-dot" id="dot-${s.id}"></span>
-        <select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">
-          ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
-        </select>
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-export"></i> Compartilhar</h2>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 13px; color: var(--ink2); margin-bottom: 12px;">Gere um resumo deste dia para mandar para o médico.</div>
+        <button class="btn-primary" style="background: var(--sage-dark);" onclick="gerarRelatorio()"><i class="ph-bold ph-copy"></i> Copiar Relatório do Dia</button>
       </div>
-      <div class="sym-note" id="note-${s.id}"></div>
-    `;
-    sg.appendChild(c);
-  });
-}
+    </div>
 
-function renderDailySyms() {
-  const log = getDailyLog(currentLogDate);
-  symsDef.forEach(s => {
-    const val = log.syms[s.id] || 0;
-    const sel = document.getElementById('sel-'+s.id);
-    if(sel) {
-      sel.value = val;
-      updateVisualSymState(s.id, val);
+    <div id="tab-exames" class="tab-pane">
+      <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Exames Obrigatórios</h2>
+      <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, plaquetas e hemoglobina. Essencial para liberar a sessão.</div></div>
+      <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
+      
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-file-text"></i> Resultados do Laboratório</h2>
+      <div class="card">
+        <div style="margin-bottom: 12px;">
+          <label class="exam-label">Data da Coleta</label>
+          <input type="date" id="e-date" class="exam-input">
+        </div>
+        <div class="exam-input-grid">
+          <div><label class="exam-label">Leucócitos</label><input type="number" id="e-leuco" class="exam-input" placeholder="Ex: 4500"></div>
+          <div><label class="exam-label">Neutrófilos</label><input type="number" id="e-neutro" class="exam-input" placeholder="Ex: 2100"></div>
+          <div><label class="exam-label">Plaquetas</label><input type="number" id="e-plaq" class="exam-input" placeholder="Ex: 250000"></div>
+          <div><label class="exam-label">Hemoglobina</label><input type="number" id="e-hemo" class="exam-input" placeholder="Ex: 12.5" step="0.1"></div>
+          <div style="grid-column: span 2;"><label class="exam-label">Creatinina</label><input type="number" id="e-crea" class="exam-input" placeholder="Ex: 0.8" step="0.01"></div>
+        </div>
+        <button class="btn-primary" onclick="addExamResult()"><i class="ph-bold ph-plus"></i> Salvar Resultado</button>
+      </div>
+      <div id="exam-results-list"></div>
+      
+      <div class="sec-title" style="margin-top: 2rem;">
+        <div class="sec-title-left">Coletas (48h antes)</div>
+        <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
+      </div>
+      <div id="exam-grid"></div>
+    </div>
+
+    <div id="tab-hospital" class="tab-pane">
+      <h2 class="sec-title"><i class="ph-fill ph-warning-octagon" style="color: var(--red-intense);"></i> Emergência - Onde ir?</h2>
+      <div class="info-box"><i class="ph-fill ph-info"></i> Informe sempre na recepção: <strong>"Paciente em quimioterapia, risco de febre neutropênica."</strong></div>
+
+      <div class="card hosp-emergency">
+        <span class="hosp-option">1ª Opção (Preferencial)</span>
+        <div class="card-title">UPA Vila Santa Catarina</div>
+        <div class="card-body">
+          R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br>
+          <a href="https://maps.google.com/?cid=13498587269798681710&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+        </div>
+      </div>
+
+      <div class="card hosp-emergency">
+        <span class="hosp-option">2ª Opção</span>
+        <div class="card-title">UPA Jabaquara</div>
+        <div class="card-body">
+          Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br>
+          <a href="https://maps.google.com/?cid=7297070624864957169&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+        </div>
+      </div>
+
+      <div class="card hosp-emergency">
+        <span class="hosp-option">3ª Opção</span>
+        <div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div>
+        <div class="card-body">
+          Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br>
+          <a href="https://maps.google.com/?cid=16510485783602391528&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="tab-orientacoes" class="tab-pane">
+      <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia</h2>
+      <div class="card"><div class="card-title">1. Exames laboratoriais</div><div class="card-body">Hemograma, creatinina e função hepática feitos <strong>48h antes</strong>. Sem necessidade de jejum. Leve os resultados no dia.</div></div>
+      <div class="card"><div class="card-title">2. Alimentação</div><div class="card-body">Esteja bem alimentada com refeições leves. Evite comidas gordurosas, bebidas alcoólicas, carnes cruas, peixes crus. Frutas e verduras bem higienizadas. Evite comer fora. Evite ambientes onde se cozinha feijão e carne (piora náusea).</div></div>
+      <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio. <strong>Meta: 3 litros/dia.</strong> Protege os rins e facilita o acesso venoso.</div></div>
+      <div class="card"><div class="card-title">4. Medicações prévias</div><div class="card-body">Remédios contínuos (pressão, diabetes): tomar normalmente e levar junto. Vacinas somente com autorização médica.</div></div>
+      <div class="card"><div class="card-title">5. Roupas e cuidados pessoais</div><div class="card-body">Roupas folgadas para facilitar acesso ao braço ou cateter. Evite retirar cutículas e espremer cravos (risco de infecção). Cuidado com exposição solar — paclitaxel pode causar hiperpigmentação.</div></div>
+      <div class="card"><div class="card-title">6. Fortalecer as veias</div><div class="card-body">Aperte bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.</div></div>
+      <div class="card"><div class="card-title">7. Evite multidões e locais fechados</div><div class="card-body">Proteja-se de infecções nos dias que antecedem a quimio. Use máscara se necessário. Comunique viagens ao médico. Atenção a pessoas gripadas.</div></div>
+      <div class="card"><div class="card-title">8. Leve companhia</div><div class="card-body">1 acompanhante adulto permitido. Pode ajudar na marcação de próximas medicações e exames.</div></div>
+      <div class="card" style="border-left: 4px solid var(--gold);">
+        <div class="card-title"><i class="ph-fill ph-notebook"></i> Anote no diário</div>
+        <div class="card-body">· Sintomas percebidos com data<br>· Temperatura corporal<br>· Idas ao banheiro e consistência das fezes<br>· Dúvidas para a próxima consulta</div>
+      </div>
+      <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;">
+        <div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
+      </div>
+    </div>
+  </main>
+  <footer>Feito com amor para a Gabi ♥</footer>
+</div>
+
+<script>
+  // INICIALIZAÇÃO FIREBASE COMPAT
+  const firebaseConfig = {
+    apiKey: "AIzaSyBETjcatJhN1TFMSuPepmP3xgcH-wxvN_Y",
+    authDomain: "guia-de-cuidados.firebaseapp.com",
+    projectId: "guia-de-cuidados",
+    storageBucket: "guia-de-cuidados.firebasestorage.app",
+    messagingSenderId: "475243020372",
+    appId: "1:475243020372:web:51a8606712ce0e17352dc1"
+  };
+  
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // TRADUTOR DE ERROS DO FIREBASE
+  function showError(errorCode) {
+    const errDiv = document.getElementById('login-error');
+    let msg = "Ocorreu um erro ao acessar.";
+    
+    if(errorCode === 'auth/invalid-credential' || errorCode === 'auth/wrong-password') msg = "E-mail ou senha incorretos. Tente novamente.";
+    else if(errorCode === 'auth/user-not-found') msg = "Essa conta não existe. Clique em 'Criar nova conta'.";
+    else if(errorCode === 'auth/email-already-in-use') msg = "Este e-mail já possui uma conta! Clique no botão verde 'Entrar'.";
+    else if(errorCode === 'auth/weak-password') msg = "A senha é muito fraca. Digite pelo menos 6 caracteres.";
+    else if(errorCode === 'auth/invalid-email') msg = "Digite um e-mail válido.";
+    else if(errorCode === 'auth/unauthorized-domain') msg = "O GitHub Pages não está liberado no painel do Firebase. Siga o Passo 4 do tutorial.";
+    
+    errDiv.textContent = msg;
+    errDiv.style.display = 'block';
+  }
+
+  // VARIAVEIS
+  let currentUser = null;
+  let isEditing = false;
+  let sessions = [];
+  let dailyLogs = {};
+  let diary = [];
+  let examResults = [];
+
+  const toYMD = (d) => { const tz = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tz).toISOString().split('T')[0]; };
+  const fromYMD = (ymd) => new Date(ymd + 'T12:00:00');
+  const fmtFull = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const fmtShort = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+  const getWeekDay = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3).toLowerCase();
+  const addDaysYMD = (ymd, d) => { const r = fromYMD(ymd); r.setDate(r.getDate() + d); return toYMD(r); };
+  const todayYMD = toYMD(new Date());
+  let currentLogDate = todayYMD;
+
+  // AUTENTICAÇÃO
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = user;
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('app-content').style.display = 'block';
+      loadDataFromCloud();
+    } else {
+      currentUser = null;
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('app-content').style.display = 'none';
     }
   });
-}
 
-function updateDailySym(id) {
-  const v = parseInt(document.getElementById('sel-'+id).value);
-  let log = getDailyLog(currentLogDate);
-  log.syms[id] = v;
-  saveDailyLogs();
-  updateVisualSymState(id, v);
-}
-
-function updateVisualSymState(id, v) {
-  document.getElementById('dot-'+id).style.background = dotC[v];
-  const sym = symsDef.find(s=>s.id===id);
-  const note = document.getElementById('note-'+id);
-  if(v >= 2){
-    note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`;
-    note.style.color = v === 3 ? 'var(--red-intense)' : 'var(--amber)';
-  } else {
-    note.innerHTML = '';
-  }
-  const fv = getDailyLog(currentLogDate).syms['febre'] || 0;
-  document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
-}
-
-
-// --- DIÁRIO TEXTUAL ---
-let diary = JSON.parse(localStorage.getItem('gabi_diary_v5') || '[]');
-
-function renderDiary() {
-  const list = document.getElementById('diary-list');
-  list.innerHTML = '';
-  document.getElementById('d-date').value = todayYMD;
-
-  if(!diary.length) { 
-    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>'; 
-    return; 
-  }
-  [...diary].reverse().forEach((e, ri) => {
-    const realI = diary.length - 1 - ri;
-    const div = document.createElement('div'); div.className = 'diary-entry';
-    div.innerHTML = `
-      <div>
-        <div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div>
-        <div style="font-size: 14px; color: var(--ink); margin-top: 4px;">${e.text}</div>
-      </div>
-      <button class="btn-del" onclick="delDiary(${realI})"><i class="ph-bold ph-trash"></i></button>
-    `;
-    list.appendChild(div);
-  });
-}
-
-function addDiary(){
-  const date = document.getElementById('d-date').value;
-  const text = document.getElementById('d-text').value.trim();
-  if(!date || !text) return;
-  diary.push({date, text});
-  localStorage.setItem('gabi_diary_v5', JSON.stringify(diary));
-  document.getElementById('d-text').value = '';
-  renderDiary();
-}
-
-function delDiary(i){ diary.splice(i,1); localStorage.setItem('gabi_diary_v5', JSON.stringify(diary)); renderDiary(); }
-
-// --- RESULTADOS DOS EXAMES ---
-let examResults = JSON.parse(localStorage.getItem('gabi_exam_results_v1') || '[]');
-
-function renderExamResults() {
-  const list = document.getElementById('exam-results-list');
-  list.innerHTML = '';
-  document.getElementById('e-date').value = todayYMD;
-
-  if(!examResults.length) {
-    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-file-text" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum resultado registrado.</div>'; 
-    return;
+  window.login = function() {
+    const e = document.getElementById('auth-email').value;
+    const p = document.getElementById('auth-password').value;
+    document.getElementById('login-error').style.display = 'none';
+    auth.signInWithEmailAndPassword(e, p).catch(error => showError(error.code));
   }
 
-  [...examResults].reverse().forEach((e, ri) => {
-    const realI = examResults.length - 1 - ri;
-    
-    // Regras de Alerta Visual Simples (Valores genéricos de quimioterapia)
-    const leuAlert = e.leuco && e.leuco < 3000 ? 'alert' : '';
-    const neuAlert = e.neutro && e.neutro < 1500 ? 'alert' : '';
-    const plqAlert = e.plaq && e.plaq < 100000 ? 'alert' : '';
-    const hemAlert = e.hemo && e.hemo < 10 ? 'alert' : '';
-    const creAlert = e.crea && e.crea > 1.2 ? 'alert' : '';
-
-    const div = document.createElement('div');
-    div.className = 'exam-entry';
-    div.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div class="d-tag" style="margin: 0;"><i class="ph-fill ph-calendar-blank"></i> Coleta: ${fmtFull(e.date)}</div>
-        <button class="btn-del" style="width:28px; height:28px; font-size:14px; background: transparent; border: 1px solid var(--border);" onclick="delExamResult(${realI})"><i class="ph-bold ph-trash"></i></button>
-      </div>
-      <div class="exam-val-grid">
-        <div class="exam-val-box ${leuAlert}"><div class="exam-val-t">Leucócitos</div><div class="exam-val-v">${e.leuco || '-'}</div></div>
-        <div class="exam-val-box ${neuAlert}"><div class="exam-val-t">Neutrófilos</div><div class="exam-val-v">${e.neutro || '-'}</div></div>
-        <div class="exam-val-box ${plqAlert}"><div class="exam-val-t">Plaquetas</div><div class="exam-val-v">${e.plaq || '-'}</div></div>
-        <div class="exam-val-box ${hemAlert}"><div class="exam-val-t">Hemoglobina</div><div class="exam-val-v">${e.hemo || '-'}</div></div>
-        <div class="exam-val-box ${creAlert}" style="grid-column: span 2;"><div class="exam-val-t">Creatinina</div><div class="exam-val-v">${e.crea || '-'}</div></div>
-      </div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-function addExamResult() {
-  const date = document.getElementById('e-date').value;
-  const leuco = document.getElementById('e-leuco').value;
-  const neutro = document.getElementById('e-neutro').value;
-  const plaq = document.getElementById('e-plaq').value;
-  const hemo = document.getElementById('e-hemo').value;
-  const crea = document.getElementById('e-crea').value;
-
-  if(!date) { alert("A data da coleta é obrigatória."); return; }
-  if(!leuco && !neutro && !plaq && !hemo && !crea) { alert("Preencha pelo menos um resultado."); return; }
-
-  examResults.push({ date, leuco, neutro, plaq, hemo, crea });
-  localStorage.setItem('gabi_exam_results_v1', JSON.stringify(examResults));
-  
-  document.getElementById('e-leuco').value = '';
-  document.getElementById('e-neutro').value = '';
-  document.getElementById('e-plaq').value = '';
-  document.getElementById('e-hemo').value = '';
-  document.getElementById('e-crea').value = '';
-  
-  renderExamResults();
-}
-
-function delExamResult(i) {
-  if(confirm("Apagar este registro de exame?")) {
-    examResults.splice(i, 1);
-    localStorage.setItem('gabi_exam_results_v1', JSON.stringify(examResults));
-    renderExamResults();
+  window.register = function() {
+    const e = document.getElementById('auth-email').value;
+    const p = document.getElementById('auth-password').value;
+    document.getElementById('login-error').style.display = 'none';
+    if(p.length < 6) { showError('auth/weak-password'); return; }
+    auth.createUserWithEmailAndPassword(e, p).catch(error => showError(error.code));
   }
-}
 
-// --- RELATÓRIO DO DIA (COPIAR PARA WHATSAPP) ---
-function gerarRelatorio() {
-  const log = getDailyLog(currentLogDate);
-  const waterMl = log.water * ML_PER_GLASS;
-  
-  let relatorio = `*Relatório Diário - Gabi*\nData: ${fmtFull(currentLogDate)}\n\n`;
-  relatorio += `💧 *Hidratação:* ${waterMl} ml / 3000 ml\n\n`;
-  
-  relatorio += `📋 *Sintomas:*\n`;
-  symsDef.forEach(s => {
-    const val = log.syms[s.id] || 0;
-    const text = s.opts[val];
-    relatorio += `- ${s.label}: ${text}\n`;
-  });
+  window.logout = function() { auth.signOut(); }
 
-  const diaryEntries = diary.filter(e => e.date === currentLogDate);
-  if(diaryEntries.length > 0) {
-    relatorio += `\n📓 *Diário de Sintomas:*\n`;
-    diaryEntries.forEach(e => {
-      relatorio += `- ${e.text}\n`;
+  // BANCO DE DADOS
+  function generateDefaultSessions() {
+    const arr = [];
+    const START = new Date(2026, 3, 16, 12, 0, 0); // 16/04/2026
+    for(let i=0; i<12; i++) {
+      const d = new Date(START); d.setDate(d.getDate() + (i * 7));
+      arr.push({ id: i, num: i+1, phaseNum: i+1, type: 'BRANCA', phase: 1, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: (i===0) });
+    }
+    const lastWhite = fromYMD(arr[11].date);
+    for(let i=0; i<4; i++) {
+      const d = new Date(lastWhite); d.setDate(d.getDate() + 7 + (i * 21));
+      arr.push({ id: i+12, num: i+13, phaseNum: i+1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false });
+    }
+    return arr;
+  }
+
+  function loadDataFromCloud() {
+    if(!currentUser) return;
+    db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
+      if(docSnap.exists) {
+        const data = docSnap.data();
+        
+        // SEGURANÇA: Se por algum motivo salvou vazio no teste anterior, recria as sessões
+        if (data.sessions && data.sessions.length > 0) {
+            sessions = data.sessions;
+        } else {
+            sessions = generateDefaultSessions();
+        }
+        
+        dailyLogs = data.dailyLogs || {};
+        diary = data.diary || [];
+        examResults = data.examResults || [];
+      } else {
+        sessions = generateDefaultSessions();
+        dailyLogs = {}; diary = []; examResults = [];
+        syncToCloud();
+      }
+      renderAll();
+    }).catch(error => {
+      console.error("Erro ao carregar do Firebase:", error);
+      sessions = generateDefaultSessions();
+      renderAll();
     });
   }
 
-  if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(relatorio).then(() => {
-          alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.");
-      }).catch(err => copyFallback(relatorio));
-  } else {
-      copyFallback(relatorio);
+  function syncToCloud() {
+    if(!currentUser) return;
+    db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, examResults }, { merge: true });
   }
-}
 
-function copyFallback(text) {
-  let textArea = document.createElement("textarea");
-  textArea.value = text;
-  textArea.style.position = "fixed";
-  textArea.style.left = "-999999px";
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-  try {
-      document.execCommand('copy');
-      alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.");
-  } catch (err) {
-      alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela.");
+  // LÓGICA DE INTERFACE
+  window.switchTab = function(n, b){
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+    document.getElementById('tab-'+n).classList.add('active'); b.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
-  textArea.remove();
-}
 
-function switchTab(n, b){
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-  document.getElementById('tab-'+n).classList.add('active'); b.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
+  function renderAll() {
+    renderSessions();
+    buildSymGrid();
+    window.setLogDate(currentLogDate);
+    renderDiary();
+    renderExamResults();
+  }
 
-// --- BOOT ---
-loadSessions();
-buildSymGrid();
-setLogDate(todayYMD);
-renderDiary();
-renderExamResults();
+  // SESSÕES E CALENDÁRIO
+  window.toggleEditMode = function() {
+    isEditing = !isEditing;
+    document.body.classList.toggle('is-editing', isEditing);
+    const btns = [document.getElementById('btn-edit-cal'), document.getElementById('btn-edit-exam')];
+    btns.forEach(b => {
+      if(b){
+        b.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
+        b.style.background = isEditing ? 'var(--ink)' : '';
+        b.style.color = isEditing ? 'white' : '';
+      }
+    });
+  }
+
+  window.updateDate = function(index, val) { if(val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); syncToCloud(); renderSessions(); } }
+  window.updateExam = function(index, val) { if(val) { sessions[index].examDate = val; syncToCloud(); renderSessions(); } }
+  window.toggleDone = function(index) { sessions[index].done = !sessions[index].done; syncToCloud(); renderSessions(); }
+  window.toggleExamDone = function(index) { sessions[index].examDone = !sessions[index].examDone; syncToCloud(); renderSessions(); }
+
+  function renderSessions() {
+    // TRAVA EXTRA: Se as sessões sumirem por algum bug, recria imediatamente
+    if (!sessions || sessions.length === 0) {
+        sessions = generateDefaultSessions();
+    }
+
+    const gW = document.getElementById('grid-white'); 
+    const gR = document.getElementById('grid-red'); 
+    const eG = document.getElementById('exam-grid');
+    
+    gW.innerHTML = ''; 
+    gR.innerHTML = ''; 
+    eG.innerHTML = '';
+    
+    let doneCount = 0; 
+    let nextSessionDate = null; 
+    let endDate = sessions[sessions.length-1].date;
+
+    sessions.forEach((s, i) => {
+      if(s.done) doneCount++;
+      if(!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
+
+      const nadirS = fmtShort(addDaysYMD(s.date,7)); 
+      const nadirE = fmtShort(addDaysYMD(s.date,10));
+      const examHtml = (i === 0) ? '' : `<span class="pill-exam">Exam ${fmtShort(s.examDate)}</span>`;
+      
+      const row = document.createElement('div'); 
+      row.className = `session-card ${s.done ? 'done' : ''}`;
+      row.innerHTML = `
+        <div class="session-left">
+          <div class="session-num">${s.num}</div>
+          <div class="session-info">
+            <div class="session-date">
+               <span class="date-text">${fmtFull(s.date)}</span>
+               <input type="date" class="date-input" value="${s.date}" onchange="updateDate(${i}, this.value)">
+            </div>
+            <div class="session-sub">${getWeekDay(s.date)} - sessão ${s.phaseNum} de ${s.type === 'BRANCA' ? 12 : 4}</div>
+          </div>
+        </div>
+        <div class="session-right">
+          <span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>
+          ${examHtml}
+          <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
+             ${s.done ? '✓ Feito' : 'Pendente'}
+          </button>
+        </div>
+      `;
+      if(s.phase === 1) gW.appendChild(row); else gR.appendChild(row);
+
+      const exRow = document.createElement('div'); 
+      exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
+      exRow.innerHTML = `
+        <div class="exam-info">
+           <div class="exam-date">
+              <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
+              <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
+           </div>
+           <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+        </div>
+        <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
+           ${s.examDone ? '✓ Feito' : 'Pendente'}
+        </button>
+      `;
+      eG.appendChild(exRow);
+    });
+
+    document.getElementById('met-done').textContent = doneCount; 
+    document.getElementById('met-end').textContent = fmtShort(endDate);
+    
+    let nextDaysText = "—";
+    if(nextSessionDate) { 
+        const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000); 
+        nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`); 
+    }
+    document.getElementById('met-next').textContent = nextDaysText;
+    
+    const pct = Math.round((doneCount / 16) * 100); 
+    document.getElementById('prog-val').textContent = pct + '%'; 
+    document.getElementById('prog-fill').style.width = pct + '%';
+  }
+
+  // DIÁRIO E ÁGUA
+  const TOTAL_GLASSES = 15; 
+  const ML_PER_GLASS = 200;
+  const symsDef = [
+    {id:'nausea',label:'NÁUSEA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Ondansetrona + Metoclopramida.'},
+    {id:'vomito',label:'VÔMITO',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se muito frequente, vá ao PS.'},
+    {id:'diarreia',label:'DIARREIA',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Use Loperamida após cada episódio.'},
+    {id:'constipacao',label:'CONSTIPAÇÃO',opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'],alert:'Tome Lactulose.'},
+    {id:'dor',label:'DOR',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Dipirona.'},
+    {id:'fadiga',label:'FADIGA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Descanse.'},
+    {id:'formig',label:'FORMIGAMENTO',opts:['Nenhum','Leve','Moderado','Intenso'],alert:'Avise o médico na consulta.'},
+    {id:'febre',label:'FEBRE',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE ALTA: PS IMEDIATAMENTE!'}
+  ];
+  const dotC = ['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
+
+  function getDailyLog(dateStr) { 
+      if(!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {} }; 
+      return dailyLogs[dateStr]; 
+  }
+  
+  window.shiftLogDate = function(days) { window.setLogDate(addDaysYMD(currentLogDate, days)); }
+  window.setLogDate = function(dateStr) {
+    if(!dateStr) return;
+    currentLogDate = dateStr;
+    document.getElementById('log-date-input').value = currentLogDate;
+    renderDailyWater();
+    renderDailySyms();
+  }
+
+  function renderDailyWater() {
+    const log = getDailyLog(currentLogDate); 
+    const water = log.water; 
+    const cont = document.getElementById('wglasses'); 
+    cont.innerHTML = '';
+    
+    for(let i=0; i<TOTAL_GLASSES; i++) {
+      const g = document.createElement('div'); 
+      g.className = 'wg';
+      g.onclick = () => { 
+          getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1; 
+          syncToCloud(); 
+          renderDailyWater(); 
+      };
+      g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`; 
+      cont.appendChild(g);
+    }
+    document.getElementById('w-ml').textContent = water * ML_PER_GLASS; 
+    document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
+  }
+  
+  window.addDailyWater = function() { 
+      let log = getDailyLog(currentLogDate); 
+      if(log.water < TOTAL_GLASSES) { log.water++; syncToCloud(); renderDailyWater(); } 
+  }
+  window.resetDailyWater = function() { 
+      if(confirm("Zerar hidratação DESTE DIA?")) { getDailyLog(currentLogDate).water = 0; syncToCloud(); renderDailyWater(); } 
+  }
+
+  function buildSymGrid() {
+    const sg = document.getElementById('sym-grid'); 
+    sg.innerHTML = '';
+    symsDef.forEach(s => {
+      const c = document.createElement('div'); 
+      c.className = 'sym-card';
+      c.innerHTML = `
+        <div class="sym-label">${s.label}</div>
+        <div class="sym-row">
+          <span class="sym-dot" id="dot-${s.id}"></span>
+          <select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">
+            ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
+          </select>
+        </div>
+        <div class="sym-note" id="note-${s.id}"></div>
+      `;
+      sg.appendChild(c);
+    });
+  }
+  
+  function renderDailySyms() {
+    const log = getDailyLog(currentLogDate);
+    symsDef.forEach(s => { 
+        const val = log.syms[s.id] || 0; 
+        const sel = document.getElementById('sel-'+s.id); 
+        if(sel) { sel.value = val; updateVisualSymState(s.id, val); } 
+    });
+  }
+  
+  window.updateDailySym = function(id) { 
+      const v = parseInt(document.getElementById('sel-'+id).value); 
+      getDailyLog(currentLogDate).syms[id] = v; 
+      syncToCloud(); 
+      updateVisualSymState(id, v); 
+  }
+  
+  function updateVisualSymState(id, v) {
+    document.getElementById('dot-'+id).style.background = dotC[v]; 
+    const sym = symsDef.find(s=>s.id===id); 
+    const note = document.getElementById('note-'+id);
+    if(v >= 2){ 
+        note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`; 
+        note.style.color = v === 3 ? 'var(--red-intense)' : 'var(--amber)'; 
+    } else { 
+        note.innerHTML = ''; 
+    }
+    const fv = getDailyLog(currentLogDate).syms['febre'] || 0; 
+    document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
+  }
+
+  function renderDiary() {
+    const list = document.getElementById('diary-list'); 
+    list.innerHTML = ''; 
+    document.getElementById('d-date').value = todayYMD;
+    
+    if(!diary.length) { 
+        list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>'; 
+        return; 
+    }
+    [...diary].reverse().forEach((e, ri) => {
+      const realI = diary.length - 1 - ri;
+      const div = document.createElement('div'); 
+      div.className = 'diary-entry';
+      div.innerHTML = `
+        <div>
+          <div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div>
+          <div style="font-size: 14px; color: var(--ink); margin-top: 4px;">${e.text}</div>
+        </div>
+        <button class="btn-del" onclick="delDiary(${realI})"><i class="ph-bold ph-trash"></i></button>
+      `;
+      list.appendChild(div);
+    });
+  }
+  
+  window.addDiary = function(){
+    const date = document.getElementById('d-date').value; 
+    const text = document.getElementById('d-text').value.trim();
+    if(!date || !text) return; 
+    diary.push({date, text}); 
+    syncToCloud(); 
+    document.getElementById('d-text').value = ''; 
+    renderDiary();
+  }
+  window.delDiary = function(i){ diary.splice(i,1); syncToCloud(); renderDiary(); }
+
+  // EXAMES
+  function renderExamResults() {
+    const list = document.getElementById('exam-results-list'); 
+    list.innerHTML = ''; 
+    document.getElementById('e-date').value = todayYMD;
+    if(!examResults.length) { 
+        list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-file-text" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum resultado registrado.</div>'; 
+        return; 
+    }
+    
+    [...examResults].reverse().forEach((e, ri) => {
+      const realI = examResults.length - 1 - ri;
+      const leuAlert = e.leuco && e.leuco < 3000 ? 'alert' : ''; 
+      const neuAlert = e.neutro && e.neutro < 1500 ? 'alert' : ''; 
+      const plqAlert = e.plaq && e.plaq < 100000 ? 'alert' : ''; 
+      const hemAlert = e.hemo && e.hemo < 10 ? 'alert' : ''; 
+      const creAlert = e.crea && e.crea > 1.2 ? 'alert' : '';
+      
+      const div = document.createElement('div'); 
+      div.className = 'exam-entry';
+      div.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div class="d-tag" style="margin: 0;"><i class="ph-fill ph-calendar-blank"></i> Coleta: ${fmtFull(e.date)}</div>
+          <button class="btn-del" style="width:28px; height:28px; font-size:14px; background: transparent; border: 1px solid var(--border);" onclick="delExamResult(${realI})"><i class="ph-bold ph-trash"></i></button>
+        </div>
+        <div class="exam-val-grid">
+          <div class="exam-val-box ${leuAlert}"><div class="exam-val-t">Leucócitos</div><div class="exam-val-v">${e.leuco || '-'}</div></div>
+          <div class="exam-val-box ${neuAlert}"><div class="exam-val-t">Neutrófilos</div><div class="exam-val-v">${e.neutro || '-'}</div></div>
+          <div class="exam-val-box ${plqAlert}"><div class="exam-val-t">Plaquetas</div><div class="exam-val-v">${e.plaq || '-'}</div></div>
+          <div class="exam-val-box ${hemAlert}"><div class="exam-val-t">Hemoglobina</div><div class="exam-val-v">${e.hemo || '-'}</div></div>
+          <div class="exam-val-box ${creAlert}" style="grid-column: span 2;"><div class="exam-val-t">Creatinina</div><div class="exam-val-v">${e.crea || '-'}</div></div>
+        </div>
+      `;
+      list.appendChild(div);
+    });
+  }
+  
+  window.addExamResult = function() {
+    const date = document.getElementById('e-date').value; 
+    const leuco = document.getElementById('e-leuco').value; 
+    const neutro = document.getElementById('e-neutro').value; 
+    const plaq = document.getElementById('e-plaq').value; 
+    const hemo = document.getElementById('e-hemo').value; 
+    const crea = document.getElementById('e-crea').value;
+    
+    if(!date) { alert("A data da coleta é obrigatória."); return; } 
+    if(!leuco && !neutro && !plaq && !hemo && !crea) { alert("Preencha pelo menos um resultado."); return; }
+    
+    examResults.push({ date, leuco, neutro, plaq, hemo, crea }); 
+    syncToCloud();
+    
+    ['leuco','neutro','plaq','hemo','crea'].forEach(id => document.getElementById('e-'+id).value = ''); 
+    renderExamResults();
+  }
+  window.delExamResult = function(i) { 
+      if(confirm("Apagar este registro de exame?")) { examResults.splice(i, 1); syncToCloud(); renderExamResults(); } 
+  }
+
+  // RELATÓRIO
+  window.gerarRelatorio = function() {
+    const log = getDailyLog(currentLogDate); 
+    const waterMl = log.water * ML_PER_GLASS;
+    
+    let r = `*Relatório Diário - Gabi*\nData: ${fmtFull(currentLogDate)}\n\n💧 *Hidratação:* ${waterMl} ml / 3000 ml\n\n📋 *Sintomas:*\n`;
+    symsDef.forEach(s => { r += `- ${s.label}: ${s.opts[log.syms[s.id] || 0]}\n`; });
+    
+    const dE = diary.filter(e => e.date === currentLogDate);
+    if(dE.length > 0) { 
+        r += `\n📓 *Diário de Sintomas:*\n`; 
+        dE.forEach(e => { r += `- ${e.text}\n`; }); 
+    }
+    if (navigator.clipboard && window.isSecureContext) { 
+        navigator.clipboard.writeText(r).then(() => alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.")).catch(err => copyFallback(r)); 
+    } else { 
+        copyFallback(r); 
+    }
+  }
+  
+  function copyFallback(text) { 
+      let ta = document.createElement("textarea"); 
+      ta.value = text; ta.style.position = "fixed"; ta.style.left = "-999999px"; 
+      document.body.appendChild(ta); ta.focus(); ta.select(); 
+      try { 
+          document.execCommand('copy'); 
+          alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico."); 
+      } catch (err) { 
+          alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela."); 
+      } 
+      ta.remove(); 
+  }
 </script>
 </body>
 </html>
