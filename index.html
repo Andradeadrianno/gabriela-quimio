@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -86,73 +85,78 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .tab-pane.active { display:block; }
 @keyframes fadein { to { opacity:1; transform:none; } }
 
-/* TYPOGRAPHY */
+/* TYPOGRAPHY & GENERAL */
 .sec-title { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:600; color:var(--ink); margin-bottom:1.2rem; display: flex; align-items: center; gap: 8px; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .sec-title-left { display: flex; align-items: center; gap: 8px; }
 .btn-edit { background: var(--sage-bg); border: 1px solid var(--sage-light); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--sage-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s; }
 .date-input { font-family: 'Inter'; font-size: 14px; font-weight: 700; color: var(--ink); border: 1px solid var(--sage-light); border-radius: 6px; padding: 4px 8px; background: var(--surface); display: none; outline: none; }
 .is-editing .date-input { display: inline-block; }
 .is-editing .date-text { display: none; }
+.info-box { background:var(--sage-bg); border:1px solid var(--border-focus); border-left:4px solid var(--sage-dark); border-radius:var(--radius-sm); padding:16px; font-size:13px; color:var(--ink2); line-height:1.6; margin-bottom: 1.5rem; display: flex; gap: 10px; }
 
-/* CALENDÁRIO: MÉTRICAS */
-.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; }
-.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px 10px; text-align: center; box-shadow: var(--shadow-sm); }
-.metric-val { font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
-.metric-lbl { font-size: 12px; font-weight: 500; color: var(--ink3); }
+/* TIMELINE (CALENDÁRIO E EXAMES) */
+.timeline { position: relative; padding-left: 20px; margin-bottom: 2rem; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 15px; bottom: 15px; width: 2px; background: var(--sage-bg); }
+.chemo-row { position: relative; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); display:flex; flex-direction: column; gap:8px; padding:16px; margin-bottom:12px; transition:all 0.2s; box-shadow: var(--shadow-sm); margin-left: 15px; }
+.chemo-row::before { content: ''; position: absolute; left: -36px; top: 50%; transform: translateY(-50%); width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--sage-light); z-index: 2; transition: all 0.3s; }
+.white-phase { border-left: 4px solid #E0E0E0; }
+.white-phase::before { border-color: #BDBDBD; }
+.red-phase { border-left: 4px solid var(--red-intense); }
+.red-phase::before { border-color: var(--red-intense); }
+.chemo-row.done { opacity: 0.65; background: #FAFAFA; }
+.chemo-row.done::before { background: var(--sage-dark); border-color: var(--sage-dark); }
+.chemo-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.chemo-date-wrap { display: flex; flex-direction: column; gap: 2px; }
+.chemo-date { font-size:15px; font-weight:700; color:var(--ink); display: flex; align-items: center; gap: 6px; }
+.chemo-sub { font-size:12px; color:var(--ink3); }
+.check-done-wrap { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--sage-dark); background: var(--sage-bg); padding: 4px 10px; border-radius: 20px; cursor: pointer; border: 1px solid var(--border-focus); transition: all 0.2s; }
+.check-done-wrap input { width: 16px; height: 16px; accent-color: var(--sage-dark); cursor: pointer; }
 
-/* CALENDÁRIO: SESSÕES (CARD STYLE) */
-.session-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: var(--shadow-sm); transition: all 0.2s; }
-.session-left { display: flex; align-items: center; gap: 14px; }
-.session-num { width: 32px; height: 32px; border-radius: 50%; background: var(--sage-bg); color: var(--sage-dark); font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; }
-.session-info { display: flex; flex-direction: column; }
-.session-date { font-size: 15px; font-weight: 700; color: var(--ink); }
-.session-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
-.session-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+/* PÍLULAS E BADGES */
+.pill-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.pill { font-size:11px; font-weight:600; padding:4px 10px; border-radius:20px; white-space:nowrap; display: flex; align-items: center; gap: 4px; text-transform: uppercase; }
+.pill-red { background:var(--red-bg); color:var(--red-intense); }
+.pill-white { background:#F5F5F5; color:#666; border: 1px solid #E0E0E0; }
+.pill-exam { background:var(--sage-bg); color:var(--sage-dark); }
+.pill-nadir { background:var(--amber-bg); color:var(--amber); border: 1px solid rgba(201, 130, 43, 0.3); }
+.pill-done-badge { background:#EAF5EA; color:#2A6A2A; text-decoration:line-through; }
 
-/* PÍLULAS */
-.pill-nadir { background: var(--red-bg); color: var(--red-intense); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
-.pill-toggle { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; outline: none; }
-.pill-pending { background: #F5F5F5; color: #888; border-color: #E0E0E0; }
-.pill-done { background: #EAF5EA; color: #2A6A2A; text-decoration: line-through; border-color: transparent; }
-
-.session-card.done { background: #FAFAFA; opacity: 0.8; }
-.session-card.done .session-num { background: #EAF5EA; color: #2A6A2A; }
-.session-card.done .session-date { color: var(--ink2); }
-
-/* EXAMES */
-.exam-row { background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--sage-light); border-radius:var(--radius-sm); display:flex; align-items: center; justify-content: space-between; gap:12px; padding:16px; margin-bottom:10px; box-shadow: var(--shadow-sm); }
-.exam-row.done { opacity: 0.7; background: #FAFAFA; border-left-color: var(--sage-dark); }
-.exam-info { display: flex; flex-direction: column; gap: 2px; }
-.exam-date { font-size:15px; font-weight:700; color:var(--ink); }
-.exam-sub { font-size:12px; color:var(--ink3); }
-
-/* CARDS GERAIS */
-.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow: var(--shadow-sm); }
-.card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px; }
-.card-title { font-size:15px; font-weight:700; color:var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
-.card-title i { font-size: 18px; color: var(--sage-dark); }
-.card-body { font-size:13.5px; color:var(--ink2); line-height:1.6; }
-.med-dose { font-size:12px; font-weight:700; background:var(--sage-bg); color:var(--sage-dark); padding:4px 12px; border-radius:20px; flex-shrink:0; }
 .badge { display:inline-flex; font-size:11px; font-weight:700; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-top:10px; }
 .badge-purple { background:#F0EEFA; color:#5A3A9A; }
 .badge-amber { background:var(--amber-bg); color:var(--amber); }
 .badge-green { background:#EAF5EA; color:#2A6A2A; }
 .badge-red { background:var(--red-bg); color:var(--red-intense); }
 
+/* CARDS */
+.card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-bottom:12px; box-shadow: var(--shadow-sm); }
+.card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:8px; }
+.card-title { font-size:14px; font-weight:700; color:var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.card-title i { font-size: 18px; color: var(--sage-dark); }
+.card-body { font-size:13.5px; color:var(--ink2); line-height:1.6; }
+.med-dose { font-size:12px; font-weight:700; background:var(--sage-bg); color:var(--sage-dark); padding:4px 12px; border-radius:20px; flex-shrink:0; }
+
+/* HOSPITAL SPECIFIC */
 .hosp-emergency { border-left: 4px solid var(--red-intense); background: var(--red-bg); }
 .hosp-option { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--red-intense); margin-bottom: 4px; display: block; }
-.info-box { background:var(--sage-bg); border:1px solid var(--border-focus); border-left:4px solid var(--sage-dark); border-radius:var(--radius-sm); padding:16px; font-size:13px; color:var(--ink2); line-height:1.6; margin-bottom: 1.5rem; display: flex; gap: 10px; }
 
-/* WATER TRACKER */
+/* NAVEGAÇÃO DE DATAS NO DIÁRIO */
+.date-nav { display: flex; align-items: center; justify-content: space-between; background: var(--surface); padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 2rem; }
+.date-nav-btn { background: var(--sage-bg); border: none; width: 36px; height: 36px; border-radius: 50%; color: var(--sage-dark); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: 0.2s; flex-shrink: 0; }
+.date-nav-btn:hover { background: var(--sage-light); }
+.date-nav-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.date-nav-lbl { font-size: 11px; font-weight: 700; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.date-nav-input { font-family: 'Inter'; font-size: 16px; font-weight: 700; color: var(--ink); border: none; background: transparent; outline: none; text-align: center; cursor: pointer; }
+
+/* WATER TRACKER DIÁRIO */
 .water-wrap { background:linear-gradient(135deg, #F0F7F4 0%, #E0EFE8 100%); border-radius:var(--radius); padding:24px; text-align:center; box-shadow: var(--shadow-sm); margin-bottom: 2rem; border: 1px solid var(--sage-light); }
-.water-glasses-row { display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom: 16px; }
+.water-glasses-row { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin: 0 auto 16px; max-width: 290px; }
 .wg { width: 22px; height: 32px; border: 2px solid rgba(61,107,86,0.25); border-radius: 2px 2px 6px 6px; position: relative; cursor: pointer; overflow: hidden; background: rgba(255,255,255,0.6); transition: transform 0.2s; }
 .wg:hover { transform: scale(1.1); border-color: var(--sage-dark); }
 .wg-fill { position:absolute; bottom:0; left:0; right:0; background: var(--sage-dark); transition: height 0.3s ease; }
 .water-bar-track { background:rgba(122, 171, 150, 0.2); border-radius:20px; height:10px; overflow:hidden; margin:12px 0; }
 .water-bar-fill { height:100%; background:linear-gradient(90deg, var(--sage-light), var(--sage-dark)); border-radius:20px; transition:width 0.5s ease; }
 
-/* SYMPTOM GRID (DROPDOWNS) */
+/* SYMPTOM GRID (DROPDOWNS) DIÁRIO */
 .sym-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom: 1.5rem; }
 .sym-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; box-shadow: var(--shadow-sm); }
 .sym-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink3); margin-bottom:8px; }
@@ -180,8 +184,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   .tab-btn i { font-size: 28px; }
   .sec-title { flex-direction: column; align-items: flex-start; gap: 12px; }
   .btn-edit { align-self: flex-start; }
-  .session-card { flex-direction: column; align-items: flex-start; }
-  .session-right { width: 100%; justify-content: flex-start; margin-left: 46px; }
   .sym-grid { grid-template-columns: 1fr; }
   .diary-row { flex-direction:column; }
   .d-date { width:100%; }
@@ -272,6 +274,15 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 
   <div id="tab-sintomas" class="tab-pane">
     
+    <div class="date-nav">
+      <button class="date-nav-btn" onclick="shiftLogDate(-1)"><i class="ph-bold ph-caret-left"></i></button>
+      <div class="date-nav-center">
+        <span class="date-nav-lbl">Registro do Dia</span>
+        <input type="date" id="log-date-input" class="date-nav-input" onchange="setLogDate(this.value)">
+      </div>
+      <button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button>
+    </div>
+
     <div class="sec-title"><i class="ph-fill ph-drop"></i> Hidratação Diária (Meta: 3L)</div>
     <div class="water-wrap">
       <div class="water-glasses-row" id="wglasses"></div>
@@ -279,8 +290,8 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
       <div id="w-msg" style="margin-bottom: 12px; font-weight: 600; color: var(--sage-dark);">Vamos começar! 💪</div>
       <div style="display: flex; gap: 8px; justify-content: center;">
-        <button class="btn-edit" style="background: var(--ink); color: white; padding: 10px 20px;" onclick="addWater()">+ 1 Copo (200ml)</button>
-        <button class="btn-edit" style="padding: 10px 20px;" onclick="resetWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button>
+        <button class="btn-edit" style="background: var(--ink); color: white; padding: 10px 20px;" onclick="addDailyWater()">+ 1 Copo (200ml)</button>
+        <button class="btn-edit" style="padding: 10px 20px;" onclick="resetDailyWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button>
       </div>
     </div>
 
@@ -369,11 +380,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 <footer>Feito com amor para a Gabi ♥</footer>
 
 <script>
-// --- DATAS E SESSÕES ---
-const STORAGE_KEY = 'gabi_quimio_final_v5';
-let isEditing = false;
-let sessions = [];
-
+// --- HELPERS GERAIS ---
 const toYMD = (d) => { const tz = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tz).toISOString().split('T')[0]; };
 const fromYMD = (ymd) => new Date(ymd + 'T12:00:00');
 const fmtFull = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
@@ -381,6 +388,11 @@ const fmtShort = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{day:'2-digit'
 const getWeekDay = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3).toLowerCase();
 const addDaysYMD = (ymd, d) => { const r = fromYMD(ymd); r.setDate(r.getDate() + d); return toYMD(r); };
 const todayYMD = toYMD(new Date());
+
+// --- CALENDÁRIO E SESSÕES ---
+const SESSIONS_KEY = 'gabi_quimio_final_v5';
+let isEditing = false;
+let sessions = [];
 
 function generateDefaultSessions() {
   const arr = [];
@@ -398,12 +410,12 @@ function generateDefaultSessions() {
 }
 
 function loadSessions() {
-  const saved = localStorage.getItem(STORAGE_KEY);
+  const saved = localStorage.getItem(SESSIONS_KEY);
   sessions = saved ? JSON.parse(saved) : generateDefaultSessions();
-  renderUI();
+  renderSessions();
 }
 
-function saveSessions() { localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions)); }
+function saveSessions() { localStorage.setItem(SESSIONS_KEY, JSON.stringify(sessions)); }
 
 function toggleEditMode() {
   isEditing = !isEditing;
@@ -418,12 +430,12 @@ function toggleEditMode() {
   });
 }
 
-function updateDate(index, val) { if(val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); saveSessions(); renderUI(); } }
-function updateExam(index, val) { if(val) { sessions[index].examDate = val; saveSessions(); renderUI(); } }
-function toggleDone(index) { sessions[index].done = !sessions[index].done; saveSessions(); renderUI(); }
-function toggleExamDone(index) { sessions[index].examDone = !sessions[index].examDone; saveSessions(); renderUI(); }
+function updateDate(index, val) { if(val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); saveSessions(); renderSessions(); } }
+function updateExam(index, val) { if(val) { sessions[index].examDate = val; saveSessions(); renderSessions(); } }
+function toggleDone(index) { sessions[index].done = !sessions[index].done; saveSessions(); renderSessions(); }
+function toggleExamDone(index) { sessions[index].examDone = !sessions[index].examDone; saveSessions(); renderSessions(); }
 
-function renderUI() {
+function renderSessions() {
   const gW = document.getElementById('grid-white'); const gR = document.getElementById('grid-red'); const eG = document.getElementById('exam-grid');
   gW.innerHTML = ''; gR.innerHTML = ''; eG.innerHTML = '';
   
@@ -433,15 +445,11 @@ function renderUI() {
 
   sessions.forEach((s, i) => {
     if(s.done) doneCount++;
-    
-    if(!s.done && !nextSessionDate && s.date >= todayYMD) {
-       nextSessionDate = s.date;
-    }
+    if(!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
 
     const nadirS = fmtShort(addDaysYMD(s.date,7));
     const nadirE = fmtShort(addDaysYMD(s.date,10));
     
-    // CARD DE SESSÃO NOVO ESTILO
     const row = document.createElement('div');
     row.className = `session-card ${s.done ? 'done' : ''}`;
     row.innerHTML = `
@@ -457,14 +465,11 @@ function renderUI() {
       </div>
       <div class="session-right">
         <span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>
-        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
-           ${s.done ? '✓ Feito' : 'Pendente'}
-        </button>
+        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">${s.done ? '✓ Feito' : 'Pendente'}</button>
       </div>
     `;
     if(s.phase === 1) gW.appendChild(row); else gR.appendChild(row);
 
-    // CARD DE EXAMES
     const exRow = document.createElement('div');
     exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
     exRow.innerHTML = `
@@ -475,14 +480,11 @@ function renderUI() {
          </div>
          <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
       </div>
-      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
-         ${s.examDone ? '✓ Feito' : 'Pendente'}
-      </button>
+      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">${s.examDone ? '✓ Feito' : 'Pendente'}</button>
     `;
     eG.appendChild(exRow);
   });
 
-  // ATUALIZA MÉTRICAS
   document.getElementById('met-done').textContent = doneCount;
   document.getElementById('met-end').textContent = fmtShort(endDate);
   
@@ -499,41 +501,16 @@ function renderUI() {
   document.getElementById('prog-fill').style.width = pct + '%';
 }
 
-function switchTab(n, b){
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-  document.getElementById('tab-'+n).classList.add('active'); b.classList.add('active');
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
 
-// --- HIDRATAÇÃO ---
+// --- LÓGICA DIÁRIA (SINTOMAS E ÁGUA SALVOS POR DATA) ---
+const LOGS_KEY = 'gabi_daily_logs_v1';
+let currentLogDate = todayYMD;
+let dailyLogs = JSON.parse(localStorage.getItem(LOGS_KEY) || '{}');
+
 const TOTAL_GLASSES = 15;
 const ML_PER_GLASS = 200;
-let water = parseInt(localStorage.getItem('gabi_water_v3') || '0');
 
-function renderWater() {
-  const cont = document.getElementById('wglasses'); cont.innerHTML = '';
-  for(let i=0; i<TOTAL_GLASSES; i++) {
-    const g = document.createElement('div'); g.className = 'wg';
-    g.onclick = () => { water = (i + 1 === water) ? i : i + 1; saveWater(); };
-    g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`;
-    cont.appendChild(g);
-  }
-  document.getElementById('w-ml').textContent = water * ML_PER_GLASS;
-  const p = (water / TOTAL_GLASSES) * 100;
-  document.getElementById('w-bar').style.width = p + '%';
-  const m = document.getElementById('w-msg');
-  if(water === 0) m.innerHTML = '<i class="ph-fill ph-star"></i> Vamos começar!';
-  else if(water < 8) m.innerHTML = '<i class="ph-fill ph-drop"></i> Hidrate-se para proteger as veias e os rins!';
-  else if(water < 15) m.innerHTML = '<i class="ph-fill ph-thumbs-up"></i> Quase lá, falta pouco!';
-  else m.innerHTML = '<i class="ph-fill ph-trophy"></i> Meta atingida! Perfeito! 🎉';
-}
-function addWater() { if(water < TOTAL_GLASSES) { water++; saveWater(); } }
-function resetWater() { if(confirm("Zerar hidratação do dia?")) { water = 0; saveWater(); } }
-function saveWater() { localStorage.setItem('gabi_water_v3', water); renderWater(); }
-
-// --- SINTOMAS (MENU SUSPENSO EM GRADE) ---
-const syms = [
+const symsDef = [
   {id:'nausea',label:'NÁUSEA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Ondansetrona + Metoclopramida.'},
   {id:'vomito',label:'VÔMITO',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se muito frequente, vá ao PS.'},
   {id:'diarreia',label:'DIARREIA',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Use Loperamida após cada episódio.'},
@@ -544,25 +521,113 @@ const syms = [
   {id:'febre',label:'FEBRE',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE ALTA: PS IMEDIATAMENTE!'}
 ];
 const dotC = ['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
-const sg = document.getElementById('sym-grid');
-syms.forEach(s=>{
-  const c = document.createElement('div'); c.className = 'sym-card';
-  c.innerHTML = `
-    <div class="sym-label">${s.label}</div>
-    <div class="sym-row">
-      <span class="sym-dot" id="dot-${s.id}" style="background:${dotC[0]}"></span>
-      <select class="sym-sel" id="sel-${s.id}" onchange="updSym('${s.id}')">
-        ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
-      </select>
-    </div>
-    <div class="sym-note" id="note-${s.id}"></div>
-  `;
-  sg.appendChild(c);
-});
-function updSym(id){
+
+function getDailyLog(dateStr) {
+  if(!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {} };
+  return dailyLogs[dateStr];
+}
+
+function saveDailyLogs() {
+  localStorage.setItem(LOGS_KEY, JSON.stringify(dailyLogs));
+}
+
+function shiftLogDate(days) {
+  setLogDate(addDaysYMD(currentLogDate, days));
+}
+
+function setLogDate(dateStr) {
+  if(!dateStr) return;
+  currentLogDate = dateStr;
+  document.getElementById('log-date-input').value = currentLogDate;
+  renderDailyWater();
+  renderDailySyms();
+}
+
+// Renderiza a Água Baseado no Dia Selecionado
+function renderDailyWater() {
+  const log = getDailyLog(currentLogDate);
+  const water = log.water;
+  const cont = document.getElementById('wglasses'); 
+  cont.innerHTML = '';
+  
+  for(let i=0; i<TOTAL_GLASSES; i++) {
+    const g = document.createElement('div'); 
+    g.className = 'wg';
+    g.onclick = () => { 
+      let dayLog = getDailyLog(currentLogDate);
+      dayLog.water = (i + 1 === dayLog.water) ? i : i + 1; 
+      saveDailyLogs();
+      renderDailyWater();
+    };
+    g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`;
+    cont.appendChild(g);
+  }
+  
+  document.getElementById('w-ml').textContent = water * ML_PER_GLASS;
+  document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
+  
+  const m = document.getElementById('w-msg');
+  if(water === 0) m.innerHTML = '<i class="ph-fill ph-star"></i> Vamos começar!';
+  else if(water < 8) m.innerHTML = '<i class="ph-fill ph-drop"></i> Hidrate-se para proteger as veias e os rins!';
+  else if(water < 15) m.innerHTML = '<i class="ph-fill ph-thumbs-up"></i> Quase lá, falta pouco!';
+  else m.innerHTML = '<i class="ph-fill ph-trophy"></i> Meta atingida! Perfeito! 🎉';
+}
+
+function addDailyWater() {
+  let log = getDailyLog(currentLogDate);
+  if(log.water < TOTAL_GLASSES) { log.water++; saveDailyLogs(); renderDailyWater(); }
+}
+function resetDailyWater() {
+  if(confirm("Zerar hidratação DESTE DIA?")) { 
+    getDailyLog(currentLogDate).water = 0; 
+    saveDailyLogs(); 
+    renderDailyWater(); 
+  }
+}
+
+// Constroi a grade de sintomas apena 1x
+function buildSymGrid() {
+  const sg = document.getElementById('sym-grid');
+  symsDef.forEach(s => {
+    const c = document.createElement('div'); c.className = 'sym-card';
+    c.innerHTML = `
+      <div class="sym-label">${s.label}</div>
+      <div class="sym-row">
+        <span class="sym-dot" id="dot-${s.id}"></span>
+        <select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">
+          ${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="sym-note" id="note-${s.id}"></div>
+    `;
+    sg.appendChild(c);
+  });
+}
+
+// Renderiza visualmente os sintomas de acordo com o Dia Selecionado
+function renderDailySyms() {
+  const log = getDailyLog(currentLogDate);
+  symsDef.forEach(s => {
+    const val = log.syms[s.id] || 0;
+    const sel = document.getElementById('sel-'+s.id);
+    if(sel) {
+      sel.value = val;
+      updateVisualSymState(s.id, val);
+    }
+  });
+}
+
+function updateDailySym(id) {
   const v = parseInt(document.getElementById('sel-'+id).value);
+  let log = getDailyLog(currentLogDate);
+  log.syms[id] = v;
+  saveDailyLogs();
+  updateVisualSymState(id, v);
+}
+
+function updateVisualSymState(id, v) {
   document.getElementById('dot-'+id).style.background = dotC[v];
-  const sym = syms.find(s=>s.id===id);
+  const sym = symsDef.find(s=>s.id===id);
   const note = document.getElementById('note-'+id);
   if(v >= 2){
     note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`;
@@ -570,13 +635,14 @@ function updSym(id){
   } else {
     note.innerHTML = '';
   }
-  const fv = parseInt(document.getElementById('sel-febre').value || 0);
+  const fv = getDailyLog(currentLogDate).syms['febre'] || 0;
   document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
 }
 
-// --- DIÁRIO DE SINTOMAS ---
+
+// --- DIÁRIO TEXTUAL ---
 const dd = document.getElementById('d-date');
-if(dd) dd.value = toYMD(new Date());
+if(dd) dd.value = todayYMD;
 let diary = JSON.parse(localStorage.getItem('gabi_diary_v4') || '[]');
 
 function renderDiary() {
@@ -599,6 +665,7 @@ function renderDiary() {
     list.appendChild(div);
   });
 }
+
 function addDiary(){
   const date = document.getElementById('d-date').value;
   const text = document.getElementById('d-text').value.trim();
@@ -608,10 +675,20 @@ function addDiary(){
   document.getElementById('d-text').value = '';
   renderDiary();
 }
+
 function delDiary(i){ diary.splice(i,1); localStorage.setItem('gabi_diary_v4', JSON.stringify(diary)); renderDiary(); }
 
+function switchTab(n, b){
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active'); b.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// --- BOOT ---
 loadSessions();
-renderWater();
+buildSymGrid();
+setLogDate(todayYMD); // Carrega a água e sintomas do dia de hoje
 renderDiary();
 </script>
 </body>
