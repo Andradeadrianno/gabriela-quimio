@@ -712,25 +712,37 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   }
 
   function renderDailyWater() {
-    const log = getDailyLog(currentLogDate); 
-    const water = log.water; 
-    const cont = document.getElementById('wglasses'); 
-    cont.innerHTML = '';
-    
-    for(let i=0; i<TOTAL_GLASSES; i++) {
-      const g = document.createElement('div'); 
-      g.className = 'wg';
-      g.onclick = () => { 
-          getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1; 
-          syncToCloud(); 
-          renderDailyWater(); 
-      };
-      g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`; 
-      cont.appendChild(g);
-    }
-    document.getElementById('w-ml').textContent = water * ML_PER_GLASS; 
-    document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
+  const log = getDailyLog(currentLogDate); 
+  const water = log.water; 
+  const cont = document.getElementById('wglasses'); 
+  cont.innerHTML = '';
+  
+  for(let i=0; i<TOTAL_GLASSES; i++) {
+    const g = document.createElement('div'); 
+    g.className = 'wg';
+    g.onclick = () => { 
+        getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1; 
+        syncToCloud(); 
+        renderDailyWater(); 
+    };
+    g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`; 
+    cont.appendChild(g);
   }
+
+  const totalMl = water * ML_PER_GLASS;
+  document.getElementById('w-ml').textContent = totalMl; 
+  document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
+
+  // LÓGICA DA FRASE DINÂMICA
+  const msgElement = document.getElementById('w-msg');
+  if (totalMl === 0) {
+    msgElement.textContent = "Vamos começar! 💪";
+  } else if (totalMl < 3000) {
+    msgElement.textContent = "Continue assim, Gabi! 💧";
+  } else {
+    msgElement.textContent = "Meta batida! Hidratação concluída! 🎉";
+  }
+}
   
   window.addDailyWater = function() { 
       let log = getDailyLog(currentLogDate); 
