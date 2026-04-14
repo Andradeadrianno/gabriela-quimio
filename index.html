@@ -564,16 +564,16 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
           <input type="date" id="e-date" class="exam-input">
         </div>
         <div class="exam-input-grid">
-          <div><label class="exam-label">Leucócitos (/µL)</label><input type="number" id="e-leuco" class="exam-input" placeholder="Ex: 4500"></div>
-          <div><label class="exam-label">Neutrófilos (/µL)</label><input type="number" id="e-neutro" class="exam-input" placeholder="Ex: 2100"></div>
-          <div><label class="exam-label">Linfócitos (/µL)</label><input type="number" id="e-linfo" class="exam-input" placeholder="Ex: 1800"></div>
-          <div><label class="exam-label">Plaquetas (/µL)</label><input type="number" id="e-plaq" class="exam-input" placeholder="Ex: 250000"></div>
-          <div><label class="exam-label">Hemoglobina (g/dL)</label><input type="number" id="e-hemo" class="exam-input" placeholder="Ex: 12.5" step="0.1"></div>
-          <div><label class="exam-label">Hematócrito (%)</label><input type="number" id="e-hema" class="exam-input" placeholder="Ex: 38" step="0.1"></div>
-          <div><label class="exam-label">Monócitos (/µL)</label><input type="number" id="e-mono" class="exam-input" placeholder="Ex: 560"></div>
-          <div><label class="exam-label">Eosinófilos (/µL)</label><input type="number" id="e-eosino" class="exam-input" placeholder="Ex: 50"></div>
-          <div style="grid-column: span 2;"><label class="exam-label">Basófilos (/µL)</label><input type="number" id="e-baso" class="exam-input" placeholder="Ex: 40"></div>
-          <div style="grid-column: span 2;"><label class="exam-label">Creatinina (mg/dL)</label><input type="number" id="e-crea" class="exam-input" placeholder="Ex: 0.8" step="0.01"></div>
+          <div><label class="exam-label">Leucócitos (Mil/mm³)</label><input type="text" id="e-leuco" class="exam-input" placeholder="Ex: 8,13" inputmode="decimal"></div>
+          <div><label class="exam-label">Neutrófilos (Mil/mm³)</label><input type="text" id="e-neutro" class="exam-input" placeholder="Ex: 5,2" inputmode="decimal"></div>
+          <div><label class="exam-label">Linfócitos (Mil/mm³)</label><input type="text" id="e-linfo" class="exam-input" placeholder="Ex: 1,8" inputmode="decimal"></div>
+          <div><label class="exam-label">Plaquetas (Mil/mm³)</label><input type="text" id="e-plaq" class="exam-input" placeholder="Ex: 250" inputmode="decimal"></div>
+          <div><label class="exam-label">Hemoglobina (g/dL)</label><input type="text" id="e-hemo" class="exam-input" placeholder="Ex: 12,5" inputmode="decimal"></div>
+          <div><label class="exam-label">Hematócrito (%)</label><input type="text" id="e-hema" class="exam-input" placeholder="Ex: 38" inputmode="decimal"></div>
+          <div><label class="exam-label">Monócitos (Mil/mm³)</label><input type="text" id="e-mono" class="exam-input" placeholder="Ex: 0,56" inputmode="decimal"></div>
+          <div><label class="exam-label">Eosinófilos (Mil/mm³)</label><input type="text" id="e-eosino" class="exam-input" placeholder="Ex: 0,05" inputmode="decimal"></div>
+          <div style="grid-column: span 2;"><label class="exam-label">Basófilos (Mil/mm³)</label><input type="text" id="e-baso" class="exam-input" placeholder="Ex: 0,04" inputmode="decimal"></div>
+          <div style="grid-column: span 2;"><label class="exam-label">Creatinina (mg/dL)</label><input type="text" id="e-crea" class="exam-input" placeholder="Ex: 0,8" inputmode="decimal"></div>
         </div>
         <button class="btn-primary" onclick="addExamResult()"><i class="ph-bold ph-plus"></i> Salvar Resultado</button>
       </div>
@@ -710,18 +710,18 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   const todayYMD = toYMD(new Date());
   let currentLogDate = todayYMD;
 
-  // REFERÊNCIAS LABORATORIAIS E LIMITES DE QUIMIO
+  // REFERÊNCIAS LABORATORIAIS E LIMITES DE QUIMIO - FORMATO BRASILEIRO (Mil/mm³)
   const EXAM_REFS = {
-    leuco:  { label: 'Leucócitos',   unit: '/µL',  min: 4000,   max: 11000,  quimoMin: 3000,  quimoMax: null, dec: 0 },
-    neutro: { label: 'Neutrófilos',  unit: '/µL',  min: 1800,   max: 7500,   quimoMin: 1500,  quimoMax: null, dec: 0 },
-    linfo:  { label: 'Linfócitos',   unit: '/µL',  min: 1000,   max: 4800,   quimoMin: null,  quimoMax: null, dec: 0 },
-    plaq:   { label: 'Plaquetas',    unit: '/µL',  min: 150000, max: 400000, quimoMin: 100000,quimoMax: null, dec: 0 },
-    hemo:   { label: 'Hemoglobina',  unit: 'g/dL', min: 12.0,   max: 16.0,   quimoMin: 8.0,   quimoMax: null, dec: 1 },
-    hema:   { label: 'Hematócrito',  unit: '%',    min: 36,     max: 52,     quimoMin: null,  quimoMax: null, dec: 1 },
-    mono:   { label: 'Monócitos',    unit: '/µL',  min: 200,    max: 800,    quimoMin: null,  quimoMax: null, dec: 0 },
-    eosino: { label: 'Eosinófilos',  unit: '/µL',  min: 0,      max: 450,    quimoMin: null,  quimoMax: null, dec: 0 },
-    baso:   { label: 'Basófilos',    unit: '/µL',  min: 0,      max: 200,    quimoMin: null,  quimoMax: null, dec: 0 },
-    crea:   { label: 'Creatinina',   unit: 'mg/dL',min: 0.5,    max: 0.9,    quimoMin: null,  quimoMax: 1.5,  dec: 2 },
+    leuco:  { label: 'Leucócitos',   unit: 'Mil/mm³', min: 4.0,    max: 11.0,   quimoMin: 3.0,   quimoMax: null, dec: 2, multiplier: 1000 },
+    neutro: { label: 'Neutrófilos',  unit: 'Mil/mm³', min: 1.8,    max: 7.5,    quimoMin: 1.5,   quimoMax: null, dec: 2, multiplier: 1000 },
+    linfo:  { label: 'Linfócitos',   unit: 'Mil/mm³', min: 1.0,    max: 4.8,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+    plaq:   { label: 'Plaquetas',    unit: 'Mil/mm³', min: 150.0,  max: 400.0,  quimoMin: 100.0, quimoMax: null, dec: 1, multiplier: 1000 },
+    hemo:   { label: 'Hemoglobina',  unit: 'g/dL',   min: 12.0,    max: 16.0,   quimoMin: 8.0,   quimoMax: null, dec: 1, multiplier: 1 },
+    hema:   { label: 'Hematócrito',  unit: '%',      min: 36.0,    max: 52.0,   quimoMin: null,  quimoMax: null, dec: 1, multiplier: 1 },
+    mono:   { label: 'Monócitos',    unit: 'Mil/mm³', min: 0.2,    max: 0.8,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+    eosino: { label: 'Eosinófilos',  unit: 'Mil/mm³', min: 0.0,    max: 0.45,   quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+    baso:   { label: 'Basófilos',    unit: 'Mil/mm³', min: 0.0,    max: 0.2,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+    crea:   { label: 'Creatinina',   unit: 'mg/dL',  min: 0.5,     max: 0.9,    quimoMin: null,  quimoMax: 1.5,  dec: 2, multiplier: 1 },
   };
 
   const CHART_GROUPS = {
@@ -755,10 +755,17 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     const v = parseFloat(val);
     const r = EXAM_REFS[key];
     if (!r) return 'none';
-    if (r.quimoMin !== null && v < r.quimoMin) return 'quimo';
-    if (r.quimoMax !== null && v > r.quimoMax) return 'quimo';
-    if (v < r.min) return 'low';
-    if (v > r.max) return 'high';
+    
+    const compareV = v;
+    const minLimit = r.min * r.multiplier;
+    const maxLimit = r.max * r.multiplier;
+    const quimoMinLimit = r.quimoMin !== null ? r.quimoMin * r.multiplier : null;
+    const quimoMaxLimit = r.quimoMax !== null ? r.quimoMax * r.multiplier : null;
+    
+    if (quimoMinLimit !== null && compareV < quimoMinLimit) return 'quimo';
+    if (quimoMaxLimit !== null && compareV > quimoMaxLimit) return 'quimo';
+    if (compareV < minLimit) return 'low';
+    if (compareV > maxLimit) return 'high';
     return 'ok';
   }
 
@@ -803,7 +810,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 
   function generateDefaultSessions() {
     const arr = [];
-    // Primeira sessão em 01/04/2026 (quarta-feira? Vamos verificar: 01/04/2026 é quarta-feira)
+    // Primeira sessão em 01/04/2026
     // A coleta do exame foi feita em 30/03/2026 (48h antes)
     const START = new Date(2026, 3, 1, 12, 0, 0); // Abril é mês 3 (0-indexado)
     
@@ -819,7 +826,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         date: toYMD(d), 
         examDate: addDaysYMD(toYMD(d), -2), 
         done: false, 
-        examDone: false  // Agora a primeira coleta também começa como pendente
+        examDone: false
       });
     }
     
@@ -975,7 +982,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       const nadirS = fmtShort(addDaysYMD(s.date,7)); 
       const nadirE = fmtShort(addDaysYMD(s.date,10));
       
-      // CORREÇÃO: Agora todas as sessões (incluindo a primeira) mostram o badge de exame
       const examHtml = `
         <span class="pill-exam">
           <span class="date-text">Exam ${fmtShort(s.examDate)}</span>
@@ -1249,9 +1255,16 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         const badgeClass = status === 'ok' ? 'badge-ok' : status === 'low' ? 'badge-low' : status === 'high' ? 'badge-high' : status === 'quimo' ? 'badge-quimo' : '';
         const span = spans[key] > 1 ? `style="grid-column: span ${spans[key]};"` : '';
         
-        const displayVal = hasVal ? (r.dec > 0 ? parseFloat(val).toLocaleString('pt-BR', {minimumFractionDigits: r.dec, maximumFractionDigits: r.dec}) : parseFloat(val).toLocaleString('pt-BR')) : '—';
+        const displayVal = hasVal ? (() => {
+          const v = parseFloat(val);
+          const displayV = v / r.multiplier;
+          return displayV.toLocaleString('pt-BR', {
+            minimumFractionDigits: r.dec, 
+            maximumFractionDigits: r.dec
+          });
+        })() : '—';
         
-        let refText = `Ref: ${r.min.toLocaleString('pt-BR')}–${r.max.toLocaleString('pt-BR')} ${r.unit}`;
+        let refText = `Ref: ${(r.min).toLocaleString('pt-BR')}–${(r.max).toLocaleString('pt-BR')} ${r.unit}`;
         if (r.quimoMin) refText += ` | Quimio ≥${r.quimoMin.toLocaleString('pt-BR')}`;
         if (r.quimoMax) refText += ` | Quimio ≤${r.quimoMax.toLocaleString('pt-BR')}`;
 
@@ -1288,24 +1301,39 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   
   window.addExamResult = function() {
     const date = document.getElementById('e-date').value; 
-    const leuco  = document.getElementById('e-leuco').value; 
-    const neutro = document.getElementById('e-neutro').value; 
-    const linfo  = document.getElementById('e-linfo').value;
-    const plaq   = document.getElementById('e-plaq').value; 
-    const hemo   = document.getElementById('e-hemo').value; 
-    const hema   = document.getElementById('e-hema').value;
-    const mono   = document.getElementById('e-mono').value;
-    const eosino = document.getElementById('e-eosino').value;
-    const baso   = document.getElementById('e-baso').value;
-    const crea   = document.getElementById('e-crea').value;
+    
+    const getValue = (id, key) => {
+      const input = document.getElementById(id);
+      if (!input || input.value === '') return '';
+      let val = input.value.replace(',', '.');
+      const num = parseFloat(val);
+      if (isNaN(num)) return '';
+      const r = EXAM_REFS[key];
+      return (num * r.multiplier).toString();
+    };
+    
+    const leuco  = getValue('e-leuco', 'leuco');
+    const neutro = getValue('e-neutro', 'neutro');
+    const linfo  = getValue('e-linfo', 'linfo');
+    const plaq   = getValue('e-plaq', 'plaq');
+    const hemo   = getValue('e-hemo', 'hemo');
+    const hema   = getValue('e-hema', 'hema');
+    const mono   = getValue('e-mono', 'mono');
+    const eosino = getValue('e-eosino', 'eosino');
+    const baso   = getValue('e-baso', 'baso');
+    const crea   = getValue('e-crea', 'crea');
     
     if(!date) { alert("A data da coleta é obrigatória."); return; } 
-    if(!leuco && !neutro && !linfo && !plaq && !hemo && !hema && !mono && !eosino && !baso && !crea) { alert("Preencha pelo menos um resultado."); return; }
+    if(!leuco && !neutro && !linfo && !plaq && !hemo && !hema && !mono && !eosino && !baso && !crea) { 
+      alert("Preencha pelo menos um resultado."); return; 
+    }
     
     examResults.push({ date, leuco, neutro, linfo, plaq, hemo, hema, mono, eosino, baso, crea }); 
     examResults.sort((a,b) => a.date.localeCompare(b.date));
     syncToCloud();
-    ['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea'].forEach(id => document.getElementById('e-'+id).value = ''); 
+    ['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea'].forEach(id => {
+      document.getElementById('e-'+id).value = ''; 
+    }); 
     renderExamResults();
     renderSmartAlerts();
   }
@@ -1406,9 +1434,10 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
                 const r = key ? EXAM_REFS[key] : null;
                 if (!r) return `${ctx.dataset.label}: ${ctx.parsed.y}`;
                 const v = ctx.parsed.y;
+                const displayV = v / r.multiplier;
                 const status = getExamStatus(key, v);
                 const icon = status === 'ok' ? '✓' : status === 'quimo' ? '⚠' : status === 'low' ? '↓' : status === 'high' ? '↑' : '';
-                return `${icon} ${r.label}: ${v.toLocaleString('pt-BR')} ${r.unit}`;
+                return `${icon} ${r.label}: ${displayV.toLocaleString('pt-BR', {minimumFractionDigits: r.dec, maximumFractionDigits: r.dec})} ${r.unit}`;
               }
             }
           }
@@ -1419,7 +1448,17 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
             grid: { color: 'rgba(0,0,0,0.05)' } 
           },
           y: { 
-            ticks: { color: '#9CA3AF', font: { size: 11 } }, 
+            ticks: { 
+              color: '#9CA3AF', 
+              font: { size: 11 },
+              callback: (value) => {
+                // Para o eixo Y do gráfico de imunidade/sangue, mostrar em Mil/mm³
+                if (currentChartGroup === 'imunidade' || currentChartGroup === 'sangue') {
+                  return (value / 1000).toFixed(0) + 'k';
+                }
+                return value;
+              }
+            }, 
             grid: { color: 'rgba(0,0,0,0.05)' } 
           }
         }
@@ -1439,7 +1478,8 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       if(!r||val===''||val===null||val===undefined) return;
       const status = getExamStatus(key, val);
       const flag = status==='quimo'?'⚠️ ':status==='low'?'↓ ':status==='high'?'↑ ':'✓ ';
-      txt += flag + r.label + ': ' + parseFloat(val).toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec}) + ' ' + r.unit + '\n';
+      const displayV = parseFloat(val) / r.multiplier;
+      txt += flag + r.label + ': ' + displayV.toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec}) + ' ' + r.unit + '\n';
     });
     txt += '\nGerado pelo Guia de Cuidados da Gabi';
     if(navigator.clipboard && window.isSecureContext) {
@@ -1468,7 +1508,8 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         if(!r||val===''||val===null||val===undefined) return;
         const status = getExamStatus(key, val);
         const flag = status==='quimo'?'[!] ':status==='low'?'[v] ':status==='high'?'[^] ':'[ok] ';
-        const vFmt = parseFloat(val).toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec});
+        const displayV = parseFloat(val) / r.multiplier;
+        const vFmt = displayV.toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec});
         const line = flag + r.label + ': ' + vFmt + ' ' + r.unit + '  (Ref: ' + r.min.toLocaleString('pt-BR') + '-' + r.max.toLocaleString('pt-BR') + ')';
         if(y>270) { doc.addPage(); y=20; }
         if(status==='quimo') doc.setTextColor(198,68,68);
