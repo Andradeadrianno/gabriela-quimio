@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia de Cuidados</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>Guia de Cuidados - Gabi</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -53,7 +53,8 @@ body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--ink); m
 .btn-register { width: 100%; background: transparent; color: var(--ink2); border: 1px solid var(--border); padding: 14px; font-size: 15px; font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s; }
 .btn-register:hover { background: var(--surface-hover); }
 #login-error { color: var(--red-intense); font-size: 13px; margin-bottom: 12px; display: none; font-weight: 600; background: var(--red-bg); padding: 10px; border-radius: 6px; border: 1px solid rgba(214, 69, 69, 0.2); }
-.btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); }
+.btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); transition: all 0.2s; }
+.btn-logout:hover { background: rgba(0,0,0,0.3); }
 
 /* HEADER & HERO */
 header {
@@ -80,7 +81,8 @@ header h1 { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,8vw,3.8
 .header-badge:hover { background:rgba(255,255,255,0.2); }
 
 /* EMERGENCY BAR */
-.emergency-bar { background:var(--red-intense); padding:1rem 1.5rem; display:flex; align-items:flex-start; gap:14px; margin: -1.5rem 1rem 1.5rem; position: relative; z-index: 2; border-radius: var(--radius); box-shadow: var(--shadow-md); color: white; cursor: pointer; }
+.emergency-bar { background:var(--red-intense); padding:1rem 1.5rem; display:flex; align-items:flex-start; gap:14px; margin: -1.5rem 1rem 1.5rem; position: relative; z-index: 2; border-radius: var(--radius); box-shadow: var(--shadow-md); color: white; cursor: pointer; transition: transform 0.2s; }
+.emergency-bar:active { transform: scale(0.99); }
 .em-icon { font-size:24px; color:#FFF; flex-shrink:0; background: rgba(255,255,255,0.2); width: 40px; height: 40px; display:flex; align-items:center; justify-content:center; border-radius:50%; }
 .em-title { font-size:15px; font-weight:700; color:#fff; margin-bottom:2px; }
 .em-text { font-size:13px; color:rgba(255,255,255,0.95); line-height:1.5; }
@@ -93,15 +95,15 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .progress-label { font-size:13px; font-weight:500; color:var(--ink2); }
 .progress-val { font-size:20px; font-weight:700; color:var(--sage-dark); line-height: 1; }
 .progress-track { background:var(--sage-bg); border-radius:20px; height:12px; overflow:hidden; position: relative; }
-.progress-fill { height:100%; background:linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius:20px; transition:width 1s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius:20px; transition:width 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
 
 /* NAVIGATION TABS */
-.tab-nav { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:2rem; }
-.tab-btn { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px 6px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; color:var(--ink2); cursor:pointer; transition:all 0.3s; display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow: var(--shadow-sm); }
-.tab-btn i { font-size:24px; transition: transform 0.3s; }
+.tab-nav { display:grid; grid-template-columns:repeat(6,1fr); gap:6px; margin-bottom:2rem; }
+.tab-btn { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 4px; font-family:'Inter',sans-serif; font-size:11px; font-weight:600; color:var(--ink2); cursor:pointer; transition:all 0.2s; display:flex; flex-direction:column; align-items:center; gap:4px; box-shadow: var(--shadow-sm); }
+.tab-btn i { font-size:22px; transition: transform 0.2s; }
 .tab-btn.active { background:var(--ink); color:#fff; border-color:var(--ink); box-shadow:0 8px 20px rgba(44, 54, 49, 0.25); }
-.tab-btn.active i { color: var(--gold); transform: scale(1.1); }
-.tab-pane { display:none; animation:fadein 0.4s ease forwards; opacity: 0; transform: translateY(10px); }
+.tab-btn.active i { color: var(--gold); transform: scale(1.05); }
+.tab-pane { display:none; animation:fadein 0.3s ease forwards; opacity: 0; transform: translateY(8px); }
 .tab-pane.active { display:block; }
 @keyframes fadein { to { opacity:1; transform:none; } }
 
@@ -111,8 +113,11 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .btn-edit { background: var(--surface); border: 1px solid var(--border-focus); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--ink2); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s; }
 .btn-edit:hover { background: var(--surface-hover); border-color: var(--ink3); }
 .date-input { font-family: 'Inter'; font-size: 14px; font-weight: 700; color: var(--ink); border: 1px solid var(--sage-light); border-radius: 6px; padding: 4px 8px; background: var(--surface); display: none; outline: none; }
-.is-editing .date-input { display: inline-block; }
-.is-editing .date-text { display: none; }
+
+.is-editing-cal .date-input { display: inline-block; }
+.is-editing-cal .date-text { display: none; }
+.is-editing-exam .date-input { display: inline-block; }
+.is-editing-exam .date-text { display: none; }
 
 /* CALENDÁRIO: MÉTRICAS CLEAN */
 .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
@@ -170,7 +175,6 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .exam-val-box.status-none { background: var(--sage-bg); }
 .exam-val-box.status-none .exam-val-t { color: var(--ink3); }
 .exam-val-box.status-none .exam-val-v { color: var(--ink2); }
-/* legado: manter .alert para compatibilidade */
 .exam-val-box.alert { background: var(--red-bg); color: var(--red-intense); border: 1px solid rgba(214, 69, 69, 0.2); }
 .exam-val-box.alert .exam-val-v { color: var(--red-intense); }
 .exam-val-box.alert .exam-val-t { color: var(--red-intense); opacity: 0.8; }
@@ -218,6 +222,8 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .wg { width: 22px; height: 32px; border: 2px solid rgba(42, 106, 42, 0.2); border-radius: 2px 2px 6px 6px; position: relative; cursor: pointer; overflow: hidden; background: rgba(255,255,255,0.8); transition: transform 0.2s; }
 .wg:hover { transform: scale(1.1); }
 .wg-fill { position:absolute; bottom:0; left:0; right:0; background: #50A055; transition: height 0.3s ease; }
+.water-bar-track { background: rgba(42, 106, 42, 0.1); height: 8px; border-radius: 20px; margin: 16px 0 8px; overflow: hidden; }
+.water-bar-fill { height: 100%; background: #2A6A2A; border-radius: 20px; width: 0%; transition: width 0.3s; }
 
 /* SYMPTOM GRID (DROPDOWNS) DIÁRIO */
 .sym-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom: 1.5rem; }
@@ -239,12 +245,40 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 .diary-entry { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:10px; }
 .d-tag { font-size:12px; font-weight:700; color:var(--sage-dark); margin-bottom:6px; display:flex; align-items:center; gap:4px; }
 .btn-del { background:var(--red-bg); border:none; width: 32px; height: 32px; border-radius: 8px; color:var(--red-intense); cursor:pointer; display: flex; align-items: center; justify-content: center; flex-shrink:0; transition: all 0.2s; }
+.btn-del:hover { background: rgba(214,69,69,0.2); }
 
 /* HOSPITAIS & ORIENTACOES */
 .hosp-emergency { border-left: 4px solid var(--red-intense); background: var(--red-bg); }
 .hosp-option { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--red-intense); margin-bottom: 4px; display: block; }
 .info-box { background:var(--sage-bg); border:1px solid var(--border-focus); border-left:4px solid var(--sage-dark); border-radius:var(--radius-sm); padding:16px; font-size:13px; color:var(--ink2); line-height:1.6; margin-bottom: 1.5rem; display: flex; gap: 10px; }
 
+/* HOME DASHBOARD */
+.home-dashboard { margin-bottom: 1.5rem; }
+.alert-card { border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; border: 1px solid transparent; }
+.alert-card-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.alert-card-body { flex: 1; }
+.alert-card-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.alert-card-text  { font-size: 12px; line-height: 1.4; opacity: .85; }
+.ac-red   { background: #FDE8E8; border-color: #F5A4A4; color: #7A1F1F; }
+.ac-red   .alert-card-icon { background: #C84646; color: white; }
+.ac-amber { background: #FEF0E0; border-color: #F5C84A; color: #7A4A00; }
+.ac-amber .alert-card-icon { background: var(--amber); color: white; }
+.ac-green { background: #EAF5EA; border-color: #BEE3C4; color: #1A4D1A; }
+.ac-green .alert-card-icon { background: #2A6A2A; color: white; }
+.ac-blue  { background: #E6F1FB; border-color: #B5D4F4; color: #042C53; }
+.ac-blue  .alert-card-icon { background: #185FA5; color: white; }
+
+/* WEEKLY SUMMARY */
+.week-summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 1rem; }
+.week-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.week-stat { text-align: center; }
+.week-stat-val { font-size: 20px; font-weight: 700; color: var(--ink); line-height: 1; }
+.week-stat-lbl { font-size: 11px; color: var(--ink3); margin-top: 3px; font-weight: 500; }
+.week-sym-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.week-sym-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+
+/* MINI TEMP CHART */
+.mini-chart-wrap { height: 80px; position: relative; margin-top: 8px; }
 
 /* OFFLINE BANNER */
 #offline-banner{display:none;background:var(--amber);color:white;text-align:center;font-size:12px;font-weight:700;padding:6px;position:fixed;top:0;left:0;right:0;z-index:10000}
@@ -284,9 +318,12 @@ main { max-width:700px; margin:0 auto; padding:0 1rem 5rem; }
 
 footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--ink3); max-width:700px; margin:0 auto; }
 
+@media(max-width:600px){
+  .tab-nav { grid-template-columns: repeat(3, 1fr); }
+}
 @media(max-width:500px){
   .tab-btn span { display: none; }
-  .tab-btn i { font-size: 28px; }
+  .tab-btn i { font-size: 24px; }
   .sec-title { flex-direction: column; align-items: flex-start; gap: 12px; }
   .btn-edit { align-self: flex-start; }
   .session-card { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -296,6 +333,15 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   .d-date { width:100%; }
   .exam-input-grid { grid-template-columns: 1fr; }
   .exam-val-grid { grid-template-columns: 1fr 1fr; }
+  .btn-logout { 
+    top: 10px; 
+    right: 10px; 
+    padding: 4px 10px; 
+    font-size: 10px; 
+    backdrop-filter: blur(8px);
+  }
+  .header-badge { font-size: 10px; padding: 4px 8px; }
+  .emergency-bar { margin: -1rem 0.5rem 1rem; padding: 0.75rem 1rem; }
 }
 </style>
 </head>
@@ -306,10 +352,11 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 24px; color: var(--ink);">Guia de Cuidados</h2>
   <div class="login-box">
     <div id="login-error"></div>
-    <input type="email" id="auth-email" class="login-input" placeholder="E-mail">
+    <input type="email" id="auth-email" class="login-input" placeholder="E-mail" value="">
     <input type="password" id="auth-password" class="login-input" placeholder="Senha">
     <button class="btn-login" onclick="login()">Entrar</button>
     <button class="btn-register" onclick="register()">Criar nova conta</button>
+    <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Seus dados ficam salvos na nuvem e apenas você tem acesso.</p>
   </div>
 </div>
 
@@ -339,20 +386,42 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   </div>
 
   <main>
-    <div class="progress-wrap">
-      <div class="progress-header">
-        <span class="progress-label" id="prog-label">Tratamento Geral</span>
-        <span class="progress-val" id="prog-val">0%</span>
+    <!-- HOME DASHBOARD -->
+    <div class="home-dashboard">
+      <!-- Progress -->
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label" id="prog-label">Progresso do Tratamento</span>
+          <span class="progress-val" id="prog-val">0%</span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
       </div>
-      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+
+      <!-- Smart Alerts -->
+      <div id="smart-alerts"></div>
+
+      <!-- Weekly Summary -->
+      <div class="week-summary" id="week-summary" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13px;font-weight:700;color:var(--ink)"><i class="ph-fill ph-chart-bar" style="color:var(--sage-dark)"></i> Resumo dos últimos 7 dias</div>
+          <div id="week-date-range" style="font-size:11px;color:var(--ink3)"></div>
+        </div>
+        <div class="week-grid">
+          <div class="week-stat"><div class="week-stat-val" id="week-hydration">—</div><div class="week-stat-lbl">Hidrat. média</div></div>
+          <div class="week-stat"><div class="week-stat-val" id="week-temp">—</div><div class="week-stat-lbl">Temp. média</div></div>
+          <div class="week-stat"><div class="week-stat-val" id="week-weight">—</div><div class="week-stat-lbl">Peso atual</div></div>
+        </div>
+        <div id="week-symptoms" class="week-sym-list"></div>
+        <div class="mini-chart-wrap"><canvas id="mini-chart"></canvas></div>
+      </div>
     </div>
 
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('calendario',this)"><i class="ph-fill ph-calendar-heart"></i><span>Calendário</span></button>
       <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
-      <button class="tab-btn" onclick="switchTab('sintomas',this)"><i class="ph-fill ph-activity"></i><span>Hidratação e sintomas</span></button>
+      <button class="tab-btn" onclick="switchTab('sintomas',this)"><i class="ph-fill ph-activity"></i><span>Diário</span></button>
       <button class="tab-btn" onclick="switchTab('exames',this)"><i class="ph-fill ph-drop"></i><span>Exames</span></button>
-     <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Prontos-Socorros próximos</span></button>
+      <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Emergência</span></button>
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
 
@@ -360,7 +429,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     <div id="tab-calendario" class="tab-pane active">
       <div class="sec-title">
         <div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div>
-        <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
+        <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode('cal')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
       </div>
 
       <div id="nadir-banner"></div>
@@ -534,7 +603,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 
       <div class="sec-title" style="margin-top: 2rem;">
         <div class="sec-title-left">Coletas (48h antes)</div>
-        <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode()"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
+        <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode('exam')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
       </div>
       <div id="exam-grid"></div>
     </div>
@@ -549,7 +618,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         <div class="card-title">UPA Vila Santa Catarina</div>
         <div class="card-body">
           R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br>
-          <a href="https://maps.google.com/?cid=13498587269798681710&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+          <a href="https://maps.google.com/?cid=13498587269798681710" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
         </div>
       </div>
 
@@ -558,7 +627,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         <div class="card-title">UPA Jabaquara</div>
         <div class="card-body">
           Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br>
-          <a href="https://maps.google.com/?cid=7297070624864957169&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+          <a href="https://maps.google.com/?cid=7297070624864957169" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
         </div>
       </div>
 
@@ -567,7 +636,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         <div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div>
         <div class="card-body">
           Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br>
-          <a href="https://maps.google.com/?cid=16510485783602391528&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+          <a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
         </div>
       </div>
     </div>
@@ -624,12 +693,12 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   }
 
   let currentUser = null;
-  let isEditing = false;
   let sessions = [];
   let dailyLogs = {};
   let diary = [];
   let examResults = [];
   let examChartInstance = null;
+  let miniChartInstance = null;
   let currentChartGroup = 'imunidade';
 
   const toYMD = (d) => { const tz = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tz).toISOString().split('T')[0]; };
@@ -655,15 +724,39 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     crea:   { label: 'Creatinina',   unit: 'mg/dL',min: 0.5,    max: 0.9,    quimoMin: null,  quimoMax: 1.5,  dec: 2 },
   };
 
+  const CHART_GROUPS = {
+    imunidade: {
+      keys: ['leuco','neutro','linfo','mono','eosino','baso'],
+      colors: ['#378ADD','#1D9E75','#7F77DD','#D4537E','#BA7517','#888780'],
+      limits: [
+        { label: 'Leuco mín. quimio', value: 3000, color: '#378ADD' },
+        { label: 'Neutro mín. quimio', value: 1500, color: '#1D9E75' },
+      ]
+    },
+    sangue: {
+      keys: ['plaq','hemo','hema'],
+      colors: ['#D85A30','#D4537E','#888780'],
+      limits: [
+        { label: 'Plaq mín. quimio', value: 100000, color: '#D85A30' },
+        { label: 'Hemo mín. quimio', value: 8, color: '#D4537E' },
+      ]
+    },
+    renal: {
+      keys: ['crea'],
+      colors: ['#BA7517'],
+      limits: [
+        { label: 'Creat. máx. quimio', value: 1.5, color: '#BA7517' },
+      ]
+    }
+  };
+
   function getExamStatus(key, val) {
     if (val === '' || val === null || val === undefined || isNaN(parseFloat(val))) return 'none';
     const v = parseFloat(val);
     const r = EXAM_REFS[key];
     if (!r) return 'none';
-    // Verifica limite de quimio primeiro (mais crítico)
     if (r.quimoMin !== null && v < r.quimoMin) return 'quimo';
     if (r.quimoMax !== null && v > r.quimoMax) return 'quimo';
-    // Depois verifica normalidade
     if (v < r.min) return 'low';
     if (v > r.max) return 'high';
     return 'ok';
@@ -682,7 +775,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       document.getElementById('app-content').style.display = 'none';
     }
   });
-
 
   // OFFLINE DETECTION
   window.addEventListener('online',  () => { document.getElementById('offline-banner').style.display='none'; syncToCloud(); });
@@ -711,22 +803,47 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
 
   function generateDefaultSessions() {
     const arr = [];
-    const START = new Date(2026, 3, 16, 12, 0, 0);
+    // Primeira sessão em 01/04/2026 (quarta-feira? Vamos verificar: 01/04/2026 é quarta-feira)
+    // A coleta do exame foi feita em 30/03/2026 (48h antes)
+    const START = new Date(2026, 3, 1, 12, 0, 0); // Abril é mês 3 (0-indexado)
+    
     for(let i=0; i<12; i++) {
-      const d = new Date(START); d.setDate(d.getDate() + (i * 7));
-      arr.push({ id: i, num: i+1, phaseNum: i+1, type: 'BRANCA', phase: 1, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: (i===0) });
+      const d = new Date(START); 
+      d.setDate(d.getDate() + (i * 7));
+      arr.push({ 
+        id: i, 
+        num: i+1, 
+        phaseNum: i+1, 
+        type: 'BRANCA', 
+        phase: 1, 
+        date: toYMD(d), 
+        examDate: addDaysYMD(toYMD(d), -2), 
+        done: false, 
+        examDone: false  // Agora a primeira coleta também começa como pendente
+      });
     }
+    
     const lastWhite = fromYMD(arr[11].date);
     for(let i=0; i<4; i++) {
-      const d = new Date(lastWhite); d.setDate(d.getDate() + 7 + (i * 21));
-      arr.push({ id: i+12, num: i+13, phaseNum: i+1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false });
+      const d = new Date(lastWhite); 
+      d.setDate(d.getDate() + 7 + (i * 21));
+      arr.push({ 
+        id: i+12, 
+        num: i+13, 
+        phaseNum: i+1, 
+        type: 'VERMELHA', 
+        phase: 2, 
+        date: toYMD(d), 
+        examDate: addDaysYMD(toYMD(d), -2), 
+        done: false, 
+        examDone: false 
+      });
     }
     return arr;
   }
 
   function loadDataFromCloud() {
     if(!currentUser) return;
-    // Load local cache first for offline support
     const cachedSessions = loadLocal('sessions', []);
     if(cachedSessions.length > 0) { sessions=cachedSessions; dailyLogs=loadLocal('dailyLogs',{}); diary=loadLocal('diary',[]); examResults=loadLocal('examResults',[]); renderAll(); }
     db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
@@ -736,6 +853,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         dailyLogs = data.dailyLogs || {};
         diary = data.diary || [];
         examResults = data.examResults || [];
+        examResults.sort((a,b) => a.date.localeCompare(b.date));
       } else {
         sessions = generateDefaultSessions();
         dailyLogs = {}; diary = []; examResults = [];
@@ -768,28 +886,37 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     renderSessions();
     buildSymGrid();
     window.setLogDate(currentLogDate);
+    
+    const dDateInput = document.getElementById('d-date');
+    if(dDateInput) dDateInput.value = todayYMD;
+    const eDateInput = document.getElementById('e-date');
+    if(eDateInput) eDateInput.value = todayYMD;
+    
     renderDiary();
     renderExamResults();
+    renderSmartAlerts();
+    renderWeeklySummary();
   }
 
-  window.toggleEditMode = function() {
-    isEditing = !isEditing;
-    document.body.classList.toggle('is-editing', isEditing);
-    const btns = [document.getElementById('btn-edit-cal'), document.getElementById('btn-edit-exam')];
-    btns.forEach(b => {
-      if(b){
-        b.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
-        b.style.background = isEditing ? 'var(--ink)' : '';
-        b.style.color = isEditing ? 'white' : '';
-      }
-    });
+  window.toggleEditMode = function(section) {
+    const calBtn = document.getElementById('btn-edit-cal');
+    const examBtn = document.getElementById('btn-edit-exam');
+    
+    if (section === 'cal') {
+      document.body.classList.toggle('is-editing-cal');
+      const isEditing = document.body.classList.contains('is-editing-cal');
+      if(calBtn) calBtn.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
+    } else if (section === 'exam') {
+      document.body.classList.toggle('is-editing-exam');
+      const isEditing = document.body.classList.contains('is-editing-exam');
+      if(examBtn) examBtn.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
+    }
   }
 
   window.updateDate = function(index, val) { if(val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); syncToCloud(); renderSessions(); } }
   window.updateExam = function(index, val) { if(val) { sessions[index].examDate = val; syncToCloud(); renderSessions(); } }
-  window.toggleDone = function(index) { sessions[index].done = !sessions[index].done; syncToCloud(); renderSessions(); }
+  window.toggleDone = function(index) { sessions[index].done = !sessions[index].done; syncToCloud(); renderSessions(); renderSmartAlerts(); }
   window.toggleExamDone = function(index) { sessions[index].examDone = !sessions[index].examDone; syncToCloud(); renderSessions(); }
-
 
   // NADIR UTILS
   function isInNadir(sessionDate, checkDate) {
@@ -799,7 +926,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     return checkDate >= addDaysYMD(sessionDate,5) && checkDate <= addDaysYMD(sessionDate,14);
   }
 
-  // CALCULADORA DE NADIR
   window.calcNadir = function() {
     const val = document.getElementById('nadir-input').value;
     if(!val) return;
@@ -834,7 +960,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     gW.innerHTML = ''; gR.innerHTML = ''; eG.innerHTML = '';
     let doneCount = 0; let nextSessionDate = null; let endDate = sessions[sessions.length-1].date;
 
-    // Nadir banner
     let nadirSession=null, riskSession=null;
     sessions.forEach(s=>{ if(s.done&&isInNadir(s.date,todayYMD)) nadirSession=s; else if(s.done&&isInRisk(s.date,todayYMD)) riskSession=s; });
     const banner=document.getElementById('nadir-banner');
@@ -849,13 +974,16 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       if(!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
       const nadirS = fmtShort(addDaysYMD(s.date,7)); 
       const nadirE = fmtShort(addDaysYMD(s.date,10));
-      const examHtml = (i === 0) ? '' : `
+      
+      // CORREÇÃO: Agora todas as sessões (incluindo a primeira) mostram o badge de exame
+      const examHtml = `
         <span class="pill-exam">
           <span class="date-text">Exam ${fmtShort(s.examDate)}</span>
           <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent; border:none; color:inherit; font-family:inherit; font-size:11px; font-weight:700; padding:0; outline:none; height:14px;">
         </span>`;
+        
       const row = document.createElement('div'); 
-      row.className = `session-card ${s.done ? 'done' : ''}`;
+      row.className = `session-card ${s.done ? 'done' : ''} ${(s.done && isInNadir(s.date, todayYMD)) ? 'nadir-active' : ''}`;
       row.innerHTML = `
         <div class="session-left">
           <div class="session-num">${s.num}</div>
@@ -949,6 +1077,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1; 
         syncToCloud(); 
         renderDailyWater(); 
+        renderWeeklySummary();
       };
       g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`; 
       cont.appendChild(g);
@@ -964,10 +1093,10 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   
   window.addDailyWater = function() { 
     let log = getDailyLog(currentLogDate); 
-    if(log.water < TOTAL_GLASSES) { log.water++; syncToCloud(); renderDailyWater(); } 
+    if(log.water < TOTAL_GLASSES) { log.water++; syncToCloud(); renderDailyWater(); renderWeeklySummary(); } 
   }
   window.resetDailyWater = function() { 
-    if(confirm("Zerar hidratação DESTE DIA?")) { getDailyLog(currentLogDate).water = 0; syncToCloud(); renderDailyWater(); } 
+    if(confirm("Zerar hidratação DESTE DIA?")) { getDailyLog(currentLogDate).water = 0; syncToCloud(); renderDailyWater(); renderWeeklySummary(); } 
   }
 
   function buildSymGrid() {
@@ -1004,6 +1133,8 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     getDailyLog(currentLogDate).syms[id] = v; 
     syncToCloud(); 
     updateVisualSymState(id, v); 
+    renderSmartAlerts();
+    renderWeeklySummary();
   }
   
   function updateVisualSymState(id, v) {
@@ -1020,13 +1151,14 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
   }
 
-
   // SINAIS VITAIS
   window.saveVital = function(type, val) {
     const log = getDailyLog(currentLogDate);
     log[type] = val;
     syncToCloud();
     renderVitals();
+    renderSmartAlerts();
+    renderWeeklySummary();
   };
 
   function renderVitals() {
@@ -1054,7 +1186,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   function renderDiary() {
     const list = document.getElementById('diary-list'); 
     list.innerHTML = ''; 
-    document.getElementById('d-date').value = todayYMD;
     if(!diary.length) { 
       list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>'; 
       return; 
@@ -1085,13 +1216,11 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
   }
   window.delDiary = function(i){ diary.splice(i,1); syncToCloud(); renderDiary(); }
 
-  // EXAMES — renderização com indicadores de status
+  // EXAMES
   function renderExamResults() {
     const list = document.getElementById('exam-results-list'); 
     list.innerHTML = ''; 
-    document.getElementById('e-date').value = todayYMD;
 
-    // Mostra ou esconde seção de gráfico
     const chartSection = document.getElementById('chart-section');
     if(examResults.length >= 2) {
       chartSection.style.display = 'block';
@@ -1106,8 +1235,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     
     [...examResults].reverse().forEach((e, ri) => {
       const realI = examResults.length - 1 - ri;
-
-      // Monta os boxes com status
       const keys = ['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea'];
       const spans = { leuco:1, neutro:1, linfo:1, plaq:1, hemo:1, hema:1, mono:1, eosino:1, baso:2, crea:2 };
 
@@ -1121,24 +1248,9 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
         const statusClass = `status-${status}`;
         const badgeClass = status === 'ok' ? 'badge-ok' : status === 'low' ? 'badge-low' : status === 'high' ? 'badge-high' : status === 'quimo' ? 'badge-quimo' : '';
         const span = spans[key] > 1 ? `style="grid-column: span ${spans[key]};"` : '';
-        // Find previous exam for delta
-        const sortedAll = [...examResults].sort((a,b) => a.date.localeCompare(b.date));
-        const eIdx = sortedAll.findIndex(x => x.date === e.date);
-        const prevE = eIdx > 0 ? sortedAll[eIdx-1] : null;
-        let deltaHtml = '';
-        if(hasVal && prevE && prevE[key]!==''&&prevE[key]!==null&&prevE[key]!==undefined) {
-          const diff = parseFloat(val) - parseFloat(prevE[key]);
-          if(Math.abs(diff) > 0.001) {
-            const pct = Math.abs(Math.round((diff/parseFloat(prevE[key]))*100));
-            const arrow = diff > 0 ? '↑' : '↓';
-            const bad = (key==='crea') ? diff>0 : diff<0;
-            deltaHtml = `<div class="exam-delta ${bad?'delta-down':'delta-ok'}">${arrow}${pct}%</div>`;
-          }
-        }
-
+        
         const displayVal = hasVal ? (r.dec > 0 ? parseFloat(val).toLocaleString('pt-BR', {minimumFractionDigits: r.dec, maximumFractionDigits: r.dec}) : parseFloat(val).toLocaleString('pt-BR')) : '—';
         
-        // Tooltip de referência
         let refText = `Ref: ${r.min.toLocaleString('pt-BR')}–${r.max.toLocaleString('pt-BR')} ${r.unit}`;
         if (r.quimoMin) refText += ` | Quimio ≥${r.quimoMin.toLocaleString('pt-BR')}`;
         if (r.quimoMax) refText += ` | Quimio ≤${r.quimoMax.toLocaleString('pt-BR')}`;
@@ -1152,8 +1264,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
           </div>`;
       });
 
-      // Verifica se há algum alerta de quimio
-      // Check if this exam was during nadir
       let nadirNote = '';
       sessions.forEach(s => { if(s.done && isInNadir(s.date, e.date)) nadirNote = `<div style="margin-top:8px;padding:6px 10px;background:#FDE8E8;border-radius:6px;font-size:11px;color:#C84646;font-weight:600"><i class="ph-fill ph-warning"></i> Coleta no período de nadir da Sessão ${s.num} — valores baixos são esperados neste período.</div>`; });
 
@@ -1193,59 +1303,52 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     if(!leuco && !neutro && !linfo && !plaq && !hemo && !hema && !mono && !eosino && !baso && !crea) { alert("Preencha pelo menos um resultado."); return; }
     
     examResults.push({ date, leuco, neutro, linfo, plaq, hemo, hema, mono, eosino, baso, crea }); 
-    // Ordena por data
     examResults.sort((a,b) => a.date.localeCompare(b.date));
     syncToCloud();
     ['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea'].forEach(id => document.getElementById('e-'+id).value = ''); 
     renderExamResults();
+    renderSmartAlerts();
   }
 
   window.delExamResult = function(i) { 
     if(confirm("Apagar este registro de exame?")) { examResults.splice(i, 1); syncToCloud(); renderExamResults(); } 
   }
 
-  // GRÁFICO DE EVOLUÇÃO
-  const CHART_GROUPS = {
-    imunidade: {
-      keys: ['leuco','neutro','linfo','mono','eosino','baso'],
-      colors: ['#378ADD','#1D9E75','#7F77DD','#D4537E','#BA7517','#888780'],
-      limits: [
-        { label: 'Leuco mín. quimio', value: 3000, color: '#378ADD' },
-        { label: 'Neutro mín. quimio', value: 1500, color: '#1D9E75' },
-      ]
-    },
-    sangue: {
-      keys: ['plaq','hemo','hema'],
-      colors: ['#D85A30','#D4537E','#888780'],
-      limits: [
-        { label: 'Plaq mín. quimio', value: 100000, color: '#D85A30' },
-        { label: 'Hemo mín. quimio', value: 8, color: '#D4537E' },
-      ]
-    },
-    renal: {
-      keys: ['crea'],
-      colors: ['#BA7517'],
-      limits: [
-        { label: 'Creat. máx. quimio', value: 1.5, color: '#BA7517' },
-      ]
-    }
-  };
-
-  window.setChartGroup = function(group, btn) {
+  // GRÁFICO
+  window.setChartGroup = function(group, btnElement) {
+    if (!group) return;
     currentChartGroup = group;
+    
     document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
+    
+    if (btnElement) {
+      btnElement.classList.add('active');
+    } else {
+      document.querySelectorAll('.chart-tab').forEach(t => {
+        if (t.textContent.toLowerCase().includes(group)) {
+          t.classList.add('active');
+        }
+      });
+    }
+    
     renderExamChart();
   }
 
   function renderExamChart() {
     const section = document.getElementById('chart-section');
-    if(!examResults || examResults.length < 2) { section.style.display = 'none'; return; }
-    section.style.display = 'block';
+    const canvas = document.getElementById('exam-chart');
+    
+    if (!examResults || examResults.length < 2) {
+      if(section) section.style.display = 'none';
+      return;
+    }
+    if(section) section.style.display = 'block';
+    if(!canvas) return;
 
     const sorted = [...examResults].sort((a,b) => a.date.localeCompare(b.date));
     const labels = sorted.map(e => fmtShort(e.date));
     const group = CHART_GROUPS[currentChartGroup];
+    if (!group) return;
 
     const datasets = group.keys.map((key, ci) => {
       const r = EXAM_REFS[key];
@@ -1256,7 +1359,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       return {
         label: r.label + ' (' + r.unit + ')',
         data,
-        borderColor: group.colors[ci],
+        borderColor: group.colors[ci % group.colors.length],
         backgroundColor: 'transparent',
         tension: 0.3,
         pointRadius: 5,
@@ -1266,7 +1369,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       };
     });
 
-    // Adiciona linhas de limite para quimio
     group.limits.forEach(lim => {
       datasets.push({
         label: lim.label,
@@ -1280,8 +1382,10 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
       });
     });
 
-    const canvas = document.getElementById('exam-chart');
-    if(examChartInstance) { examChartInstance.destroy(); examChartInstance = null; }
+    if(examChartInstance) {
+      examChartInstance.destroy();
+      examChartInstance = null;
+    }
 
     examChartInstance = new Chart(canvas, {
       type: 'line',
@@ -1297,7 +1401,8 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
           tooltip: {
             callbacks: {
               label: (ctx) => {
-                const key = group.keys[ctx.datasetIndex];
+                const datasetIndex = ctx.datasetIndex;
+                const key = datasetIndex < group.keys.length ? group.keys[datasetIndex] : null;
                 const r = key ? EXAM_REFS[key] : null;
                 if (!r) return `${ctx.dataset.label}: ${ctx.parsed.y}`;
                 const v = ctx.parsed.y;
@@ -1322,8 +1427,7 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     });
   }
 
-
-  // RELATÓRIO DE EXAMES
+  // RELATÓRIOS
   window.copiarRelatorioExames = function() {
     if(!examResults.length) { alert('Nenhum exame registrado.'); return; }
     const sorted = [...examResults].sort((a,b) => b.date.localeCompare(a.date));
@@ -1378,7 +1482,6 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     doc.save('exames-gabi.pdf');
   };
 
-  // RELATÓRIO
   window.gerarRelatorio = function() {
     const log = getDailyLog(currentLogDate); 
     const waterMl = log.water * ML_PER_GLASS;
@@ -1410,6 +1513,148 @@ footer { text-align:center; padding:2rem 1rem 3rem; font-size:13px; color:var(--
     } 
     ta.remove(); 
   }
+
+  // SMART ALERTS
+  function renderSmartAlerts() {
+    const container = document.getElementById('smart-alerts');
+    if (!container) return;
+    const alerts = [];
+
+    const upcoming = sessions.filter(s => !s.done && s.examDate >= todayYMD)
+      .sort((a,b) => a.examDate.localeCompare(b.examDate));
+    if (upcoming.length > 0) {
+      const next = upcoming[0];
+      const diff = Math.ceil((fromYMD(next.examDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+      if (diff === 0) {
+        alerts.push({cls:'ac-red', icon:'ph-fill ph-test-tube', title:'Coleta HOJE — Sessão ' + next.num, text:'Realize o hemograma e a creatinina hoje para liberar a sessão de ' + fmtFull(next.date) + '.'});
+      } else if (diff === 1) {
+        alerts.push({cls:'ac-amber', icon:'ph-fill ph-test-tube', title:'Coleta amanhã — Sessão ' + next.num, text:'Lembre-se de agendar o hemograma e a creatinina para amanhã (' + fmtFull(next.examDate) + ').'});
+      } else if (diff === 2) {
+        alerts.push({cls:'ac-amber', icon:'ph-fill ph-bell', title:'Coleta em 2 dias — Sessão ' + next.num, text:'Prepare-se: a coleta para a Sessão ' + next.num + ' é em ' + fmtFull(next.examDate) + '.'});
+      }
+    }
+
+    const nextSession = sessions.filter(s => !s.done && s.date >= todayYMD).sort((a,b) => a.date.localeCompare(b.date))[0];
+    if (nextSession) {
+      const diff = Math.ceil((fromYMD(nextSession.date).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+      if (diff === 0) {
+        alerts.push({cls:'ac-blue', icon:'ph-fill ph-syringe', title:'Sessão ' + nextSession.num + ' é HOJE', text:'Leve os resultados dos exames. Beba bastante água antes de sair.'});
+      } else if (diff <= 3 && diff > 0) {
+        alerts.push({cls:'ac-blue', icon:'ph-fill ph-syringe', title:'Sessão ' + nextSession.num + ' em ' + diff + ' dia' + (diff>1?'s':''), text:fmtFull(nextSession.date) + ' — Hidrate-se bem nos dias anteriores e evite aglomerações.'});
+      }
+    }
+
+    sessions.forEach(s => {
+      if (s.done && isInNadir(s.date, todayYMD)) {
+        alerts.push({cls:'ac-red', icon:'ph-fill ph-warning', title:'Nadir ativo — Sessão ' + s.num, text:'Imunidade no ponto mais baixo hoje. Evite aglomerações e monitore febre de hora em hora.'});
+      }
+    });
+
+    const todayLog = getDailyLog(todayYMD);
+    if (todayLog.temp && parseFloat(todayLog.temp) >= 37.8) {
+      alerts.unshift({cls:'ac-red', icon:'ph-fill ph-siren', title:'Febre registrada hoje: ' + parseFloat(todayLog.temp).toFixed(1) + '°C', text:'Temperatura acima de 37,8°C. Procure o pronto-socorro imediatamente.'});
+    }
+
+    if (examResults.length > 0) {
+      const last = [...examResults].sort((a,b) => b.date.localeCompare(a.date))[0];
+      const keys = ['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea'];
+      const quimoKeys = keys.filter(k => getExamStatus(k, last[k]) === 'quimo');
+      if (quimoKeys.length > 0) {
+        const names = quimoKeys.map(k => EXAM_REFS[k].label).join(', ');
+        alerts.push({cls:'ac-amber', icon:'ph-fill ph-warning-octagon', title:'Exame de ' + fmtFull(last.date) + ' com alerta', text:names + ' abaixo do mínimo para quimioterapia. Informe o médico.'});
+      }
+    }
+
+    if (alerts.length === 0) {
+      alerts.push({cls:'ac-green', icon:'ph-fill ph-check-circle', title:'Tudo em ordem hoje', text:'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.'});
+    }
+
+    container.innerHTML = alerts.map(a => `
+      <div class="alert-card ${a.cls}">
+        <div class="alert-card-icon"><i class="${a.icon}"></i></div>
+        <div class="alert-card-body"><div class="alert-card-title">${a.title}</div><div class="alert-card-text">${a.text}</div></div>
+      </div>`).join('');
+  }
+
+  // RESUMO SEMANAL
+  function renderWeeklySummary() {
+    const wrap = document.getElementById('week-summary');
+    if (!wrap) return;
+
+    const days7 = [];
+    for (let i = 6; i >= 0; i--) days7.push(addDaysYMD(todayYMD, -i));
+
+    const hydrationVals = days7.map(d => { const l = dailyLogs[d]; return l ? l.water * 200 : null; }).filter(v => v !== null);
+    const hydAvg = hydrationVals.length ? Math.round(hydrationVals.reduce((a,b)=>a+b,0)/hydrationVals.length) : null;
+
+    const tempVals = days7.map(d => { const l = dailyLogs[d]; return l&&l.temp ? parseFloat(l.temp) : null; }).filter(v => v !== null);
+    const tempAvg = tempVals.length ? (tempVals.reduce((a,b)=>a+b,0)/tempVals.length).toFixed(1) : null;
+
+    let lastPeso = null;
+    for (let i = 0; i < days7.length; i++) {
+      const l = dailyLogs[days7[days7.length-1-i]];
+      if (l && l.peso) { lastPeso = parseFloat(l.peso).toFixed(1); break; }
+    }
+
+    const hasData = hydrationVals.length >= 2 || tempVals.length >= 1;
+    wrap.style.display = hasData ? 'block' : 'none';
+    if (!hasData) return;
+
+    const rangeEl = document.getElementById('week-date-range');
+    if (rangeEl) rangeEl.textContent = fmtShort(days7[0]) + ' – ' + fmtShort(days7[6]);
+
+    document.getElementById('week-hydration').textContent = hydAvg !== null ? hydAvg + ' ml' : '—';
+    document.getElementById('week-temp').textContent = tempAvg !== null ? tempAvg + '°C' : '—';
+    document.getElementById('week-weight').textContent = lastPeso !== null ? lastPeso + ' kg' : '—';
+
+    const symCount = {};
+    days7.forEach(d => {
+      const l = dailyLogs[d];
+      if (!l || !l.syms) return;
+      symsDef.forEach(s => {
+        const v = l.syms[s.id] || 0;
+        if (v >= 1) {
+          if (!symCount[s.id]) symCount[s.id] = {label: s.label, max: 0, total: 0, days: 0};
+          symCount[s.id].total += v;
+          symCount[s.id].days++;
+          if (v > symCount[s.id].max) symCount[s.id].max = v;
+        }
+      });
+    });
+    const symPills = Object.values(symCount).sort((a,b) => b.days-a.days).slice(0,5).map(s => {
+      const cls = s.max >= 3 ? 'background:#FDE8E8;color:#C84646' : s.max >= 2 ? 'background:#FEF0E0;color:#A06828' : 'background:#EAF5EA;color:#2A6A2A';
+      return `<span class="week-sym-pill" style="${cls}">${s.label} (${s.days}d)</span>`;
+    }).join('');
+    document.getElementById('week-symptoms').innerHTML = symPills || '<span style="font-size:12px;color:var(--ink3)">Sem sintomas registrados esta semana</span>';
+
+    const canvas = document.getElementById('mini-chart');
+    if (!canvas) return;
+    if (miniChartInstance) { miniChartInstance.destroy(); miniChartInstance = null; }
+
+    const labels = days7.map(d => fmtShort(d));
+    const hydData = days7.map(d => { const l = dailyLogs[d]; return l ? l.water * 200 : 0; });
+    const tempData = days7.map(d => { const l = dailyLogs[d]; return l&&l.temp ? parseFloat(l.temp) : null; });
+
+    miniChartInstance = new Chart(canvas, {
+      data: {
+        labels,
+        datasets: [
+          { type: 'bar', label: 'Hidratação (ml)', data: hydData, backgroundColor: 'rgba(122,171,150,0.5)', borderColor: 'rgba(47,92,72,0.8)', borderWidth: 1, yAxisID: 'y' },
+          { type: 'line', label: 'Temperatura (°C)', data: tempData, borderColor: '#D64545', backgroundColor: 'transparent', pointRadius: 3, borderWidth: 2, tension: 0.3, spanGaps: true, yAxisID: 'y2' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { font: { size: 9 }, color: '#9CA3AF' }, grid: { display: false } },
+          y: { display: false, min: 0, max: 4000 },
+          y2: { display: false, min: 35, max: 40, position: 'right' }
+        }
+      }
+    });
+  }
+
 </script>
 </body>
 </html>
