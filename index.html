@@ -6,230 +6,1711 @@
 <title>Guia de Cuidados - Gabi</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
 <style>
-:root{--bg:#FDFCFB;--surface:#FFFFFF;--surface-hover:#FAFAFA;--ink:#1F2937;--ink2:#4B5563;--ink3:#9CA3AF;--sage:#7AAB96;--sage-light:#B4D4C4;--sage-dark:#2F5C48;--sage-bg:#EAF2EE;--gold:#D4A373;--gold-bg:#FDF6EE;--red-intense:#D64545;--red-bg:#FDF0F0;--amber:#C9822B;--amber-bg:#FEF0E0;--border:#E5E7EB;--border-focus:#D1D5DB;--shadow-sm:0 1px 3px rgba(0,0,0,0.02);--shadow-md:0 4px 12px rgba(0,0,0,0.05);--radius:12px;--radius-sm:8px;}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;font-size:14px;line-height:1.6;padding-bottom:env(safe-area-inset-bottom);}
-#app-content{display:none;}
-#login-screen{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px;text-align:center;}
-.login-box{background:var(--surface);padding:30px;border-radius:var(--radius);box-shadow:var(--shadow-md);width:100%;max-width:360px;border:1px solid var(--border);}
-.login-input{width:100%;font-family:'Inter';font-size:15px;padding:14px;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:12px;outline:none;transition:border 0.2s;}
-.login-input:focus{border-color:var(--sage-dark);}
-.btn-login{width:100%;background:var(--sage-dark);color:white;border:none;padding:14px;font-size:15px;font-weight:700;border-radius:var(--radius-sm);cursor:pointer;margin-bottom:12px;transition:background 0.2s;}
-.btn-login:hover{background:var(--ink);}
-.btn-register{width:100%;background:transparent;color:var(--ink2);border:1px solid var(--border);padding:14px;font-size:15px;font-weight:600;border-radius:var(--radius-sm);cursor:pointer;transition:background 0.2s;}
-.btn-register:hover{background:var(--surface-hover);}
-#login-error{color:var(--red-intense);font-size:13px;margin-bottom:12px;display:none;font-weight:600;background:var(--red-bg);padding:10px;border-radius:6px;border:1px solid rgba(214,69,69,0.2);}
-.btn-logout{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.1);color:white;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;z-index:10;display:flex;align-items:center;gap:4px;backdrop-filter:blur(4px);transition:all 0.2s;}
-.btn-logout:hover{background:rgba(0,0,0,0.3);}
-header{background:linear-gradient(135deg,#1E2B25 0%,#31473D 100%);color:white;padding:3.5rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;border-bottom-left-radius:24px;border-bottom-right-radius:24px;}
-header::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 10% 90%,rgba(122,171,150,0.2) 0%,transparent 60%),radial-gradient(circle at 90% 10%,rgba(212,163,115,0.15) 0%,transparent 50%);}
-.header-inner{position:relative;z-index:1;}
-.header-pill{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage-light);background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:6px 16px;border-radius:30px;margin-bottom:1.2rem;backdrop-filter:blur(4px);}
-header h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,8vw,3.8rem);font-weight:400;line-height:1;margin-bottom:0.5rem;}
-.heart{display:inline-block;color:#E8A0A0;animation:pulse 2s infinite ease-in-out;}
-@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.1);}100%{transform:scale(1);}}
-.header-meta{margin-top:1.5rem;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;}
-.header-badge{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:500;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);padding:6px 14px;border-radius:20px;backdrop-filter:blur(4px);transition:background 0.2s;}
-.header-badge:hover{background:rgba(255,255,255,0.2);}
-.emergency-bar{background:var(--red-intense);padding:1rem 1.5rem;display:flex;align-items:flex-start;gap:14px;margin:-1.5rem 1rem 1.5rem;position:relative;z-index:2;border-radius:var(--radius);box-shadow:var(--shadow-md);color:white;cursor:pointer;transition:transform 0.2s;}
-.emergency-bar:active{transform:scale(0.99);}
-.em-icon{font-size:24px;color:#FFF;flex-shrink:0;background:rgba(255,255,255,0.2);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;}
-.em-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;}
-.em-text{font-size:13px;color:rgba(255,255,255,0.95);line-height:1.5;}
-main{max-width:700px;margin:0 auto;padding:0 1rem 5rem;}
-.progress-wrap{background:var(--surface);padding:1.5rem;border-radius:var(--radius);box-shadow:var(--shadow-sm);margin-bottom:1.5rem;border:1px solid var(--border);}
-.progress-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;}
-.progress-label{font-size:13px;font-weight:500;color:var(--ink2);}
-.progress-val{font-size:20px;font-weight:700;color:var(--sage-dark);line-height:1;}
-.progress-track{background:var(--sage-bg);border-radius:20px;height:12px;overflow:hidden;position:relative;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--sage-dark));border-radius:20px;transition:width 0.5s cubic-bezier(0.4,0,0.2,1);position:relative;overflow:hidden;}
-.tab-nav{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:2rem;}
-.tab-btn{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 4px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all 0.2s;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--shadow-sm);}
-.tab-btn i{font-size:22px;transition:transform 0.2s;}
-.tab-btn.active{background:var(--ink);color:#fff;border-color:var(--ink);box-shadow:0 8px 20px rgba(44,54,49,0.25);}
-.tab-btn.active i{color:var(--gold);transform:scale(1.05);}
-.tab-pane{display:none;animation:fadein 0.3s ease forwards;opacity:0;transform:translateY(8px);}
-.tab-pane.active{display:block;}
-@keyframes fadein{to{opacity:1;transform:none;}}
-.sec-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:1.2rem;display:flex;align-items:center;gap:8px;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border);}
-.sec-title-left{display:flex;align-items:center;gap:8px;}
-.btn-edit{background:var(--surface);border:1px solid var(--border-focus);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;transition:all 0.2s;}
-.btn-edit:hover{background:var(--surface-hover);border-color:var(--ink3);}
-.date-input{font-family:'Inter';font-size:14px;font-weight:700;color:var(--ink);border:1px solid var(--sage-light);border-radius:6px;padding:4px 8px;background:var(--surface);display:none;outline:none;}
-.is-editing-cal .date-input,.is-editing-exam .date-input{display:inline-block;}
-.is-editing-cal .date-text,.is-editing-exam .date-text{display:none;}
-.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem;}
-.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px 10px;text-align:center;}
-.metric-val{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1;}
-.metric-lbl{font-size:12px;font-weight:500;color:var(--ink3);}
-.session-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:all 0.2s;}
-.session-left{display:flex;align-items:center;gap:14px;}
-.session-num{width:32px;height:32px;border-radius:50%;background:#F3F4F6;color:#4B5563;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;}
-.session-info{display:flex;flex-direction:column;}
-.session-date{font-size:15px;font-weight:700;color:var(--ink);}
-.session-sub{font-size:12px;color:var(--ink3);margin-top:2px;text-transform:lowercase;}
-.session-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
-.pill-nadir{background:#FDE8E8;color:#C84646;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:none;}
-.pill-exam{background:#FEF0E0;color:#A06828;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;border:none;}
-.pill-toggle{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;outline:none;}
-.pill-pending{background:#F3F4F6;color:#9CA3AF;}
-.pill-done{background:#EAF5EA;color:#2A6A2A;text-decoration:line-through;}
-.session-card.done{opacity:0.7;background:#FAFAFA;}
-.session-card.done .session-num{background:#EAF5EA;color:#2A6A2A;}
-.exam-row{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--sage-light);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;margin-bottom:10px;}
-.exam-row.done{opacity:0.7;background:#FAFAFA;border-left-color:var(--sage-dark);}
-.exam-info{display:flex;flex-direction:column;gap:2px;}
-.exam-date{font-size:15px;font-weight:700;color:var(--ink);}
-.exam-sub{font-size:12px;color:var(--ink3);}
-.exam-input-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
-.exam-input{font-family:'Inter',sans-serif;font-size:14px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;background:var(--surface);color:var(--ink);outline:none;width:100%;transition:all 0.2s;}
-.exam-input:focus{border-color:var(--sage-dark);}
-.exam-label{font-size:11px;font-weight:700;color:var(--ink3);margin-bottom:4px;display:block;text-transform:uppercase;}
-.exam-entry{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:10px;box-shadow:var(--shadow-sm);}
-.exam-val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;}
-.exam-val-box{padding:10px 8px;border-radius:var(--radius-sm);text-align:center;position:relative;border:1px solid transparent;}
-.exam-val-box.status-ok{background:#EAF5EA;border-color:#BEE3C4;}
-.exam-val-box.status-ok .exam-val-t{color:#2A6A2A;opacity:0.8;}
-.exam-val-box.status-ok .exam-val-v{color:#2A6A2A;}
-.exam-val-box.status-low{background:var(--amber-bg);border-color:#F5C84A;}
-.exam-val-box.status-low .exam-val-t{color:var(--amber);opacity:0.8;}
-.exam-val-box.status-low .exam-val-v{color:var(--amber);}
-.exam-val-box.status-high{background:var(--red-bg);border-color:rgba(214,69,69,0.3);}
-.exam-val-box.status-high .exam-val-t{color:var(--red-intense);opacity:0.8;}
-.exam-val-box.status-high .exam-val-v{color:var(--red-intense);}
-.exam-val-box.status-quimo{background:#FDE8E8;border-color:#F5A4A4;}
-.exam-val-box.status-quimo .exam-val-t{color:#C84646;opacity:0.8;}
-.exam-val-box.status-quimo .exam-val-v{color:#C84646;}
-.exam-val-box.status-none{background:var(--sage-bg);}
-.exam-val-box.status-none .exam-val-t{color:var(--ink3);}
-.exam-val-box.status-none .exam-val-v{color:var(--ink2);}
-.exam-val-t{font-size:10px;font-weight:700;text-transform:uppercase;margin-bottom:2px;}
-.exam-val-v{font-size:15px;font-weight:700;}
-.status-badge{position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;}
-.badge-ok{background:#2A6A2A;}.badge-low{background:var(--amber);}.badge-high{background:var(--red-intense);}.badge-quimo{background:#C84646;}
-.status-legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;font-size:11px;}
-.legend-item{display:flex;align-items:center;gap:5px;color:var(--ink3);font-weight:600;}
-.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-.chart-section{margin-top:2rem;}
-.chart-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
-.chart-tab{padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:var(--surface);color:var(--ink2);cursor:pointer;transition:all 0.2s;}
-.chart-tab.active{background:var(--ink);color:white;border-color:var(--ink);}
-.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;position:relative;height:260px;}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:20px;margin-bottom:12px;box-shadow:var(--shadow-sm);}
-.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:8px;}
-.card-title{font-size:14px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:6px;margin-bottom:6px;}
-.card-body{font-size:13.5px;color:var(--ink2);line-height:1.6;}
-.med-dose{font-size:12px;font-weight:700;background:var(--sage-bg);color:var(--sage-dark);padding:4px 12px;border-radius:20px;flex-shrink:0;}
-.date-nav{display:flex;align-items:center;justify-content:space-between;background:var(--surface);padding:12px 16px;border-radius:var(--radius-sm);border:1px solid var(--border);margin-bottom:2rem;}
-.date-nav-btn{background:#F3F4F6;border:none;width:36px;height:36px;border-radius:50%;color:var(--ink2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:0.2s;flex-shrink:0;}
-.date-nav-btn:hover{background:#E5E7EB;}
-.date-nav-center{display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.date-nav-lbl{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:2px;}
-.date-nav-input{font-family:'Inter';font-size:16px;font-weight:700;color:var(--ink);border:none;background:transparent;outline:none;text-align:center;cursor:pointer;}
-.water-wrap{background:#EAF5EA;border-radius:var(--radius-sm);padding:24px;text-align:center;margin-bottom:2rem;border:1px solid #BEE3C4;}
-.water-glasses-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 auto 16px;max-width:290px;}
-.wg{width:22px;height:32px;border:2px solid rgba(42,106,42,0.2);border-radius:2px 2px 6px 6px;position:relative;cursor:pointer;overflow:hidden;background:rgba(255,255,255,0.8);transition:transform 0.2s;}
-.wg:hover{transform:scale(1.1);}
-.wg-fill{position:absolute;bottom:0;left:0;right:0;background:#50A055;transition:height 0.3s ease;}
-.water-bar-track{background:rgba(42,106,42,0.1);height:8px;border-radius:20px;margin:16px 0 8px;overflow:hidden;}
-.water-bar-fill{height:100%;background:#2A6A2A;border-radius:20px;width:0%;transition:width 0.3s;}
-.sym-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem;}
-.sym-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;}
-.sym-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink3);margin-bottom:8px;}
-.sym-row{display:flex;align-items:center;gap:8px;}
-.sym-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;transition:background 0.3s;}
-.sym-sel{width:100%;font-family:'Inter',sans-serif;font-size:14px;color:var(--ink);background:transparent;border:none;outline:none;cursor:pointer;border-bottom:1px solid var(--border);padding:4px 0;appearance:none;-webkit-appearance:none;}
-.sym-note{font-size:12px;margin-top:8px;font-style:italic;}
-.diary-row{display:flex;gap:10px;margin-bottom:12px;}
-.diary-input{font-family:'Inter',sans-serif;font-size:14px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;background:var(--surface);color:var(--ink);outline:none;transition:all 0.2s;}
-.diary-input:focus{border-color:var(--sage-dark);}
-.d-date{flex-shrink:0;width:140px;}
-.d-text{flex:1;}
-.btn-primary{width:100%;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;background:var(--ink);color:#fff;border:none;border-radius:var(--radius-sm);padding:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:6px;}
-.btn-primary:hover{background:var(--sage-dark);}
-.diary-entry{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
-.d-tag{font-size:12px;font-weight:700;color:var(--sage-dark);margin-bottom:6px;display:flex;align-items:center;gap:4px;}
-.btn-del{background:var(--red-bg);border:none;width:32px;height:32px;border-radius:8px;color:var(--red-intense);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;}
-.btn-del:hover{background:rgba(214,69,69,0.2);}
-.hosp-emergency{border-left:4px solid var(--red-intense);background:var(--red-bg);}
-.hosp-option{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--red-intense);margin-bottom:4px;display:block;}
-.info-box{background:var(--sage-bg);border:1px solid var(--border-focus);border-left:4px solid var(--sage-dark);border-radius:var(--radius-sm);padding:16px;font-size:13px;color:var(--ink2);line-height:1.6;margin-bottom:1.5rem;display:flex;gap:10px;}
-.home-dashboard{margin-bottom:1.5rem;}
-.alert-card{border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;border:1px solid transparent;}
-.alert-card-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.alert-card-body{flex:1;}
-.alert-card-title{font-size:13px;font-weight:700;margin-bottom:2px;}
-.alert-card-text{font-size:12px;line-height:1.4;opacity:.85;}
-.ac-red{background:#FDE8E8;border-color:#F5A4A4;color:#7A1F1F;}.ac-red .alert-card-icon{background:#C84646;color:white;}
-.ac-amber{background:#FEF0E0;border-color:#F5C84A;color:#7A4A00;}.ac-amber .alert-card-icon{background:var(--amber);color:white;}
-.ac-green{background:#EAF5EA;border-color:#BEE3C4;color:#1A4D1A;}.ac-green .alert-card-icon{background:#2A6A2A;color:white;}
-.ac-blue{background:#E6F1FB;border-color:#B5D4F4;color:#042C53;}.ac-blue .alert-card-icon{background:#185FA5;color:white;}
-.week-summary{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:1rem;}
-.week-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
-.week-stat{text-align:center;}
-.week-stat-val{font-size:20px;font-weight:700;color:var(--ink);line-height:1;}
-.week-stat-lbl{font-size:11px;color:var(--ink3);margin-top:3px;font-weight:500;}
-.week-sym-list{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;}
-.week-sym-pill{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;}
-.mini-chart-wrap{height:80px;position:relative;margin-top:8px;}
-#offline-banner{display:none;background:var(--amber);color:white;text-align:center;font-size:12px;font-weight:700;padding:6px;position:fixed;top:0;left:0;right:0;z-index:10000}
-.nadir-alert{background:linear-gradient(135deg,#FDE8E8,#FFF0F0);border:1px solid #F5A4A4;border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:1rem;display:flex;align-items:center;gap:12px}
-.nadir-alert-icon{width:36px;height:36px;background:#C84646;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:18px;flex-shrink:0}
-.nadir-alert-text{font-size:13px;color:#7A1F1F;line-height:1.5}
-.nadir-alert-title{font-weight:700;font-size:14px;margin-bottom:2px}
-.session-card.nadir-active{border-color:#F5A4A4;background:#FFF8F8}
-.nadir-timeline{display:flex;gap:0;margin-top:12px;overflow-x:auto;padding-bottom:4px}
-.nadir-day{min-width:36px;height:44px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;border-radius:4px;margin-right:3px;flex-shrink:0;text-align:center;line-height:1.2;padding:2px}
-.nd-normal{background:#F3F4F6;color:#6B7280}.nd-risk{background:#FDE8E8;color:#C84646}.nd-nadir{background:#C84646;color:white}.nd-recovery{background:#FEF0E0;color:#A06828}.nd-today{outline:2px solid var(--sage-dark);outline-offset:1px}
-.vitals-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
-.vital-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center}
-.vital-label{font-size:11px;font-weight:700;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
-.vital-val{font-size:24px;font-weight:700;color:var(--ink);line-height:1}
-.vital-unit{font-size:11px;color:var(--ink3);margin-top:2px}
-.vital-input-row{display:flex;align-items:center;gap:8px;margin-top:8px;justify-content:center}
-.vital-num-input{width:80px;text-align:center;font-family:'Inter';font-size:15px;font-weight:700;border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px;outline:none;color:var(--ink)}
-.vital-num-input:focus{border-color:var(--sage-dark)}
-.temp-fever{color:var(--red-intense)!important}
-.exam-delta{font-size:10px;margin-top:2px;font-weight:600}
-.delta-up{color:var(--red-intense)}.delta-down{color:var(--amber)}.delta-ok{color:var(--sage-dark)}
-footer{text-align:center;padding:2rem 1rem 3rem;font-size:13px;color:var(--ink3);max-width:700px;margin:0 auto;}
-@media(max-width:600px){.tab-nav{grid-template-columns:repeat(3,1fr);}}
-@media(max-width:500px){
-  .tab-btn span{display:none;}.tab-btn i{font-size:24px;}.sec-title{flex-direction:column;align-items:flex-start;gap:12px;}.btn-edit{align-self:flex-start;}
-  .session-card{flex-direction:column;align-items:flex-start;gap:12px;}.session-right{width:100%;justify-content:flex-start;padding-left:46px;}
-  .sym-grid{grid-template-columns:1fr;}.diary-row{flex-direction:column;}.d-date{width:100%;}.exam-input-grid{grid-template-columns:1fr;}.exam-val-grid{grid-template-columns:1fr 1fr;}
-  .btn-logout{top:10px;right:10px;padding:4px 10px;font-size:10px;backdrop-filter:blur(8px);}.header-badge{font-size:10px;padding:4px 8px;}.emergency-bar{margin:-1rem 0.5rem 1rem;padding:0.75rem 1rem;}
+/* ===== VARIÁVEIS ===== */
+:root {
+  --bg: #FDFCFB;
+  --surface: #FFFFFF;
+  --surface-hover: #FAFAFA;
+  --ink: #1F2937;
+  --ink2: #4B5563;
+  --ink3: #9CA3AF;
+  --sage: #7AAB96;
+  --sage-light: #B4D4C4;
+  --sage-dark: #2F5C48;
+  --sage-bg: #EAF2EE;
+  --gold: #D4A373;
+  --gold-bg: #FDF6EE;
+  --red-intense: #D64545;
+  --red-bg: #FDF0F0;
+  --amber: #C9822B;
+  --amber-bg: #FEF0E0;
+  --border: #E5E7EB;
+  --border-focus: #D1D5DB;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.02);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ===== TELAS DE LOGIN ===== */
+#app-content {
+  display: none;
+}
+
+#login-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.login-box {
+  background: var(--surface);
+  padding: 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 360px;
+  border: 1px solid var(--border);
+}
+
+.login-input {
+  width: 100%;
+  font-family: 'Inter';
+  font-size: 15px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.login-input:focus {
+  border-color: var(--sage-dark);
+}
+
+.btn-login {
+  width: 100%;
+  background: var(--sage-dark);
+  color: white;
+  border: none;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.2s;
+}
+
+.btn-login:hover {
+  background: var(--ink);
+}
+
+.btn-register {
+  width: 100%;
+  background: transparent;
+  color: var(--ink2);
+  border: 1px solid var(--border);
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-register:hover {
+  background: var(--surface-hover);
+}
+
+#login-error {
+  color: var(--red-intense);
+  font-size: 13px;
+  margin-bottom: 12px;
+  display: none;
+  font-weight: 600;
+  background: var(--red-bg);
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(214, 69, 69, 0.2);
+}
+
+.btn-logout {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+/* ===== HEADER ===== */
+header {
+  background: linear-gradient(135deg, #1E2B25 0%, #31473D 100%);
+  color: white;
+  padding: 3.5rem 1.5rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 10% 90%, rgba(122,171,150,0.2) 0%, transparent 60%),
+              radial-gradient(circle at 90% 10%, rgba(212,163,115,0.15) 0%, transparent 50%);
+}
+
+.header-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.header-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--sage-light);
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 16px;
+  border-radius: 30px;
+  margin-bottom: 1.2rem;
+  backdrop-filter: blur(4px);
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 8vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.heart {
+  display: inline-block;
+  color: #E8A0A0;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.header-meta {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  padding: 6px 14px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+.header-badge:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ===== EMERGENCY BAR ===== */
+.emergency-bar {
+  background: var(--red-intense);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin: -1.5rem 1rem 1.5rem;
+  position: relative;
+  z-index: 2;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.emergency-bar:active {
+  transform: scale(0.99);
+}
+
+.em-icon {
+  font-size: 24px;
+  color: #FFF;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.2);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.em-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.em-text {
+  font-size: 13px;
+  color: rgba(255,255,255,0.95);
+  line-height: 1.5;
+}
+
+/* ===== MAIN ===== */
+main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem 5rem;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress-wrap {
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 10px;
+}
+
+.progress-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink2);
+}
+
+.progress-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--sage-dark);
+  line-height: 1;
+}
+
+.progress-track {
+  background: var(--sage-bg);
+  border-radius: 20px;
+  height: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sage), var(--sage-dark));
+  border-radius: 20px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== NAVIGATION TABS ===== */
+.tab-nav {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tab-btn i {
+  font-size: 22px;
+  transition: transform 0.2s;
+}
+
+.tab-btn.active {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+  box-shadow: 0 8px 20px rgba(44, 54, 49, 0.25);
+}
+
+.tab-btn.active i {
+  color: var(--gold);
+  transform: scale(1.05);
+}
+
+.tab-pane {
+  display: none;
+  animation: fadein 0.3s ease forwards;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.tab-pane.active {
+  display: block;
+}
+
+@keyframes fadein {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===== TYPOGRAPHY ===== */
+.sec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sec-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: var(--surface);
+  border: 1px solid var(--border-focus);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  background: var(--surface-hover);
+  border-color: var(--ink3);
+}
+
+.date-input {
+  font-family: 'Inter';
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  border: 1px solid var(--sage-light);
+  border-radius: 6px;
+  padding: 4px 8px;
+  background: var(--surface);
+  display: none;
+  outline: none;
+}
+
+.is-editing-cal .date-input,
+.is-editing-exam .date-input {
+  display: inline-block;
+}
+
+.is-editing-cal .date-text,
+.is-editing-exam .date-text {
+  display: none;
+}
+
+/* ===== CALENDÁRIO: MÉTRICAS ===== */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px 10px;
+  text-align: center;
+}
+
+.metric-val {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.metric-lbl {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink3);
+}
+
+/* ===== SESSÕES ===== */
+.session-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.2s;
+}
+
+.session-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.session-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #F3F4F6;
+  color: #4B5563;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.session-date {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.session-sub {
+  font-size: 12px;
+  color: var(--ink3);
+  margin-top: 2px;
+  text-transform: lowercase;
+}
+
+.session-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* ===== PÍLULAS ===== */
+.pill-nadir {
+  background: #FDE8E8;
+  color: #C84646;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+}
+
+.pill-exam {
+  background: #FEF0E0;
+  color: #A06828;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+}
+
+.pill-toggle {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  outline: none;
+}
+
+.pill-pending {
+  background: #F3F4F6;
+  color: #9CA3AF;
+}
+
+.pill-done {
+  background: #EAF5EA;
+  color: #2A6A2A;
+  text-decoration: line-through;
+}
+
+.session-card.done {
+  opacity: 0.7;
+  background: #FAFAFA;
+}
+
+.session-card.done .session-num {
+  background: #EAF5EA;
+  color: #2A6A2A;
+}
+
+/* ===== EXAMES ===== */
+.exam-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--sage-light);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  margin-bottom: 10px;
+}
+
+.exam-row.done {
+  opacity: 0.7;
+  background: #FAFAFA;
+  border-left-color: var(--sage-dark);
+}
+
+.exam-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exam-date {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.exam-sub {
+  font-size: 12px;
+  color: var(--ink3);
+}
+
+.exam-input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.exam-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.exam-input:focus {
+  border-color: var(--sage-dark);
+}
+
+.exam-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink3);
+  margin-bottom: 4px;
+  display: block;
+  text-transform: uppercase;
+}
+
+.exam-entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ===== GRID DE VALORES ===== */
+.exam-val-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.exam-val-box {
+  padding: 10px 8px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.exam-val-box.status-ok {
+  background: #EAF5EA;
+  border-color: #BEE3C4;
+}
+
+.exam-val-box.status-ok .exam-val-t {
+  color: #2A6A2A;
+  opacity: 0.8;
+}
+
+.exam-val-box.status-ok .exam-val-v {
+  color: #2A6A2A;
+}
+
+.exam-val-box.status-low {
+  background: var(--amber-bg);
+  border-color: #F5C84A;
+}
+
+.exam-val-box.status-low .exam-val-t {
+  color: var(--amber);
+  opacity: 0.8;
+}
+
+.exam-val-box.status-low .exam-val-v {
+  color: var(--amber);
+}
+
+.exam-val-box.status-high {
+  background: var(--red-bg);
+  border-color: rgba(214,69,69,0.3);
+}
+
+.exam-val-box.status-high .exam-val-t {
+  color: var(--red-intense);
+  opacity: 0.8;
+}
+
+.exam-val-box.status-high .exam-val-v {
+  color: var(--red-intense);
+}
+
+.exam-val-box.status-quimo {
+  background: #FDE8E8;
+  border-color: #F5A4A4;
+}
+
+.exam-val-box.status-quimo .exam-val-t {
+  color: #C84646;
+  opacity: 0.8;
+}
+
+.exam-val-box.status-quimo .exam-val-v {
+  color: #C84646;
+}
+
+.exam-val-box.status-none {
+  background: var(--sage-bg);
+}
+
+.exam-val-box.status-none .exam-val-t {
+  color: var(--ink3);
+}
+
+.exam-val-box.status-none .exam-val-v {
+  color: var(--ink2);
+}
+
+.exam-val-t {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.exam-val-v {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.status-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.badge-ok { background: #2A6A2A; }
+.badge-low { background: var(--amber); }
+.badge-high { background: var(--red-intense); }
+.badge-quimo { background: #C84646; }
+
+.status-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 11px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink3);
+  font-weight: 600;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== GRÁFICO ===== */
+.chart-section {
+  margin-top: 2rem;
+}
+
+.chart-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.chart-tab {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink2);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chart-tab.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+
+.chart-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  position: relative;
+  height: 260px;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.card-body {
+  font-size: 13.5px;
+  color: var(--ink2);
+  line-height: 1.6;
+}
+
+.med-dose {
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--sage-bg);
+  color: var(--sage-dark);
+  padding: 4px 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+/* ===== NAVEGAÇÃO DE DATAS ===== */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+}
+
+.date-nav-btn {
+  background: #F3F4F6;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--ink2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: 0.2s;
+  flex-shrink: 0;
+}
+
+.date-nav-btn:hover {
+  background: #E5E7EB;
+}
+
+.date-nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-nav-lbl {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.date-nav-input {
+  font-family: 'Inter';
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  border: none;
+  background: transparent;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* ===== WATER TRACKER ===== */
+.water-wrap {
+  background: #EAF5EA;
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 2rem;
+  border: 1px solid #BEE3C4;
+}
+
+.water-glasses-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 auto 16px;
+  max-width: 290px;
+}
+
+.wg {
+  width: 22px;
+  height: 32px;
+  border: 2px solid rgba(42, 106, 42, 0.2);
+  border-radius: 2px 2px 6px 6px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  background: rgba(255,255,255,0.8);
+  transition: transform 0.2s;
+}
+
+.wg:hover {
+  transform: scale(1.1);
+}
+
+.wg-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #50A055;
+  transition: height 0.3s ease;
+}
+
+.water-bar-track {
+  background: rgba(42, 106, 42, 0.1);
+  height: 8px;
+  border-radius: 20px;
+  margin: 16px 0 8px;
+  overflow: hidden;
+}
+
+.water-bar-fill {
+  height: 100%;
+  background: #2A6A2A;
+  border-radius: 20px;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+/* ===== SYMPTOM GRID ===== */
+.sym-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.sym-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.sym-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink3);
+  margin-bottom: 8px;
+}
+
+.sym-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sym-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.sym-sel {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  padding: 4px 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.sym-note {
+  font-size: 12px;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+/* ===== DIARY ===== */
+.diary-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.diary-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.diary-input:focus {
+  border-color: var(--sage-dark);
+}
+
+.d-date {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+.d-text {
+  flex: 1;
+}
+
+.btn-primary {
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-primary:hover {
+  background: var(--sage-dark);
+}
+
+.diary-entry {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.d-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sage-dark);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-del {
+  background: var(--red-bg);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: var(--red-intense);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.btn-del:hover {
+  background: rgba(214,69,69,0.2);
+}
+
+/* ===== HOSPITAIS ===== */
+.hosp-emergency {
+  border-left: 4px solid var(--red-intense);
+  background: var(--red-bg);
+}
+
+.hosp-option {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--red-intense);
+  margin-bottom: 4px;
+  display: block;
+}
+
+.info-box {
+  background: var(--sage-bg);
+  border: 1px solid var(--border-focus);
+  border-left: 4px solid var(--sage-dark);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  font-size: 13px;
+  color: var(--ink2);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== HOME DASHBOARD ===== */
+.home-dashboard {
+  margin-bottom: 1.5rem;
+}
+
+.alert-card {
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid transparent;
+}
+
+.alert-card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.alert-card-body {
+  flex: 1;
+}
+
+.alert-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.alert-card-text {
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: .85;
+}
+
+.ac-red {
+  background: #FDE8E8;
+  border-color: #F5A4A4;
+  color: #7A1F1F;
+}
+
+.ac-red .alert-card-icon {
+  background: #C84646;
+  color: white;
+}
+
+.ac-amber {
+  background: #FEF0E0;
+  border-color: #F5C84A;
+  color: #7A4A00;
+}
+
+.ac-amber .alert-card-icon {
+  background: var(--amber);
+  color: white;
+}
+
+.ac-green {
+  background: #EAF5EA;
+  border-color: #BEE3C4;
+  color: #1A4D1A;
+}
+
+.ac-green .alert-card-icon {
+  background: #2A6A2A;
+  color: white;
+}
+
+.ac-blue {
+  background: #E6F1FB;
+  border-color: #B5D4F4;
+  color: #042C53;
+}
+
+.ac-blue .alert-card-icon {
+  background: #185FA5;
+  color: white;
+}
+
+/* ===== WEEKLY SUMMARY ===== */
+.week-summary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  margin-bottom: 1rem;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.week-stat {
+  text-align: center;
+}
+
+.week-stat-val {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.week-stat-lbl {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.week-sym-list {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.week-sym-pill {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.mini-chart-wrap {
+  height: 80px;
+  position: relative;
+  margin-top: 8px;
+}
+
+/* ===== OFFLINE BANNER ===== */
+#offline-banner {
+  display: none;
+  background: var(--amber);
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+}
+
+/* ===== NADIR ===== */
+.nadir-alert {
+  background: linear-gradient(135deg, #FDE8E8, #FFF0F0);
+  border: 1px solid #F5A4A4;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nadir-alert-icon {
+  width: 36px;
+  height: 36px;
+  background: #C84646;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.nadir-alert-text {
+  font-size: 13px;
+  color: #7A1F1F;
+  line-height: 1.5;
+}
+
+.nadir-alert-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.session-card.nadir-active {
+  border-color: #F5A4A4;
+  background: #FFF8F8;
+}
+
+.nadir-timeline {
+  display: flex;
+  gap: 0;
+  margin-top: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.nadir-day {
+  min-width: 36px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-right: 3px;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 1.2;
+  padding: 2px;
+}
+
+.nd-normal { background: #F3F4F6; color: #6B7280; }
+.nd-risk { background: #FDE8E8; color: #C84646; }
+.nd-nadir { background: #C84646; color: white; }
+.nd-recovery { background: #FEF0E0; color: #A06828; }
+.nd-today { outline: 2px solid var(--sage-dark); outline-offset: 1px; }
+
+/* ===== SINAIS VITAIS ===== */
+.vitals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.vital-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+}
+
+.vital-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ink3);
+  margin-bottom: 6px;
+}
+
+.vital-val {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.vital-unit {
+  font-size: 11px;
+  color: var(--ink3);
+  margin-top: 2px;
+}
+
+.vital-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.vital-num-input {
+  width: 80px;
+  text-align: center;
+  font-family: 'Inter';
+  font-size: 15px;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px;
+  outline: none;
+  color: var(--ink);
+}
+
+.vital-num-input:focus {
+  border-color: var(--sage-dark);
+}
+
+.temp-fever {
+  color: var(--red-intense) !important;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 2rem 1rem 3rem;
+  font-size: 13px;
+  color: var(--ink3);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 600px) {
+  .tab-nav {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .tab-btn span {
+    display: none;
+  }
+  
+  .tab-btn i {
+    font-size: 24px;
+  }
+  
+  .sec-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .btn-edit {
+    align-self: flex-start;
+  }
+  
+  .session-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .session-right {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 46px;
+  }
+  
+  .sym-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .diary-row {
+    flex-direction: column;
+  }
+  
+  .d-date {
+    width: 100%;
+  }
+  
+  .exam-input-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .exam-val-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .btn-logout {
+    top: 10px;
+    right: 10px;
+    padding: 4px 10px;
+    font-size: 10px;
+    backdrop-filter: blur(8px);
+  }
+  
+  .header-badge {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  
+  .emergency-bar {
+    margin: -1rem 0.5rem 1rem;
+    padding: 0.75rem 1rem;
+  }
 }
 </style>
 </head>
 <body>
+
+<!-- TELA DE LOGIN -->
 <div id="login-screen">
-  <div style="margin-bottom:20px;color:var(--sage-dark);"><i class="ph-fill ph-plant" style="font-size:48px;"></i></div>
-  <h2 style="font-family:'Playfair Display',serif;margin-bottom:24px;color:var(--ink);">Guia de Cuidados</h2>
+  <div style="margin-bottom: 20px; color: var(--sage-dark);">
+    <i class="ph-fill ph-plant" style="font-size: 48px;"></i>
+  </div>
+  <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 24px; color: var(--ink);">Guia de Cuidados</h2>
   <div class="login-box">
     <div id="login-error"></div>
-    <input type="email" id="auth-email" class="login-input" placeholder="E-mail" value=""><input type="password" id="auth-password" class="login-input" placeholder="Senha">
-    <button class="btn-login" onclick="login()">Entrar</button><button class="btn-register" onclick="register()">Criar nova conta</button>
-    <p style="font-size:11px;color:var(--ink3);margin-top:16px;">Seus dados ficam salvos na nuvem e apenas você tem acesso.</p>
+    <input type="email" id="auth-email" class="login-input" placeholder="E-mail" value="">
+    <input type="password" id="auth-password" class="login-input" placeholder="Senha">
+    <button class="btn-login" onclick="login()">Entrar</button>
+    <button class="btn-register" onclick="register()">Criar nova conta</button>
+    <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Seus dados ficam salvos na nuvem e apenas você tem acesso.</p>
   </div>
 </div>
-<div id="offline-banner"><i class="ph-bold ph-wifi-slash"></i> Sem conexão — exibindo dados salvos localmente</div>
+
+<!-- BANNER OFFLINE -->
+<div id="offline-banner">
+  <i class="ph-bold ph-wifi-slash"></i> Sem conexão — exibindo dados salvos localmente
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
 <div id="app-content">
-  <header><button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button><div class="header-inner"><div class="header-pill"><i class="ph-fill ph-plant"></i> Guia de Cuidados</div><h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1><div class="header-meta"><span class="header-badge" style="cursor:default;"><i class="ph ph-calendar-check"></i> 16 Sessões</span><a href="https://maps.app.goo.gl/eLpvxBZZUe2xwQKV8" target="_blank" style="color:inherit;text-decoration:none;"><span class="header-badge"><i class="ph ph-hospital"></i> Centro de referência: Hospital da Mulher - Av. Rio Branco, 1162 - Campos Elíseos</span></a></div></div></header>
-  <div class="emergency-bar" onclick="switchTab('hospital', document.querySelector('[onclick*=\'hospital\']'))"><div class="em-icon"><i class="ph-fill ph-siren"></i></div><div><div class="em-title">Febre ≥ 37,8 °C → PS Imediatamente</div><div class="em-text">Clique para ver os hospitais de emergência.</div></div></div>
-  <main>
-    <div class="home-dashboard">
-      <div class="progress-wrap"><div class="progress-header"><span class="progress-label" id="prog-label">Progresso do Tratamento</span><span class="progress-val" id="prog-val">0%</span></div><div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div></div>
-      <div id="smart-alerts"></div>
-      <div class="week-summary" id="week-summary" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:13px;font-weight:700;color:var(--ink)"><i class="ph-fill ph-chart-bar" style="color:var(--sage-dark)"></i> Resumo dos últimos 7 dias</div><div id="week-date-range" style="font-size:11px;color:var(--ink3)"></div></div><div class="week-grid"><div class="week-stat"><div class="week-stat-val" id="week-hydration">—</div><div class="week-stat-lbl">Hidrat. média</div></div><div class="week-stat"><div class="week-stat-val" id="week-temp">—</div><div class="week-stat-lbl">Temp. média</div></div><div class="week-stat"><div class="week-stat-val" id="week-weight">—</div><div class="week-stat-lbl">Peso atual</div></div></div><div id="week-symptoms" class="week-sym-list"></div><div class="mini-chart-wrap"><canvas id="mini-chart"></canvas></div></div>
+  <header>
+    <button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button>
+    <div class="header-inner">
+      <div class="header-pill"><i class="ph-fill ph-plant"></i> Guia de Cuidados</div>
+      <h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1>
+      <div class="header-meta">
+        <span class="header-badge" style="cursor: default;"><i class="ph ph-calendar-check"></i> 16 Sessões</span>
+        <a href="https://maps.app.goo.gl/eLpvxBZZUe2xwQKV8" target="_blank" style="color: inherit; text-decoration: none;">
+          <span class="header-badge"><i class="ph ph-hospital"></i> Centro de referência: Hospital da Mulher - Av. Rio Branco, 1162 - Campos Elíseos</span>
+        </a>
+      </div>
     </div>
+  </header>
+
+  <!-- BARRA DE EMERGÊNCIA -->
+  <div class="emergency-bar" onclick="switchTab('hospital', document.querySelector('[onclick*=\\'hospital\\']'))">
+    <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
+    <div>
+      <div class="em-title">Febre ≥ 37,8 °C → PS Imediatamente</div>
+      <div class="em-text">Clique para ver os hospitais de emergência.</div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HOME DASHBOARD -->
+    <div class="home-dashboard">
+      <!-- Barra de Progresso -->
+      <div class="progress-wrap">
+        <div class="progress-header">
+          <span class="progress-label" id="prog-label">Progresso do Tratamento</span>
+          <span class="progress-val" id="prog-val">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+        </div>
+      </div>
+
+      <!-- Alertas Inteligentes -->
+      <div id="smart-alerts"></div>
+
+      <!-- Resumo Semanal -->
+      <div class="week-summary" id="week-summary" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div style="font-size:13px;font-weight:700;color:var(--ink)">
+            <i class="ph-fill ph-chart-bar" style="color:var(--sage-dark)"></i> Resumo dos últimos 7 dias
+          </div>
+          <div id="week-date-range" style="font-size:11px;color:var(--ink3)"></div>
+        </div>
+        <div class="week-grid">
+          <div class="week-stat">
+            <div class="week-stat-val" id="week-hydration">—</div>
+            <div class="week-stat-lbl">Hidrat. média</div>
+          </div>
+          <div class="week-stat">
+            <div class="week-stat-val" id="week-temp">—</div>
+            <div class="week-stat-lbl">Temp. média</div>
+          </div>
+          <div class="week-stat">
+            <div class="week-stat-val" id="week-weight">—</div>
+            <div class="week-stat-lbl">Peso atual</div>
+          </div>
+        </div>
+        <div id="week-symptoms" class="week-sym-list"></div>
+        <div class="mini-chart-wrap">
+          <canvas id="mini-chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVEGAÇÃO POR ABAS -->
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('calendario',this)"><i class="ph-fill ph-calendar-heart"></i><span>Calendário</span></button>
       <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
@@ -238,40 +1719,179 @@ footer{text-align:center;padding:2rem 1rem 3rem;font-size:13px;color:var(--ink3)
       <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Emergência</span></button>
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
+
+    <!-- ============================================= -->
+    <!-- TAB CALENDÁRIO                                -->
+    <!-- ============================================= -->
     <div id="tab-calendario" class="tab-pane active">
-      <div class="sec-title"><div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div><button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode('cal')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button></div>
+      <div class="sec-title">
+        <div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div>
+        <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode('cal')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
+      </div>
+
       <div id="nadir-banner"></div>
-      <div class="card" style="margin-bottom:1.5rem"><div class="card-title"><i class="ph-fill ph-calendar-x" style="color:var(--red-intense)"></i> Calculadora de Nadir</div><div class="card-body" style="margin-bottom:10px">Digite a data de uma sessão para ver o período de maior risco.</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><input type="date" id="nadir-input" class="exam-input" style="width:auto;flex:1;min-width:140px"><button class="btn-edit" style="background:var(--ink);color:white" onclick="calcNadir()"><i class="ph-bold ph-calculator"></i> Calcular</button></div><div id="nadir-result" style="margin-top:12px"></div></div>
-      <div class="metrics-grid"><div class="metric-card"><div class="metric-val" id="met-total">16</div><div class="metric-lbl">Sessões total</div></div><div class="metric-card"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div><div class="metric-card"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div><div class="metric-card"><div class="metric-val" id="met-end">—</div><div class="metric-lbl">Término previsto</div></div></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:12px;"><h3 style="font-size:14px;color:var(--ink2);">Fase 1: Branca (Paclitaxel 80 mg)</h3></div><div id="grid-white"></div>
-      <h3 style="font-size:14px;margin:2rem 0 12px;color:var(--red-intense);">Fase 2: Vermelha (AC)</h3><div id="grid-red"></div>
+
+      <!-- Calculadora de Nadir -->
+      <div class="card" style="margin-bottom:1.5rem">
+        <div class="card-title"><i class="ph-fill ph-calendar-x" style="color:var(--red-intense)"></i> Calculadora de Nadir</div>
+        <div class="card-body" style="margin-bottom:10px">Digite a data de uma sessão para ver o período de maior risco.</div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <input type="date" id="nadir-input" class="exam-input" style="width:auto;flex:1;min-width:140px">
+          <button class="btn-edit" style="background:var(--ink);color:white" onclick="calcNadir()"><i class="ph-bold ph-calculator"></i> Calcular</button>
+        </div>
+        <div id="nadir-result" style="margin-top:12px"></div>
+      </div>
+
+      <!-- Métricas -->
+      <div class="metrics-grid">
+        <div class="metric-card"><div class="metric-val" id="met-total">16</div><div class="metric-lbl">Sessões total</div></div>
+        <div class="metric-card"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div>
+        <div class="metric-card"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div>
+        <div class="metric-card"><div class="metric-val" id="met-end">—</div><div class="metric-lbl">Término previsto</div></div>
+      </div>
+
+      <!-- Fase 1: Branca -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
+        <h3 style="font-size:14px; color: var(--ink2);">Fase 1: Branca (Paclitaxel 80 mg)</h3>
+      </div>
+      <div id="grid-white"></div>
+
+      <!-- Fase 2: Vermelha -->
+      <h3 style="font-size:14px; margin: 2rem 0 12px; color: var(--red-intense);">Fase 2: Vermelha (AC)</h3>
+      <div id="grid-red"></div>
     </div>
+
+    <!-- ============================================= -->
+    <!-- TAB MEDICAÇÕES                                -->
+    <!-- ============================================= -->
     <div id="tab-medicacoes" class="tab-pane">
       <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
-      <div class="card"><div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Enquanto houver náuseas ou vômitos.</div></div>
-      <div class="card"><div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Se náuseas persistirem com Ondansetrona.</div></div>
-      <div class="card"><div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div><div class="card-body">Somente em caso de diarreia.</div></div>
-      <div class="card"><div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div><div class="card-body">Somente se o intestino prender.</div></div>
-      <div class="card" style="border-color:var(--red-bg);"><div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div><div class="card-body">Para dor. Não use para mascarar febre.</div></div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div>
+        <div class="card-body">Enquanto houver náuseas ou vômitos.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div>
+        <div class="card-body">Se náuseas persistirem com Ondansetrona.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div>
+        <div class="card-body">Somente em caso de diarreia.</div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div>
+        <div class="card-body">Somente se o intestino prender.</div>
+      </div>
+      <div class="card" style="border-color: var(--red-bg);">
+        <div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div>
+        <div class="card-body">Para dor. Não use para mascarar febre.</div>
+      </div>
     </div>
+
+    <!-- ============================================= -->
+    <!-- TAB SINTOMAS (DIÁRIO)                         -->
+    <!-- ============================================= -->
     <div id="tab-sintomas" class="tab-pane">
-      <div class="date-nav"><button class="date-nav-btn" onclick="shiftLogDate(-1)"><i class="ph-bold ph-caret-left"></i></button><div class="date-nav-center"><span class="date-nav-lbl">Registro do Dia</span><input type="date" id="log-date-input" class="date-nav-input" onchange="setLogDate(this.value)"></div><button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button></div>
+      <!-- Navegação de data -->
+      <div class="date-nav">
+        <button class="date-nav-btn" onclick="shiftLogDate(-1)"><i class="ph-bold ph-caret-left"></i></button>
+        <div class="date-nav-center">
+          <span class="date-nav-lbl">Registro do Dia</span>
+          <input type="date" id="log-date-input" class="date-nav-input" onchange="setLogDate(this.value)">
+        </div>
+        <button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button>
+      </div>
+
+      <!-- Sinais Vitais -->
       <h2 class="sec-title" style="padding-bottom:8px;border-bottom:1px solid var(--border)"><i class="ph-fill ph-thermometer"></i> Sinais Vitais</h2>
-      <div class="vitals-grid"><div class="vital-card"><div class="vital-label">Temperatura</div><div class="vital-val" id="temp-display">—</div><div class="vital-unit">°C</div><div class="vital-input-row"><input type="number" id="temp-input" class="vital-num-input" placeholder="36.5" step="0.1" min="34" max="42" onchange="saveVital('temp',this.value)"><span style="font-size:12px;color:var(--ink3)">°C</span></div><div id="temp-alert" style="display:none;margin-top:8px;font-size:11px;font-weight:700;color:var(--red-intense)"><i class="ph-fill ph-warning-circle"></i> FEBRE! Ir ao PS.</div></div><div class="vital-card"><div class="vital-label">Peso</div><div class="vital-val" id="peso-display">—</div><div class="vital-unit">kg</div><div class="vital-input-row"><input type="number" id="peso-input" class="vital-num-input" placeholder="65.0" step="0.1" min="30" max="200" onchange="saveVital('peso',this.value)"><span style="font-size:12px;color:var(--ink3)">kg</span></div></div></div>
+      <div class="vitals-grid">
+        <div class="vital-card">
+          <div class="vital-label">Temperatura</div>
+          <div class="vital-val" id="temp-display">—</div>
+          <div class="vital-unit">°C</div>
+          <div class="vital-input-row">
+            <input type="number" id="temp-input" class="vital-num-input" placeholder="36.5" step="0.1" min="34" max="42" onchange="saveVital('temp',this.value)">
+            <span style="font-size:12px;color:var(--ink3)">°C</span>
+          </div>
+          <div id="temp-alert" style="display:none;margin-top:8px;font-size:11px;font-weight:700;color:var(--red-intense)">
+            <i class="ph-fill ph-warning-circle"></i> FEBRE! Ir ao PS.
+          </div>
+        </div>
+        <div class="vital-card">
+          <div class="vital-label">Peso</div>
+          <div class="vital-val" id="peso-display">—</div>
+          <div class="vital-unit">kg</div>
+          <div class="vital-input-row">
+            <input type="number" id="peso-input" class="vital-num-input" placeholder="65.0" step="0.1" min="30" max="200" onchange="saveVital('peso',this.value)">
+            <span style="font-size:12px;color:var(--ink3)">kg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hidratação -->
       <h2 class="sec-title" style="margin-top:1.5rem;padding-bottom:8px;border-bottom:1px solid var(--border)"><i class="ph-fill ph-drop"></i> Hidratação Diária (Meta: 3L)</h2>
-      <div class="water-wrap"><div class="water-glasses-row" id="wglasses"></div><div style="font-size:28px;font-weight:700;color:#2A6A2A;"><span id="w-ml">0</span> / 3000 ml</div><div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div><div id="w-msg" style="margin-bottom:12px;font-weight:600;color:#2A6A2A;">Vamos começar! 💪</div><div style="display:flex;gap:8px;justify-content:center;"><button class="btn-edit" style="background:#1F2937;color:white;padding:8px 16px;" onclick="addDailyWater()">+ 1 Copo (200ml)</button><button class="btn-edit" style="padding:8px 16px;background:transparent;border:1px solid #BEE3C4;" onclick="resetDailyWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button></div></div>
-      <h2 class="sec-title" style="margin-top:2.5rem;padding-bottom:8px;border-bottom:1px solid var(--border);"><i class="ph-fill ph-clipboard-text"></i> Monitorar sintomas</h2><div class="sym-grid" id="sym-grid"></div>
-      <div id="fever-alert" style="display:none;" class="emergency-bar"><div class="em-icon"><i class="ph-fill ph-siren"></i></div><div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div></div>
-      <h2 class="sec-title" style="margin-top:2.5rem;padding-bottom:8px;border-bottom:1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2><div class="card"><div class="diary-row"><input type="date" id="d-date" class="diary-input d-date"><input type="text" id="d-text" class="diary-input d-text" placeholder="Como você está se sentindo hoje?"></div><button class="btn-primary" onclick="addDiary()">+ Adicionar anotação</button></div><div id="diary-list"></div>
-      <h2 class="sec-title" style="margin-top:2.5rem;padding-bottom:8px;border-bottom:1px solid var(--border);"><i class="ph-fill ph-export"></i> Compartilhar</h2><div class="card" style="text-align:center;"><div style="font-size:13px;color:var(--ink2);margin-bottom:12px;">Gere um resumo deste dia para mandar para o médico.</div><button class="btn-primary" style="background:var(--sage-dark);" onclick="gerarRelatorio()"><i class="ph-bold ph-copy"></i> Copiar Relatório do Dia</button></div>
+      <div class="water-wrap">
+        <div class="water-glasses-row" id="wglasses"></div>
+        <div style="font-size: 28px; font-weight: 700; color: #2A6A2A;"><span id="w-ml">0</span> / 3000 ml</div>
+        <div class="water-bar-track"><div class="water-bar-fill" id="w-bar" style="width:0%"></div></div>
+        <div id="w-msg" style="margin-bottom: 12px; font-weight: 600; color: #2A6A2A;">Vamos começar! 💪</div>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <button class="btn-edit" style="background: #1F2937; color: white; padding: 8px 16px;" onclick="addDailyWater()">+ 1 Copo (200ml)</button>
+          <button class="btn-edit" style="padding: 8px 16px; background: transparent; border: 1px solid #BEE3C4;" onclick="resetDailyWater()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Zerar</button>
+        </div>
+      </div>
+
+      <!-- Monitor de sintomas -->
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-clipboard-text"></i> Monitorar sintomas</h2>
+      <div class="sym-grid" id="sym-grid"></div>
+      <div id="fever-alert" style="display:none;" class="emergency-bar">
+        <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
+        <div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div>
+      </div>
+
+      <!-- Diário -->
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2>
+      <div class="card">
+        <div class="diary-row">
+          <input type="date" id="d-date" class="diary-input d-date">
+          <input type="text" id="d-text" class="diary-input d-text" placeholder="Como você está se sentindo hoje?">
+        </div>
+        <button class="btn-primary" onclick="addDiary()">+ Adicionar anotação</button>
+      </div>
+      <div id="diary-list"></div>
+
+      <!-- Compartilhar -->
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-export"></i> Compartilhar</h2>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 13px; color: var(--ink2); margin-bottom: 12px;">Gere um resumo deste dia para mandar para o médico.</div>
+        <button class="btn-primary" style="background: var(--sage-dark);" onclick="gerarRelatorio()"><i class="ph-bold ph-copy"></i> Copiar Relatório do Dia</button>
+      </div>
     </div>
+
+    <!-- ============================================= -->
+    <!-- TAB EXAMES                                    -->
+    <!-- ============================================= -->
     <div id="tab-exames" class="tab-pane">
       <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Exames Obrigatórios</h2>
       <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, linfócitos, plaquetas e hemoglobina. Essencial para liberar a sessão.</div></div>
       <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
-      <h2 class="sec-title" style="margin-top:2.5rem;padding-bottom:8px;border-bottom:1px solid var(--border);"><i class="ph-fill ph-file-text"></i> Resultados do Laboratório</h2>
-      <div class="status-legend"><div class="legend-item"><div class="legend-dot" style="background:#2A6A2A"></div>Normal</div><div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Abaixo do normal</div><div class="legend-item"><div class="legend-dot" style="background:var(--red-intense)"></div>Acima do normal</div><div class="legend-item"><div class="legend-dot" style="background:#C84646"></div>Abaixo do mínimo p/ quimio</div></div>
-      <div class="card"><div style="margin-bottom:12px;"><label class="exam-label">Data da Coleta</label><input type="date" id="e-date" class="exam-input"></div>
+
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-file-text"></i> Resultados do Laboratório</h2>
+
+      <!-- Legenda de Status -->
+      <div class="status-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#2A6A2A"></div>Normal</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Abaixo do normal</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--red-intense)"></div>Acima do normal</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#C84646"></div>Abaixo do mínimo p/ quimio</div>
+      </div>
+
+      <!-- Formulário de Exames -->
+      <div class="card">
+        <div style="margin-bottom: 12px;">
+          <label class="exam-label">Data da Coleta</label>
+          <input type="date" id="e-date" class="exam-input">
+        </div>
         <div class="exam-input-grid">
           <div><label class="exam-label">Leucócitos (Mil/mm³)</label><input type="text" id="e-leuco" class="exam-input" placeholder="Ex: 8,13" inputmode="decimal"></div>
           <div><label class="exam-label">Neutrófilos (Mil/mm³)</label><input type="text" id="e-neutro" class="exam-input" placeholder="Ex: 5,2" inputmode="decimal"></div>
@@ -282,24 +1902,84 @@ footer{text-align:center;padding:2rem 1rem 3rem;font-size:13px;color:var(--ink3)
           <div><label class="exam-label">Monócitos (Mil/mm³)</label><input type="text" id="e-mono" class="exam-input" placeholder="Ex: 0,56" inputmode="decimal"></div>
           <div><label class="exam-label">Eosinófilos (Mil/mm³)</label><input type="text" id="e-eosino" class="exam-input" placeholder="Ex: 0,05" inputmode="decimal"></div>
           <div><label class="exam-label">Basófilos (Mil/mm³)</label><input type="text" id="e-baso" class="exam-input" placeholder="Ex: 0,04" inputmode="decimal"></div>
-          <div style="grid-column:span 2;"><label class="exam-label">Creatinina (mg/dL)</label><input type="text" id="e-crea" class="exam-input" placeholder="Ex: 0,8" inputmode="decimal"></div>
+          <div style="grid-column: span 2;"><label class="exam-label">Creatinina (mg/dL)</label><input type="text" id="e-crea" class="exam-input" placeholder="Ex: 0,8" inputmode="decimal"></div>
         </div>
         <button class="btn-primary" onclick="addExamResult()"><i class="ph-bold ph-plus"></i> Salvar Resultado</button>
       </div>
+
+      <!-- Lista de Resultados -->
       <div id="exam-results-list"></div>
-      <div class="chart-section" id="chart-section" style="display:none;"><h2 class="sec-title" style="padding-bottom:8px;border-bottom:1px solid var(--border);"><i class="ph-fill ph-chart-line"></i> Evolução dos Exames</h2><div class="chart-tabs"><button class="chart-tab active" onclick="setChartGroup('imunidade', this)">Imunidade</button><button class="chart-tab" onclick="setChartGroup('sangue', this)">Série Vermelha</button><button class="chart-tab" onclick="setChartGroup('renal', this)">Função Renal</button></div><div class="chart-wrap"><canvas id="exam-chart"></canvas></div><div style="font-size:11px;color:var(--ink3);text-align:center;margin-top:8px;">Linhas tracejadas = limites para liberar a quimioterapia</div></div>
-      <div class="card" style="margin-top:2rem;text-align:center"><div class="card-title" style="justify-content:center;margin-bottom:6px"><i class="ph-fill ph-file-pdf" style="color:var(--red-intense)"></i> Relatório para o Médico</div><div style="font-size:13px;color:var(--ink2);margin-bottom:12px">Gera um resumo dos exames para levar na consulta.</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn-primary" style="background:var(--sage-dark);flex:1;min-width:140px" onclick="copiarRelatorioExames()"><i class="ph-bold ph-copy"></i> Copiar Exames</button><button class="btn-primary" style="background:var(--red-intense);flex:1;min-width:140px" onclick="exportarPDF()"><i class="ph-bold ph-file-pdf"></i> Exportar PDF</button></div></div>
-      <div class="sec-title" style="margin-top:2rem;"><div class="sec-title-left">Coletas (48h antes)</div><button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode('exam')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button></div><div id="exam-grid"></div>
+
+      <!-- Gráfico de Evolução -->
+      <div class="chart-section" id="chart-section" style="display:none;">
+        <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-chart-line"></i> Evolução dos Exames</h2>
+        <div class="chart-tabs">
+          <button class="chart-tab active" onclick="setChartGroup('imunidade', this)">Imunidade</button>
+          <button class="chart-tab" onclick="setChartGroup('sangue', this)">Série Vermelha</button>
+          <button class="chart-tab" onclick="setChartGroup('renal', this)">Função Renal</button>
+        </div>
+        <div class="chart-wrap"><canvas id="exam-chart"></canvas></div>
+        <div style="font-size:11px; color:var(--ink3); text-align:center; margin-top:8px;">Linhas tracejadas = limites para liberar a quimioterapia</div>
+      </div>
+
+      <!-- Relatório para o Médico -->
+      <div class="card" style="margin-top:2rem;text-align:center">
+        <div class="card-title" style="justify-content:center;margin-bottom:6px"><i class="ph-fill ph-file-pdf" style="color:var(--red-intense)"></i> Relatório para o Médico</div>
+        <div style="font-size:13px;color:var(--ink2);margin-bottom:12px">Gera um resumo dos exames para levar na consulta.</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+          <button class="btn-primary" style="background:var(--sage-dark);flex:1;min-width:140px" onclick="copiarRelatorioExames()"><i class="ph-bold ph-copy"></i> Copiar Exames</button>
+          <button class="btn-primary" style="background:var(--red-intense);flex:1;min-width:140px" onclick="exportarPDF()"><i class="ph-bold ph-file-pdf"></i> Exportar PDF</button>
+        </div>
+      </div>
+
+      <!-- Coletas -->
+      <div class="sec-title" style="margin-top: 2rem;">
+        <div class="sec-title-left">Coletas (48h antes)</div>
+        <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode('exam')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
+      </div>
+      <div id="exam-grid"></div>
     </div>
+
+    <!-- ============================================= -->
+    <!-- TAB HOSPITAL (EMERGÊNCIA)                     -->
+    <!-- ============================================= -->
     <div id="tab-hospital" class="tab-pane">
-      <h2 class="sec-title"><i class="ph-fill ph-warning-octagon" style="color:var(--red-intense);"></i> Emergência - Onde ir?</h2>
+      <h2 class="sec-title"><i class="ph-fill ph-warning-octagon" style="color: var(--red-intense);"></i> Emergência - Onde ir?</h2>
       <div class="info-box"><i class="ph-fill ph-info"></i> Informe sempre na recepção: <strong>"Paciente em quimioterapia, risco de febre neutropênica."</strong></div>
-      <div class="card hosp-emergency"><span class="hosp-option">1ª Opção (Preferencial)</span><div class="card-title">UPA Vila Santa Catarina</div><div class="card-body">R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br><a href="https://maps.google.com/?cid=13498587269798681710" target="_blank" style="display:inline-block;margin-top:8px;color:var(--red-intense);font-weight:600;text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
-      <div class="card hosp-emergency"><span class="hosp-option">2ª Opção</span><div class="card-title">UPA Jabaquara</div><div class="card-body">Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br><a href="https://maps.google.com/?cid=7297070624864957169" target="_blank" style="display:inline-block;margin-top:8px;color:var(--red-intense);font-weight:600;text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
-      <div class="card hosp-emergency"><span class="hosp-option">3ª Opção</span><div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div><div class="card-body">Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br><a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block;margin-top:8px;color:var(--red-intense);font-weight:600;text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
+
+      <div class="card hosp-emergency">
+        <span class="hosp-option">1ª Opção (Preferencial)</span>
+        <div class="card-title">UPA Vila Santa Catarina</div>
+        <div class="card-body">
+          R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br>
+          <a href="https://maps.google.com/?cid=13498587269798681710" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+        </div>
+      </div>
+
+      <div class="card hosp-emergency">
+        <span class="hosp-option">2ª Opção</span>
+        <div class="card-title">UPA Jabaquara</div>
+        <div class="card-body">
+          Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br>
+          <a href="https://maps.google.com/?cid=7297070624864957169" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+        </div>
+      </div>
+
+      <div class="card hosp-emergency">
+        <span class="hosp-option">3ª Opção</span>
+        <div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div>
+        <div class="card-body">
+          Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br>
+          <a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
+        </div>
+      </div>
     </div>
+
+    <!-- ============================================= -->
+    <!-- TAB ORIENTAÇÕES                               -->
+    <!-- ============================================= -->
     <div id="tab-orientacoes" class="tab-pane">
-      <h2 class="sec-title" style="padding-bottom:8px;border-bottom:1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia</h2>
+      <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia</h2>
       <div class="card"><div class="card-title">1. Exames laboratoriais</div><div class="card-body">Hemograma, creatinina e função hepática feitos <strong>48h antes</strong>. Sem necessidade de jejum. Leve os resultados no dia.</div></div>
       <div class="card"><div class="card-title">2. Alimentação</div><div class="card-body">Esteja bem alimentada com refeições leves. Evite comidas gordurosas, bebidas alcoólicas, carnes cruas, peixes crus. Frutas e verduras bem higienizadas. Evite comer fora. Evite ambientes onde se cozinha feijão e carne (piora náusea).</div></div>
       <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio. <strong>Meta: 3 litros/dia.</strong> Protege os rins e facilita o acesso venoso.</div></div>
@@ -308,106 +1988,1333 @@ footer{text-align:center;padding:2rem 1rem 3rem;font-size:13px;color:var(--ink3)
       <div class="card"><div class="card-title">6. Fortalecer as veias</div><div class="card-body">Aperte bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.</div></div>
       <div class="card"><div class="card-title">7. Evite multidões e locais fechados</div><div class="card-body">Proteja-se de infecções nos dias que antecedem a quimio. Use máscara se necessário. Comunique viagens ao médico. Atenção a pessoas gripadas.</div></div>
       <div class="card"><div class="card-title">8. Leve companhia</div><div class="card-body">1 acompanhante adulto permitido. Pode ajudar na marcação de próximas medicações e exames.</div></div>
-      <div class="card" style="border-left:4px solid var(--gold);"><div class="card-title"><i class="ph-fill ph-notebook"></i> Anote no diário</div><div class="card-body">· Sintomas percebidos com data<br>· Temperatura corporal<br>· Idas ao banheiro e consistência das fezes<br>· Dúvidas para a próxima consulta</div></div>
-      <div class="info-box" style="border-left:1px solid var(--border-focus);display:block;"><div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div></div>
+      <div class="card" style="border-left: 4px solid var(--gold);">
+        <div class="card-title"><i class="ph-fill ph-notebook"></i> Anote no diário</div>
+        <div class="card-body">· Sintomas percebidos com data<br>· Temperatura corporal<br>· Idas ao banheiro e consistência das fezes<br>· Dúvidas para a próxima consulta</div>
+      </div>
+      <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;">
+        <div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
+      </div>
     </div>
   </main>
   <footer>Feito com amor para a Gabi ♥</footer>
 </div>
+
 <script>
-  const firebaseConfig = { apiKey: "AIzaSyBETjcatJhN1TFMSuPepmP3xgcH-wxvN_Y", authDomain: "guia-de-cuidados.firebaseapp.com", projectId: "guia-de-cuidados", storageBucket: "guia-de-cuidados.firebasestorage.app", messagingSenderId: "475243020372", appId: "1:475243020372:web:51a8606712ce0e17352dc1" };
-  firebase.initializeApp(firebaseConfig); const auth = firebase.auth(); const db = firebase.firestore();
-  function showError(c) { const e=document.getElementById('login-error'); let m="Erro ao acessar."; if(c==='auth/invalid-credential'||c==='auth/wrong-password') m="E-mail ou senha incorretos."; else if(c==='auth/user-not-found') m="Conta não existe."; else if(c==='auth/email-already-in-use') m="E-mail já cadastrado."; else if(c==='auth/weak-password') m="Senha muito fraca."; e.textContent=m; e.style.display='block'; }
-  let currentUser=null, sessions=[], dailyLogs={}, diary=[], examResults=[], examChartInstance=null, miniChartInstance=null, currentChartGroup='imunidade';
-  const toYMD=d=>{ const t=d.getTimezoneOffset()*60000; return new Date(d.getTime()-t).toISOString().split('T')[0]; }, fromYMD=y=>new Date(y+'T12:00:00');
-  const fmtFull=y=>fromYMD(y).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric'});
-  const fmtShort=y=>fromYMD(y).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-  const getWeekDay=y=>fromYMD(y).toLocaleDateString('pt-BR',{weekday:'short'}).slice(0,3).toLowerCase();
-  const addDaysYMD=(y,d)=>{ const r=fromYMD(y); r.setDate(r.getDate()+d); return toYMD(r); };
-  const todayYMD=toYMD(new Date()); let currentLogDate=todayYMD;
-  const EXAM_REFS = {
-    leuco:{ label:'Leucócitos', unit:'Mil/mm³', min:4.5, max:11.0, quimoMin:3.0, quimoMax:null, dec:2, multiplier:1000 },
-    neutro:{ label:'Neutrófilos', unit:'Mil/mm³', min:1.8, max:7.7, quimoMin:1.5, quimoMax:null, dec:2, multiplier:1000 },
-    linfo:{ label:'Linfócitos', unit:'Mil/mm³', min:1.0, max:4.0, quimoMin:null, quimoMax:null, dec:2, multiplier:1000 },
-    plaq:{ label:'Plaquetas', unit:'Mil/mm³', min:150.0, max:400.0, quimoMin:100.0, quimoMax:null, dec:1, multiplier:1000 },
-    hemo:{ label:'Hemoglobina', unit:'g/dL', min:12.0, max:15.0, quimoMin:8.0, quimoMax:null, dec:1, multiplier:1 },
-    hema:{ label:'Hematócrito', unit:'%', min:36.0, max:46.0, quimoMin:null, quimoMax:null, dec:1, multiplier:1 },
-    mono:{ label:'Monócitos', unit:'Mil/mm³', min:0.0, max:0.8, quimoMin:null, quimoMax:null, dec:2, multiplier:1000 },
-    eosino:{ label:'Eosinófilos', unit:'Mil/mm³', min:0.0, max:0.45, quimoMin:null, quimoMax:null, dec:2, multiplier:1000 },
-    baso:{ label:'Basófilos', unit:'Mil/mm³', min:0.0, max:0.2, quimoMin:null, quimoMax:null, dec:2, multiplier:1000 },
-    crea:{ label:'Creatinina', unit:'mg/dL', min:0.5, max:0.9, quimoMin:null, quimoMax:1.5, dec:2, multiplier:1 },
-  };
-  const CHART_GROUPS = {
-    imunidade:{ keys:['leuco','neutro','linfo','mono','eosino','baso'], colors:['#378ADD','#1D9E75','#7F77DD','#D4537E','#BA7517','#888780'], limits:[{ label:'Leuco mín. quimio', value:3000, color:'#378ADD' },{ label:'Neutro mín. quimio', value:1500, color:'#1D9E75' }] },
-    sangue:{ keys:['plaq','hemo','hema'], colors:['#D85A30','#D4537E','#888780'], limits:[{ label:'Plaq mín. quimio', value:100000, color:'#D85A30' },{ label:'Hemo mín. quimio', value:8, color:'#D4537E' }] },
-    renal:{ keys:['crea'], colors:['#BA7517'], limits:[{ label:'Creat. máx. quimio', value:1.5, color:'#BA7517' }] }
-  };
-  function getExamStatus(key, val) {
-    if (val === '' || val === null || val === undefined || isNaN(parseFloat(val))) return 'none';
-    let v = parseFloat(val); const r = EXAM_REFS[key]; if (!r) return 'none';
-    if (r.multiplier === 1000) { if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000; else if (v < 1) v = v * 1000; }
-    const compareV = v; const minLimit = r.min * r.multiplier; const maxLimit = r.max * r.multiplier;
-    const quimoMinLimit = r.quimoMin !== null ? r.quimoMin * r.multiplier : null;
-    const quimoMaxLimit = r.quimoMax !== null ? r.quimoMax * r.multiplier : null;
-    if (quimoMinLimit !== null && compareV < quimoMinLimit) return 'quimo';
-    if (quimoMaxLimit !== null && compareV > quimoMaxLimit) return 'quimo';
-    if (compareV < minLimit) return 'low'; if (compareV > maxLimit) return 'high'; return 'ok';
+// =============================================
+// INICIALIZAÇÃO DO FIREBASE
+// =============================================
+const firebaseConfig = {
+  apiKey: "AIzaSyBETjcatJhN1TFMSuPepmP3xgcH-wxvN_Y",
+  authDomain: "guia-de-cuidados.firebaseapp.com",
+  projectId: "guia-de-cuidados",
+  storageBucket: "guia-de-cuidados.firebasestorage.app",
+  messagingSenderId: "475243020372",
+  appId: "1:475243020372:web:51a8606712ce0e17352dc1"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// =============================================
+// FUNÇÕES DE AUTENTICAÇÃO
+// =============================================
+function showError(errorCode) {
+  const errDiv = document.getElementById('login-error');
+  let msg = "Ocorreu um erro ao acessar.";
+  if (errorCode === 'auth/invalid-credential' || errorCode === 'auth/wrong-password') msg = "E-mail ou senha incorretos. Tente novamente.";
+  else if (errorCode === 'auth/user-not-found') msg = "Essa conta não existe. Clique em 'Criar nova conta'.";
+  else if (errorCode === 'auth/email-already-in-use') msg = "Este e-mail já possui uma conta! Clique no botão verde 'Entrar'.";
+  else if (errorCode === 'auth/weak-password') msg = "A senha é muito fraca. Digite pelo menos 6 caracteres.";
+  else if (errorCode === 'auth/invalid-email') msg = "Digite um e-mail válido.";
+  else if (errorCode === 'auth/unauthorized-domain') msg = "O GitHub Pages não está liberado no painel do Firebase.";
+  errDiv.textContent = msg;
+  errDiv.style.display = 'block';
+}
+
+// =============================================
+// VARIÁVEIS GLOBAIS
+// =============================================
+let currentUser = null;
+let sessions = [];
+let dailyLogs = {};
+let diary = [];
+let examResults = [];
+let examChartInstance = null;
+let miniChartInstance = null;
+let currentChartGroup = 'imunidade';
+
+// =============================================
+// UTILITÁRIOS DE DATA
+// =============================================
+const toYMD = (d) => { const tz = d.getTimezoneOffset() * 60000; return new Date(d.getTime() - tz).toISOString().split('T')[0]; };
+const fromYMD = (ymd) => new Date(ymd + 'T12:00:00');
+const fmtFull = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const fmtShort = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+const getWeekDay = (ymd) => fromYMD(ymd).toLocaleDateString('pt-BR', { weekday: 'short' }).slice(0, 3).toLowerCase();
+const addDaysYMD = (ymd, d) => { const r = fromYMD(ymd); r.setDate(r.getDate() + d); return toYMD(r); };
+const todayYMD = toYMD(new Date());
+let currentLogDate = todayYMD;
+
+// =============================================
+// REFERÊNCIAS LABORATORIAIS (VALORES DA GABI)
+// =============================================
+const EXAM_REFS = {
+  leuco:  { label: 'Leucócitos',   unit: 'Mil/mm³', min: 4.5,    max: 11.0,   quimoMin: 3.0,   quimoMax: null, dec: 2, multiplier: 1000 },
+  neutro: { label: 'Neutrófilos',  unit: 'Mil/mm³', min: 1.8,    max: 7.7,    quimoMin: 1.5,   quimoMax: null, dec: 2, multiplier: 1000 },
+  linfo:  { label: 'Linfócitos',   unit: 'Mil/mm³', min: 1.0,    max: 4.0,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+  plaq:   { label: 'Plaquetas',    unit: 'Mil/mm³', min: 150.0,  max: 400.0,  quimoMin: 100.0, quimoMax: null, dec: 1, multiplier: 1000 },
+  hemo:   { label: 'Hemoglobina',  unit: 'g/dL',   min: 12.0,    max: 15.0,   quimoMin: 8.0,   quimoMax: null, dec: 1, multiplier: 1 },
+  hema:   { label: 'Hematócrito',  unit: '%',      min: 36.0,    max: 46.0,   quimoMin: null,  quimoMax: null, dec: 1, multiplier: 1 },
+  mono:   { label: 'Monócitos',    unit: 'Mil/mm³', min: 0.0,    max: 0.8,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+  eosino: { label: 'Eosinófilos',  unit: 'Mil/mm³', min: 0.0,    max: 0.45,   quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+  baso:   { label: 'Basófilos',    unit: 'Mil/mm³', min: 0.0,    max: 0.2,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
+  crea:   { label: 'Creatinina',   unit: 'mg/dL',  min: 0.5,     max: 0.9,    quimoMin: null,  quimoMax: 1.5,  dec: 2, multiplier: 1 },
+};
+
+// =============================================
+// GRUPOS DE GRÁFICOS
+// =============================================
+const CHART_GROUPS = {
+  imunidade: {
+    keys: ['leuco', 'neutro', 'linfo', 'mono', 'eosino', 'baso'],
+    colors: ['#378ADD', '#1D9E75', '#7F77DD', '#D4537E', '#BA7517', '#888780'],
+    limits: [
+      { label: 'Leuco mín. quimio', value: 3000, color: '#378ADD' },
+      { label: 'Neutro mín. quimio', value: 1500, color: '#1D9E75' },
+    ]
+  },
+  sangue: {
+    keys: ['plaq', 'hemo', 'hema'],
+    colors: ['#D85A30', '#D4537E', '#888780'],
+    limits: [
+      { label: 'Plaq mín. quimio', value: 100000, color: '#D85A30' },
+      { label: 'Hemo mín. quimio', value: 8, color: '#D4537E' },
+    ]
+  },
+  renal: {
+    keys: ['crea'],
+    colors: ['#BA7517'],
+    limits: [
+      { label: 'Creat. máx. quimio', value: 1.5, color: '#BA7517' },
+    ]
   }
-  auth.onAuthStateChanged(u=>{ if(u){ currentUser=u; document.getElementById('login-screen').style.display='none'; document.getElementById('app-content').style.display='block'; loadDataFromCloud(); } else { currentUser=null; document.getElementById('login-screen').style.display='flex'; document.getElementById('app-content').style.display='none'; } });
-  window.addEventListener('online', ()=>{ document.getElementById('offline-banner').style.display='none'; syncToCloud(); }); window.addEventListener('offline', ()=>{ document.getElementById('offline-banner').style.display='block'; });
-  function saveLocal(k,v){ try{ localStorage.setItem('gabi_'+k, JSON.stringify(v)); } catch(e){} } function loadLocal(k,d){ try{ const v=localStorage.getItem('gabi_'+k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
-  window.login=()=>{ const e=document.getElementById('auth-email').value, p=document.getElementById('auth-password').value; document.getElementById('login-error').style.display='none'; auth.signInWithEmailAndPassword(e,p).catch(e=>showError(e.code)); }
-  window.register=()=>{ const e=document.getElementById('auth-email').value, p=document.getElementById('auth-password').value; document.getElementById('login-error').style.display='none'; if(p.length<6){ showError('auth/weak-password'); return; } auth.createUserWithEmailAndPassword(e,p).catch(e=>showError(e.code)); }
-  window.logout=()=>auth.signOut();
-  function generateDefaultSessions(){ const a=[]; const S=new Date(2026,3,1,12,0,0); for(let i=0;i<12;i++){ const d=new Date(S); d.setDate(d.getDate()+(i*7)); a.push({ id:i, num:i+1, phaseNum:i+1, type:'BRANCA', phase:1, date:toYMD(d), examDate:addDaysYMD(toYMD(d),-2), done:false, examDone:false }); } const L=fromYMD(a[11].date); for(let i=0;i<4;i++){ const d=new Date(L); d.setDate(d.getDate()+7+(i*21)); a.push({ id:i+12, num:i+13, phaseNum:i+1, type:'VERMELHA', phase:2, date:toYMD(d), examDate:addDaysYMD(toYMD(d),-2), done:false, examDone:false }); } return a; }
-  function loadDataFromCloud(){ if(!currentUser) return; const c=loadLocal('sessions',[]); if(c.length>0){ sessions=c; dailyLogs=loadLocal('dailyLogs',{}); diary=loadLocal('diary',[]); examResults=loadLocal('examResults',[]); renderAll(); } db.collection("app_data").doc(currentUser.uid).get().then(d=>{ if(d.exists){ const data=d.data(); sessions=(data.sessions&&data.sessions.length>0)?data.sessions:generateDefaultSessions(); dailyLogs=data.dailyLogs||{}; diary=data.diary||[]; examResults=data.examResults||[]; examResults.sort((a,b)=>a.date.localeCompare(b.date)); } else { sessions=generateDefaultSessions(); dailyLogs={}; diary=[]; examResults=[]; syncToCloud(); } renderAll(); }).catch(e=>{ sessions=generateDefaultSessions(); renderAll(); }); }
-  function syncToCloud(){ saveLocal('sessions',sessions); saveLocal('dailyLogs',dailyLogs); saveLocal('diary',diary); saveLocal('examResults',examResults); if(!currentUser||!navigator.onLine) return; db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, examResults }, { merge: true }); }
-  window.switchTab=(n,b)=>{ document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active')); document.getElementById('tab-'+n).classList.add('active'); if(b) b.classList.add('active'); window.scrollTo({top:0, behavior:'smooth'}); if(n==='exames') setTimeout(renderExamChart,100); }
-  function renderAll(){ renderSessions(); buildSymGrid(); window.setLogDate(currentLogDate); document.getElementById('d-date').value=todayYMD; document.getElementById('e-date').value=todayYMD; renderDiary(); renderExamResults(); renderSmartAlerts(); renderWeeklySummary(); }
-  window.toggleEditMode=s=>{ const c=document.getElementById('btn-edit-cal'), e=document.getElementById('btn-edit-exam'); if(s==='cal'){ document.body.classList.toggle('is-editing-cal'); const ed=document.body.classList.contains('is-editing-cal'); if(c) c.innerHTML=ed?'<i class="ph-bold ph-check"></i> Salvar':'<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas'; } else if(s==='exam'){ document.body.classList.toggle('is-editing-exam'); const ed=document.body.classList.contains('is-editing-exam'); if(e) e.innerHTML=ed?'<i class="ph-bold ph-check"></i> Salvar':'<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas'; } }
-  window.updateDate=(i,v)=>{ if(v){ sessions[i].date=v; sessions[i].examDate=addDaysYMD(v,-2); syncToCloud(); renderSessions(); } }
-  window.updateExam=(i,v)=>{ if(v){ sessions[i].examDate=v; syncToCloud(); renderSessions(); } }
-  window.toggleDone=i=>{ sessions[i].done=!sessions[i].done; syncToCloud(); renderSessions(); renderSmartAlerts(); }
-  window.toggleExamDone=i=>{ sessions[i].examDone=!sessions[i].examDone; syncToCloud(); renderSessions(); }
-  function isInNadir(s,c){ return c>=addDaysYMD(s,7) && c<=addDaysYMD(s,10); } function isInRisk(s,c){ return c>=addDaysYMD(s,5) && c<=addDaysYMD(s,14); }
-  window.calcNadir=()=>{ const v=document.getElementById('nadir-input').value; if(!v) return; const r=document.getElementById('nadir-result'); let d=''; for(let i=0;i<=21;i++){ const dt=addDaysYMD(v,i); let c='nd-normal'; if(i>=5&&i<=6) c='nd-risk'; else if(i>=7&&i<=10) c='nd-nadir'; else if(i>=11&&i<=14) c='nd-recovery'; const today=dt===todayYMD?'nd-today':''; d+=`<div class="nadir-day ${c} ${today}" title="${fmtFull(dt)}">D+${i}<br>${fmtShort(dt)}</div>`; } const s=fmtFull(addDaysYMD(v,7)), e=fmtFull(addDaysYMD(v,10)); r.innerHTML=`<div style="font-size:11px;margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap;color:var(--ink3)"><span><span style="width:10px;height:10px;background:#F3F4F6;border-radius:2px;display:inline-block"></span> Normal</span><span><span style="width:10px;height:10px;background:#FDE8E8;border-radius:2px;display:inline-block"></span> Risco (D5–D6)</span><span><span style="width:10px;height:10px;background:#C84646;border-radius:2px;display:inline-block"></span> Nadir (D7–D10)</span><span><span style="width:10px;height:10px;background:#FEF0E0;border-radius:2px;display:inline-block"></span> Recuperação</span></div><div class="nadir-timeline">${d}</div><div style="margin-top:10px;font-size:12px;color:var(--ink2)"><strong>Nadir:</strong> ${s} a ${e} — evite aglomerações e monitore febre.</div>`; };
-  function renderSessions(){ if(!sessions||sessions.length===0) sessions=generateDefaultSessions(); const gW=document.getElementById('grid-white'), gR=document.getElementById('grid-red'), eG=document.getElementById('exam-grid'); gW.innerHTML=''; gR.innerHTML=''; eG.innerHTML=''; let done=0, next=null, end=sessions[sessions.length-1].date; let nS=null, rS=null; sessions.forEach(s=>{ if(s.done&&isInNadir(s.date,todayYMD)) nS=s; else if(s.done&&isInRisk(s.date,todayYMD)) rS=s; }); const b=document.getElementById('nadir-banner'); if(b){ if(nS) b.innerHTML=`<div class="nadir-alert"><div class="nadir-alert-icon"><i class="ph-fill ph-warning"></i></div><div><div class="nadir-alert-title">Período de Nadir Ativo</div><div class="nadir-alert-text">Hoje está no nadir da Sessão ${nS.num} (${fmtFull(nS.date)}). Imunidade no ponto mais baixo — monitore febre e evite aglomerações.</div></div></div>`; else if(rS) b.innerHTML=`<div class="nadir-alert" style="background:linear-gradient(135deg,#FEF0E0,#FFF8F0);border-color:#F5C84A"><div class="nadir-alert-icon" style="background:var(--amber)"><i class="ph-fill ph-warning-circle"></i></div><div><div class="nadir-alert-title" style="color:#7A4A00">Aproximando-se do Nadir</div><div class="nadir-alert-text" style="color:#7A4A00">Imunidade caindo após Sessão ${rS.num}. Nadir entre ${fmtFull(addDaysYMD(rS.date,7))} e ${fmtFull(addDaysYMD(rS.date,10))}.</div></div></div>`; else b.innerHTML=''; }
-  sessions.forEach((s,i)=>{ if(s.done) done++; if(!s.done && !next && s.date>=todayYMD) next=s.date; const nadirS=fmtShort(addDaysYMD(s.date,7)), nadirE=fmtShort(addDaysYMD(s.date,10)); const examHtml=`<span class="pill-exam"><span class="date-text">Exam ${fmtShort(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent;border:none;color:inherit;font-family:inherit;font-size:11px;font-weight:700;padding:0;outline:none;height:14px;"></span>`; const row=document.createElement('div'); row.className=`session-card ${s.done?'done':''} ${(s.done && isInNadir(s.date, todayYMD))?'nadir-active':''}`; row.innerHTML=`<div class="session-left"><div class="session-num">${s.num}</div><div class="session-info"><div class="session-date"><span class="date-text">${fmtFull(s.date)}</span><input type="date" class="date-input" value="${s.date}" onchange="updateDate(${i}, this.value)"></div><div class="session-sub">${getWeekDay(s.date)} - sessão ${s.phaseNum} de ${s.type==='BRANCA'?12:4}</div></div></div><div class="session-right"><span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>${examHtml}<button class="pill-toggle ${s.done?'pill-done':'pill-pending'}" onclick="toggleDone(${i})">${s.done?'✓ Feito':'Pendente'}</button></div>`; if(s.phase===1) gW.appendChild(row); else gR.appendChild(row);
-    const exRow=document.createElement('div'); exRow.className=`exam-row ${s.examDone?'done':''}`; exRow.innerHTML=`<div class="exam-info"><div class="exam-date"><span class="date-text" style="${s.examDone?'text-decoration:line-through;color:var(--ink3);':''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div><div class="exam-sub">Coleta para a Sessão ${s.num}</div></div><button class="pill-toggle ${s.examDone?'pill-done':'pill-pending'}" onclick="toggleExamDone(${i})">${s.examDone?'✓ Feito':'Pendente'}</button>`; eG.appendChild(exRow); });
-  document.getElementById('met-done').textContent=done; document.getElementById('met-end').textContent=fmtShort(end); let nT="—"; if(next){ const diff=Math.ceil((fromYMD(next).getTime()-fromYMD(todayYMD).getTime())/86400000); nT=diff===0?"Hoje":(diff===1?"Amanhã":`${diff} dias`); } document.getElementById('met-next').textContent=nT; const pct=Math.round((done/16)*100); document.getElementById('prog-val').textContent=pct+'%'; document.getElementById('prog-fill').style.width=pct+'%'; }
-  const TOTAL_GLASSES=15, ML_PER_GLASS=200, symsDef=[{id:'nausea',label:'NÁUSEA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Ondansetrona + Metoclopramida.'},{id:'vomito',label:'VÔMITO',opts:['Nenhum','1–2x/dia','3–5x/dia','> 5x/dia'],alert:'Hidrate-se. Se muito frequente, vá ao PS.'},{id:'diarreia',label:'DIARREIA',opts:['Nenhuma','1–2x/dia','3–4x/dia','> 4x/dia'],alert:'Use Loperamida após cada episódio.'},{id:'constipacao',label:'CONSTIPAÇÃO',opts:['Nenhuma','1 dia','2–3 dias','> 3 dias'],alert:'Tome Lactulose.'},{id:'dor',label:'DOR',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Use Dipirona.'},{id:'fadiga',label:'FADIGA',opts:['Nenhuma','Leve','Moderada','Intensa'],alert:'Descanse.'},{id:'formig',label:'FORMIGAMENTO',opts:['Nenhum','Leve','Moderado','Intenso'],alert:'Avise o médico na consulta.'},{id:'febre',label:'FEBRE',opts:['< 37,8°C','37,8–38°C','38–38,5°C','> 38,5°C'],alert:'🚨 FEBRE ALTA: PS IMEDIATAMENTE!'}], dotC=['#A5D6A7','#FFE082','#FFAB40','#EF5350'];
-  function getDailyLog(d){ if(!dailyLogs[d]) dailyLogs[d]={ water:0, syms:{} }; return dailyLogs[d]; }
-  window.shiftLogDate=d=>window.setLogDate(addDaysYMD(currentLogDate,d));
-  window.setLogDate=function(d){ if(!d) return; currentLogDate=d; document.getElementById('log-date-input').value=currentLogDate; renderDailyWater(); renderDailySyms(); renderVitals(); }
-  function renderDailyWater(){ const log=getDailyLog(currentLogDate), w=log.water, c=document.getElementById('wglasses'); c.innerHTML=''; for(let i=0;i<TOTAL_GLASSES;i++){ const g=document.createElement('div'); g.className='wg'; g.onclick=()=>{ getDailyLog(currentLogDate).water=(i+1===log.water)?i:i+1; syncToCloud(); renderDailyWater(); renderWeeklySummary(); }; g.innerHTML=`<div class="wg-fill" style="height:${i<w?'100%':'0%'}"></div>`; c.appendChild(g); } const ml=w*ML_PER_GLASS; document.getElementById('w-ml').textContent=ml; document.getElementById('w-bar').style.width=((w/TOTAL_GLASSES)*100)+'%'; const msg=document.getElementById('w-msg'); if(ml===0) msg.textContent="Vamos começar! 💪"; else if(ml<3000) msg.textContent="Continue assim, Gabi! 💧"; else msg.textContent="Meta batida! Hidratação concluída! 🎉"; }
-  window.addDailyWater=()=>{ let log=getDailyLog(currentLogDate); if(log.water<TOTAL_GLASSES){ log.water++; syncToCloud(); renderDailyWater(); renderWeeklySummary(); } }
-  window.resetDailyWater=()=>{ if(confirm("Zerar hidratação DESTE DIA?")){ getDailyLog(currentLogDate).water=0; syncToCloud(); renderDailyWater(); renderWeeklySummary(); } }
-  function buildSymGrid(){ const sg=document.getElementById('sym-grid'); sg.innerHTML=''; symsDef.forEach(s=>{ const c=document.createElement('div'); c.className='sym-card'; c.innerHTML=`<div class="sym-label">${s.label}</div><div class="sym-row"><span class="sym-dot" id="dot-${s.id}"></span><select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">${s.opts.map((o,i)=>`<option value="${i}">${o}</option>`).join('')}</select></div><div class="sym-note" id="note-${s.id}"></div>`; sg.appendChild(c); }); }
-  function renderDailySyms(){ const log=getDailyLog(currentLogDate); symsDef.forEach(s=>{ const v=log.syms[s.id]||0, sel=document.getElementById('sel-'+s.id); if(sel){ sel.value=v; updateVisualSymState(s.id,v); } }); }
-  window.updateDailySym=function(id){ const v=parseInt(document.getElementById('sel-'+id).value); getDailyLog(currentLogDate).syms[id]=v; syncToCloud(); updateVisualSymState(id,v); renderSmartAlerts(); renderWeeklySummary(); }
-  function updateVisualSymState(id,v){ document.getElementById('dot-'+id).style.background=dotC[v]; const sym=symsDef.find(s=>s.id===id), note=document.getElementById('note-'+id); if(v>=2){ note.innerHTML=`<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`; note.style.color=v===3?'var(--red-intense)':'var(--amber)'; } else { note.innerHTML=''; } document.getElementById('fever-alert').style.display=(getDailyLog(currentLogDate).syms['febre']||0)>=1?'flex':'none'; }
-  window.saveVital=(t,v)=>{ getDailyLog(currentLogDate)[t]=v; syncToCloud(); renderVitals(); renderSmartAlerts(); renderWeeklySummary(); };
-  function renderVitals(){ const log=getDailyLog(currentLogDate); const tE=document.getElementById('temp-display'), tA=document.getElementById('temp-alert'), tI=document.getElementById('temp-input'); if(log.temp){ const t=parseFloat(log.temp); tE.textContent=t.toFixed(1); tE.style.color=t>=37.8?'var(--red-intense)':''; if(tA) tA.style.display=t>=37.8?'block':'none'; tI.value=log.temp; } else { tE.textContent='—'; tE.style.color=''; if(tA) tA.style.display='none'; tI.value=''; } const pE=document.getElementById('peso-display'), pI=document.getElementById('peso-input'); if(log.peso){ pE.textContent=parseFloat(log.peso).toFixed(1); pI.value=log.peso; } else { pE.textContent='—'; pI.value=''; } }
-  function renderDiary(){ const list=document.getElementById('diary-list'); list.innerHTML=''; if(!diary.length){ list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>'; return; } [...diary].reverse().forEach((e,ri)=>{ const real=diary.length-1-ri, div=document.createElement('div'); div.className='diary-entry'; div.innerHTML=`<div><div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div><div style="font-size:14px;color:var(--ink);margin-top:4px;">${e.text}</div></div><button class="btn-del" onclick="delDiary(${real})"><i class="ph-bold ph-trash"></i></button>`; list.appendChild(div); }); }
-  window.addDiary=()=>{ const d=document.getElementById('d-date').value, t=document.getElementById('d-text').value.trim(); if(!d||!t) return; diary.push({date:d, text:t}); syncToCloud(); document.getElementById('d-text').value=''; renderDiary(); }
-  window.delDiary=i=>{ diary.splice(i,1); syncToCloud(); renderDiary(); }
-  function renderExamResults(){ const list=document.getElementById('exam-results-list'); list.innerHTML=''; const chartSec=document.getElementById('chart-section'); if(examResults.length>=2) chartSec.style.display='block'; else chartSec.style.display='none'; if(!examResults.length){ list.innerHTML='<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-file-text" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum resultado registrado.</div>'; return; }
-    [...examResults].reverse().forEach((e,ri)=>{ const real=examResults.length-1-ri; const keys=['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea']; const spans={leuco:1,neutro:1,linfo:1,plaq:1,hemo:1,hema:1,mono:1,eosino:1,baso:1,crea:2}; let boxes='';
-      keys.forEach(key=>{ const val=e[key], r=EXAM_REFS[key]; if(!r) return; const hasVal=val!==''&&val!==null&&val!==undefined; const status=hasVal?getExamStatus(key,val):'none'; const statusClass=`status-${status}`; const badgeClass=status==='ok'?'badge-ok':status==='low'?'badge-low':status==='high'?'badge-high':status==='quimo'?'badge-quimo':''; const span=spans[key]>1?`style="grid-column:span ${spans[key]};"`:''; const displayVal=hasVal?(()=>{ let v=parseFloat(val); if(r.multiplier===1000){ if(key==='plaq'&&v>=100&&v<=400) v=v*1000; else if(v<1) v=v*1000; } return (v/r.multiplier).toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec}); })():'—'; let ref=`Ref: ${(r.min).toLocaleString('pt-BR')}–${(r.max).toLocaleString('pt-BR')} ${r.unit}`; if(r.quimoMin) ref+=` | Quimio ≥${r.quimoMin.toLocaleString('pt-BR')}`; if(r.quimoMax) ref+=` | Quimio ≤${r.quimoMax.toLocaleString('pt-BR')}`; boxes+=`<div class="exam-val-box ${statusClass}" title="${ref}" ${span}>${badgeClass?`<div class="status-badge ${badgeClass}"></div>`:''}<div class="exam-val-t">${r.label}</div><div class="exam-val-v">${displayVal}</div><div style="font-size:9px;color:inherit;opacity:0.7;margin-top:2px;">${hasVal?r.unit:''}</div></div>`; });
-      let nadirNote=''; sessions.forEach(s=>{ if(s.done&&isInNadir(s.date,e.date)) nadirNote=`<div style="margin-top:8px;padding:6px 10px;background:#FDE8E8;border-radius:6px;font-size:11px;color:#C84646;font-weight:600"><i class="ph-fill ph-warning"></i> Coleta no período de nadir da Sessão ${s.num} — valores baixos são esperados neste período.</div>`; });
-      const hasQuimo=keys.some(k=>getExamStatus(k,e[k])==='quimo'); const alertBanner=hasQuimo?`<div style="margin-top:10px;padding:8px 10px;background:var(--red-bg);border:1px solid rgba(214,69,69,0.3);border-radius:6px;font-size:12px;color:var(--red-intense);font-weight:600;display:flex;align-items:center;gap:6px;"><i class="ph-fill ph-warning-octagon"></i> Valor abaixo do mínimo para quimioterapia. Comunique ao médico.</div>`:'';
-      const div=document.createElement('div'); div.className='exam-entry'; div.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><div class="d-tag" style="margin:0;"><i class="ph-fill ph-calendar-blank"></i> Coleta: ${fmtFull(e.date)}</div><button class="btn-del" style="width:28px;height:28px;font-size:14px;background:transparent;border:1px solid var(--border);" onclick="delExamResult(${real})"><i class="ph-bold ph-trash"></i></button></div><div class="exam-val-grid">${boxes}</div>${nadirNote}${alertBanner}`; list.appendChild(div); });
-    renderExamChart(); }
-  window.addExamResult=function(){ const d=document.getElementById('e-date').value; const getV=(id,k)=>{ const inp=document.getElementById(id); if(!inp||inp.value==='') return ''; let v=inp.value.replace(',','.'); const n=parseFloat(v); if(isNaN(n)) return ''; return (n*EXAM_REFS[k].multiplier).toString(); }; const leuco=getV('e-leuco','leuco'), neutro=getV('e-neutro','neutro'), linfo=getV('e-linfo','linfo'), plaq=getV('e-plaq','plaq'), hemo=getV('e-hemo','hemo'), hema=getV('e-hema','hema'), mono=getV('e-mono','mono'), eosino=getV('e-eosino','eosino'), baso=getV('e-baso','baso'), crea=getV('e-crea','crea'); if(!d){ alert("Data da coleta obrigatória."); return; } if(!leuco&&!neutro&&!linfo&&!plaq&&!hemo&&!hema&&!mono&&!eosino&&!baso&&!crea){ alert("Preencha pelo menos um resultado."); return; } examResults.push({date:d, leuco,neutro,linfo,plaq,hemo,hema,mono,eosino,baso,crea}); examResults.sort((a,b)=>a.date.localeCompare(b.date)); syncToCloud(); ['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea'].forEach(id=>document.getElementById('e-'+id).value=''); renderExamResults(); renderSmartAlerts(); }
-  window.delExamResult=i=>{ if(confirm("Apagar este registro de exame?")){ examResults.splice(i,1); syncToCloud(); renderExamResults(); } }
-  window.setChartGroup=(g,b)=>{ if(!g) return; currentChartGroup=g; document.querySelectorAll('.chart-tab').forEach(t=>t.classList.remove('active')); if(b) b.classList.add('active'); renderExamChart(); }
-  function renderExamChart(){ const sec=document.getElementById('chart-section'), canvas=document.getElementById('exam-chart'); if(!examResults||examResults.length<2){ if(sec) sec.style.display='none'; return; } if(sec) sec.style.display='block'; if(!canvas) return; const sorted=[...examResults].sort((a,b)=>a.date.localeCompare(b.date)); const labels=sorted.map(e=>fmtShort(e.date)); const group=CHART_GROUPS[currentChartGroup]; if(!group) return; const datasets=group.keys.map((k,ci)=>{ const r=EXAM_REFS[k]; const data=sorted.map(e=>{ let v=parseFloat(e[k]); if(isNaN(v)) return null; if(r.multiplier===1000){ if(k==='plaq'&&v>=100&&v<=400) v=v*1000; else if(v<1) v=v*1000; } return v; }); return { label:r.label+' ('+r.unit+')', data, borderColor:group.colors[ci%group.colors.length], backgroundColor:'transparent', tension:0.3, pointRadius:5, pointHoverRadius:7, borderWidth:2, spanGaps:true }; }); group.limits.forEach(l=>{ datasets.push({ label:l.label, data:labels.map(()=>l.value), borderColor:l.color, backgroundColor:'transparent', borderDash:[6,4], borderWidth:1.5, pointRadius:0, tension:0 }); }); if(examChartInstance){ examChartInstance.destroy(); examChartInstance=null; } examChartInstance=new Chart(canvas,{ type:'line', data:{labels,datasets}, options:{ responsive:true, maintainAspectRatio:false, interaction:{mode:'index',intersect:false}, plugins:{ legend:{ labels:{ font:{size:11,family:'Inter'}, color:'#6B7280', boxWidth:14, padding:12 } }, tooltip:{ callbacks:{ label:(ctx)=>{ const idx=ctx.datasetIndex; const key=idx<group.keys.length?group.keys[idx]:null; const r=key?EXAM_REFS[key]:null; if(!r) return `${ctx.dataset.label}: ${ctx.parsed.y}`; const v=ctx.parsed.y; const displayV=v/r.multiplier; const status=getExamStatus(key,v); const icon=status==='ok'?'✓':status==='quimo'?'⚠':status==='low'?'↓':status==='high'?'↑':''; return `${icon} ${r.label}: ${displayV.toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec})} ${r.unit}`; } } } }, scales:{ x:{ ticks:{color:'#9CA3AF',font:{size:11}}, grid:{color:'rgba(0,0,0,0.05)'} }, y:{ ticks:{color:'#9CA3AF',font:{size:11}, callback:v=>(currentChartGroup==='imunidade'||currentChartGroup==='sangue')?(v/1000).toFixed(0)+'k':v }, grid:{color:'rgba(0,0,0,0.05)'} } } } }); }
-  window.copiarRelatorioExames=function(){ if(!examResults.length){ alert('Nenhum exame registrado.'); return; } const sorted=[...examResults].sort((a,b)=>b.date.localeCompare(a.date)); const last=sorted[0]; const keys=['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea']; let t='*Hemograma — Gabi*\nColeta: '+fmtFull(last.date)+'\n\n'; keys.forEach(k=>{ const r=EXAM_REFS[k], v=last[k]; if(!r||v===''||v===null||v===undefined) return; const status=getExamStatus(k,v); const flag=status==='quimo'?'⚠️ ':status==='low'?'↓ ':status==='high'?'↑ ':'✓ '; let val=parseFloat(v); if(r.multiplier===1000){ if(k==='plaq'&&val>=100&&val<=400) val=val*1000; else if(val<1) val=val*1000; } const disp=val/r.multiplier; t+=flag+r.label+': '+disp.toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec})+' '+r.unit+'\n'; }); t+='\nGerado pelo Guia de Cuidados da Gabi'; if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>alert('Copiado!')).catch(()=>copyFallback(t)); else copyFallback(t); };
-  window.exportarPDF=function(){ if(!examResults.length){ alert('Nenhum exame registrado.'); return; } const {jsPDF}=window.jspdf; const doc=new jsPDF(); const keys=['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea']; let y=20; doc.setFont('helvetica','bold'); doc.setFontSize(16); doc.text('Relatório de Exames — Gabi',105,y,{align:'center'}); y+=8; doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.text('Gerado em '+fmtFull(todayYMD),105,y,{align:'center'}); y+=12; const sorted=[...examResults].sort((a,b)=>a.date.localeCompare(b.date)); sorted.forEach(e=>{ if(y>260){ doc.addPage(); y=20; } doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text('Coleta: '+fmtFull(e.date),14,y); y+=6; doc.setFont('helvetica','normal'); doc.setFontSize(9); keys.forEach(k=>{ const r=EXAM_REFS[k], v=e[k]; if(!r||v===''||v===null||v===undefined) return; const status=getExamStatus(k,v); const flag=status==='quimo'?'[!] ':status==='low'?'[v] ':status==='high'?'[^] ':'[ok] '; let val=parseFloat(v); if(r.multiplier===1000){ if(k==='plaq'&&val>=100&&val<=400) val=val*1000; else if(val<1) val=val*1000; } const disp=val/r.multiplier; const vFmt=disp.toLocaleString('pt-BR',{minimumFractionDigits:r.dec,maximumFractionDigits:r.dec}); const line=flag+r.label+': '+vFmt+' '+r.unit+'  (Ref: '+r.min.toLocaleString('pt-BR')+'-'+r.max.toLocaleString('pt-BR')+')'; if(y>270){ doc.addPage(); y=20; } if(status==='quimo') doc.setTextColor(198,68,68); else if(status==='low'||status==='high') doc.setTextColor(201,130,43); else doc.setTextColor(42,106,42); doc.text(line,18,y); y+=5; doc.setTextColor(0,0,0); }); y+=4; }); doc.save('exames-gabi.pdf'); };
-  window.gerarRelatorio=function(){ const log=getDailyLog(currentLogDate); const ml=log.water*ML_PER_GLASS; const tempV=log.temp?'\n🌡️ *Temperatura:* '+parseFloat(log.temp).toFixed(1)+'°C':''; const pesoV=log.peso?'\n⚖️ *Peso:* '+parseFloat(log.peso).toFixed(1)+' kg':''; let r=`*Relatório Diário - Gabi*\nData: ${fmtFull(currentLogDate)}${tempV}${pesoV}\n\n💧 *Hidratação:* ${ml} ml / 3000 ml\n\n📋 *Sintomas:*\n`; symsDef.forEach(s=>{ r+=`- ${s.label}: ${s.opts[log.syms[s.id]||0]}\n`; }); const dE=diary.filter(e=>e.date===currentLogDate); if(dE.length){ r+=`\n📓 *Diário:*\n`; dE.forEach(e=>{ r+=`- ${e.text}\n`; }); } if(navigator.clipboard) navigator.clipboard.writeText(r).then(()=>alert("Copiado!")).catch(()=>copyFallback(r)); else copyFallback(r); }
-  function copyFallback(t){ let ta=document.createElement("textarea"); ta.value=t; ta.style.position="fixed"; ta.style.left="-999999px"; document.body.appendChild(ta); ta.focus(); ta.select(); try{ document.execCommand('copy'); alert("Copiado!"); } catch(e){ alert("Não foi possível copiar."); } ta.remove(); }
-  function renderSmartAlerts(){ const c=document.getElementById('smart-alerts'); if(!c) return; const a=[]; const up=sessions.filter(s=>!s.done&&s.examDate>=todayYMD).sort((a,b)=>a.examDate.localeCompare(b.examDate)); if(up.length){ const n=up[0]; const diff=Math.ceil((fromYMD(n.examDate).getTime()-fromYMD(todayYMD).getTime())/86400000); if(diff===0) a.push({cls:'ac-red',icon:'ph-fill ph-test-tube',title:'Coleta HOJE — Sessão '+n.num,text:'Realize o hemograma e a creatinina hoje para liberar a sessão de '+fmtFull(n.date)+'.'}); else if(diff===1) a.push({cls:'ac-amber',icon:'ph-fill ph-test-tube',title:'Coleta amanhã — Sessão '+n.num,text:'Agende para '+fmtFull(n.examDate)+'.'}); else if(diff===2) a.push({cls:'ac-amber',icon:'ph-fill ph-bell',title:'Coleta em 2 dias — Sessão '+n.num,text:'Prepare-se: coleta em '+fmtFull(n.examDate)+'.'}); } const nS=sessions.filter(s=>!s.done&&s.date>=todayYMD).sort((a,b)=>a.date.localeCompare(b.date))[0]; if(nS){ const diff=Math.ceil((fromYMD(nS.date).getTime()-fromYMD(todayYMD).getTime())/86400000); if(diff===0) a.push({cls:'ac-blue',icon:'ph-fill ph-syringe',title:'Sessão '+nS.num+' é HOJE',text:'Leve os resultados e hidrate-se.'}); else if(diff<=3) a.push({cls:'ac-blue',icon:'ph-fill ph-syringe',title:'Sessão '+nS.num+' em '+diff+' dia'+(diff>1?'s':''),text:fmtFull(nS.date)+' — hidrate-se e evite aglomerações.'}); } sessions.forEach(s=>{ if(s.done&&isInNadir(s.date,todayYMD)) a.push({cls:'ac-red',icon:'ph-fill ph-warning',title:'Nadir ativo — Sessão '+s.num,text:'Imunidade baixa. Evite aglomerações e monitore febre.'}); }); const tL=getDailyLog(todayYMD); if(tL.temp&&parseFloat(tL.temp)>=37.8) a.unshift({cls:'ac-red',icon:'ph-fill ph-siren',title:'Febre hoje: '+parseFloat(tL.temp).toFixed(1)+'°C',text:'Procure o PS imediatamente.'}); if(examResults.length){ const last=[...examResults].sort((a,b)=>b.date.localeCompare(a.date))[0]; const keys=['leuco','neutro','linfo','plaq','hemo','hema','mono','eosino','baso','crea']; const qK=keys.filter(k=>getExamStatus(k,last[k])==='quimo'); if(qK.length) a.push({cls:'ac-amber',icon:'ph-fill ph-warning-octagon',title:'Exame de '+fmtFull(last.date)+' com alerta',text:qK.map(k=>EXAM_REFS[k].label).join(', ')+' abaixo do mínimo para quimio.'}); } if(!a.length) a.push({cls:'ac-green',icon:'ph-fill ph-check-circle',title:'Tudo em ordem hoje',text:'Nenhum alerta ativo. Continue com a hidratação.'}); c.innerHTML=a.map(x=>`<div class="alert-card ${x.cls}"><div class="alert-card-icon"><i class="${x.icon}"></i></div><div class="alert-card-body"><div class="alert-card-title">${x.title}</div><div class="alert-card-text">${x.text}</div></div></div>`).join(''); }
-  function renderWeeklySummary(){ const w=document.getElementById('week-summary'); if(!w) return; const d7=[]; for(let i=6;i>=0;i--) d7.push(addDaysYMD(todayYMD,-i)); const hV=d7.map(d=>{ const l=dailyLogs[d]; return l?l.water*200:null; }).filter(v=>v!==null); const hA=hV.length?Math.round(hV.reduce((a,b)=>a+b,0)/hV.length):null; const tV=d7.map(d=>{ const l=dailyLogs[d]; return l&&l.temp?parseFloat(l.temp):null; }).filter(v=>v!==null); const tA=tV.length?(tV.reduce((a,b)=>a+b,0)/tV.length).toFixed(1):null; let lP=null; for(let i=0;i<d7.length;i++){ const l=dailyLogs[d7[d7.length-1-i]]; if(l&&l.peso){ lP=parseFloat(l.peso).toFixed(1); break; } } const has=hV.length>=2||tV.length>=1; w.style.display=has?'block':'none'; if(!has) return; document.getElementById('week-date-range').textContent=fmtShort(d7[0])+' – '+fmtShort(d7[6]); document.getElementById('week-hydration').textContent=hA!==null?hA+' ml':'—'; document.getElementById('week-temp').textContent=tA!==null?tA+'°C':'—'; document.getElementById('week-weight').textContent=lP!==null?lP+' kg':'—'; const sC={}; d7.forEach(d=>{ const l=dailyLogs[d]; if(!l||!l.syms) return; symsDef.forEach(s=>{ const v=l.syms[s.id]||0; if(v>=1){ if(!sC[s.id]) sC[s.id]={label:s.label,max:0,total:0,days:0}; sC[s.id].total+=v; sC[s.id].days++; if(v>sC[s.id].max) sC[s.id].max=v; } }); }); const sP=Object.values(sC).sort((a,b)=>b.days-a.days).slice(0,5).map(s=>{ const cls=s.max>=3?'background:#FDE8E8;color:#C84646':s.max>=2?'background:#FEF0E0;color:#A06828':'background:#EAF5EA;color:#2A6A2A'; return `<span class="week-sym-pill" style="${cls}">${s.label} (${s.days}d)</span>`; }).join(''); document.getElementById('week-symptoms').innerHTML=sP||'<span style="font-size:12px;color:var(--ink3)">Sem sintomas registrados esta semana</span>'; const canvas=document.getElementById('mini-chart'); if(!canvas) return; if(miniChartInstance){ miniChartInstance.destroy(); miniChartInstance=null; } const labels=d7.map(d=>fmtShort(d)); const hydData=d7.map(d=>{ const l=dailyLogs[d]; return l?l.water*200:0; }); const tempData=d7.map(d=>{ const l=dailyLogs[d]; return l&&l.temp?parseFloat(l.temp):null; }); miniChartInstance=new Chart(canvas,{ data:{ labels, datasets:[{ type:'bar', label:'Hidratação (ml)', data:hydData, backgroundColor:'rgba(122,171,150,0.5)', borderColor:'rgba(47,92,72,0.8)', borderWidth:1, yAxisID:'y' },{ type:'line', label:'Temperatura (°C)', data:tempData, borderColor:'#D64545', backgroundColor:'transparent', pointRadius:3, borderWidth:2, tension:0.3, spanGaps:true, yAxisID:'y2' }] }, options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false } }, scales:{ x:{ ticks:{ font:{ size:9 }, color:'#9CA3AF' }, grid:{ display:false } }, y:{ display:false, min:0, max:4000 }, y2:{ display:false, min:35, max:40, position:'right' } } } }); }
+};
+
+// =============================================
+// FUNÇÃO PARA OBTER STATUS DO EXAME
+// =============================================
+function getExamStatus(key, val) {
+  if (val === '' || val === null || val === undefined || isNaN(parseFloat(val))) return 'none';
+  let v = parseFloat(val);
+  const r = EXAM_REFS[key];
+  if (!r) return 'none';
+  
+  // Corrige valores antigos salvos no formato errado
+  if (r.multiplier === 1000) {
+    if (key === 'plaq' && v >= 100 && v <= 400) {
+      v = v * 1000;
+    } else if (v < 1) {
+      v = v * 1000;
+    }
+  }
+  
+  const compareV = v;
+  const minLimit = r.min * r.multiplier;
+  const maxLimit = r.max * r.multiplier;
+  const quimoMinLimit = r.quimoMin !== null ? r.quimoMin * r.multiplier : null;
+  const quimoMaxLimit = r.quimoMax !== null ? r.quimoMax * r.multiplier : null;
+  
+  if (quimoMinLimit !== null && compareV < quimoMinLimit) return 'quimo';
+  if (quimoMaxLimit !== null && compareV > quimoMaxLimit) return 'quimo';
+  if (compareV < minLimit) return 'low';
+  if (compareV > maxLimit) return 'high';
+  return 'ok';
+}
+
+// =============================================
+// AUTENTICAÇÃO E ESTADO
+// =============================================
+auth.onAuthStateChanged((user) => {
+  if (user) {
+    currentUser = user;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+    loadDataFromCloud();
+  } else {
+    currentUser = null;
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('app-content').style.display = 'none';
+  }
+});
+
+// =============================================
+// DETECÇÃO DE OFFLINE
+// =============================================
+window.addEventListener('online', () => {
+  document.getElementById('offline-banner').style.display = 'none';
+  syncToCloud();
+});
+
+window.addEventListener('offline', () => {
+  document.getElementById('offline-banner').style.display = 'block';
+});
+
+// =============================================
+// ARMAZENAMENTO LOCAL
+// =============================================
+function saveLocal(key, val) {
+  try {
+    localStorage.setItem('gabi_' + key, JSON.stringify(val));
+  } catch (e) {}
+}
+
+function loadLocal(key, def) {
+  try {
+    const v = localStorage.getItem('gabi_' + key);
+    return v ? JSON.parse(v) : def;
+  } catch (e) {
+    return def;
+  }
+}
+
+// =============================================
+// FUNÇÕES DE LOGIN/REGISTRO
+// =============================================
+window.login = function() {
+  const e = document.getElementById('auth-email').value;
+  const p = document.getElementById('auth-password').value;
+  document.getElementById('login-error').style.display = 'none';
+  auth.signInWithEmailAndPassword(e, p).catch(error => showError(error.code));
+};
+
+window.register = function() {
+  const e = document.getElementById('auth-email').value;
+  const p = document.getElementById('auth-password').value;
+  document.getElementById('login-error').style.display = 'none';
+  if (p.length < 6) {
+    showError('auth/weak-password');
+    return;
+  }
+  auth.createUserWithEmailAndPassword(e, p).catch(error => showError(error.code));
+};
+
+window.logout = function() {
+  auth.signOut();
+};
+
+// =============================================
+// GERAÇÃO DE SESSÕES PADRÃO
+// =============================================
+function generateDefaultSessions() {
+  const arr = [];
+  // Primeira sessão: 01/04/2026
+  const START = new Date(2026, 3, 1, 12, 0, 0); // Abril = mês 3
+  
+  for (let i = 0; i < 12; i++) {
+    const d = new Date(START);
+    d.setDate(d.getDate() + (i * 7));
+    arr.push({
+      id: i,
+      num: i + 1,
+      phaseNum: i + 1,
+      type: 'BRANCA',
+      phase: 1,
+      date: toYMD(d),
+      examDate: addDaysYMD(toYMD(d), -2),
+      done: false,
+      examDone: false
+    });
+  }
+  
+  const lastWhite = fromYMD(arr[11].date);
+  for (let i = 0; i < 4; i++) {
+    const d = new Date(lastWhite);
+    d.setDate(d.getDate() + 7 + (i * 21));
+    arr.push({
+      id: i + 12,
+      num: i + 13,
+      phaseNum: i + 1,
+      type: 'VERMELHA',
+      phase: 2,
+      date: toYMD(d),
+      examDate: addDaysYMD(toYMD(d), -2),
+      done: false,
+      examDone: false
+    });
+  }
+  return arr;
+}
+
+// =============================================
+// CARREGAR DADOS DA NUVEM
+// =============================================
+function loadDataFromCloud() {
+  if (!currentUser) return;
+  
+  const cachedSessions = loadLocal('sessions', []);
+  if (cachedSessions.length > 0) {
+    sessions = cachedSessions;
+    dailyLogs = loadLocal('dailyLogs', {});
+    diary = loadLocal('diary', []);
+    examResults = loadLocal('examResults', []);
+    renderAll();
+  }
+  
+  db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
+    if (docSnap.exists) {
+      const data = docSnap.data();
+      sessions = (data.sessions && data.sessions.length > 0) ? data.sessions : generateDefaultSessions();
+      dailyLogs = data.dailyLogs || {};
+      diary = data.diary || [];
+      examResults = data.examResults || [];
+      examResults.sort((a, b) => a.date.localeCompare(b.date));
+    } else {
+      sessions = generateDefaultSessions();
+      dailyLogs = {};
+      diary = [];
+      examResults = [];
+      syncToCloud();
+    }
+    renderAll();
+  }).catch(error => {
+    console.error("Erro ao carregar do Firebase:", error);
+    sessions = generateDefaultSessions();
+    renderAll();
+  });
+}
+
+// =============================================
+// SINCRONIZAR COM A NUVEM
+// =============================================
+function syncToCloud() {
+  saveLocal('sessions', sessions);
+  saveLocal('dailyLogs', dailyLogs);
+  saveLocal('diary', diary);
+  saveLocal('examResults', examResults);
+  
+  if (!currentUser || !navigator.onLine) return;
+  
+  db.collection("app_data").doc(currentUser.uid).set({
+    sessions,
+    dailyLogs,
+    diary,
+    examResults
+  }, { merge: true });
+}
+
+// =============================================
+// TROCAR DE ABA
+// =============================================
+window.switchTab = function(n, b) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+  document.getElementById('tab-' + n).classList.add('active');
+  if (b) b.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 'exames') setTimeout(renderExamChart, 100);
+};
+
+// =============================================
+// RENDERIZAR TUDO
+// =============================================
+function renderAll() {
+  renderSessions();
+  buildSymGrid();
+  window.setLogDate(currentLogDate);
+  
+  const dDateInput = document.getElementById('d-date');
+  if (dDateInput) dDateInput.value = todayYMD;
+  const eDateInput = document.getElementById('e-date');
+  if (eDateInput) eDateInput.value = todayYMD;
+  
+  renderDiary();
+  renderExamResults();
+  renderSmartAlerts();
+  renderWeeklySummary();
+}
+
+// =============================================
+// MODO DE EDIÇÃO
+// =============================================
+window.toggleEditMode = function(section) {
+  const calBtn = document.getElementById('btn-edit-cal');
+  const examBtn = document.getElementById('btn-edit-exam');
+  
+  if (section === 'cal') {
+    document.body.classList.toggle('is-editing-cal');
+    const isEditing = document.body.classList.contains('is-editing-cal');
+    if (calBtn) calBtn.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
+  } else if (section === 'exam') {
+    document.body.classList.toggle('is-editing-exam');
+    const isEditing = document.body.classList.contains('is-editing-exam');
+    if (examBtn) examBtn.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
+  }
+};
+
+// =============================================
+// ATUALIZAR DATAS
+// =============================================
+window.updateDate = function(index, val) {
+  if (val) {
+    sessions[index].date = val;
+    sessions[index].examDate = addDaysYMD(val, -2);
+    syncToCloud();
+    renderSessions();
+  }
+};
+
+window.updateExam = function(index, val) {
+  if (val) {
+    sessions[index].examDate = val;
+    syncToCloud();
+    renderSessions();
+  }
+};
+
+window.toggleDone = function(index) {
+  sessions[index].done = !sessions[index].done;
+  syncToCloud();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.toggleExamDone = function(index) {
+  sessions[index].examDone = !sessions[index].examDone;
+  syncToCloud();
+  renderSessions();
+};
+
+// =============================================
+// FUNÇÕES DE NADIR
+// =============================================
+function isInNadir(sessionDate, checkDate) {
+  return checkDate >= addDaysYMD(sessionDate, 7) && checkDate <= addDaysYMD(sessionDate, 10);
+}
+
+function isInRisk(sessionDate, checkDate) {
+  return checkDate >= addDaysYMD(sessionDate, 5) && checkDate <= addDaysYMD(sessionDate, 14);
+}
+
+window.calcNadir = function() {
+  const val = document.getElementById('nadir-input').value;
+  if (!val) return;
+  const res = document.getElementById('nadir-result');
+  let days = '';
+  for (let i = 0; i <= 21; i++) {
+    const d = addDaysYMD(val, i);
+    let cls = 'nd-normal';
+    if (i >= 5 && i <= 6) cls = 'nd-risk';
+    else if (i >= 7 && i <= 10) cls = 'nd-nadir';
+    else if (i >= 11 && i <= 14) cls = 'nd-recovery';
+    const isToday = d === todayYMD ? 'nd-today' : '';
+    days += `<div class="nadir-day ${cls} ${isToday}" title="${fmtFull(d)}">D+${i}<br>${fmtShort(d)}</div>`;
+  }
+  const nadirStart = fmtFull(addDaysYMD(val, 7));
+  const nadirEnd = fmtFull(addDaysYMD(val, 10));
+  res.innerHTML = `
+    <div style="font-size:11px;margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap;color:var(--ink3)">
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#F3F4F6;border-radius:2px;display:inline-block"></span>Normal</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FDE8E8;border-radius:2px;display:inline-block"></span>Risco (D5–D6)</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#C84646;border-radius:2px;display:inline-block"></span>Nadir (D7–D10)</span>
+      <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;background:#FEF0E0;border-radius:2px;display:inline-block"></span>Recuperação</span>
+    </div>
+    <div class="nadir-timeline">${days}</div>
+    <div style="margin-top:10px;font-size:12px;color:var(--ink2)"><strong>Nadir:</strong> ${nadirStart} a ${nadirEnd} — evite aglomerações e monitore febre.</div>
+  `;
+};
+
+// =============================================
+// RENDERIZAR SESSÕES
+// =============================================
+function renderSessions() {
+  if (!sessions || sessions.length === 0) sessions = generateDefaultSessions();
+  const gW = document.getElementById('grid-white');
+  const gR = document.getElementById('grid-red');
+  const eG = document.getElementById('exam-grid');
+  gW.innerHTML = '';
+  gR.innerHTML = '';
+  eG.innerHTML = '';
+  
+  let doneCount = 0;
+  let nextSessionDate = null;
+  const endDate = sessions[sessions.length - 1].date;
+  
+  let nadirSession = null;
+  let riskSession = null;
+  sessions.forEach(s => {
+    if (s.done && isInNadir(s.date, todayYMD)) nadirSession = s;
+    else if (s.done && isInRisk(s.date, todayYMD)) riskSession = s;
+  });
+  
+  const banner = document.getElementById('nadir-banner');
+  if (banner) {
+    if (nadirSession) {
+      banner.innerHTML = `<div class="nadir-alert"><div class="nadir-alert-icon"><i class="ph-fill ph-warning"></i></div><div><div class="nadir-alert-title">Período de Nadir Ativo</div><div class="nadir-alert-text">Hoje está no nadir da Sessão ${nadirSession.num} (${fmtFull(nadirSession.date)}). Imunidade no ponto mais baixo — monitore febre e evite aglomerações.</div></div></div>`;
+    } else if (riskSession) {
+      banner.innerHTML = `<div class="nadir-alert" style="background:linear-gradient(135deg,#FEF0E0,#FFF8F0);border-color:#F5C84A"><div class="nadir-alert-icon" style="background:var(--amber)"><i class="ph-fill ph-warning-circle"></i></div><div><div class="nadir-alert-title" style="color:#7A4A00">Aproximando-se do Nadir</div><div class="nadir-alert-text" style="color:#7A4A00">Imunidade caindo após Sessão ${riskSession.num}. Nadir entre ${fmtFull(addDaysYMD(riskSession.date, 7))} e ${fmtFull(addDaysYMD(riskSession.date, 10))}.</div></div></div>`;
+    } else {
+      banner.innerHTML = '';
+    }
+  }
+  
+  sessions.forEach((s, i) => {
+    if (s.done) doneCount++;
+    if (!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
+    
+    const nadirS = fmtShort(addDaysYMD(s.date, 7));
+    const nadirE = fmtShort(addDaysYMD(s.date, 10));
+    
+    const examHtml = `
+      <span class="pill-exam">
+        <span class="date-text">Exam ${fmtShort(s.examDate)}</span>
+        <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent; border:none; color:inherit; font-family:inherit; font-size:11px; font-weight:700; padding:0; outline:none; height:14px;">
+      </span>
+    `;
+    
+    const row = document.createElement('div');
+    row.className = `session-card ${s.done ? 'done' : ''} ${(s.done && isInNadir(s.date, todayYMD)) ? 'nadir-active' : ''}`;
+    row.innerHTML = `
+      <div class="session-left">
+        <div class="session-num">${s.num}</div>
+        <div class="session-info">
+          <div class="session-date">
+            <span class="date-text">${fmtFull(s.date)}</span>
+            <input type="date" class="date-input" value="${s.date}" onchange="updateDate(${i}, this.value)">
+          </div>
+          <div class="session-sub">${getWeekDay(s.date)} - sessão ${s.phaseNum} de ${s.type === 'BRANCA' ? 12 : 4}</div>
+        </div>
+      </div>
+      <div class="session-right">
+        <span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>
+        ${examHtml}
+        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
+          ${s.done ? '✓ Feito' : 'Pendente'}
+        </button>
+      </div>
+    `;
+    
+    if (s.phase === 1) gW.appendChild(row);
+    else gR.appendChild(row);
+    
+    const exRow = document.createElement('div');
+    exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
+    exRow.innerHTML = `
+      <div class="exam-info">
+        <div class="exam-date">
+          <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
+          <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
+        </div>
+        <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+      </div>
+      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
+        ${s.examDone ? '✓ Feito' : 'Pendente'}
+      </button>
+    `;
+    eG.appendChild(exRow);
+  });
+  
+  document.getElementById('met-done').textContent = doneCount;
+  document.getElementById('met-end').textContent = fmtShort(endDate);
+  
+  let nextDaysText = "—";
+  if (nextSessionDate) {
+    const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+    nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
+  }
+  document.getElementById('met-next').textContent = nextDaysText;
+  
+  const pct = Math.round((doneCount / 16) * 100);
+  document.getElementById('prog-val').textContent = pct + '%';
+  document.getElementById('prog-fill').style.width = pct + '%';
+}
+
+// =============================================
+// DIÁRIO E HIDRATAÇÃO
+// =============================================
+const TOTAL_GLASSES = 15;
+const ML_PER_GLASS = 200;
+
+const symsDef = [
+  { id: 'nausea', label: 'NÁUSEA', opts: ['Nenhuma', 'Leve', 'Moderada', 'Intensa'], alert: 'Use Ondansetrona + Metoclopramida.' },
+  { id: 'vomito', label: 'VÔMITO', opts: ['Nenhum', '1–2x/dia', '3–5x/dia', '> 5x/dia'], alert: 'Hidrate-se. Se muito frequente, vá ao PS.' },
+  { id: 'diarreia', label: 'DIARREIA', opts: ['Nenhuma', '1–2x/dia', '3–4x/dia', '> 4x/dia'], alert: 'Use Loperamida após cada episódio.' },
+  { id: 'constipacao', label: 'CONSTIPAÇÃO', opts: ['Nenhuma', '1 dia', '2–3 dias', '> 3 dias'], alert: 'Tome Lactulose.' },
+  { id: 'dor', label: 'DOR', opts: ['Nenhuma', 'Leve', 'Moderada', 'Intensa'], alert: 'Use Dipirona.' },
+  { id: 'fadiga', label: 'FADIGA', opts: ['Nenhuma', 'Leve', 'Moderada', 'Intensa'], alert: 'Descanse.' },
+  { id: 'formig', label: 'FORMIGAMENTO', opts: ['Nenhum', 'Leve', 'Moderado', 'Intenso'], alert: 'Avise o médico na consulta.' },
+  { id: 'febre', label: 'FEBRE', opts: ['< 37,8°C', '37,8–38°C', '38–38,5°C', '> 38,5°C'], alert: '🚨 FEBRE ALTA: PS IMEDIATAMENTE!' }
+];
+
+const dotC = ['#A5D6A7', '#FFE082', '#FFAB40', '#EF5350'];
+
+function getDailyLog(dateStr) {
+  if (!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {} };
+  return dailyLogs[dateStr];
+}
+
+window.shiftLogDate = function(days) {
+  window.setLogDate(addDaysYMD(currentLogDate, days));
+};
+
+window.setLogDate = function(dateStr) {
+  if (!dateStr) return;
+  currentLogDate = dateStr;
+  document.getElementById('log-date-input').value = currentLogDate;
+  renderDailyWater();
+  renderDailySyms();
+  renderVitals();
+};
+
+function renderDailyWater() {
+  const log = getDailyLog(currentLogDate);
+  const water = log.water;
+  const cont = document.getElementById('wglasses');
+  cont.innerHTML = '';
+  
+  for (let i = 0; i < TOTAL_GLASSES; i++) {
+    const g = document.createElement('div');
+    g.className = 'wg';
+    g.onclick = () => {
+      getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1;
+      syncToCloud();
+      renderDailyWater();
+      renderWeeklySummary();
+    };
+    g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`;
+    cont.appendChild(g);
+  }
+  
+  const totalMl = water * ML_PER_GLASS;
+  document.getElementById('w-ml').textContent = totalMl;
+  document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
+  
+  const msgElement = document.getElementById('w-msg');
+  if (totalMl === 0) msgElement.textContent = "Vamos começar! 💪";
+  else if (totalMl < 3000) msgElement.textContent = "Continue assim, Gabi! 💧";
+  else msgElement.textContent = "Meta batida! Hidratação concluída! 🎉";
+}
+
+window.addDailyWater = function() {
+  const log = getDailyLog(currentLogDate);
+  if (log.water < TOTAL_GLASSES) {
+    log.water++;
+    syncToCloud();
+    renderDailyWater();
+    renderWeeklySummary();
+  }
+};
+
+window.resetDailyWater = function() {
+  if (confirm("Zerar hidratação DESTE DIA?")) {
+    getDailyLog(currentLogDate).water = 0;
+    syncToCloud();
+    renderDailyWater();
+    renderWeeklySummary();
+  }
+};
+
+function buildSymGrid() {
+  const sg = document.getElementById('sym-grid');
+  sg.innerHTML = '';
+  symsDef.forEach(s => {
+    const c = document.createElement('div');
+    c.className = 'sym-card';
+    c.innerHTML = `
+      <div class="sym-label">${s.label}</div>
+      <div class="sym-row">
+        <span class="sym-dot" id="dot-${s.id}"></span>
+        <select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">
+          ${s.opts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}
+        </select>
+      </div>
+      <div class="sym-note" id="note-${s.id}"></div>
+    `;
+    sg.appendChild(c);
+  });
+}
+
+function renderDailySyms() {
+  const log = getDailyLog(currentLogDate);
+  symsDef.forEach(s => {
+    const val = log.syms[s.id] || 0;
+    const sel = document.getElementById('sel-' + s.id);
+    if (sel) {
+      sel.value = val;
+      updateVisualSymState(s.id, val);
+    }
+  });
+}
+
+window.updateDailySym = function(id) {
+  const v = parseInt(document.getElementById('sel-' + id).value);
+  getDailyLog(currentLogDate).syms[id] = v;
+  syncToCloud();
+  updateVisualSymState(id, v);
+  renderSmartAlerts();
+  renderWeeklySummary();
+};
+
+function updateVisualSymState(id, v) {
+  document.getElementById('dot-' + id).style.background = dotC[v];
+  const sym = symsDef.find(s => s.id === id);
+  const note = document.getElementById('note-' + id);
+  if (v >= 2) {
+    note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`;
+    note.style.color = v === 3 ? 'var(--red-intense)' : 'var(--amber)';
+  } else {
+    note.innerHTML = '';
+  }
+  const fv = getDailyLog(currentLogDate).syms['febre'] || 0;
+  document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
+}
+
+// =============================================
+// SINAIS VITAIS
+// =============================================
+window.saveVital = function(type, val) {
+  const log = getDailyLog(currentLogDate);
+  log[type] = val;
+  syncToCloud();
+  renderVitals();
+  renderSmartAlerts();
+  renderWeeklySummary();
+};
+
+function renderVitals() {
+  const log = getDailyLog(currentLogDate);
+  const tempEl = document.getElementById('temp-display');
+  const tempAlert = document.getElementById('temp-alert');
+  const tempInput = document.getElementById('temp-input');
+  
+  if (log && log.temp) {
+    const t = parseFloat(log.temp);
+    tempEl.textContent = t.toFixed(1);
+    tempEl.style.color = t >= 37.8 ? 'var(--red-intense)' : '';
+    if (tempAlert) tempAlert.style.display = t >= 37.8 ? 'block' : 'none';
+    if (tempInput) tempInput.value = log.temp;
+  } else {
+    tempEl.textContent = '—';
+    tempEl.style.color = '';
+    if (tempAlert) tempAlert.style.display = 'none';
+    if (tempInput) tempInput.value = '';
+  }
+  
+  const pesoEl = document.getElementById('peso-display');
+  const pesoInput = document.getElementById('peso-input');
+  if (log && log.peso) {
+    pesoEl.textContent = parseFloat(log.peso).toFixed(1);
+    if (pesoInput) pesoInput.value = log.peso;
+  } else {
+    pesoEl.textContent = '—';
+    if (pesoInput) pesoInput.value = '';
+  }
+}
+
+// =============================================
+// DIÁRIO DE ANOTAÇÕES
+// =============================================
+function renderDiary() {
+  const list = document.getElementById('diary-list');
+  list.innerHTML = '';
+  
+  if (!diary.length) {
+    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>';
+    return;
+  }
+  
+  [...diary].reverse().forEach((e, ri) => {
+    const realI = diary.length - 1 - ri;
+    const div = document.createElement('div');
+    div.className = 'diary-entry';
+    div.innerHTML = `
+      <div>
+        <div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div>
+        <div style="font-size: 14px; color: var(--ink); margin-top: 4px;">${e.text}</div>
+      </div>
+      <button class="btn-del" onclick="delDiary(${realI})"><i class="ph-bold ph-trash"></i></button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+window.addDiary = function() {
+  const date = document.getElementById('d-date').value;
+  const text = document.getElementById('d-text').value.trim();
+  if (!date || !text) return;
+  diary.push({ date, text });
+  syncToCloud();
+  document.getElementById('d-text').value = '';
+  renderDiary();
+};
+
+window.delDiary = function(i) {
+  diary.splice(i, 1);
+  syncToCloud();
+  renderDiary();
+};
+
+// =============================================
+// EXAMES
+// =============================================
+function renderExamResults() {
+  const list = document.getElementById('exam-results-list');
+  list.innerHTML = '';
+  
+  const chartSection = document.getElementById('chart-section');
+  if (examResults.length >= 2) {
+    chartSection.style.display = 'block';
+  } else {
+    chartSection.style.display = 'none';
+  }
+  
+  if (!examResults.length) {
+    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-file-text" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum resultado registrado.</div>';
+    return;
+  }
+  
+  [...examResults].reverse().forEach((e, ri) => {
+    const realI = examResults.length - 1 - ri;
+    const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
+    const spans = { leuco: 1, neutro: 1, linfo: 1, plaq: 1, hemo: 1, hema: 1, mono: 1, eosino: 1, baso: 1, crea: 2 };
+    
+    let boxesHtml = '';
+    keys.forEach(key => {
+      const val = e[key];
+      const r = EXAM_REFS[key];
+      if (!r) return;
+      const hasVal = val !== '' && val !== null && val !== undefined;
+      const status = hasVal ? getExamStatus(key, val) : 'none';
+      const statusClass = `status-${status}`;
+      const badgeClass = status === 'ok' ? 'badge-ok' : status === 'low' ? 'badge-low' : status === 'high' ? 'badge-high' : status === 'quimo' ? 'badge-quimo' : '';
+      const span = spans[key] > 1 ? `style="grid-column: span ${spans[key]};"` : '';
+      
+      const displayVal = hasVal ? (() => {
+        let v = parseFloat(val);
+        if (r.multiplier === 1000) {
+          if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
+          else if (v < 1) v = v * 1000;
+        }
+        return (v / r.multiplier).toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec });
+      })() : '—';
+      
+      let refText = `Ref: ${(r.min).toLocaleString('pt-BR')}–${(r.max).toLocaleString('pt-BR')} ${r.unit}`;
+      if (r.quimoMin) refText += ` | Quimio ≥${r.quimoMin.toLocaleString('pt-BR')}`;
+      if (r.quimoMax) refText += ` | Quimio ≤${r.quimoMax.toLocaleString('pt-BR')}`;
+      
+      boxesHtml += `
+        <div class="exam-val-box ${statusClass}" title="${refText}" ${span}>
+          ${badgeClass ? `<div class="status-badge ${badgeClass}"></div>` : ''}
+          <div class="exam-val-t">${r.label}</div>
+          <div class="exam-val-v">${displayVal}</div>
+          <div style="font-size:9px;color:inherit;opacity:0.7;margin-top:2px;">${hasVal ? r.unit : ''}</div>
+        </div>
+      `;
+    });
+    
+    let nadirNote = '';
+    sessions.forEach(s => {
+      if (s.done && isInNadir(s.date, e.date)) {
+        nadirNote = `<div style="margin-top:8px;padding:6px 10px;background:#FDE8E8;border-radius:6px;font-size:11px;color:#C84646;font-weight:600"><i class="ph-fill ph-warning"></i> Coleta no período de nadir da Sessão ${s.num} — valores baixos são esperados neste período.</div>`;
+      }
+    });
+    
+    const hasQuimoAlert = keys.some(k => getExamStatus(k, e[k]) === 'quimo');
+    const alertBanner = hasQuimoAlert ? `<div style="margin-top:10px;padding:8px 10px;background:var(--red-bg);border:1px solid rgba(214,69,69,0.3);border-radius:6px;font-size:12px;color:var(--red-intense);font-weight:600;display:flex;align-items:center;gap:6px;"><i class="ph-fill ph-warning-octagon"></i> Valor abaixo do mínimo para quimioterapia. Comunique ao médico.</div>` : '';
+    
+    const div = document.createElement('div');
+    div.className = 'exam-entry';
+    div.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div class="d-tag" style="margin: 0;"><i class="ph-fill ph-calendar-blank"></i> Coleta: ${fmtFull(e.date)}</div>
+        <button class="btn-del" style="width:28px; height:28px; font-size:14px; background: transparent; border: 1px solid var(--border);" onclick="delExamResult(${realI})"><i class="ph-bold ph-trash"></i></button>
+      </div>
+      <div class="exam-val-grid">${boxesHtml}</div>
+      ${nadirNote}${alertBanner}
+    `;
+    list.appendChild(div);
+  });
+  
+  renderExamChart();
+}
+
+window.addExamResult = function() {
+  const date = document.getElementById('e-date').value;
+  
+  const getValue = (id, key) => {
+    const input = document.getElementById(id);
+    if (!input || input.value === '') return '';
+    let val = input.value.replace(',', '.');
+    const num = parseFloat(val);
+    if (isNaN(num)) return '';
+    const r = EXAM_REFS[key];
+    return (num * r.multiplier).toString();
+  };
+  
+  const leuco  = getValue('e-leuco', 'leuco');
+  const neutro = getValue('e-neutro', 'neutro');
+  const linfo  = getValue('e-linfo', 'linfo');
+  const plaq   = getValue('e-plaq', 'plaq');
+  const hemo   = getValue('e-hemo', 'hemo');
+  const hema   = getValue('e-hema', 'hema');
+  const mono   = getValue('e-mono', 'mono');
+  const eosino = getValue('e-eosino', 'eosino');
+  const baso   = getValue('e-baso', 'baso');
+  const crea   = getValue('e-crea', 'crea');
+  
+  if (!date) {
+    alert("A data da coleta é obrigatória.");
+    return;
+  }
+  
+  if (!leuco && !neutro && !linfo && !plaq && !hemo && !hema && !mono && !eosino && !baso && !crea) {
+    alert("Preencha pelo menos um resultado.");
+    return;
+  }
+  
+  examResults.push({ date, leuco, neutro, linfo, plaq, hemo, hema, mono, eosino, baso, crea });
+  examResults.sort((a, b) => a.date.localeCompare(b.date));
+  syncToCloud();
+  
+  ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'].forEach(id => {
+    document.getElementById('e-' + id).value = '';
+  });
+  
+  renderExamResults();
+  renderSmartAlerts();
+};
+
+window.delExamResult = function(i) {
+  if (confirm("Apagar este registro de exame?")) {
+    examResults.splice(i, 1);
+    syncToCloud();
+    renderExamResults();
+  }
+};
+
+// =============================================
+// GRÁFICO DE EXAMES
+// =============================================
+window.setChartGroup = function(group, btnElement) {
+  if (!group) return;
+  currentChartGroup = group;
+  document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+  if (btnElement) btnElement.classList.add('active');
+  renderExamChart();
+};
+
+function renderExamChart() {
+  const section = document.getElementById('chart-section');
+  const canvas = document.getElementById('exam-chart');
+  
+  if (!examResults || examResults.length < 2) {
+    if (section) section.style.display = 'none';
+    return;
+  }
+  if (section) section.style.display = 'block';
+  if (!canvas) return;
+  
+  const sorted = [...examResults].sort((a, b) => a.date.localeCompare(b.date));
+  const labels = sorted.map(e => fmtShort(e.date));
+  const group = CHART_GROUPS[currentChartGroup];
+  if (!group) return;
+  
+  const datasets = group.keys.map((key, ci) => {
+    const r = EXAM_REFS[key];
+    const data = sorted.map(e => {
+      let v = parseFloat(e[key]);
+      if (isNaN(v)) return null;
+      if (r.multiplier === 1000) {
+        if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
+        else if (v < 1) v = v * 1000;
+      }
+      return v;
+    });
+    return {
+      label: r.label + ' (' + r.unit + ')',
+      data,
+      borderColor: group.colors[ci % group.colors.length],
+      backgroundColor: 'transparent',
+      tension: 0.3,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      borderWidth: 2,
+      spanGaps: true,
+    };
+  });
+  
+  group.limits.forEach(lim => {
+    datasets.push({
+      label: lim.label,
+      data: labels.map(() => lim.value),
+      borderColor: lim.color,
+      backgroundColor: 'transparent',
+      borderDash: [6, 4],
+      borderWidth: 1.5,
+      pointRadius: 0,
+      tension: 0,
+    });
+  });
+  
+  if (examChartInstance) {
+    examChartInstance.destroy();
+    examChartInstance = null;
+  }
+  
+  examChartInstance = new Chart(canvas, {
+    type: 'line',
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          labels: { font: { size: 11, family: 'Inter' }, color: '#6B7280', boxWidth: 14, padding: 12 }
+        },
+        tooltip: {
+          callbacks: {
+            label: (ctx) => {
+              const datasetIndex = ctx.datasetIndex;
+              const key = datasetIndex < group.keys.length ? group.keys[datasetIndex] : null;
+              const r = key ? EXAM_REFS[key] : null;
+              if (!r) return `${ctx.dataset.label}: ${ctx.parsed.y}`;
+              const v = ctx.parsed.y;
+              const displayV = v / r.multiplier;
+              const status = getExamStatus(key, v);
+              const icon = status === 'ok' ? '✓' : status === 'quimo' ? '⚠' : status === 'low' ? '↓' : status === 'high' ? '↑' : '';
+              return `${icon} ${r.label}: ${displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec })} ${r.unit}`;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#9CA3AF', font: { size: 11 } },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        },
+        y: {
+          ticks: {
+            color: '#9CA3AF',
+            font: { size: 11 },
+            callback: (value) => {
+              if (currentChartGroup === 'imunidade' || currentChartGroup === 'sangue') {
+                return (value / 1000).toFixed(0) + 'k';
+              }
+              return value;
+            }
+          },
+          grid: { color: 'rgba(0,0,0,0.05)' }
+        }
+      }
+    }
+  });
+}
+
+// =============================================
+// RELATÓRIOS
+// =============================================
+window.copiarRelatorioExames = function() {
+  if (!examResults.length) {
+    alert('Nenhum exame registrado.');
+    return;
+  }
+  const sorted = [...examResults].sort((a, b) => b.date.localeCompare(a.date));
+  const last = sorted[0];
+  const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
+  let txt = '*Hemograma — Gabi*\nColeta: ' + fmtFull(last.date) + '\n\n';
+  
+  keys.forEach(key => {
+    const r = EXAM_REFS[key];
+    const val = last[key];
+    if (!r || val === '' || val === null || val === undefined) return;
+    const status = getExamStatus(key, val);
+    const flag = status === 'quimo' ? '⚠️ ' : status === 'low' ? '↓ ' : status === 'high' ? '↑ ' : '✓ ';
+    let v = parseFloat(val);
+    if (r.multiplier === 1000) {
+      if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
+      else if (v < 1) v = v * 1000;
+    }
+    const displayV = v / r.multiplier;
+    txt += flag + r.label + ': ' + displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec }) + ' ' + r.unit + '\n';
+  });
+  
+  txt += '\nGerado pelo Guia de Cuidados da Gabi';
+  
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(txt).then(() => alert('Copiado! Cole no WhatsApp do médico.')).catch(() => copyFallback(txt));
+  } else {
+    copyFallback(txt);
+  }
+};
+
+window.exportarPDF = function() {
+  if (!examResults.length) {
+    alert('Nenhum exame registrado.');
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
+  let y = 20;
+  
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text('Relatório de Exames — Gabi', 105, y, { align: 'center' });
+  y += 8;
+  
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.text('Gerado em ' + fmtFull(todayYMD), 105, y, { align: 'center' });
+  y += 12;
+  
+  const sorted = [...examResults].sort((a, b) => a.date.localeCompare(b.date));
+  sorted.forEach(e => {
+    if (y > 260) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text('Coleta: ' + fmtFull(e.date), 14, y);
+    y += 6;
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    
+    keys.forEach(key => {
+      const r = EXAM_REFS[key];
+      const val = e[key];
+      if (!r || val === '' || val === null || val === undefined) return;
+      
+      const status = getExamStatus(key, val);
+      const flag = status === 'quimo' ? '[!] ' : status === 'low' ? '[v] ' : status === 'high' ? '[^] ' : '[ok] ';
+      let v = parseFloat(val);
+      if (r.multiplier === 1000) {
+        if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
+        else if (v < 1) v = v * 1000;
+      }
+      const displayV = v / r.multiplier;
+      const vFmt = displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec });
+      const line = flag + r.label + ': ' + vFmt + ' ' + r.unit + '  (Ref: ' + r.min.toLocaleString('pt-BR') + '-' + r.max.toLocaleString('pt-BR') + ')';
+      
+      if (y > 270) {
+        doc.addPage();
+        y = 20;
+      }
+      
+      if (status === 'quimo') doc.setTextColor(198, 68, 68);
+      else if (status === 'low' || status === 'high') doc.setTextColor(201, 130, 43);
+      else doc.setTextColor(42, 106, 42);
+      
+      doc.text(line, 18, y);
+      y += 5;
+      doc.setTextColor(0, 0, 0);
+    });
+    y += 4;
+  });
+  
+  doc.save('exames-gabi.pdf');
+};
+
+window.gerarRelatorio = function() {
+  const log = getDailyLog(currentLogDate);
+  const waterMl = log.water * ML_PER_GLASS;
+  const tempVal = log.temp ? '\n🌡️ *Temperatura:* ' + parseFloat(log.temp).toFixed(1) + '°C' : '';
+  const pesoVal = log.peso ? '\n⚖️ *Peso:* ' + parseFloat(log.peso).toFixed(1) + ' kg' : '';
+  
+  let r = `*Relatório Diário - Gabi*\nData: ${fmtFull(currentLogDate)}${tempVal}${pesoVal}\n\n💧 *Hidratação:* ${waterMl} ml / 3000 ml\n\n📋 *Sintomas:*\n`;
+  symsDef.forEach(s => {
+    r += `- ${s.label}: ${s.opts[log.syms[s.id] || 0]}\n`;
+  });
+  
+  const dE = diary.filter(e => e.date === currentLogDate);
+  if (dE.length > 0) {
+    r += `\n📓 *Diário de Sintomas:*\n`;
+    dE.forEach(e => { r += `- ${e.text}\n`; });
+  }
+  
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(r).then(() => alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.")).catch(err => copyFallback(r));
+  } else {
+    copyFallback(r);
+  }
+};
+
+function copyFallback(text) {
+  let ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.left = "-999999px";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
+    alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.");
+  } catch (err) {
+    alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela.");
+  }
+  ta.remove();
+}
+
+// =============================================
+// ALERTAS INTELIGENTES
+// =============================================
+function renderSmartAlerts() {
+  const container = document.getElementById('smart-alerts');
+  if (!container) return;
+  const alerts = [];
+  
+  const upcoming = sessions.filter(s => !s.done && s.examDate >= todayYMD).sort((a, b) => a.examDate.localeCompare(b.examDate));
+  if (upcoming.length > 0) {
+    const next = upcoming[0];
+    const diff = Math.ceil((fromYMD(next.examDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+    if (diff === 0) {
+      alerts.push({ cls: 'ac-red', icon: 'ph-fill ph-test-tube', title: 'Coleta HOJE — Sessão ' + next.num, text: 'Realize o hemograma e a creatinina hoje para liberar a sessão de ' + fmtFull(next.date) + '.' });
+    } else if (diff === 1) {
+      alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-test-tube', title: 'Coleta amanhã — Sessão ' + next.num, text: 'Lembre-se de agendar o hemograma e a creatinina para amanhã (' + fmtFull(next.examDate) + ').' });
+    } else if (diff === 2) {
+      alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-bell', title: 'Coleta em 2 dias — Sessão ' + next.num, text: 'Prepare-se: a coleta para a Sessão ' + next.num + ' é em ' + fmtFull(next.examDate) + '.' });
+    }
+  }
+  
+  const nextSession = sessions.filter(s => !s.done && s.date >= todayYMD).sort((a, b) => a.date.localeCompare(b.date))[0];
+  if (nextSession) {
+    const diff = Math.ceil((fromYMD(nextSession.date).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+    if (diff === 0) {
+      alerts.push({ cls: 'ac-blue', icon: 'ph-fill ph-syringe', title: 'Sessão ' + nextSession.num + ' é HOJE', text: 'Leve os resultados dos exames. Beba bastante água antes de sair.' });
+    } else if (diff <= 3 && diff > 0) {
+      alerts.push({ cls: 'ac-blue', icon: 'ph-fill ph-syringe', title: 'Sessão ' + nextSession.num + ' em ' + diff + ' dia' + (diff > 1 ? 's' : ''), text: fmtFull(nextSession.date) + ' — Hidrate-se bem nos dias anteriores e evite aglomerações.' });
+    }
+  }
+  
+  sessions.forEach(s => {
+    if (s.done && isInNadir(s.date, todayYMD)) {
+      alerts.push({ cls: 'ac-red', icon: 'ph-fill ph-warning', title: 'Nadir ativo — Sessão ' + s.num, text: 'Imunidade no ponto mais baixo hoje. Evite aglomerações e monitore febre de hora em hora.' });
+    }
+  });
+  
+  const todayLog = getDailyLog(todayYMD);
+  if (todayLog.temp && parseFloat(todayLog.temp) >= 37.8) {
+    alerts.unshift({ cls: 'ac-red', icon: 'ph-fill ph-siren', title: 'Febre registrada hoje: ' + parseFloat(todayLog.temp).toFixed(1) + '°C', text: 'Temperatura acima de 37,8°C. Procure o pronto-socorro imediatamente.' });
+  }
+  
+  if (examResults.length > 0) {
+    const last = [...examResults].sort((a, b) => b.date.localeCompare(a.date))[0];
+    const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
+    const quimoKeys = keys.filter(k => getExamStatus(k, last[k]) === 'quimo');
+    if (quimoKeys.length > 0) {
+      const names = quimoKeys.map(k => EXAM_REFS[k].label).join(', ');
+      alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-warning-octagon', title: 'Exame de ' + fmtFull(last.date) + ' com alerta', text: names + ' abaixo do mínimo para quimioterapia. Informe o médico.' });
+    }
+  }
+  
+  if (alerts.length === 0) {
+    alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
+  }
+  
+  container.innerHTML = alerts.map(a => `
+    <div class="alert-card ${a.cls}">
+      <div class="alert-card-icon"><i class="${a.icon}"></i></div>
+      <div class="alert-card-body">
+        <div class="alert-card-title">${a.title}</div>
+        <div class="alert-card-text">${a.text}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// =============================================
+// RESUMO SEMANAL
+// =============================================
+function renderWeeklySummary() {
+  const wrap = document.getElementById('week-summary');
+  if (!wrap) return;
+  
+  const days7 = [];
+  for (let i = 6; i >= 0; i--) days7.push(addDaysYMD(todayYMD, -i));
+  
+  const hydrationVals = days7.map(d => { const l = dailyLogs[d]; return l ? l.water * 200 : null; }).filter(v => v !== null);
+  const hydAvg = hydrationVals.length ? Math.round(hydrationVals.reduce((a, b) => a + b, 0) / hydrationVals.length) : null;
+  
+  const tempVals = days7.map(d => { const l = dailyLogs[d]; return l && l.temp ? parseFloat(l.temp) : null; }).filter(v => v !== null);
+  const tempAvg = tempVals.length ? (tempVals.reduce((a, b) => a + b, 0) / tempVals.length).toFixed(1) : null;
+  
+  let lastPeso = null;
+  for (let i = 0; i < days7.length; i++) {
+    const l = dailyLogs[days7[days7.length - 1 - i]];
+    if (l && l.peso) {
+      lastPeso = parseFloat(l.peso).toFixed(1);
+      break;
+    }
+  }
+  
+  const hasData = hydrationVals.length >= 2 || tempVals.length >= 1;
+  wrap.style.display = hasData ? 'block' : 'none';
+  if (!hasData) return;
+  
+  const rangeEl = document.getElementById('week-date-range');
+  if (rangeEl) rangeEl.textContent = fmtShort(days7[0]) + ' – ' + fmtShort(days7[6]);
+  
+  document.getElementById('week-hydration').textContent = hydAvg !== null ? hydAvg + ' ml' : '—';
+  document.getElementById('week-temp').textContent = tempAvg !== null ? tempAvg + '°C' : '—';
+  document.getElementById('week-weight').textContent = lastPeso !== null ? lastPeso + ' kg' : '—';
+  
+  const symCount = {};
+  days7.forEach(d => {
+    const l = dailyLogs[d];
+    if (!l || !l.syms) return;
+    symsDef.forEach(s => {
+      const v = l.syms[s.id] || 0;
+      if (v >= 1) {
+        if (!symCount[s.id]) symCount[s.id] = { label: s.label, max: 0, total: 0, days: 0 };
+        symCount[s.id].total += v;
+        symCount[s.id].days++;
+        if (v > symCount[s.id].max) symCount[s.id].max = v;
+      }
+    });
+  });
+  
+  const symPills = Object.values(symCount).sort((a, b) => b.days - a.days).slice(0, 5).map(s => {
+    const cls = s.max >= 3 ? 'background:#FDE8E8;color:#C84646' : s.max >= 2 ? 'background:#FEF0E0;color:#A06828' : 'background:#EAF5EA;color:#2A6A2A';
+    return `<span class="week-sym-pill" style="${cls}">${s.label} (${s.days}d)</span>`;
+  }).join('');
+  
+  document.getElementById('week-symptoms').innerHTML = symPills || '<span style="font-size:12px;color:var(--ink3)">Sem sintomas registrados esta semana</span>';
+  
+  const canvas = document.getElementById('mini-chart');
+  if (!canvas) return;
+  if (miniChartInstance) {
+    miniChartInstance.destroy();
+    miniChartInstance = null;
+  }
+  
+  const labels = days7.map(d => fmtShort(d));
+  const hydData = days7.map(d => { const l = dailyLogs[d]; return l ? l.water * 200 : 0; });
+  const tempData = days7.map(d => { const l = dailyLogs[d]; return l && l.temp ? parseFloat(l.temp) : null; });
+  
+  miniChartInstance = new Chart(canvas, {
+    data: {
+      labels,
+      datasets: [
+        { type: 'bar', label: 'Hidratação (ml)', data: hydData, backgroundColor: 'rgba(122,171,150,0.5)', borderColor: 'rgba(47,92,72,0.8)', borderWidth: 1, yAxisID: 'y' },
+        { type: 'line', label: 'Temperatura (°C)', data: tempData, borderColor: '#D64545', backgroundColor: 'transparent', pointRadius: 3, borderWidth: 2, tension: 0.3, spanGaps: true, yAxisID: 'y2' }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { font: { size: 9 }, color: '#9CA3AF' }, grid: { display: false } },
+        y: { display: false, min: 0, max: 4000 },
+        y2: { display: false, min: 35, max: 40, position: 'right' }
+      }
+    }
+  });
+}
 </script>
 </body>
 </html>
