@@ -370,7 +370,7 @@ main {
 /* ===== NAVIGATION TABS ===== */
 .tab-nav {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 6px;
   margin-bottom: 2rem;
 }
@@ -1541,7 +1541,7 @@ footer {
 /* ===== RESPONSIVO ===== */
 @media (max-width: 600px) {
   .tab-nav {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -1655,7 +1655,7 @@ footer {
     </div>
   </header>
 
-  <!-- BARRA DE EMERGÊNCIA - CORRIGIDA -->
+  <!-- BARRA DE EMERGÊNCIA -->
   <div class="emergency-bar" onclick="switchTab('hospital')">
     <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
     <div>
@@ -1716,6 +1716,7 @@ footer {
       <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
       <button class="tab-btn" onclick="switchTab('sintomas',this)"><i class="ph-fill ph-activity"></i><span>Diário</span></button>
       <button class="tab-btn" onclick="switchTab('exames',this)"><i class="ph-fill ph-drop"></i><span>Exames</span></button>
+      <button class="tab-btn" onclick="switchTab('consultas',this)"><i class="ph-fill ph-calendar-plus"></i><span>Consultas</span></button>
       <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Emergência</span></button>
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
@@ -1941,6 +1942,31 @@ footer {
     </div>
 
     <!-- ============================================= -->
+    <!-- TAB CONSULTAS (NOVA)                          -->
+    <!-- ============================================= -->
+    <div id="tab-consultas" class="tab-pane">
+      <h2 class="sec-title"><i class="ph-fill ph-calendar-plus"></i> Minha Agenda</h2>
+      
+      <!-- Formulário para adicionar consulta -->
+      <div class="card">
+        <div class="card-title">Agendar Compromisso</div>
+        <div style="display:grid; gap:12px;">
+          <input type="text" id="appt-title" class="exam-input" placeholder="Ex: Retorno Oncologista">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <input type="date" id="appt-date" class="exam-input">
+            <input type="time" id="appt-time" class="exam-input" value="10:00">
+          </div>
+          <input type="text" id="appt-location" class="exam-input" placeholder="Local (Ex: Hospital da Mulher)">
+          <input type="text" id="appt-notes" class="exam-input" placeholder="Notas (Ex: Levar exames, jejum 8h)">
+          <button class="btn-primary" onclick="addAppointment()"><i class="ph-bold ph-plus"></i> Salvar na Agenda</button>
+        </div>
+      </div>
+
+      <!-- Lista de Compromissos -->
+      <div id="appointments-list"></div>
+    </div>
+
+    <!-- ============================================= -->
     <!-- TAB HOSPITAL (EMERGÊNCIA)                     -->
     <!-- ============================================= -->
     <div id="tab-hospital" class="tab-pane">
@@ -1976,22 +2002,149 @@ footer {
     </div>
 
     <!-- ============================================= -->
-    <!-- TAB ORIENTAÇÕES                               -->
+    <!-- TAB ORIENTAÇÕES - COMPLETA                     -->
     <!-- ============================================= -->
     <div id="tab-orientacoes" class="tab-pane">
-      <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia</h2>
-      <div class="card"><div class="card-title">1. Exames laboratoriais</div><div class="card-body">Hemograma, creatinina e função hepática feitos <strong>48h antes</strong>. Sem necessidade de jejum. Leve os resultados no dia.</div></div>
-      <div class="card"><div class="card-title">2. Alimentação</div><div class="card-body">Esteja bem alimentada com refeições leves. Evite comidas gordurosas, bebidas alcoólicas, carnes cruas, peixes crus. Frutas e verduras bem higienizadas. Evite comer fora. Evite ambientes onde se cozinha feijão e carne (piora náusea).</div></div>
-      <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio. <strong>Meta: 3 litros/dia.</strong> Protege os rins e facilita o acesso venoso.</div></div>
-      <div class="card"><div class="card-title">4. Medicações prévias</div><div class="card-body">Remédios contínuos (pressão, diabetes): tomar normalmente e levar junto. Vacinas somente com autorização médica.</div></div>
-      <div class="card"><div class="card-title">5. Roupas e cuidados pessoais</div><div class="card-body">Roupas folgadas para facilitar acesso ao braço ou cateter. Evite retirar cutículas e espremer cravos (risco de infecção). Cuidado com exposição solar — paclitaxel pode causar hiperpigmentação.</div></div>
-      <div class="card"><div class="card-title">6. Fortalecer as veias</div><div class="card-body">Aperte bolinhas de borracha ou compressa de chá de camomila morna 1 dia antes e 2 dias após a quimio.</div></div>
-      <div class="card"><div class="card-title">7. Evite multidões e locais fechados</div><div class="card-body">Proteja-se de infecções nos dias que antecedem a quimio. Use máscara se necessário. Comunique viagens ao médico. Atenção a pessoas gripadas.</div></div>
-      <div class="card"><div class="card-title">8. Leve companhia</div><div class="card-body">1 acompanhante adulto permitido. Pode ajudar na marcação de próximas medicações e exames.</div></div>
-      <div class="card" style="border-left: 4px solid var(--gold);">
-        <div class="card-title"><i class="ph-fill ph-notebook"></i> Anote no diário</div>
-        <div class="card-body">· Sintomas percebidos com data<br>· Temperatura corporal<br>· Idas ao banheiro e consistência das fezes<br>· Dúvidas para a próxima consulta</div>
+      <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia (ANTES DA SESSÃO)</h2>
+      
+      <!-- 1. Exames laboratoriais -->
+      <div class="card">
+        <div class="card-title">1. Exames laboratoriais atualizados</div>
+        <div class="card-body">
+          Certifique-se de que os exames de sangue (hemograma, função renal e hepática) estão feitos <strong>48 horas (2 dias) antes</strong> da quimioterapia, conforme orientação dada no dia da consulta.<br><br>
+          Caso tenha exame de sangue recente (até 60 dias), não será necessário realização para a primeira quimioterapia, de acordo com o que o médico orientou na consulta.<br><br>
+          <strong>Os exames de sangue para quimioterapia não precisam de jejum.</strong><br><br>
+          Os resultados são essenciais para avaliar se o corpo está pronto para receber a medicação.<br><br>
+          <span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;">
+            <i class="ph-fill ph-hand"></i> <strong>Fortalecimento das veias:</strong> Aperte bolinhas de borracha (como as de fisioterapia) e faça compressas de chá de camomila (folhas e flores) ou apenas água morna 1 dia antes e 2 dias depois de usar o braço para receber a quimioterapia.
+          </span>
+        </div>
       </div>
+
+      <!-- 2. Jejum / Alimentação -->
+      <div class="card">
+        <div class="card-title">2. Jejum? Somente se indicado</div>
+        <div class="card-body">
+          A maioria dos esquemas não exige jejum completo, mas é importante estar bem alimentado(a), com refeições leves antes da sessão. <strong>Pode trazer alimentação no dia da quimioterapia e se alimentar dentro da central de infusão.</strong><br><br>
+          <span style="color: var(--red-intense);"><i class="ph-fill ph-warning"></i></span> No início da quimioterapia não poderá mais fazer uso de:<br>
+          • Bebidas alcoólicas<br>
+          • Carnes cruas ou mal passadas<br>
+          • Peixes crus<br><br>
+          Frutas, verduras e legumes precisam estar bem higienizados. Evite comer fora de casa.<br><br>
+          Evite ficar no mesmo ambiente na hora de cozinhar feijão e carne — pode piorar náusea e vômito.
+        </div>
+      </div>
+
+      <!-- 3. Hidratação -->
+      <div class="card">
+        <div class="card-title">3. Hidratação</div>
+        <div class="card-body">
+          Beba bastante água no dia anterior e no dia da quimio (a menos que o médico tenha restringido líquidos).<br><br>
+          Uma boa hidratação ajuda a proteger os rins e facilita o acesso venoso.<br><br>
+          <strong>Meta: 3 litros/dia.</strong>
+        </div>
+      </div>
+
+      <!-- 4. Medicações prévias -->
+      <div class="card">
+        <div class="card-title">4. Medicações prévias</div>
+        <div class="card-body">
+          Se toma algum remédio contínuo como de pressão ou diabetes, pode tomar normalmente e recomendado que traga junto.<br><br>
+          Muitas vezes, o oncologista prescreve antieméticos, corticoides ou antialérgicos para serem tomados em casa antes da sessão ou já são administrados na clínica antes da quimioterapia. Siga rigorosamente os horários e dosagens.<br><br>
+          <span style="background: var(--gold-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;">
+            <i class="ph-fill ph-storefront"></i> <strong>Retirada de medicamentos:</strong> O receituário para medicações pós-quimioterapia pode ser retirado no <strong>AME Bourroul</strong> — Rua Martins Fontes, 208. Horário: Segunda a Sexta das 07:30 às 15:00.<br><br>
+            <i class="ph-fill ph-car"></i> O hospital disponibiliza <strong>transporte gratuito</strong> no sistema de leva e traz das 07:00 às 14:00.<br><br>
+            <i class="ph-fill ph-syringe"></i> <strong>Vacinas somente com autorização médica.</strong>
+          </span>
+        </div>
+      </div>
+
+      <!-- 5. Roupas -->
+      <div class="card">
+        <div class="card-title">5. Use roupas confortáveis</div>
+        <div class="card-body">
+          Vista roupas folgadas, que facilitem o acesso ao braço ou ao cateter (PICC, port-a-cath, etc.), e que tragam conforto durante o tempo em que estiver sentada(o).<br><br>
+          O hospital disponibiliza cobertas e lençóis, mas <strong>pode trazer coberta própria</strong> para uso dentro da central de infusão da quimioterapia.
+        </div>
+      </div>
+
+      <!-- 6. Comunique sintomas -->
+      <div class="card" style="border-left: 4px solid var(--red-intense);">
+        <div class="card-title"><i class="ph-fill ph-warning-circle" style="color: var(--red-intense);"></i> 6. Comunique sintomas diferentes</div>
+        <div class="card-body">
+          Avise na triagem de enfermagem ou médica se estiver com:<br>
+          • Febre • Tosse • Dor • Diarreia • Feridas na boca<br>
+          • Qualquer sintoma novo antes da sessão<br><br>
+          Inclusive se:<br>
+          • Esteve no pronto-socorro após a última quimioterapia<br>
+          • Usou antibióticos<br>
+          • Fez transfusão<br>
+          • Ficou internada<br><br>
+          <strong>Pode ser necessário reavaliar ou adiar o tratamento.</strong>
+        </div>
+      </div>
+
+      <!-- 7. Evite multidões -->
+      <div class="card">
+        <div class="card-title">7. Evite multidões ou locais fechados</div>
+        <div class="card-body">
+          Nos dias que antecedem a quimioterapia, proteja-se de infecções. Evite locais com aglomeração e use máscara se necessário.<br><br>
+          <i class="ph-fill ph-sun"></i> <strong>Cuidado com exposição solar!</strong> Algumas quimioterapias promovem hiperpigmentação da pele.<br><br>
+          <i class="ph-fill ph-scissors"></i> Evitar retirar cutículas das unhas e espremer cravos e espinhas devido ao risco de infecção.<br><br>
+          <i class="ph-fill ph-beach-ball"></i> Viagens às praias e idas às piscinas precisam ser comunicadas ao médico ou enfermagem para liberações prévias.<br><br>
+          <i class="ph-fill ph-barbell"></i> Pode realizar atividades físicas conforme tolerância, porém, prefira locais sem aglomeração.<br><br>
+          <i class="ph-fill ph-airplane"></i> Sempre que precisar viajar, comunicar ao médico oncologista.<br><br>
+          Atenção ao uso de barbeadores, procedimentos estéticos e dentários.<br><br>
+          <span style="background: var(--amber-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block;">
+            <i class="ph-fill ph-virus"></i> <strong>Atenção para contato com pessoas gripadas!</strong> Lembre-se: sua imunidade pode estar baixa.
+          </span>
+        </div>
+      </div>
+
+      <!-- 8. Leve companhia -->
+      <div class="card">
+        <div class="card-title">8. Leve companhia, se possível</div>
+        <div class="card-body">
+          É permitida a companhia de <strong>um acompanhante</strong>, não sendo gestante e nem menor de idade.<br><br>
+          Um acompanhante pode ser um suporte emocional e ajudar na marcação das próximas medicações e exames (caso seja necessário).<br><br>
+          <span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block;">
+            <i class="ph-fill ph-calendar"></i> <strong>Agendamentos:</strong> Na navegação fazemos apenas o primeiro agendamento ou reagendamento. As outras datas terão que agendar no dia da quimioterapia na recepção central da quimioterapia.<br><br>
+            <i class="ph-fill ph-clock"></i> Solicitamos que no dia da quimioterapia <strong>não marquem compromissos</strong> — deixe o dia da quimioterapia apenas para a quimioterapia.
+          </span>
+        </div>
+      </div>
+
+      <!-- Dica final: Anote no diário -->
+      <div class="card" style="border-left: 4px solid var(--gold);">
+        <div class="card-title"><i class="ph-fill ph-notebook"></i> Dica final: Mantenha um caderno com os seguintes registros</div>
+        <div class="card-body">
+          • Sintomas percebidos (com data)<br>
+          • Temperatura corporal<br>
+          • Idas ao banheiro e consistência das fezes<br>
+          • Dúvidas a esclarecer
+        </div>
+      </div>
+
+      <!-- Informações úteis -->
+      <div class="card">
+        <div class="card-title"><i class="ph-fill ph-info"></i> Informações Úteis</div>
+        <div class="card-body">
+          <strong>📱 WhatsApp - Navegação Oncológica</strong><br>
+          Segunda à Sexta; 08:00h às 17:00h<br>
+          (11) 97076-5142 – apenas mensagens<br><br>
+          
+          <strong>✂️ Projeto Amor e Cuidado Voluntariado</strong><br>
+          Corte de cabelo e doação de perucas<br>
+          Segunda/Quarta e Quinta das 10h às 14:30h - 4º andar<br><br>
+          
+          <strong>🌐 Sites úteis:</strong><br>
+          • <a href="https://www.oncogui.org.br" target="_blank" style="color: var(--sage-dark);">www.oncogui.org.br</a><br>
+          • <a href="https://www.sotrans.com.br" target="_blank" style="color: var(--sage-dark);">www.sotrans.com.br</a> (Transporte – SAME - Térreo)<br>
+          • <a href="https://detran.sp.gov.br" target="_blank" style="color: var(--sage-dark);">detran.sp.gov.br</a> (Biblioteca Única Especial da Pessoa com Deficiência)
+        </div>
+      </div>
+
+      <!-- Comunique à equipe -->
       <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;">
         <div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
       </div>
@@ -2041,6 +2194,7 @@ let sessions = [];
 let dailyLogs = {};
 let diary = [];
 let examResults = [];
+let appointments = [];
 let examChartInstance = null;
 let miniChartInstance = null;
 let currentChartGroup = 'imunidade';
@@ -2111,7 +2265,6 @@ function getExamStatus(key, val) {
   const r = EXAM_REFS[key];
   if (!r) return 'none';
   
-  // Corrige valores antigos salvos no formato errado
   if (r.multiplier === 1000) {
     if (key === 'plaq' && v >= 100 && v <= 400) {
       v = v * 1000;
@@ -2209,8 +2362,7 @@ window.logout = function() {
 // =============================================
 function generateDefaultSessions() {
   const arr = [];
-  // Primeira sessão: 01/04/2026
-  const START = new Date(2026, 3, 1, 12, 0, 0); // Abril = mês 3
+  const START = new Date(2026, 3, 1, 12, 0, 0);
   
   for (let i = 0; i < 12; i++) {
     const d = new Date(START);
@@ -2259,6 +2411,7 @@ function loadDataFromCloud() {
     dailyLogs = loadLocal('dailyLogs', {});
     diary = loadLocal('diary', []);
     examResults = loadLocal('examResults', []);
+    appointments = loadLocal('appointments', []);
     renderAll();
   }
   
@@ -2269,12 +2422,15 @@ function loadDataFromCloud() {
       dailyLogs = data.dailyLogs || {};
       diary = data.diary || [];
       examResults = data.examResults || [];
+      appointments = data.appointments || [];
       examResults.sort((a, b) => a.date.localeCompare(b.date));
+      appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
     } else {
       sessions = generateDefaultSessions();
       dailyLogs = {};
       diary = [];
       examResults = [];
+      appointments = [];
       syncToCloud();
     }
     renderAll();
@@ -2293,6 +2449,7 @@ function syncToCloud() {
   saveLocal('dailyLogs', dailyLogs);
   saveLocal('diary', diary);
   saveLocal('examResults', examResults);
+  saveLocal('appointments', appointments);
   
   if (!currentUser || !navigator.onLine) return;
   
@@ -2300,23 +2457,22 @@ function syncToCloud() {
     sessions,
     dailyLogs,
     diary,
-    examResults
+    examResults,
+    appointments
   }, { merge: true });
 }
 
 // =============================================
-// TROCAR DE ABA - CORRIGIDA
+// TROCAR DE ABA
 // =============================================
 window.switchTab = function(n, b) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
   document.getElementById('tab-' + n).classList.add('active');
   
-  // Ativa o botão correspondente
   if (b) {
     b.classList.add('active');
   } else {
-    // Procura o botão da aba pelo atributo onclick
     document.querySelectorAll('.tab-btn').forEach(btn => {
       const onclick = btn.getAttribute('onclick');
       if (onclick && onclick.includes("'"+n+"'")) {
@@ -2327,6 +2483,7 @@ window.switchTab = function(n, b) {
   
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (n === 'exames') setTimeout(renderExamChart, 100);
+  if (n === 'consultas') renderAppointments();
 };
 
 // =============================================
@@ -2342,8 +2499,12 @@ function renderAll() {
   const eDateInput = document.getElementById('e-date');
   if (eDateInput) eDateInput.value = todayYMD;
   
+  const apptDateInput = document.getElementById('appt-date');
+  if (apptDateInput) apptDateInput.value = todayYMD;
+  
   renderDiary();
   renderExamResults();
+  renderAppointments();
   renderSmartAlerts();
   renderWeeklySummary();
 }
@@ -3173,6 +3334,81 @@ function copyFallback(text) {
 }
 
 // =============================================
+// CONSULTAS
+// =============================================
+window.addAppointment = function() {
+  const title = document.getElementById('appt-title').value;
+  const date = document.getElementById('appt-date').value;
+  const time = document.getElementById('appt-time').value;
+  const location = document.getElementById('appt-location').value;
+  const notes = document.getElementById('appt-notes').value;
+
+  if (!title || !date || !time) {
+    alert("Preencha título, data e hora.");
+    return;
+  }
+
+  appointments.push({
+    id: Date.now(),
+    title, date, time, location, notes
+  });
+
+  appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  
+  syncToCloud();
+  renderAppointments();
+  renderSmartAlerts();
+
+  ['appt-title', 'appt-date', 'appt-time', 'appt-location', 'appt-notes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('appt-time').value = '10:00';
+  document.getElementById('appt-date').value = todayYMD;
+};
+
+function renderAppointments() {
+  const list = document.getElementById('appointments-list');
+  if (!list) return;
+  
+  list.innerHTML = '';
+  const futureAppts = appointments.filter(a => a.date >= todayYMD);
+  
+  if (!futureAppts.length) {
+    list.innerHTML = '<div class="card" style="text-align:center;color:var(--ink3);"><i class="ph-fill ph-calendar-plus" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum compromisso futuro agendado.</div>';
+    return;
+  }
+
+  futureAppts.forEach((a) => {
+    const originalIndex = appointments.findIndex(x => x.id === a.id);
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:start;">
+        <div>
+          <div class="card-title" style="margin-bottom:2px;">${a.title}</div>
+          <div style="font-size:13px; color:var(--ink2);">
+            <i class="ph-fill ph-calendar-blank"></i> ${fmtFull(a.date)} às ${a.time}
+          </div>
+          ${a.location ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-map-pin"></i> ${a.location}</div>` : ''}
+          ${a.notes ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-note"></i> ${a.notes}</div>` : ''}
+        </div>
+        <button class="btn-del" onclick="deleteAppointment(${originalIndex})"><i class="ph-bold ph-trash"></i></button>
+      </div>
+    `;
+    list.appendChild(div);
+  });
+}
+
+window.deleteAppointment = function(index) {
+  if(confirm("Remover este compromisso?")) {
+    appointments.splice(index, 1);
+    syncToCloud();
+    renderAppointments();
+    renderSmartAlerts();
+  }
+};
+
+// =============================================
 // ALERTAS INTELIGENTES
 // =============================================
 function renderSmartAlerts() {
@@ -3221,6 +3457,18 @@ function renderSmartAlerts() {
     if (quimoKeys.length > 0) {
       const names = quimoKeys.map(k => EXAM_REFS[k].label).join(', ');
       alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-warning-octagon', title: 'Exame de ' + fmtFull(last.date) + ' com alerta', text: names + ' abaixo do mínimo para quimioterapia. Informe o médico.' });
+    }
+  }
+  
+  const upcomingAppts = appointments.filter(a => a.date >= todayYMD).sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time));
+  if (upcomingAppts.length > 0) {
+    const next = upcomingAppts[0];
+    const diff = Math.ceil((fromYMD(next.date).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+    
+    if (diff === 0) {
+      alerts.push({cls:'ac-blue', icon:'ph-fill ph-calendar-check', title:`HOJE: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
+    } else if (diff === 1) {
+      alerts.push({cls:'ac-amber', icon:'ph-fill ph-calendar-plus', title:`AMANHÃ: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
     }
   }
   
