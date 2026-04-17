@@ -333,6 +333,37 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-add-temp { background: var(--ink); color: white; border: none; border-radius: var(--radius-sm); padding: 7px 12px; font-family: 'Inter'; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; white-space: nowrap; }
 .btn-add-temp:hover { background: var(--sage-dark); }
 
+/* ===== MEDICATION TRACKER ===== */
+.med-track-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+.med-track-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.med-track-title { font-size: 14px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+.med-track-desc { font-size: 12px; color: var(--ink3); margin-bottom: 10px; line-height: 1.5; font-style: italic; }
+.med-next-dose { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 20px; margin-bottom: 10px; }
+.med-next-ok   { background: var(--sage-bg); color: var(--sage-dark); }
+.med-next-soon { background: var(--amber-bg); color: var(--amber); }
+.med-next-now  { background: var(--red-bg); color: var(--red-intense); }
+.med-log-list  { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; min-height: 20px; }
+.med-log-tag   { display: inline-flex; align-items: center; gap: 5px; background: #EAF5EA; color: #2A6A2A; border: 1px solid #BEE3C4; border-radius: 20px; font-size: 12px; font-weight: 700; padding: 4px 10px; }
+.med-log-tag button { background: none; border: none; color: #2A6A2A; cursor: pointer; font-size: 11px; font-weight: 900; opacity: 0.5; padding: 0; line-height: 1; display: flex; align-items: center; }
+.med-log-tag button:hover { opacity: 1; }
+.med-add-row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.med-time-input { font-family: 'Inter'; font-size: 13px; font-weight: 600; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 10px; outline: none; color: var(--ink); width: 110px; flex-shrink: 0; }
+.med-time-input:focus { border-color: var(--sage-dark); }
+.btn-add-med { background: var(--sage-dark); color: white; border: none; border-radius: var(--radius-sm); padding: 7px 14px; font-family: 'Inter'; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; white-space: nowrap; }
+.btn-add-med:hover { background: var(--ink); }
+.med-empty { font-size: 12px; color: var(--ink3); font-style: italic; }
+.med-warn { background: var(--red-bg); border: 1px solid rgba(214,69,69,0.2); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; color: var(--red-intense); font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+
+/* ===== APPOINTMENT EDIT ===== */
+.appt-edit-form { background: var(--sage-bg); border: 1px solid var(--sage-light); border-radius: var(--radius-sm); padding: 14px; margin-top: 10px; display: grid; gap: 8px; }
+.appt-edit-form .exam-input { font-size: 13px; padding: 8px 12px; }
+.appt-edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.appt-edit-actions { display: flex; gap: 8px; margin-top: 4px; }
+.btn-save-appt { background: var(--sage-dark); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 16px; font-family: 'Inter'; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; }
+.btn-save-appt:hover { background: var(--ink); }
+.btn-cancel-appt { background: transparent; color: var(--ink3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-family: 'Inter'; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.btn-cancel-appt:hover { background: var(--surface-hover); color: var(--ink2); }
+
 /* ===== FOOTER ===== */
 footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: var(--ink3); max-width: 700px; margin: 0 auto; }
 
@@ -356,6 +387,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
   .temp-add-row { flex-direction: column; align-items: stretch; }
   .temp-time-input { width: 100%; }
   .btn-add-temp { justify-content: center; }
+  .appt-edit-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -469,12 +501,17 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
 
     <!-- TAB MEDICAÇÕES -->
     <div id="tab-medicacoes" class="tab-pane">
+      <div class="date-nav">
+        <button class="date-nav-btn" onclick="shiftMedDate(-1)"><i class="ph-bold ph-caret-left"></i></button>
+        <div class="date-nav-center">
+          <span class="date-nav-lbl">Registro do Dia</span>
+          <input type="date" id="med-date-input" class="date-nav-input" onchange="setMedDate(this.value)">
+        </div>
+        <button class="date-nav-btn" onclick="shiftMedDate(1)"><i class="ph-bold ph-caret-right"></i></button>
+      </div>
+
       <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
-      <div class="card"><div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Enquanto houver náuseas ou vômitos.</div></div>
-      <div class="card"><div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Se náuseas persistirem com Ondansetrona.</div></div>
-      <div class="card"><div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div><div class="card-body">Somente em caso de diarreia.</div></div>
-      <div class="card"><div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div><div class="card-body">Somente se o intestino prender.</div></div>
-      <div class="card" style="border-color: var(--red-bg);"><div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div><div class="card-body">Para dor. Não use para mascarar febre.</div></div>
+      <div id="med-cards-list"></div>
     </div>
 
     <!-- TAB SINTOMAS (DIÁRIO) -->
@@ -916,6 +953,7 @@ window.switchTab = function(n, b) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (n === 'exames') setTimeout(renderExamChart, 100);
   if (n === 'consultas') renderAppointments();
+  if (n === 'medicacoes') { setMedDate(currentMedDate); scheduleNextRefresh(); }
 };
 
 function renderAll() {
@@ -937,6 +975,10 @@ function renderAll() {
   renderSmartAlerts();
   renderWeeklySummary();
   initTempTimeInput();
+  currentMedDate = todayYMD;
+  const medDateInput = document.getElementById('med-date-input');
+  if (medDateInput) medDateInput.value = todayYMD;
+  renderMedCards();
 }
 
 function initTempTimeInput() {
@@ -1010,6 +1052,133 @@ window.calcNadir = function() {
     <div style="margin-top:10px;font-size:12px;color:var(--ink2)"><strong>Nadir:</strong> ${nadirStart} a ${nadirEnd} — evite aglomerações e monitore febre.</div>
   `;
 };
+
+// =============================================
+// MEDICAÇÕES
+// =============================================
+const MEDS_DEF = [
+  { id: 'ondansetrona',   name: 'Ondansetrona (8mg)',    dose: '1 comp / 8h',         intervalH: 8,   desc: 'Enquanto houver náuseas ou vômitos.',               warn: null },
+  { id: 'metoclopramida', name: 'Metoclopramida (10mg)', dose: '1 comp / 8h',         intervalH: 8,   desc: 'Se náuseas persistirem com Ondansetrona.',          warn: null },
+  { id: 'loperamida',     name: 'Loperamida (2mg)',      dose: '1 comp / evacuação',  intervalH: null, desc: 'Somente em caso de diarreia.',                     warn: null },
+  { id: 'lactulose',      name: 'Lactulose (667mg/mL)',  dose: '20mL / 8h',           intervalH: 8,   desc: 'Somente se o intestino prender.',                   warn: null },
+  { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 1g',         intervalH: 6,   desc: 'Para dor. Não use para mascarar febre.',            warn: 'Não usar para mascarar febre!' },
+];
+
+let currentMedDate = todayYMD;
+
+function getMedLog(dateStr) {
+  if (!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {}, temps: [] };
+  if (!dailyLogs[dateStr].meds) dailyLogs[dateStr].meds = {};
+  return dailyLogs[dateStr].meds;
+}
+
+window.shiftMedDate = function(days) { setMedDate(addDaysYMD(currentMedDate, days)); };
+window.setMedDate = function(dateStr) {
+  if (!dateStr) return;
+  currentMedDate = dateStr;
+  const inp = document.getElementById('med-date-input');
+  if (inp) inp.value = currentMedDate;
+  renderMedCards();
+};
+
+function renderMedCards() {
+  const container = document.getElementById('med-cards-list');
+  if (!container) return;
+  const medLog = getMedLog(currentMedDate);
+  const now = new Date();
+  const isToday = currentMedDate === todayYMD;
+
+  container.innerHTML = MEDS_DEF.map(med => {
+    const times = (medLog[med.id] || []).slice().sort();
+
+    let nextDoseHtml = '';
+    if (med.intervalH && times.length > 0) {
+      const last = times[times.length - 1];
+      const lastDt = new Date(currentMedDate + 'T' + last + ':00');
+      const nextDt = new Date(lastDt.getTime() + med.intervalH * 3600000);
+      const nextStr = nextDt.getHours().toString().padStart(2,'0') + ':' + nextDt.getMinutes().toString().padStart(2,'0');
+      if (isToday) {
+        const diffMin = Math.round((nextDt - now) / 60000);
+        let cls = 'med-next-ok', icon = 'ph-fill ph-clock', msg = '';
+        if (diffMin <= 0) {
+          cls = 'med-next-now'; icon = 'ph-fill ph-bell-ringing'; msg = 'Tomar agora!';
+        } else if (diffMin <= 30) {
+          cls = 'med-next-soon'; icon = 'ph-fill ph-bell'; msg = `em ${diffMin} min (${nextStr})`;
+        } else {
+          const h = Math.floor(diffMin / 60); const m = diffMin % 60;
+          msg = `às ${nextStr}` + (h > 0 ? ` (em ${h}h${m > 0 ? m + 'min' : ''})` : ` (em ${diffMin}min)`);
+        }
+        nextDoseHtml = `<div class="med-next-dose ${cls}"><i class="${icon}"></i> Próxima: ${msg}</div>`;
+      } else {
+        nextDoseHtml = `<div class="med-next-dose med-next-ok"><i class="ph-fill ph-clock"></i> Próxima seria: ${nextStr}</div>`;
+      }
+    } else if (med.intervalH && times.length === 0 && isToday) {
+      nextDoseHtml = `<div class="med-next-dose med-next-ok" style="opacity:0.55"><i class="ph-fill ph-clock"></i> Registre a 1ª dose para ver o próximo horário</div>`;
+    }
+
+    const tagsHtml = times.length > 0
+      ? times.map((t, ti) => `<span class="med-log-tag"><i class="ph-fill ph-check-circle" style="font-size:12px"></i> ${t}<button onclick="deleteMedTime('${med.id}',${ti})" title="Remover">✕</button></span>`).join('')
+      : `<span class="med-empty">Nenhuma dose registrada neste dia.</span>`;
+
+    const defaultTime = isToday
+      ? now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0')
+      : '';
+
+    const warnHtml = med.warn
+      ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>`
+      : '';
+    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : '';
+
+    return `<div class="med-track-card" style="${borderStyle}">
+      <div class="med-track-head">
+        <div class="med-track-title"><i class="ph-fill ph-pill" style="color:var(--sage-dark)"></i> ${med.name}</div>
+        <span class="med-dose">${med.dose}</span>
+      </div>
+      <div class="med-track-desc">${med.desc}</div>
+      ${warnHtml}
+      ${nextDoseHtml}
+      <div class="med-log-list" id="med-log-${med.id}">${tagsHtml}</div>
+      <div class="med-add-row">
+        <input type="time" class="med-time-input" id="med-time-${med.id}" value="${defaultTime}">
+        <button class="btn-add-med" onclick="addMedTime('${med.id}')"><i class="ph-bold ph-plus"></i> Registrar dose</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.addMedTime = function(medId) {
+  const input = document.getElementById('med-time-' + medId);
+  let timeStr = input ? input.value : '';
+  if (!timeStr) {
+    const now = new Date();
+    timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  }
+  const medLog = getMedLog(currentMedDate);
+  if (!medLog[medId]) medLog[medId] = [];
+  if (!medLog[medId].includes(timeStr)) {
+    medLog[medId].push(timeStr);
+    medLog[medId].sort();
+  }
+  syncToCloud();
+  renderMedCards();
+  if (currentMedDate === todayYMD) scheduleNextRefresh();
+};
+
+window.deleteMedTime = function(medId, index) {
+  const medLog = getMedLog(currentMedDate);
+  if (!medLog[medId]) return;
+  medLog[medId].splice(index, 1);
+  syncToCloud();
+  renderMedCards();
+};
+
+let _medRefreshTimer = null;
+function scheduleNextRefresh() {
+  if (_medRefreshTimer) clearTimeout(_medRefreshTimer);
+  _medRefreshTimer = setTimeout(() => {
+    if (currentMedDate === todayYMD) renderMedCards();
+  }, 60000);
+}
 
 function renderSessions() {
   if (!sessions || sessions.length === 0) sessions = generateDefaultSessions();
@@ -1390,7 +1559,6 @@ function renderGeneralDiary() {
     list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-book-bookmark" style="font-size:32px;margin-bottom:8px;display:block;color:var(--gold)"></i>Sem anotações gerais ainda.</div>';
     return;
   }
-  // Agrupar por data para exibição
   [...generalDiary].reverse().forEach((e, ri) => {
     const realI = generalDiary.length - 1 - ri;
     const div = document.createElement('div');
@@ -1641,6 +1809,13 @@ window.gerarRelatorio = function() {
   if (dE.length > 0) { r += `\n📓 *Diário de Sintomas:*\n`; dE.forEach(e => { r += `- ${e.text}\n`; }); }
   const gdE = generalDiary.filter(e => e.date === currentLogDate);
   if (gdE.length > 0) { r += `\n📔 *Diário Geral:*\n`; gdE.forEach(e => { r += `- ${e.text}\n`; }); }
+  const medLogRel = getMedLog(currentLogDate);
+  const medLines = MEDS_DEF.map(m => {
+    const times = (medLogRel[m.id] || []);
+    if (!times.length) return null;
+    return `- ${m.name}: ${times.join(', ')}`;
+  }).filter(Boolean);
+  if (medLines.length) { r += `\n💊 *Medicações tomadas:*\n` + medLines.join('\n') + '\n'; }
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(r).then(() => alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.")).catch(err => copyFallback(r));
   else copyFallback(r);
 };
@@ -1655,7 +1830,7 @@ function copyFallback(text) {
 }
 
 // =============================================
-// CONSULTAS
+// CONSULTAS — com edição inline
 // =============================================
 window.addAppointment = function() {
   const title = document.getElementById('appt-title').value;
@@ -1677,16 +1852,111 @@ function renderAppointments() {
   if (!list) return;
   list.innerHTML = '';
   const futureAppts = appointments.filter(a => a.date >= todayYMD);
-  if (!futureAppts.length) { list.innerHTML = '<div class="card" style="text-align:center;color:var(--ink3);"><i class="ph-fill ph-calendar-plus" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum compromisso futuro agendado.</div>'; return; }
+  if (!futureAppts.length) {
+    list.innerHTML = '<div class="card" style="text-align:center;color:var(--ink3);"><i class="ph-fill ph-calendar-plus" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum compromisso futuro agendado.</div>';
+    return;
+  }
   futureAppts.forEach((a) => {
     const originalIndex = appointments.findIndex(x => x.id === a.id);
     const div = document.createElement('div');
     div.className = 'card';
-    div.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:start;"><div><div class="card-title" style="margin-bottom:2px;">${a.title}</div><div style="font-size:13px; color:var(--ink2);"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(a.date)} às ${a.time}</div>${a.location ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-map-pin"></i> ${a.location}</div>` : ''}${a.notes ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-note"></i> ${a.notes}</div>` : ''}</div><button class="btn-del" onclick="deleteAppointment(${originalIndex})"><i class="ph-bold ph-trash"></i></button></div>`;
+    div.id = 'appt-card-' + originalIndex;
+    div.innerHTML = `
+      <div id="appt-view-${originalIndex}">
+        <div style="display:flex; justify-content:space-between; align-items:start;">
+          <div style="flex:1;">
+            <div class="card-title" style="margin-bottom:2px;">${escapeHtml(a.title)}</div>
+            <div style="font-size:13px; color:var(--ink2);"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(a.date)} às ${a.time}</div>
+            ${a.location ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-map-pin"></i> ${escapeHtml(a.location)}</div>` : ''}
+            ${a.notes ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-note"></i> ${escapeHtml(a.notes)}</div>` : ''}
+          </div>
+          <div style="display:flex; gap:6px; flex-shrink:0; align-items:flex-start;">
+            <button class="btn-edit-entry" onclick="startApptEdit(${originalIndex})" title="Editar compromisso" style="width:32px;height:32px;">
+              <i class="ph-bold ph-pencil-simple"></i>
+            </button>
+            <button class="btn-del" onclick="deleteAppointment(${originalIndex})"><i class="ph-bold ph-trash"></i></button>
+          </div>
+        </div>
+      </div>
+      <div id="appt-edit-${originalIndex}" style="display:none;">
+        <div class="appt-edit-form">
+          <div>
+            <label class="exam-label">Título</label>
+            <input type="text" id="appt-edit-title-${originalIndex}" class="exam-input" value="${escapeHtml(a.title)}">
+          </div>
+          <div class="appt-edit-row">
+            <div>
+              <label class="exam-label">Data</label>
+              <input type="date" id="appt-edit-date-${originalIndex}" class="exam-input" value="${a.date}">
+            </div>
+            <div>
+              <label class="exam-label">Hora</label>
+              <input type="time" id="appt-edit-time-${originalIndex}" class="exam-input" value="${a.time}">
+            </div>
+          </div>
+          <div>
+            <label class="exam-label">Local</label>
+            <input type="text" id="appt-edit-location-${originalIndex}" class="exam-input" value="${escapeHtml(a.location || '')}">
+          </div>
+          <div>
+            <label class="exam-label">Notas</label>
+            <input type="text" id="appt-edit-notes-${originalIndex}" class="exam-input" value="${escapeHtml(a.notes || '')}">
+          </div>
+          <div class="appt-edit-actions">
+            <button class="btn-save-appt" onclick="saveApptEdit(${originalIndex})">
+              <i class="ph-bold ph-check"></i> Salvar
+            </button>
+            <button class="btn-cancel-appt" onclick="cancelApptEdit(${originalIndex})">
+              <i class="ph-bold ph-x"></i> Cancelar
+            </button>
+          </div>
+        </div>
+      </div>`;
     list.appendChild(div);
   });
 }
-window.deleteAppointment = function(index) { if(confirm("Remover este compromisso?")) { appointments.splice(index, 1); syncToCloud(); renderAppointments(); renderSmartAlerts(); } };
+
+window.startApptEdit = function(index) {
+  document.getElementById('appt-view-' + index).style.display = 'none';
+  document.getElementById('appt-edit-' + index).style.display = 'block';
+  const titleInput = document.getElementById('appt-edit-title-' + index);
+  if (titleInput) { titleInput.focus(); titleInput.setSelectionRange(titleInput.value.length, titleInput.value.length); }
+};
+
+window.cancelApptEdit = function(index) {
+  document.getElementById('appt-view-' + index).style.display = 'block';
+  document.getElementById('appt-edit-' + index).style.display = 'none';
+};
+
+window.saveApptEdit = function(index) {
+  const newTitle    = document.getElementById('appt-edit-title-' + index).value.trim();
+  const newDate     = document.getElementById('appt-edit-date-' + index).value;
+  const newTime     = document.getElementById('appt-edit-time-' + index).value;
+  const newLocation = document.getElementById('appt-edit-location-' + index).value.trim();
+  const newNotes    = document.getElementById('appt-edit-notes-' + index).value.trim();
+  if (!newTitle || !newDate || !newTime) { alert('Preencha título, data e hora.'); return; }
+  appointments[index] = {
+    ...appointments[index],
+    title: newTitle,
+    date: newDate,
+    time: newTime,
+    location: newLocation,
+    notes: newNotes
+  };
+  appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  syncToCloud();
+  renderAppointments();
+  renderSmartAlerts();
+};
+
+window.deleteAppointment = function(index) {
+  if(confirm("Remover este compromisso?")) {
+    appointments.splice(index, 1);
+    syncToCloud();
+    renderAppointments();
+    renderSmartAlerts();
+  }
+};
 
 // =============================================
 // ALERTAS INTELIGENTES
