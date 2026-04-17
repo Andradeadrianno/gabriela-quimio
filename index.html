@@ -41,17 +41,8 @@
 }
 
 /* ===== RESET & BASE ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
@@ -62,1400 +53,256 @@ body {
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* ===== TELAS DE LOGIN ===== */
-#app-content {
-  display: none;
-}
-
+/* ===== LOGIN ===== */
+#app-content { display: none; }
 #login-screen {
-  position: fixed;
-  inset: 0;
-  background: var(--bg);
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
+  position: fixed; inset: 0; background: var(--bg); z-index: 9999;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; text-align: center;
 }
-
-.login-box {
-  background: var(--surface);
-  padding: 30px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  width: 100%;
-  max-width: 360px;
-  border: 1px solid var(--border);
-}
-
-.login-input {
-  width: 100%;
-  font-family: 'Inter';
-  font-size: 15px;
-  padding: 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  margin-bottom: 12px;
-  outline: none;
-  transition: border 0.2s;
-}
-
-.login-input:focus {
-  border-color: var(--sage-dark);
-}
-
-.btn-login {
-  width: 100%;
-  background: var(--sage-dark);
-  color: white;
-  border: none;
-  padding: 14px;
-  font-size: 15px;
-  font-weight: 700;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  margin-bottom: 12px;
-  transition: background 0.2s;
-}
-
-.btn-login:hover {
-  background: var(--ink);
-}
-
-.btn-register {
-  width: 100%;
-  background: transparent;
-  color: var(--ink2);
-  border: 1px solid var(--border);
-  padding: 14px;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.btn-register:hover {
-  background: var(--surface-hover);
-}
-
-#login-error {
-  color: var(--red-intense);
-  font-size: 13px;
-  margin-bottom: 12px;
-  display: none;
-  font-weight: 600;
-  background: var(--red-bg);
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(214, 69, 69, 0.2);
-}
-
-.btn-logout {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  cursor: pointer;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  backdrop-filter: blur(4px);
-  transition: all 0.2s;
-}
-
-.btn-logout:hover {
-  background: rgba(0,0,0,0.3);
-}
+.login-box { background: var(--surface); padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow-md); width: 100%; max-width: 360px; border: 1px solid var(--border); }
+.login-input { width: 100%; font-family: 'Inter'; font-size: 15px; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 12px; outline: none; transition: border 0.2s; }
+.login-input:focus { border-color: var(--sage-dark); }
+.btn-login { width: 100%; background: var(--sage-dark); color: white; border: none; padding: 14px; font-size: 15px; font-weight: 700; border-radius: var(--radius-sm); cursor: pointer; margin-bottom: 12px; transition: background 0.2s; }
+.btn-login:hover { background: var(--ink); }
+.btn-register { width: 100%; background: transparent; color: var(--ink2); border: 1px solid var(--border); padding: 14px; font-size: 15px; font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s; }
+.btn-register:hover { background: var(--surface-hover); }
+#login-error { color: var(--red-intense); font-size: 13px; margin-bottom: 12px; display: none; font-weight: 600; background: var(--red-bg); padding: 10px; border-radius: 6px; border: 1px solid rgba(214,69,69,0.2); }
+.btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); transition: all 0.2s; }
+.btn-logout:hover { background: rgba(0,0,0,0.3); }
 
 /* ===== HEADER ===== */
-header {
-  background: linear-gradient(135deg, #1E2B25 0%, #31473D 100%);
-  color: white;
-  padding: 3.5rem 1.5rem 3rem;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
-}
-
-header::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 10% 90%, rgba(122,171,150,0.2) 0%, transparent 60%),
-              radial-gradient(circle at 90% 10%, rgba(212,163,115,0.15) 0%, transparent 50%);
-}
-
-.header-inner {
-  position: relative;
-  z-index: 1;
-}
-
-.header-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--sage-light);
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 6px 16px;
-  border-radius: 30px;
-  margin-bottom: 1.2rem;
-  backdrop-filter: blur(4px);
-}
-
-header h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 8vw, 3.8rem);
-  font-weight: 400;
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.heart {
-  display: inline-block;
-  color: #E8A0A0;
-  animation: pulse 2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.header-meta {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-}
-
-.header-badge {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.9);
-  padding: 6px 14px;
-  border-radius: 20px;
-  backdrop-filter: blur(4px);
-  transition: background 0.2s;
-}
-
-.header-badge:hover {
-  background: rgba(255,255,255,0.2);
-}
+header { background: linear-gradient(135deg, #1E2B25 0%, #31473D 100%); color: white; padding: 3.5rem 1.5rem 3rem; text-align: center; position: relative; overflow: hidden; border-bottom-left-radius: 24px; border-bottom-right-radius: 24px; }
+header::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 10% 90%, rgba(122,171,150,0.2) 0%, transparent 60%), radial-gradient(circle at 90% 10%, rgba(212,163,115,0.15) 0%, transparent 50%); }
+.header-inner { position: relative; z-index: 1; }
+.header-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sage-light); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 6px 16px; border-radius: 30px; margin-bottom: 1.2rem; backdrop-filter: blur(4px); }
+header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 8vw, 3.8rem); font-weight: 400; line-height: 1; margin-bottom: 0.5rem; }
+.heart { display: inline-block; color: #E8A0A0; animation: pulse 2s infinite ease-in-out; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+.header-meta { margin-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.header-badge { display: flex; align-items: center; gap: 4px; font-size: 12px; font-weight: 500; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); padding: 6px 14px; border-radius: 20px; backdrop-filter: blur(4px); transition: background 0.2s; }
+.header-badge:hover { background: rgba(255,255,255,0.2); }
 
 /* ===== EMERGENCY BAR ===== */
-.emergency-bar {
-  background: var(--red-intense);
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin: -1.5rem 1rem 1.5rem;
-  position: relative;
-  z-index: 2;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.emergency-bar:active {
-  transform: scale(0.99);
-}
-
-.em-icon {
-  font-size: 24px;
-  color: #FFF;
-  flex-shrink: 0;
-  background: rgba(255,255,255,0.2);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.em-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 2px;
-}
-
-.em-text {
-  font-size: 13px;
-  color: rgba(255,255,255,0.95);
-  line-height: 1.5;
-}
+.emergency-bar { background: var(--red-intense); padding: 1rem 1.5rem; display: flex; align-items: flex-start; gap: 14px; margin: -1.5rem 1rem 1.5rem; position: relative; z-index: 2; border-radius: var(--radius); box-shadow: var(--shadow-md); color: white; cursor: pointer; transition: transform 0.2s; }
+.emergency-bar:active { transform: scale(0.99); }
+.em-icon { font-size: 24px; color: #FFF; flex-shrink: 0; background: rgba(255,255,255,0.2); width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; }
+.em-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+.em-text { font-size: 13px; color: rgba(255,255,255,0.95); line-height: 1.5; }
 
 /* ===== MAIN ===== */
-main {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 1rem 5rem;
-}
+main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 
-/* ===== PROGRESS BAR ===== */
-.progress-wrap {
-  background: var(--surface);
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--border);
-}
+/* ===== PROGRESS ===== */
+.progress-wrap { background: var(--surface); padding: 1.5rem; border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; border: 1px solid var(--border); }
+.progress-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 10px; }
+.progress-label { font-size: 13px; font-weight: 500; color: var(--ink2); }
+.progress-val { font-size: 20px; font-weight: 700; color: var(--sage-dark); line-height: 1; }
+.progress-track { background: var(--sage-bg); border-radius: 20px; height: 12px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius: 20px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
-.progress-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 10px;
-}
-
-.progress-label {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink2);
-}
-
-.progress-val {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--sage-dark);
-  line-height: 1;
-}
-
-.progress-track {
-  background: var(--sage-bg);
-  border-radius: 20px;
-  height: 12px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--sage), var(--sage-dark));
-  border-radius: 20px;
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-/* ===== NAVIGATION TABS ===== */
-.tab-nav {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-  margin-bottom: 2rem;
-}
-
-.tab-btn {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 4px;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--ink2);
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  box-shadow: var(--shadow-sm);
-}
-
-.tab-btn i {
-  font-size: 22px;
-  transition: transform 0.2s;
-}
-
-.tab-btn.active {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
-  box-shadow: 0 8px 20px rgba(44, 54, 49, 0.25);
-}
-
-.tab-btn.active i {
-  color: var(--gold);
-  transform: scale(1.05);
-}
-
-.tab-pane {
-  display: none;
-  animation: fadein 0.3s ease forwards;
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.tab-pane.active {
-  display: block;
-}
-
-@keyframes fadein {
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
+/* ===== TABS ===== */
+.tab-nav { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 2rem; }
+.tab-btn { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 4px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink2); cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: var(--shadow-sm); }
+.tab-btn i { font-size: 22px; transition: transform 0.2s; }
+.tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); box-shadow: 0 8px 20px rgba(44,54,49,0.25); }
+.tab-btn.active i { color: var(--gold); transform: scale(1.05); }
+.tab-pane { display: none; animation: fadein 0.3s ease forwards; opacity: 0; transform: translateY(8px); }
+.tab-pane.active { display: block; }
+@keyframes fadein { to { opacity: 1; transform: none; } }
 
 /* ===== TYPOGRAPHY ===== */
-.sec-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: space-between;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border);
-}
+.sec-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: var(--ink); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 8px; justify-content: space-between; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.sec-title-left { display: flex; align-items: center; gap: 8px; }
+.btn-edit { background: var(--surface); border: 1px solid var(--border-focus); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; color: var(--ink2); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s; }
+.btn-edit:hover { background: var(--surface-hover); border-color: var(--ink3); }
+.date-input { font-family: 'Inter'; font-size: 14px; font-weight: 700; color: var(--ink); border: 1px solid var(--sage-light); border-radius: 6px; padding: 4px 8px; background: var(--surface); display: none; outline: none; }
+.is-editing-cal .date-input, .is-editing-exam .date-input { display: inline-block; }
+.is-editing-cal .date-text, .is-editing-exam .date-text { display: none; }
 
-.sec-title-left {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-edit {
-  background: var(--surface);
-  border: 1px solid var(--border-focus);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ink2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  transition: all 0.2s;
-}
-
-.btn-edit:hover {
-  background: var(--surface-hover);
-  border-color: var(--ink3);
-}
-
-.date-input {
-  font-family: 'Inter';
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  border: 1px solid var(--sage-light);
-  border-radius: 6px;
-  padding: 4px 8px;
-  background: var(--surface);
-  display: none;
-  outline: none;
-}
-
-.is-editing-cal .date-input,
-.is-editing-exam .date-input {
-  display: inline-block;
-}
-
-.is-editing-cal .date-text,
-.is-editing-exam .date-text {
-  display: none;
-}
-
-/* ===== CALENDÁRIO: MÉTRICAS ===== */
-.metrics-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 1.5rem;
-}
-
-.metric-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 20px 10px;
-  text-align: center;
-}
-
-.metric-val {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 4px;
-  line-height: 1;
-}
-
-.metric-lbl {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ink3);
-}
+/* ===== METRICS ===== */
+.metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+.metric-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px 10px; text-align: center; }
+.metric-val { font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1; }
+.metric-lbl { font-size: 12px; font-weight: 500; color: var(--ink3); }
 
 /* ===== SESSÕES ===== */
-.session-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  transition: all 0.2s;
-}
+.session-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: all 0.2s; }
+.session-left { display: flex; align-items: center; gap: 14px; }
+.session-num { width: 32px; height: 32px; border-radius: 50%; background: #F3F4F6; color: #4B5563; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; }
+.session-info { display: flex; flex-direction: column; }
+.session-date { font-size: 15px; font-weight: 700; color: var(--ink); }
+.session-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; text-transform: lowercase; }
+.session-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
-.session-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
+/* ===== PILLS ===== */
+.pill-nadir { background: #FDE8E8; color: #C84646; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: none; display: inline-flex; align-items: center; gap: 4px; }
+.pill-exam { background: #FEF0E0; color: #A06828; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: none; display: inline-flex; align-items: center; gap: 4px; }
+.pill-toggle { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; outline: none; }
+.pill-pending { background: #F3F4F6; color: #9CA3AF; }
+.pill-done { background: #EAF5EA; color: #2A6A2A; text-decoration: line-through; }
+.session-card.done { opacity: 0.7; background: #FAFAFA; }
+.session-card.done .session-num { background: #EAF5EA; color: #2A6A2A; }
 
-.session-num {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #F3F4F6;
-  color: #4B5563;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 13px;
+/* ===== PILL ACTION BUTTONS ===== */
+.pill-action-btn {
+  background: none; border: none; cursor: pointer; padding: 0 0 0 2px;
+  font-size: 11px; font-weight: 900; line-height: 1;
+  color: inherit; opacity: 0.5; transition: opacity 0.2s;
+  display: inline-flex; align-items: center;
 }
-
-.session-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.session-date {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.session-sub {
-  font-size: 12px;
-  color: var(--ink3);
-  margin-top: 2px;
-  text-transform: lowercase;
-}
-
-.session-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-/* ===== PÍLULAS ===== */
-.pill-nadir {
-  background: #FDE8E8;
-  color: #C84646;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  border: none;
-}
-
-.pill-exam {
-  background: #FEF0E0;
-  color: #A06828;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  border: none;
-}
-
-.pill-toggle {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-  outline: none;
-}
-
-.pill-pending {
-  background: #F3F4F6;
-  color: #9CA3AF;
-}
-
-.pill-done {
-  background: #EAF5EA;
-  color: #2A6A2A;
-  text-decoration: line-through;
-}
-
-.session-card.done {
-  opacity: 0.7;
-  background: #FAFAFA;
-}
-
-.session-card.done .session-num {
-  background: #EAF5EA;
-  color: #2A6A2A;
-}
+.pill-action-btn:hover { opacity: 1; }
+.pill-add-nadir { background: #F3F4F6; color: #9CA3AF; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: 1px dashed #D1D5DB; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s; }
+.pill-add-nadir:hover { background: #FDE8E8; color: #C84646; border-color: #F5A4A4; }
+.pill-add-exam { background: #F3F4F6; color: #9CA3AF; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: 1px dashed #D1D5DB; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s; }
+.pill-add-exam:hover { background: #FEF0E0; color: #A06828; border-color: #F5C84A; }
+.pill-date-edit { font-family: 'Inter'; font-size: 11px; font-weight: 700; border: none; background: transparent; color: inherit; outline: none; cursor: pointer; min-width: 70px; }
 
 /* ===== EXAMES ===== */
-.exam-row {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 4px solid var(--sage-light);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px;
-  margin-bottom: 10px;
-}
-
-.exam-row.done {
-  opacity: 0.7;
-  background: #FAFAFA;
-  border-left-color: var(--sage-dark);
-}
-
-.exam-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.exam-date {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
-.exam-sub {
-  font-size: 12px;
-  color: var(--ink3);
-}
-
-.exam-input-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.exam-input {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  width: 100%;
-  transition: all 0.2s;
-}
-
-.exam-input:focus {
-  border-color: var(--sage-dark);
-}
-
-.exam-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink3);
-  margin-bottom: 4px;
-  display: block;
-  text-transform: uppercase;
-}
-
-.exam-entry {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  margin-bottom: 10px;
-  box-shadow: var(--shadow-sm);
-}
-
-/* ===== GRID DE VALORES ===== */
-.exam-val-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.exam-val-box {
-  padding: 10px 8px;
-  border-radius: var(--radius-sm);
-  text-align: center;
-  position: relative;
-  border: 1px solid transparent;
-}
-
-.exam-val-box.status-ok {
-  background: #EAF5EA;
-  border-color: #BEE3C4;
-}
-
-.exam-val-box.status-ok .exam-val-t {
-  color: #2A6A2A;
-  opacity: 0.8;
-}
-
-.exam-val-box.status-ok .exam-val-v {
-  color: #2A6A2A;
-}
-
-.exam-val-box.status-low {
-  background: var(--amber-bg);
-  border-color: #F5C84A;
-}
-
-.exam-val-box.status-low .exam-val-t {
-  color: var(--amber);
-  opacity: 0.8;
-}
-
-.exam-val-box.status-low .exam-val-v {
-  color: var(--amber);
-}
-
-.exam-val-box.status-high {
-  background: var(--red-bg);
-  border-color: rgba(214,69,69,0.3);
-}
-
-.exam-val-box.status-high .exam-val-t {
-  color: var(--red-intense);
-  opacity: 0.8;
-}
-
-.exam-val-box.status-high .exam-val-v {
-  color: var(--red-intense);
-}
-
-.exam-val-box.status-quimo {
-  background: #FDE8E8;
-  border-color: #F5A4A4;
-}
-
-.exam-val-box.status-quimo .exam-val-t {
-  color: #C84646;
-  opacity: 0.8;
-}
-
-.exam-val-box.status-quimo .exam-val-v {
-  color: #C84646;
-}
-
-.exam-val-box.status-none {
-  background: var(--sage-bg);
-}
-
-.exam-val-box.status-none .exam-val-t {
-  color: var(--ink3);
-}
-
-.exam-val-box.status-none .exam-val-v {
-  color: var(--ink2);
-}
-
-.exam-val-t {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-
-.exam-val-v {
-  font-size: 15px;
-  font-weight: 700;
-}
-
-.status-badge {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-}
-
+.exam-row { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--sage-light); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; margin-bottom: 10px; }
+.exam-row.done { opacity: 0.7; background: #FAFAFA; border-left-color: var(--sage-dark); }
+.exam-info { display: flex; flex-direction: column; gap: 2px; }
+.exam-date { font-size: 15px; font-weight: 700; color: var(--ink); }
+.exam-sub { font-size: 12px; color: var(--ink3); }
+.exam-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.exam-input { font-family: 'Inter', sans-serif; font-size: 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; background: var(--surface); color: var(--ink); outline: none; width: 100%; transition: all 0.2s; }
+.exam-input:focus { border-color: var(--sage-dark); }
+.exam-label { font-size: 11px; font-weight: 700; color: var(--ink3); margin-bottom: 4px; display: block; text-transform: uppercase; }
+.exam-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 10px; box-shadow: var(--shadow-sm); }
+.exam-val-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.exam-val-box { padding: 10px 8px; border-radius: var(--radius-sm); text-align: center; position: relative; border: 1px solid transparent; }
+.exam-val-box.status-ok { background: #EAF5EA; border-color: #BEE3C4; }
+.exam-val-box.status-ok .exam-val-t { color: #2A6A2A; opacity: 0.8; }
+.exam-val-box.status-ok .exam-val-v { color: #2A6A2A; }
+.exam-val-box.status-low { background: var(--amber-bg); border-color: #F5C84A; }
+.exam-val-box.status-low .exam-val-t { color: var(--amber); opacity: 0.8; }
+.exam-val-box.status-low .exam-val-v { color: var(--amber); }
+.exam-val-box.status-high { background: var(--red-bg); border-color: rgba(214,69,69,0.3); }
+.exam-val-box.status-high .exam-val-t { color: var(--red-intense); opacity: 0.8; }
+.exam-val-box.status-high .exam-val-v { color: var(--red-intense); }
+.exam-val-box.status-quimo { background: #FDE8E8; border-color: #F5A4A4; }
+.exam-val-box.status-quimo .exam-val-t { color: #C84646; opacity: 0.8; }
+.exam-val-box.status-quimo .exam-val-v { color: #C84646; }
+.exam-val-box.status-none { background: var(--sage-bg); }
+.exam-val-box.status-none .exam-val-t { color: var(--ink3); }
+.exam-val-box.status-none .exam-val-v { color: var(--ink2); }
+.exam-val-t { font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+.exam-val-v { font-size: 15px; font-weight: 700; }
+.status-badge { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; border-radius: 50%; }
 .badge-ok { background: #2A6A2A; }
 .badge-low { background: var(--amber); }
 .badge-high { background: var(--red-intense); }
 .badge-quimo { background: #C84646; }
-
-.status-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 12px;
-  font-size: 11px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: var(--ink3);
-  font-weight: 600;
-}
-
-.legend-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
+.status-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; font-size: 11px; }
+.legend-item { display: flex; align-items: center; gap: 5px; color: var(--ink3); font-weight: 600; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 
 /* ===== GRÁFICO ===== */
-.chart-section {
-  margin-top: 2rem;
-}
-
-.chart-tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.chart-tab {
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  color: var(--ink2);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.chart-tab.active {
-  background: var(--ink);
-  color: white;
-  border-color: var(--ink);
-}
-
-.chart-wrap {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  position: relative;
-  height: 260px;
-}
+.chart-section { margin-top: 2rem; }
+.chart-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.chart-tab { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); color: var(--ink2); cursor: pointer; transition: all 0.2s; }
+.chart-tab.active { background: var(--ink); color: white; border-color: var(--ink); }
+.chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; position: relative; height: 260px; }
 
 /* ===== CARDS ===== */
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  margin-bottom: 12px;
-  box-shadow: var(--shadow-sm);
-}
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.card-title { font-size: 14px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.card-body { font-size: 13.5px; color: var(--ink2); line-height: 1.6; }
+.med-dose { font-size: 12px; font-weight: 700; background: var(--sage-bg); color: var(--sage-dark); padding: 4px 12px; border-radius: 20px; flex-shrink: 0; }
 
-.card-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 8px;
-}
+/* ===== DATE NAV ===== */
+.date-nav { display: flex; align-items: center; justify-content: space-between; background: var(--surface); padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 2rem; }
+.date-nav-btn { background: #F3F4F6; border: none; width: 36px; height: 36px; border-radius: 50%; color: var(--ink2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: 0.2s; flex-shrink: 0; }
+.date-nav-btn:hover { background: #E5E7EB; }
+.date-nav-center { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.date-nav-lbl { font-size: 11px; font-weight: 700; color: var(--ink3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.date-nav-input { font-family: 'Inter'; font-size: 16px; font-weight: 700; color: var(--ink); border: none; background: transparent; outline: none; text-align: center; cursor: pointer; }
 
-.card-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-}
+/* ===== WATER ===== */
+.water-wrap { background: #EAF5EA; border-radius: var(--radius-sm); padding: 24px; text-align: center; margin-bottom: 2rem; border: 1px solid #BEE3C4; }
+.water-glasses-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin: 0 auto 16px; max-width: 290px; }
+.wg { width: 22px; height: 32px; border: 2px solid rgba(42,106,42,0.2); border-radius: 2px 2px 6px 6px; position: relative; cursor: pointer; overflow: hidden; background: rgba(255,255,255,0.8); transition: transform 0.2s; }
+.wg:hover { transform: scale(1.1); }
+.wg-fill { position: absolute; bottom: 0; left: 0; right: 0; background: #50A055; transition: height 0.3s ease; }
+.water-bar-track { background: rgba(42,106,42,0.1); height: 8px; border-radius: 20px; margin: 16px 0 8px; overflow: hidden; }
+.water-bar-fill { height: 100%; background: #2A6A2A; border-radius: 20px; width: 0%; transition: width 0.3s; }
 
-.card-body {
-  font-size: 13.5px;
-  color: var(--ink2);
-  line-height: 1.6;
-}
-
-.med-dose {
-  font-size: 12px;
-  font-weight: 700;
-  background: var(--sage-bg);
-  color: var(--sage-dark);
-  padding: 4px 12px;
-  border-radius: 20px;
-  flex-shrink: 0;
-}
-
-/* ===== NAVEGAÇÃO DE DATAS ===== */
-.date-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--surface);
-  padding: 12px 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  margin-bottom: 2rem;
-}
-
-.date-nav-btn {
-  background: #F3F4F6;
-  border: none;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  color: var(--ink2);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: 0.2s;
-  flex-shrink: 0;
-}
-
-.date-nav-btn:hover {
-  background: #E5E7EB;
-}
-
-.date-nav-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.date-nav-lbl {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink3);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 2px;
-}
-
-.date-nav-input {
-  font-family: 'Inter';
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ink);
-  border: none;
-  background: transparent;
-  outline: none;
-  text-align: center;
-  cursor: pointer;
-}
-
-/* ===== WATER TRACKER ===== */
-.water-wrap {
-  background: #EAF5EA;
-  border-radius: var(--radius-sm);
-  padding: 24px;
-  text-align: center;
-  margin-bottom: 2rem;
-  border: 1px solid #BEE3C4;
-}
-
-.water-glasses-row {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin: 0 auto 16px;
-  max-width: 290px;
-}
-
-.wg {
-  width: 22px;
-  height: 32px;
-  border: 2px solid rgba(42, 106, 42, 0.2);
-  border-radius: 2px 2px 6px 6px;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  background: rgba(255,255,255,0.8);
-  transition: transform 0.2s;
-}
-
-.wg:hover {
-  transform: scale(1.1);
-}
-
-.wg-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #50A055;
-  transition: height 0.3s ease;
-}
-
-.water-bar-track {
-  background: rgba(42, 106, 42, 0.1);
-  height: 8px;
-  border-radius: 20px;
-  margin: 16px 0 8px;
-  overflow: hidden;
-}
-
-.water-bar-fill {
-  height: 100%;
-  background: #2A6A2A;
-  border-radius: 20px;
-  width: 0%;
-  transition: width 0.3s;
-}
-
-/* ===== SYMPTOM GRID ===== */
-.sym-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 1.5rem;
-}
-
-.sym-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-}
-
-.sym-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--ink3);
-  margin-bottom: 8px;
-}
-
-.sym-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.sym-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  transition: background 0.3s;
-}
-
-.sym-sel {
-  width: 100%;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: var(--ink);
-  background: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-bottom: 1px solid var(--border);
-  padding: 4px 0;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.sym-note {
-  font-size: 12px;
-  margin-top: 8px;
-  font-style: italic;
-}
+/* ===== SYMPTOMS ===== */
+.sym-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+.sym-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; }
+.sym-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink3); margin-bottom: 8px; }
+.sym-row { display: flex; align-items: center; gap: 8px; }
+.sym-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; transition: background 0.3s; }
+.sym-sel { width: 100%; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); background: transparent; border: none; outline: none; cursor: pointer; border-bottom: 1px solid var(--border); padding: 4px 0; appearance: none; -webkit-appearance: none; }
+.sym-note { font-size: 12px; margin-top: 8px; font-style: italic; }
 
 /* ===== DIARY ===== */
-.diary-row {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-}
+.diary-row { display: flex; gap: 10px; margin-bottom: 12px; }
+.diary-input { font-family: 'Inter', sans-serif; font-size: 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; background: var(--surface); color: var(--ink); outline: none; transition: all 0.2s; }
+.diary-input:focus { border-color: var(--sage-dark); }
+.d-date { flex-shrink: 0; width: 140px; }
+.d-text { flex: 1; }
+.btn-primary { width: 100%; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; background: var(--ink); color: #fff; border: none; border-radius: var(--radius-sm); padding: 14px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.btn-primary:hover { background: var(--sage-dark); }
+.diary-entry { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.d-tag { font-size: 12px; font-weight: 700; color: var(--sage-dark); margin-bottom: 6px; display: flex; align-items: center; gap: 4px; }
+.btn-del { background: var(--red-bg); border: none; width: 32px; height: 32px; border-radius: 8px; color: var(--red-intense); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+.btn-del:hover { background: rgba(214,69,69,0.2); }
 
-.diary-input {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  background: var(--surface);
-  color: var(--ink);
-  outline: none;
-  transition: all 0.2s;
-}
+/* ===== DIARY EDIT ===== */
+.diary-entry-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: flex-start; }
+.btn-edit-entry { background: transparent; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 8px; color: var(--ink3); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
+.btn-edit-entry:hover { background: var(--sage-bg); color: var(--sage-dark); border-color: var(--sage-light); }
+.diary-edit-input { font-family: 'Inter', sans-serif; font-size: 14px; border: 1px solid var(--sage-dark); border-radius: var(--radius-sm); padding: 8px 12px; background: var(--surface); color: var(--ink); outline: none; width: 100%; transition: all 0.2s; margin-top: 6px; }
+.btn-save-entry { background: var(--sage-dark); border: none; height: 32px; padding: 0 10px; border-radius: 8px; color: white; cursor: pointer; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; transition: all 0.2s; white-space: nowrap; }
+.btn-save-entry:hover { background: var(--ink); }
 
-.diary-input:focus {
-  border-color: var(--sage-dark);
-}
+/* ===== GENERAL DIARY ===== */
+.general-diary-entry { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+.general-diary-entry .d-tag { color: var(--amber); }
 
-.d-date {
-  flex-shrink: 0;
-  width: 140px;
-}
-
-.d-text {
-  flex: 1;
-}
-
-.btn-primary {
-  width: 100%;
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  background: var(--ink);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.btn-primary:hover {
-  background: var(--sage-dark);
-}
-
-.diary-entry {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.d-tag {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--sage-dark);
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.btn-del {
-  background: var(--red-bg);
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  color: var(--red-intense);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.2s;
-}
-
-.btn-del:hover {
-  background: rgba(214,69,69,0.2);
-}
-
-/* ===== HOSPITAIS ===== */
-.hosp-emergency {
-  border-left: 4px solid var(--red-intense);
-  background: var(--red-bg);
-}
-
-.hosp-option {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--red-intense);
-  margin-bottom: 4px;
-  display: block;
-}
-
-.info-box {
-  background: var(--sage-bg);
-  border: 1px solid var(--border-focus);
-  border-left: 4px solid var(--sage-dark);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  display: flex;
-  gap: 10px;
-}
+/* ===== HOSPITALS ===== */
+.hosp-emergency { border-left: 4px solid var(--red-intense); background: var(--red-bg); }
+.hosp-option { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--red-intense); margin-bottom: 4px; display: block; }
+.info-box { background: var(--sage-bg); border: 1px solid var(--border-focus); border-left: 4px solid var(--sage-dark); border-radius: var(--radius-sm); padding: 16px; font-size: 13px; color: var(--ink2); line-height: 1.6; margin-bottom: 1.5rem; display: flex; gap: 10px; }
 
 /* ===== HOME DASHBOARD ===== */
-.home-dashboard {
-  margin-bottom: 1.5rem;
-}
+.home-dashboard { margin-bottom: 1.5rem; }
+.alert-card { border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; border: 1px solid transparent; }
+.alert-card-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.alert-card-body { flex: 1; }
+.alert-card-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.alert-card-text { font-size: 12px; line-height: 1.4; opacity: .85; }
+.ac-red { background: #FDE8E8; border-color: #F5A4A4; color: #7A1F1F; }
+.ac-red .alert-card-icon { background: #C84646; color: white; }
+.ac-amber { background: #FEF0E0; border-color: #F5C84A; color: #7A4A00; }
+.ac-amber .alert-card-icon { background: var(--amber); color: white; }
+.ac-green { background: #EAF5EA; border-color: #BEE3C4; color: #1A4D1A; }
+.ac-green .alert-card-icon { background: #2A6A2A; color: white; }
+.ac-blue { background: #E6F1FB; border-color: #B5D4F4; color: #042C53; }
+.ac-blue .alert-card-icon { background: #185FA5; color: white; }
 
-.alert-card {
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid transparent;
-}
+/* ===== WEEK SUMMARY ===== */
+.week-summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 1rem; }
+.week-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.week-stat { text-align: center; }
+.week-stat-val { font-size: 20px; font-weight: 700; color: var(--ink); line-height: 1; }
+.week-stat-lbl { font-size: 11px; color: var(--ink3); margin-top: 3px; font-weight: 500; }
+.week-sym-list { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+.week-sym-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+.mini-chart-wrap { height: 80px; position: relative; margin-top: 8px; }
 
-.alert-card-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.alert-card-body {
-  flex: 1;
-}
-
-.alert-card-title {
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.alert-card-text {
-  font-size: 12px;
-  line-height: 1.4;
-  opacity: .85;
-}
-
-.ac-red {
-  background: #FDE8E8;
-  border-color: #F5A4A4;
-  color: #7A1F1F;
-}
-
-.ac-red .alert-card-icon {
-  background: #C84646;
-  color: white;
-}
-
-.ac-amber {
-  background: #FEF0E0;
-  border-color: #F5C84A;
-  color: #7A4A00;
-}
-
-.ac-amber .alert-card-icon {
-  background: var(--amber);
-  color: white;
-}
-
-.ac-green {
-  background: #EAF5EA;
-  border-color: #BEE3C4;
-  color: #1A4D1A;
-}
-
-.ac-green .alert-card-icon {
-  background: #2A6A2A;
-  color: white;
-}
-
-.ac-blue {
-  background: #E6F1FB;
-  border-color: #B5D4F4;
-  color: #042C53;
-}
-
-.ac-blue .alert-card-icon {
-  background: #185FA5;
-  color: white;
-}
-
-/* ===== WEEKLY SUMMARY ===== */
-.week-summary {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  margin-bottom: 1rem;
-}
-
-.week-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.week-stat {
-  text-align: center;
-}
-
-.week-stat-val {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.week-stat-lbl {
-  font-size: 11px;
-  color: var(--ink3);
-  margin-top: 3px;
-  font-weight: 500;
-}
-
-.week-sym-list {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.week-sym-pill {
-  font-size: 11px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  font-weight: 600;
-}
-
-.mini-chart-wrap {
-  height: 80px;
-  position: relative;
-  margin-top: 8px;
-}
-
-/* ===== OFFLINE BANNER ===== */
-#offline-banner {
-  display: none;
-  background: var(--amber);
-  color: white;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10000;
-}
+/* ===== OFFLINE ===== */
+#offline-banner { display: none; background: var(--amber); color: white; text-align: center; font-size: 12px; font-weight: 700; padding: 6px; position: fixed; top: 0; left: 0; right: 0; z-index: 10000; }
 
 /* ===== NADIR ===== */
-.nadir-alert {
-  background: linear-gradient(135deg, #FDE8E8, #FFF0F0);
-  border: 1px solid #F5A4A4;
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nadir-alert-icon {
-  width: 36px;
-  height: 36px;
-  background: #C84646;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-
-.nadir-alert-text {
-  font-size: 13px;
-  color: #7A1F1F;
-  line-height: 1.5;
-}
-
-.nadir-alert-title {
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 2px;
-}
-
-.session-card.nadir-active {
-  border-color: #F5A4A4;
-  background: #FFF8F8;
-}
-
-.nadir-timeline {
-  display: flex;
-  gap: 0;
-  margin-top: 12px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-}
-
-.nadir-day {
-  min-width: 36px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  font-weight: 700;
-  border-radius: 4px;
-  margin-right: 3px;
-  flex-shrink: 0;
-  text-align: center;
-  line-height: 1.2;
-  padding: 2px;
-}
-
+.nadir-alert { background: linear-gradient(135deg, #FDE8E8, #FFF0F0); border: 1px solid #F5A4A4; border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 1rem; display: flex; align-items: center; gap: 12px; }
+.nadir-alert-icon { width: 36px; height: 36px; background: #C84646; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; flex-shrink: 0; }
+.nadir-alert-text { font-size: 13px; color: #7A1F1F; line-height: 1.5; }
+.nadir-alert-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+.session-card.nadir-active { border-color: #F5A4A4; background: #FFF8F8; }
+.nadir-timeline { display: flex; gap: 0; margin-top: 12px; overflow-x: auto; padding-bottom: 4px; }
+.nadir-day { min-width: 36px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; border-radius: 4px; margin-right: 3px; flex-shrink: 0; text-align: center; line-height: 1.2; padding: 2px; }
 .nd-normal { background: #F3F4F6; color: #6B7280; }
 .nd-risk { background: #FDE8E8; color: #C84646; }
 .nd-nadir { background: #C84646; color: white; }
@@ -1463,166 +310,60 @@ main {
 .nd-today { outline: 2px solid var(--sage-dark); outline-offset: 1px; }
 
 /* ===== SINAIS VITAIS ===== */
-.vitals-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 1rem;
-}
+.vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+.vital-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
+.vital-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
+.vital-val { font-size: 24px; font-weight: 700; color: var(--ink); line-height: 1; }
+.vital-unit { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+.vital-input-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; justify-content: center; }
+.vital-num-input { width: 80px; text-align: center; font-family: 'Inter'; font-size: 15px; font-weight: 700; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px; outline: none; color: var(--ink); }
+.vital-num-input:focus { border-color: var(--sage-dark); }
+.temp-fever { color: var(--red-intense) !important; }
 
-.vital-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  text-align: center;
-}
-
-.vital-label {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 6px;
-}
-
-.vital-val {
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1;
-}
-
-.vital-unit {
-  font-size: 11px;
-  color: var(--ink3);
-  margin-top: 2px;
-}
-
-.vital-input-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  justify-content: center;
-}
-
-.vital-num-input {
-  width: 80px;
-  text-align: center;
-  font-family: 'Inter';
-  font-size: 15px;
-  font-weight: 700;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 6px;
-  outline: none;
-  color: var(--ink);
-}
-
-.vital-num-input:focus {
-  border-color: var(--sage-dark);
-}
-
-.temp-fever {
-  color: var(--red-intense) !important;
-}
+/* ===== TEMP LOG ===== */
+.temp-log-list { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.temp-log-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; font-size: 13px; }
+.temp-log-item.fever { background: var(--red-bg); border-color: rgba(214,69,69,0.3); }
+.temp-log-time { font-weight: 700; color: var(--ink2); display: flex; align-items: center; gap: 4px; font-size: 12px; }
+.temp-log-val { font-weight: 700; font-size: 15px; }
+.temp-log-val.fever { color: var(--red-intense); }
+.temp-add-row { display: flex; gap: 6px; margin-top: 10px; align-items: center; flex-wrap: wrap; }
+.temp-time-input { width: 90px; text-align: center; font-family: 'Inter'; font-size: 13px; font-weight: 600; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 8px; outline: none; color: var(--ink); flex-shrink: 0; }
+.temp-time-input:focus { border-color: var(--sage-dark); }
+.btn-add-temp { background: var(--ink); color: white; border: none; border-radius: var(--radius-sm); padding: 7px 12px; font-family: 'Inter'; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; white-space: nowrap; }
+.btn-add-temp:hover { background: var(--sage-dark); }
 
 /* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 2rem 1rem 3rem;
-  font-size: 13px;
-  color: var(--ink3);
-  max-width: 700px;
-  margin: 0 auto;
-}
+footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: var(--ink3); max-width: 700px; margin: 0 auto; }
 
-/* ===== RESPONSIVO ===== */
-@media (max-width: 600px) {
-  .tab-nav {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) { .tab-nav { grid-template-columns: repeat(4, 1fr); } }
 @media (max-width: 500px) {
-  .tab-btn span {
-    display: none;
-  }
-  
-  .tab-btn i {
-    font-size: 24px;
-  }
-  
-  .sec-title {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  
-  .btn-edit {
-    align-self: flex-start;
-  }
-  
-  .session-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  
-  .session-right {
-    width: 100%;
-    justify-content: flex-start;
-    padding-left: 46px;
-  }
-  
-  .sym-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .diary-row {
-    flex-direction: column;
-  }
-  
-  .d-date {
-    width: 100%;
-  }
-  
-  .exam-input-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .exam-val-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  
-  .btn-logout {
-    top: 10px;
-    right: 10px;
-    padding: 4px 10px;
-    font-size: 10px;
-    backdrop-filter: blur(8px);
-  }
-  
-  .header-badge {
-    font-size: 10px;
-    padding: 4px 8px;
-  }
-  
-  .emergency-bar {
-    margin: -1rem 0.5rem 1rem;
-    padding: 0.75rem 1rem;
-  }
+  .tab-btn span { display: none; }
+  .tab-btn i { font-size: 24px; }
+  .sec-title { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .btn-edit { align-self: flex-start; }
+  .session-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .session-right { width: 100%; justify-content: flex-start; padding-left: 46px; }
+  .sym-grid { grid-template-columns: 1fr; }
+  .diary-row { flex-direction: column; }
+  .d-date { width: 100%; }
+  .exam-input-grid { grid-template-columns: 1fr; }
+  .exam-val-grid { grid-template-columns: 1fr 1fr; }
+  .btn-logout { top: 10px; right: 10px; padding: 4px 10px; font-size: 10px; backdrop-filter: blur(8px); }
+  .header-badge { font-size: 10px; padding: 4px 8px; }
+  .emergency-bar { margin: -1rem 0.5rem 1rem; padding: 0.75rem 1rem; }
+  .temp-add-row { flex-direction: column; align-items: stretch; }
+  .temp-time-input { width: 100%; }
+  .btn-add-temp { justify-content: center; }
 }
 </style>
 </head>
 <body>
 
-<!-- TELA DE LOGIN -->
+<!-- LOGIN -->
 <div id="login-screen">
-  <div style="margin-bottom: 20px; color: var(--sage-dark);">
-    <i class="ph-fill ph-plant" style="font-size: 48px;"></i>
-  </div>
+  <div style="margin-bottom: 20px; color: var(--sage-dark);"><i class="ph-fill ph-plant" style="font-size: 48px;"></i></div>
   <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 24px; color: var(--ink);">Guia de Cuidados</h2>
   <div class="login-box">
     <div id="login-error"></div>
@@ -1634,12 +375,8 @@ footer {
   </div>
 </div>
 
-<!-- BANNER OFFLINE -->
-<div id="offline-banner">
-  <i class="ph-bold ph-wifi-slash"></i> Sem conexão — exibindo dados salvos localmente
-</div>
+<div id="offline-banner"><i class="ph-bold ph-wifi-slash"></i> Sem conexão — exibindo dados salvos localmente</div>
 
-<!-- CONTEÚDO PRINCIPAL -->
 <div id="app-content">
   <header>
     <button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button>
@@ -1655,7 +392,6 @@ footer {
     </div>
   </header>
 
-  <!-- BARRA DE EMERGÊNCIA -->
   <div class="emergency-bar" onclick="switchTab('hospital')">
     <div class="em-icon"><i class="ph-fill ph-siren"></i></div>
     <div>
@@ -1665,9 +401,7 @@ footer {
   </div>
 
   <main>
-    <!-- HOME DASHBOARD -->
     <div class="home-dashboard">
-      <!-- Barra de Progresso -->
       <div class="progress-wrap">
         <div class="progress-header">
           <span class="progress-label" id="prog-label">Progresso do Tratamento</span>
@@ -1677,40 +411,22 @@ footer {
           <div class="progress-fill" id="prog-fill" style="width:0%"></div>
         </div>
       </div>
-
-      <!-- Alertas Inteligentes -->
       <div id="smart-alerts"></div>
-
-      <!-- Resumo Semanal -->
       <div class="week-summary" id="week-summary" style="display:none">
         <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-size:13px;font-weight:700;color:var(--ink)">
-            <i class="ph-fill ph-chart-bar" style="color:var(--sage-dark)"></i> Resumo dos últimos 7 dias
-          </div>
+          <div style="font-size:13px;font-weight:700;color:var(--ink)"><i class="ph-fill ph-chart-bar" style="color:var(--sage-dark)"></i> Resumo dos últimos 7 dias</div>
           <div id="week-date-range" style="font-size:11px;color:var(--ink3)"></div>
         </div>
         <div class="week-grid">
-          <div class="week-stat">
-            <div class="week-stat-val" id="week-hydration">—</div>
-            <div class="week-stat-lbl">Hidrat. média</div>
-          </div>
-          <div class="week-stat">
-            <div class="week-stat-val" id="week-temp">—</div>
-            <div class="week-stat-lbl">Temp. média</div>
-          </div>
-          <div class="week-stat">
-            <div class="week-stat-val" id="week-weight">—</div>
-            <div class="week-stat-lbl">Peso atual</div>
-          </div>
+          <div class="week-stat"><div class="week-stat-val" id="week-hydration">—</div><div class="week-stat-lbl">Hidrat. média</div></div>
+          <div class="week-stat"><div class="week-stat-val" id="week-temp">—</div><div class="week-stat-lbl">Temp. média</div></div>
+          <div class="week-stat"><div class="week-stat-val" id="week-weight">—</div><div class="week-stat-lbl">Peso atual</div></div>
         </div>
         <div id="week-symptoms" class="week-sym-list"></div>
-        <div class="mini-chart-wrap">
-          <canvas id="mini-chart"></canvas>
-        </div>
+        <div class="mini-chart-wrap"><canvas id="mini-chart"></canvas></div>
       </div>
     </div>
 
-    <!-- NAVEGAÇÃO POR ABAS -->
     <div class="tab-nav">
       <button class="tab-btn active" onclick="switchTab('calendario',this)"><i class="ph-fill ph-calendar-heart"></i><span>Calendário</span></button>
       <button class="tab-btn" onclick="switchTab('medicacoes',this)"><i class="ph-fill ph-pill"></i><span>Medicações</span></button>
@@ -1721,18 +437,13 @@ footer {
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB CALENDÁRIO                                -->
-    <!-- ============================================= -->
+    <!-- TAB CALENDÁRIO -->
     <div id="tab-calendario" class="tab-pane active">
       <div class="sec-title">
         <div class="sec-title-left"><i class="ph-fill ph-calendar-blank"></i> Calendário de sessões</div>
         <button class="btn-edit" id="btn-edit-cal" onclick="toggleEditMode('cal')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Datas</button>
       </div>
-
       <div id="nadir-banner"></div>
-
-      <!-- Calculadora de Nadir -->
       <div class="card" style="margin-bottom:1.5rem">
         <div class="card-title"><i class="ph-fill ph-calendar-x" style="color:var(--red-intense)"></i> Calculadora de Nadir</div>
         <div class="card-body" style="margin-bottom:10px">Digite a data de uma sessão para ver o período de maior risco.</div>
@@ -1742,58 +453,32 @@ footer {
         </div>
         <div id="nadir-result" style="margin-top:12px"></div>
       </div>
-
-      <!-- Métricas -->
       <div class="metrics-grid">
         <div class="metric-card"><div class="metric-val" id="met-total">16</div><div class="metric-lbl">Sessões total</div></div>
         <div class="metric-card"><div class="metric-val" id="met-done">0</div><div class="metric-lbl">Realizadas</div></div>
         <div class="metric-card"><div class="metric-val" id="met-next">—</div><div class="metric-lbl">Próxima sessão</div></div>
         <div class="metric-card"><div class="metric-val" id="met-end">—</div><div class="metric-lbl">Término previsto</div></div>
       </div>
-
-      <!-- Fase 1: Branca -->
       <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:12px;">
         <h3 style="font-size:14px; color: var(--ink2);">Fase 1: Branca (Paclitaxel 80 mg)</h3>
       </div>
       <div id="grid-white"></div>
-
-      <!-- Fase 2: Vermelha -->
       <h3 style="font-size:14px; margin: 2rem 0 12px; color: var(--red-intense);">Fase 2: Vermelha (AC)</h3>
       <div id="grid-red"></div>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB MEDICAÇÕES                                -->
-    <!-- ============================================= -->
+    <!-- TAB MEDICAÇÕES -->
     <div id="tab-medicacoes" class="tab-pane">
       <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div>
-        <div class="card-body">Enquanto houver náuseas ou vômitos.</div>
-      </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div>
-        <div class="card-body">Se náuseas persistirem com Ondansetrona.</div>
-      </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div>
-        <div class="card-body">Somente em caso de diarreia.</div>
-      </div>
-      <div class="card">
-        <div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div>
-        <div class="card-body">Somente se o intestino prender.</div>
-      </div>
-      <div class="card" style="border-color: var(--red-bg);">
-        <div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div>
-        <div class="card-body">Para dor. Não use para mascarar febre.</div>
-      </div>
+      <div class="card"><div class="card-head"><div class="card-title">Ondansetrona (8mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Enquanto houver náuseas ou vômitos.</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Metoclopramida (10mg)</div><span class="med-dose">1 comp / 8h</span></div><div class="card-body">Se náuseas persistirem com Ondansetrona.</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Loperamida (2mg)</div><span class="med-dose">1 comp / evacuação</span></div><div class="card-body">Somente em caso de diarreia.</div></div>
+      <div class="card"><div class="card-head"><div class="card-title">Lactulose (667mg/mL)</div><span class="med-dose">20mL / 8h</span></div><div class="card-body">Somente se o intestino prender.</div></div>
+      <div class="card" style="border-color: var(--red-bg);"><div class="card-head"><div class="card-title">Dipirona (500mg)</div><span class="med-dose">2 comp / 1g</span></div><div class="card-body">Para dor. Não use para mascarar febre.</div></div>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB SINTOMAS (DIÁRIO)                         -->
-    <!-- ============================================= -->
+    <!-- TAB SINTOMAS (DIÁRIO) -->
     <div id="tab-sintomas" class="tab-pane">
-      <!-- Navegação de data -->
       <div class="date-nav">
         <button class="date-nav-btn" onclick="shiftLogDate(-1)"><i class="ph-bold ph-caret-left"></i></button>
         <div class="date-nav-center">
@@ -1803,19 +488,27 @@ footer {
         <button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button>
       </div>
 
-      <!-- Sinais Vitais -->
       <h2 class="sec-title" style="padding-bottom:8px;border-bottom:1px solid var(--border)"><i class="ph-fill ph-thermometer"></i> Sinais Vitais</h2>
-      <div class="vitals-grid">
-        <div class="vital-card">
-          <div class="vital-label">Temperatura</div>
-          <div class="vital-val" id="temp-display">—</div>
-          <div class="vital-unit">°C</div>
-          <div class="vital-input-row">
-            <input type="number" id="temp-input" class="vital-num-input" placeholder="36.5" step="0.1" min="34" max="42" onchange="saveVital('temp',this.value)">
-            <span style="font-size:12px;color:var(--ink3)">°C</span>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;">
+        <div class="vital-card" style="text-align:left;">
+          <div class="vital-label" style="text-align:center;">Temperatura</div>
+          <div style="display:flex;align-items:baseline;gap:8px;justify-content:center;">
+            <div class="vital-val" id="temp-display">—</div>
+            <div class="vital-unit">°C</div>
+            <div id="temp-last-time" style="font-size:11px;color:var(--ink3);margin-left:2px;"></div>
           </div>
-          <div id="temp-alert" style="display:none;margin-top:8px;font-size:11px;font-weight:700;color:var(--red-intense)">
+          <div id="temp-alert" style="display:none;margin-top:8px;font-size:11px;font-weight:700;color:var(--red-intense);text-align:center;">
             <i class="ph-fill ph-warning-circle"></i> FEBRE! Ir ao PS.
+          </div>
+          <div class="temp-add-row">
+            <input type="time" id="temp-time-input" class="temp-time-input" placeholder="Horário">
+            <input type="number" id="temp-input" class="vital-num-input" placeholder="36.5" step="0.1" min="34" max="42" style="flex:1;min-width:70px;">
+            <span style="font-size:12px;color:var(--ink3);flex-shrink:0;">°C</span>
+            <button class="btn-add-temp" onclick="addTempReading()"><i class="ph-bold ph-plus"></i> Registrar</button>
+          </div>
+          <div class="temp-log-list" id="temp-log-list">
+            <div style="text-align:center;font-size:12px;color:var(--ink3);padding:6px 0;">Nenhuma aferição registrada hoje.</div>
           </div>
         </div>
         <div class="vital-card">
@@ -1829,7 +522,6 @@ footer {
         </div>
       </div>
 
-      <!-- Hidratação -->
       <h2 class="sec-title" style="margin-top:1.5rem;padding-bottom:8px;border-bottom:1px solid var(--border)"><i class="ph-fill ph-drop"></i> Hidratação Diária (Meta: 3L)</h2>
       <div class="water-wrap">
         <div class="water-glasses-row" id="wglasses"></div>
@@ -1842,7 +534,6 @@ footer {
         </div>
       </div>
 
-      <!-- Monitor de sintomas -->
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-clipboard-text"></i> Monitorar sintomas</h2>
       <div class="sym-grid" id="sym-grid"></div>
       <div id="fever-alert" style="display:none;" class="emergency-bar">
@@ -1850,7 +541,7 @@ footer {
         <div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div>
       </div>
 
-      <!-- Diário -->
+      <!-- DIÁRIO DE SINTOMAS -->
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2>
       <div class="card">
         <div class="diary-row">
@@ -1861,7 +552,26 @@ footer {
       </div>
       <div id="diary-list"></div>
 
-      <!-- Compartilhar -->
+      <!-- DIÁRIO GERAL -->
+      <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <i class="ph-fill ph-book-bookmark" style="color:var(--gold)"></i> Diário Geral
+        </div>
+      </h2>
+      <div class="card" style="border-left: 4px solid var(--gold);">
+        <div style="font-size:12px;color:var(--ink3);margin-bottom:12px;">
+          <i class="ph-fill ph-info" style="color:var(--gold)"></i> Anotações gerais por data — pensamentos, eventos, lembretes e qualquer observação do dia.
+        </div>
+        <div class="diary-row">
+          <input type="date" id="gd-date" class="diary-input d-date">
+          <input type="text" id="gd-text" class="diary-input d-text" placeholder="Anotação geral do dia...">
+        </div>
+        <button class="btn-primary" style="background: var(--amber);" onclick="addGeneralDiary()">
+          <i class="ph-bold ph-plus"></i> Adicionar anotação geral
+        </button>
+      </div>
+      <div id="general-diary-list"></div>
+
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-export"></i> Compartilhar</h2>
       <div class="card" style="text-align: center;">
         <div style="font-size: 13px; color: var(--ink2); margin-bottom: 12px;">Gere um resumo deste dia para mandar para o médico.</div>
@@ -1869,30 +579,20 @@ footer {
       </div>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB EXAMES                                    -->
-    <!-- ============================================= -->
+    <!-- TAB EXAMES -->
     <div id="tab-exames" class="tab-pane">
       <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Exames Obrigatórios</h2>
       <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, linfócitos, plaquetas e hemoglobina. Essencial para liberar a sessão.</div></div>
       <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
-
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-file-text"></i> Resultados do Laboratório</h2>
-
-      <!-- Legenda de Status -->
       <div class="status-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#2A6A2A"></div>Normal</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Abaixo do normal</div>
         <div class="legend-item"><div class="legend-dot" style="background:var(--red-intense)"></div>Acima do normal</div>
         <div class="legend-item"><div class="legend-dot" style="background:#C84646"></div>Abaixo do mínimo p/ quimio</div>
       </div>
-
-      <!-- Formulário de Exames -->
       <div class="card">
-        <div style="margin-bottom: 12px;">
-          <label class="exam-label">Data da Coleta</label>
-          <input type="date" id="e-date" class="exam-input">
-        </div>
+        <div style="margin-bottom: 12px;"><label class="exam-label">Data da Coleta</label><input type="date" id="e-date" class="exam-input"></div>
         <div class="exam-input-grid">
           <div><label class="exam-label">Leucócitos (Mil/mm³)</label><input type="text" id="e-leuco" class="exam-input" placeholder="Ex: 8,13" inputmode="decimal"></div>
           <div><label class="exam-label">Neutrófilos (Mil/mm³)</label><input type="text" id="e-neutro" class="exam-input" placeholder="Ex: 5,2" inputmode="decimal"></div>
@@ -1907,11 +607,7 @@ footer {
         </div>
         <button class="btn-primary" onclick="addExamResult()"><i class="ph-bold ph-plus"></i> Salvar Resultado</button>
       </div>
-
-      <!-- Lista de Resultados -->
       <div id="exam-results-list"></div>
-
-      <!-- Gráfico de Evolução -->
       <div class="chart-section" id="chart-section" style="display:none;">
         <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-chart-line"></i> Evolução dos Exames</h2>
         <div class="chart-tabs">
@@ -1922,8 +618,6 @@ footer {
         <div class="chart-wrap"><canvas id="exam-chart"></canvas></div>
         <div style="font-size:11px; color:var(--ink3); text-align:center; margin-top:8px;">Linhas tracejadas = limites para liberar a quimioterapia</div>
       </div>
-
-      <!-- Relatório para o Médico -->
       <div class="card" style="margin-top:2rem;text-align:center">
         <div class="card-title" style="justify-content:center;margin-bottom:6px"><i class="ph-fill ph-file-pdf" style="color:var(--red-intense)"></i> Relatório para o Médico</div>
         <div style="font-size:13px;color:var(--ink2);margin-bottom:12px">Gera um resumo dos exames para levar na consulta.</div>
@@ -1932,8 +626,6 @@ footer {
           <button class="btn-primary" style="background:var(--red-intense);flex:1;min-width:140px" onclick="exportarPDF()"><i class="ph-bold ph-file-pdf"></i> Exportar PDF</button>
         </div>
       </div>
-
-      <!-- Coletas -->
       <div class="sec-title" style="margin-top: 2rem;">
         <div class="sec-title-left">Coletas (48h antes)</div>
         <button class="btn-edit" id="btn-edit-exam" onclick="toggleEditMode('exam')"><i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas</button>
@@ -1941,13 +633,9 @@ footer {
       <div id="exam-grid"></div>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB CONSULTAS (NOVA)                          -->
-    <!-- ============================================= -->
+    <!-- TAB CONSULTAS -->
     <div id="tab-consultas" class="tab-pane">
       <h2 class="sec-title"><i class="ph-fill ph-calendar-plus"></i> Minha Agenda</h2>
-      
-      <!-- Formulário para adicionar consulta -->
       <div class="card">
         <div class="card-title">Agendar Compromisso</div>
         <div style="display:grid; gap:12px;">
@@ -1961,193 +649,32 @@ footer {
           <button class="btn-primary" onclick="addAppointment()"><i class="ph-bold ph-plus"></i> Salvar na Agenda</button>
         </div>
       </div>
-
-      <!-- Lista de Compromissos -->
       <div id="appointments-list"></div>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB HOSPITAL (EMERGÊNCIA)                     -->
-    <!-- ============================================= -->
+    <!-- TAB HOSPITAL -->
     <div id="tab-hospital" class="tab-pane">
       <h2 class="sec-title"><i class="ph-fill ph-warning-octagon" style="color: var(--red-intense);"></i> Emergência - Onde ir?</h2>
       <div class="info-box"><i class="ph-fill ph-info"></i> Informe sempre na recepção: <strong>"Paciente em quimioterapia, risco de febre neutropênica."</strong></div>
-
-      <div class="card hosp-emergency">
-        <span class="hosp-option">1ª Opção (Preferencial)</span>
-        <div class="card-title">UPA Vila Santa Catarina</div>
-        <div class="card-body">
-          R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br>
-          <a href="https://maps.google.com/?cid=13498587269798681710" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
-        </div>
-      </div>
-
-      <div class="card hosp-emergency">
-        <span class="hosp-option">2ª Opção</span>
-        <div class="card-title">UPA Jabaquara</div>
-        <div class="card-body">
-          Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br>
-          <a href="https://maps.google.com/?cid=7297070624864957169" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
-        </div>
-      </div>
-
-      <div class="card hosp-emergency">
-        <span class="hosp-option">3ª Opção</span>
-        <div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div>
-        <div class="card-body">
-          Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br>
-          <a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a>
-        </div>
-      </div>
+      <div class="card hosp-emergency"><span class="hosp-option">1ª Opção (Preferencial)</span><div class="card-title">UPA Vila Santa Catarina</div><div class="card-body">R. Cidade de Bagdá, 529 – Vila Santa Catarina, São Paulo – SP, 04377-036<br><a href="https://maps.google.com/?cid=13498587269798681710" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
+      <div class="card hosp-emergency"><span class="hosp-option">2ª Opção</span><div class="card-title">UPA Jabaquara</div><div class="card-body">Rua Cruz das Almas, 290 – Vila Campestre, São Paulo – SP, 04330-060<br><a href="https://maps.google.com/?cid=7297070624864957169" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
+      <div class="card hosp-emergency"><span class="hosp-option">3ª Opção</span><div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div><div class="card-body">Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br><a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
     </div>
 
-    <!-- ============================================= -->
-    <!-- TAB ORIENTAÇÕES - COMPLETA                     -->
-    <!-- ============================================= -->
+    <!-- TAB ORIENTAÇÕES -->
     <div id="tab-orientacoes" class="tab-pane">
       <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia (ANTES DA SESSÃO)</h2>
-      
-      <!-- 1. Exames laboratoriais -->
-      <div class="card">
-        <div class="card-title">1. Exames laboratoriais atualizados</div>
-        <div class="card-body">
-          Certifique-se de que os exames de sangue (hemograma, função renal e hepática) estão feitos <strong>48 horas (2 dias) antes</strong> da quimioterapia, conforme orientação dada no dia da consulta.<br><br>
-          Caso tenha exame de sangue recente (até 60 dias), não será necessário realização para a primeira quimioterapia, de acordo com o que o médico orientou na consulta.<br><br>
-          <strong>Os exames de sangue para quimioterapia não precisam de jejum.</strong><br><br>
-          Os resultados são essenciais para avaliar se o corpo está pronto para receber a medicação.<br><br>
-          <span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;">
-            <i class="ph-fill ph-hand"></i> <strong>Fortalecimento das veias:</strong> Aperte bolinhas de borracha (como as de fisioterapia) e faça compressas de chá de camomila (folhas e flores) ou apenas água morna 1 dia antes e 2 dias depois de usar o braço para receber a quimioterapia.
-          </span>
-        </div>
-      </div>
-
-      <!-- 2. Jejum / Alimentação -->
-      <div class="card">
-        <div class="card-title">2. Jejum? Somente se indicado</div>
-        <div class="card-body">
-          A maioria dos esquemas não exige jejum completo, mas é importante estar bem alimentado(a), com refeições leves antes da sessão. <strong>Pode trazer alimentação no dia da quimioterapia e se alimentar dentro da central de infusão.</strong><br><br>
-          <span style="color: var(--red-intense);"><i class="ph-fill ph-warning"></i></span> No início da quimioterapia não poderá mais fazer uso de:<br>
-          • Bebidas alcoólicas<br>
-          • Carnes cruas ou mal passadas<br>
-          • Peixes crus<br><br>
-          Frutas, verduras e legumes precisam estar bem higienizados. Evite comer fora de casa.<br><br>
-          Evite ficar no mesmo ambiente na hora de cozinhar feijão e carne — pode piorar náusea e vômito.
-        </div>
-      </div>
-
-      <!-- 3. Hidratação -->
-      <div class="card">
-        <div class="card-title">3. Hidratação</div>
-        <div class="card-body">
-          Beba bastante água no dia anterior e no dia da quimio (a menos que o médico tenha restringido líquidos).<br><br>
-          Uma boa hidratação ajuda a proteger os rins e facilita o acesso venoso.<br><br>
-          <strong>Meta: 3 litros/dia.</strong>
-        </div>
-      </div>
-
-      <!-- 4. Medicações prévias -->
-      <div class="card">
-        <div class="card-title">4. Medicações prévias</div>
-        <div class="card-body">
-          Se toma algum remédio contínuo como de pressão ou diabetes, pode tomar normalmente e recomendado que traga junto.<br><br>
-          Muitas vezes, o oncologista prescreve antieméticos, corticoides ou antialérgicos para serem tomados em casa antes da sessão ou já são administrados na clínica antes da quimioterapia. Siga rigorosamente os horários e dosagens.<br><br>
-          <span style="background: var(--gold-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;">
-            <i class="ph-fill ph-storefront"></i> <strong>Retirada de medicamentos:</strong> O receituário para medicações pós-quimioterapia pode ser retirado no <strong>AME Bourroul</strong> — Rua Martins Fontes, 208. Horário: Segunda a Sexta das 07:30 às 15:00.<br><br>
-            <i class="ph-fill ph-car"></i> O hospital disponibiliza <strong>transporte gratuito</strong> no sistema de leva e traz das 07:00 às 14:00.<br><br>
-            <i class="ph-fill ph-syringe"></i> <strong>Vacinas somente com autorização médica.</strong>
-          </span>
-        </div>
-      </div>
-
-      <!-- 5. Roupas -->
-      <div class="card">
-        <div class="card-title">5. Use roupas confortáveis</div>
-        <div class="card-body">
-          Vista roupas folgadas, que facilitem o acesso ao braço ou ao cateter (PICC, port-a-cath, etc.), e que tragam conforto durante o tempo em que estiver sentada(o).<br><br>
-          O hospital disponibiliza cobertas e lençóis, mas <strong>pode trazer coberta própria</strong> para uso dentro da central de infusão da quimioterapia.
-        </div>
-      </div>
-
-      <!-- 6. Comunique sintomas -->
-      <div class="card" style="border-left: 4px solid var(--red-intense);">
-        <div class="card-title"><i class="ph-fill ph-warning-circle" style="color: var(--red-intense);"></i> 6. Comunique sintomas diferentes</div>
-        <div class="card-body">
-          Avise na triagem de enfermagem ou médica se estiver com:<br>
-          • Febre • Tosse • Dor • Diarreia • Feridas na boca<br>
-          • Qualquer sintoma novo antes da sessão<br><br>
-          Inclusive se:<br>
-          • Esteve no pronto-socorro após a última quimioterapia<br>
-          • Usou antibióticos<br>
-          • Fez transfusão<br>
-          • Ficou internada<br><br>
-          <strong>Pode ser necessário reavaliar ou adiar o tratamento.</strong>
-        </div>
-      </div>
-
-      <!-- 7. Evite multidões -->
-      <div class="card">
-        <div class="card-title">7. Evite multidões ou locais fechados</div>
-        <div class="card-body">
-          Nos dias que antecedem a quimioterapia, proteja-se de infecções. Evite locais com aglomeração e use máscara se necessário.<br><br>
-          <i class="ph-fill ph-sun"></i> <strong>Cuidado com exposição solar!</strong> Algumas quimioterapias promovem hiperpigmentação da pele.<br><br>
-          <i class="ph-fill ph-scissors"></i> Evitar retirar cutículas das unhas e espremer cravos e espinhas devido ao risco de infecção.<br><br>
-          <i class="ph-fill ph-beach-ball"></i> Viagens às praias e idas às piscinas precisam ser comunicadas ao médico ou enfermagem para liberações prévias.<br><br>
-          <i class="ph-fill ph-barbell"></i> Pode realizar atividades físicas conforme tolerância, porém, prefira locais sem aglomeração.<br><br>
-          <i class="ph-fill ph-airplane"></i> Sempre que precisar viajar, comunicar ao médico oncologista.<br><br>
-          Atenção ao uso de barbeadores, procedimentos estéticos e dentários.<br><br>
-          <span style="background: var(--amber-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block;">
-            <i class="ph-fill ph-virus"></i> <strong>Atenção para contato com pessoas gripadas!</strong> Lembre-se: sua imunidade pode estar baixa.
-          </span>
-        </div>
-      </div>
-
-      <!-- 8. Leve companhia -->
-      <div class="card">
-        <div class="card-title">8. Leve companhia, se possível</div>
-        <div class="card-body">
-          É permitida a companhia de <strong>um acompanhante</strong>, não sendo gestante e nem menor de idade.<br><br>
-          Um acompanhante pode ser um suporte emocional e ajudar na marcação das próximas medicações e exames (caso seja necessário).<br><br>
-          <span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block;">
-            <i class="ph-fill ph-calendar"></i> <strong>Agendamentos:</strong> Na navegação fazemos apenas o primeiro agendamento ou reagendamento. As outras datas terão que agendar no dia da quimioterapia na recepção central da quimioterapia.<br><br>
-            <i class="ph-fill ph-clock"></i> Solicitamos que no dia da quimioterapia <strong>não marquem compromissos</strong> — deixe o dia da quimioterapia apenas para a quimioterapia.
-          </span>
-        </div>
-      </div>
-
-      <!-- Dica final: Anote no diário -->
-      <div class="card" style="border-left: 4px solid var(--gold);">
-        <div class="card-title"><i class="ph-fill ph-notebook"></i> Dica final: Mantenha um caderno com os seguintes registros</div>
-        <div class="card-body">
-          • Sintomas percebidos (com data)<br>
-          • Temperatura corporal<br>
-          • Idas ao banheiro e consistência das fezes<br>
-          • Dúvidas a esclarecer
-        </div>
-      </div>
-
-      <!-- Informações úteis -->
-      <div class="card">
-        <div class="card-title"><i class="ph-fill ph-info"></i> Informações Úteis</div>
-        <div class="card-body">
-          <strong>📱 WhatsApp - Navegação Oncológica</strong><br>
-          Segunda à Sexta; 08:00h às 17:00h<br>
-          (11) 97076-5142 – apenas mensagens<br><br>
-          
-          <strong>✂️ Projeto Amor e Cuidado Voluntariado</strong><br>
-          Corte de cabelo e doação de perucas<br>
-          Segunda/Quarta e Quinta das 10h às 14:30h - 4º andar<br><br>
-          
-          <strong>🌐 Sites úteis:</strong><br>
-          • <a href="https://www.oncogui.org.br" target="_blank" style="color: var(--sage-dark);">www.oncogui.org.br</a><br>
-          • <a href="https://www.sotrans.com.br" target="_blank" style="color: var(--sage-dark);">www.sotrans.com.br</a> (Transporte – SAME - Térreo)<br>
-          • <a href="https://detran.sp.gov.br" target="_blank" style="color: var(--sage-dark);">detran.sp.gov.br</a> (Biblioteca Única Especial da Pessoa com Deficiência)
-        </div>
-      </div>
-
-      <!-- Comunique à equipe -->
-      <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;">
-        <div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div>
-      </div>
+      <div class="card"><div class="card-title">1. Exames laboratoriais atualizados</div><div class="card-body">Certifique-se de que os exames de sangue (hemograma, função renal e hepática) estão feitos <strong>48 horas (2 dias) antes</strong> da quimioterapia, conforme orientação dada no dia da consulta.<br><br>Caso tenha exame de sangue recente (até 60 dias), não será necessário realização para a primeira quimioterapia, de acordo com o que o médico orientou na consulta.<br><br><strong>Os exames de sangue para quimioterapia não precisam de jejum.</strong><br><br>Os resultados são essenciais para avaliar se o corpo está pronto para receber a medicação.<br><br><span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;"><i class="ph-fill ph-hand"></i> <strong>Fortalecimento das veias:</strong> Aperte bolinhas de borracha (como as de fisioterapia) e faça compressas de chá de camomila (folhas e flores) ou apenas água morna 1 dia antes e 2 dias depois de usar o braço para receber a quimioterapia.</span></div></div>
+      <div class="card"><div class="card-title">2. Jejum? Somente se indicado</div><div class="card-body">A maioria dos esquemas não exige jejum completo, mas é importante estar bem alimentado(a), com refeições leves antes da sessão. <strong>Pode trazer alimentação no dia da quimioterapia e se alimentar dentro da central de infusão.</strong><br><br><span style="color: var(--red-intense);"><i class="ph-fill ph-warning"></i></span> No início da quimioterapia não poderá mais fazer uso de:<br>• Bebidas alcoólicas<br>• Carnes cruas ou mal passadas<br>• Peixes crus<br><br>Frutas, verduras e legumes precisam estar bem higienizados. Evite comer fora de casa.<br><br>Evite ficar no mesmo ambiente na hora de cozinhar feijão e carne — pode piorar náusea e vômito.</div></div>
+      <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio (a menos que o médico tenha restringido líquidos).<br><br>Uma boa hidratação ajuda a proteger os rins e facilita o acesso venoso.<br><br><strong>Meta: 3 litros/dia.</strong></div></div>
+      <div class="card"><div class="card-title">4. Medicações prévias</div><div class="card-body">Se toma algum remédio contínuo como de pressão ou diabetes, pode tomar normalmente e recomendado que traga junto.<br><br>Muitas vezes, o oncologista prescreve antieméticos, corticoides ou antialérgicos para serem tomados em casa antes da sessão ou já são administrados na clínica antes da quimioterapia. Siga rigorosamente os horários e dosagens.<br><br><span style="background: var(--gold-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;"><i class="ph-fill ph-storefront"></i> <strong>Retirada de medicamentos:</strong> O receituário para medicações pós-quimioterapia pode ser retirado no <strong>AME Bourroul</strong> — Rua Martins Fontes, 208. Horário: Segunda a Sexta das 07:30 às 15:00.<br><br><i class="ph-fill ph-car"></i> O hospital disponibiliza <strong>transporte gratuito</strong> no sistema de leva e traz das 07:00 às 14:00.<br><br><i class="ph-fill ph-syringe"></i> <strong>Vacinas somente com autorização médica.</strong></span></div></div>
+      <div class="card"><div class="card-title">5. Use roupas confortáveis</div><div class="card-body">Vista roupas folgadas, que facilitem o acesso ao braço ou ao cateter (PICC, port-a-cath, etc.), e que tragam conforto durante o tempo em que estiver sentada(o).<br><br>O hospital disponibiliza cobertas e lençóis, mas <strong>pode trazer coberta própria</strong> para uso dentro da central de infusão da quimioterapia.</div></div>
+      <div class="card" style="border-left: 4px solid var(--red-intense);"><div class="card-title"><i class="ph-fill ph-warning-circle" style="color: var(--red-intense);"></i> 6. Comunique sintomas diferentes</div><div class="card-body">Avise na triagem de enfermagem ou médica se estiver com:<br>• Febre • Tosse • Dor • Diarreia • Feridas na boca<br>• Qualquer sintoma novo antes da sessão<br><br>Inclusive se:<br>• Esteve no pronto-socorro após a última quimioterapia<br>• Usou antibióticos<br>• Fez transfusão<br>• Ficou internada<br><br><strong>Pode ser necessário reavaliar ou adiar o tratamento.</strong></div></div>
+      <div class="card"><div class="card-title">7. Evite multidões ou locais fechados</div><div class="card-body">Nos dias que antecedem a quimioterapia, proteja-se de infecções. Evite locais com aglomeração e use máscara se necessário.<br><br><i class="ph-fill ph-sun"></i> <strong>Cuidado com exposição solar!</strong> Algumas quimioterapias promovem hiperpigmentação da pele.<br><br><i class="ph-fill ph-scissors"></i> Evitar retirar cutículas das unhas e espremer cravos e espinhas devido ao risco de infecção.<br><br><i class="ph-fill ph-beach-ball"></i> Viagens às praias e idas às piscinas precisam ser comunicadas ao médico ou enfermagem para liberações prévias.<br><br><i class="ph-fill ph-barbell"></i> Pode realizar atividades físicas conforme tolerância, porém, prefira locais sem aglomeração.<br><br><i class="ph-fill ph-airplane"></i> Sempre que precisar viajar, comunicar ao médico oncologista.<br><br>Atenção ao uso de barbeadores, procedimentos estéticos e dentários.<br><br><span style="background: var(--amber-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block;"><i class="ph-fill ph-virus"></i> <strong>Atenção para contato com pessoas gripadas!</strong> Lembre-se: sua imunidade pode estar baixa.</span></div></div>
+      <div class="card"><div class="card-title">8. Leve companhia, se possível</div><div class="card-body">É permitida a companhia de <strong>um acompanhante</strong>, não sendo gestante e nem menor de idade.<br><br>Um acompanhante pode ser um suporte emocional e ajudar na marcação das próximas medicações e exames (caso seja necessário).<br><br><span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block;"><i class="ph-fill ph-calendar"></i> <strong>Agendamentos:</strong> Na navegação fazemos apenas o primeiro agendamento ou reagendamento. As outras datas terão que agendar no dia da quimioterapia na recepção central da quimioterapia.<br><br><i class="ph-fill ph-clock"></i> Solicitamos que no dia da quimioterapia <strong>não marquem compromissos</strong> — deixe o dia da quimioterapia apenas para a quimioterapia.</span></div></div>
+      <div class="card" style="border-left: 4px solid var(--gold);"><div class="card-title"><i class="ph-fill ph-notebook"></i> Dica final: Mantenha um caderno com os seguintes registros</div><div class="card-body">• Sintomas percebidos (com data)<br>• Temperatura corporal<br>• Idas ao banheiro e consistência das fezes<br>• Dúvidas a esclarecer</div></div>
+      <div class="card"><div class="card-title"><i class="ph-fill ph-info"></i> Informações Úteis</div><div class="card-body"><strong>📱 WhatsApp - Navegação Oncológica</strong><br>Segunda à Sexta; 08:00h às 17:00h<br>(11) 97076-5142 – apenas mensagens<br><br><strong>✂️ Projeto Amor e Cuidado Voluntariado</strong><br>Corte de cabelo e doação de perucas<br>Segunda/Quarta e Quinta das 10h às 14:30h - 4º andar<br><br><strong>🌐 Sites úteis:</strong><br>• <a href="https://www.oncogui.org.br" target="_blank" style="color: var(--sage-dark);">www.oncogui.org.br</a><br>• <a href="https://www.sotrans.com.br" target="_blank" style="color: var(--sage-dark);">www.sotrans.com.br</a> (Transporte – SAME - Térreo)<br>• <a href="https://detran.sp.gov.br" target="_blank" style="color: var(--sage-dark);">detran.sp.gov.br</a> (Biblioteca Única Especial da Pessoa com Deficiência)</div></div>
+      <div class="info-box" style="border-left: 1px solid var(--border-focus); display: block;"><div><strong>Comunique à equipe:</strong> febre, tosse, dor, diarreia, feridas na boca, qualquer sintoma novo — inclusive se foi ao PS, usou antibióticos, fez transfusão ou ficou internada.</div></div>
     </div>
   </main>
   <footer>Feito com amor para a Gabi ♥</footer>
@@ -2155,7 +682,7 @@ footer {
 
 <script>
 // =============================================
-// INICIALIZAÇÃO DO FIREBASE
+// FIREBASE
 // =============================================
 const firebaseConfig = {
   apiKey: "AIzaSyBETjcatJhN1TFMSuPepmP3xgcH-wxvN_Y",
@@ -2165,14 +692,10 @@ const firebaseConfig = {
   messagingSenderId: "475243020372",
   appId: "1:475243020372:web:51a8606712ce0e17352dc1"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-// =============================================
-// FUNÇÕES DE AUTENTICAÇÃO
-// =============================================
 function showError(errorCode) {
   const errDiv = document.getElementById('login-error');
   let msg = "Ocorreu um erro ao acessar.";
@@ -2193,6 +716,7 @@ let currentUser = null;
 let sessions = [];
 let dailyLogs = {};
 let diary = [];
+let generalDiary = [];
 let examResults = [];
 let appointments = [];
 let examChartInstance = null;
@@ -2212,24 +736,21 @@ const todayYMD = toYMD(new Date());
 let currentLogDate = todayYMD;
 
 // =============================================
-// REFERÊNCIAS LABORATORIAIS (VALORES DA GABI)
+// REFERÊNCIAS LABORATORIAIS
 // =============================================
 const EXAM_REFS = {
-  leuco:  { label: 'Leucócitos',   unit: 'Mil/mm³', min: 4.5,    max: 11.0,   quimoMin: 3.0,   quimoMax: null, dec: 2, multiplier: 1000 },
-  neutro: { label: 'Neutrófilos',  unit: 'Mil/mm³', min: 1.8,    max: 7.7,    quimoMin: 1.5,   quimoMax: null, dec: 2, multiplier: 1000 },
-  linfo:  { label: 'Linfócitos',   unit: 'Mil/mm³', min: 1.0,    max: 4.0,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
-  plaq:   { label: 'Plaquetas',    unit: 'Mil/mm³', min: 150.0,  max: 400.0,  quimoMin: 100.0, quimoMax: null, dec: 1, multiplier: 1000 },
-  hemo:   { label: 'Hemoglobina',  unit: 'g/dL',   min: 12.0,    max: 15.0,   quimoMin: 8.0,   quimoMax: null, dec: 1, multiplier: 1 },
-  hema:   { label: 'Hematócrito',  unit: '%',      min: 36.0,    max: 46.0,   quimoMin: null,  quimoMax: null, dec: 1, multiplier: 1 },
-  mono:   { label: 'Monócitos',    unit: 'Mil/mm³', min: 0.0,    max: 0.8,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
-  eosino: { label: 'Eosinófilos',  unit: 'Mil/mm³', min: 0.0,    max: 0.45,   quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
-  baso:   { label: 'Basófilos',    unit: 'Mil/mm³', min: 0.0,    max: 0.2,    quimoMin: null,  quimoMax: null, dec: 2, multiplier: 1000 },
-  crea:   { label: 'Creatinina',   unit: 'mg/dL',  min: 0.5,     max: 0.9,    quimoMin: null,  quimoMax: 1.5,  dec: 2, multiplier: 1 },
+  leuco:  { label: 'Leucócitos',   unit: 'Mil/mm³', min: 4.5,   max: 11.0,  quimoMin: 3.0,  quimoMax: null, dec: 2, multiplier: 1000 },
+  neutro: { label: 'Neutrófilos',  unit: 'Mil/mm³', min: 1.8,   max: 7.7,   quimoMin: 1.5,  quimoMax: null, dec: 2, multiplier: 1000 },
+  linfo:  { label: 'Linfócitos',   unit: 'Mil/mm³', min: 1.0,   max: 4.0,   quimoMin: null, quimoMax: null, dec: 2, multiplier: 1000 },
+  plaq:   { label: 'Plaquetas',    unit: 'Mil/mm³', min: 150.0, max: 400.0, quimoMin: 100.0,quimoMax: null, dec: 1, multiplier: 1000 },
+  hemo:   { label: 'Hemoglobina',  unit: 'g/dL',   min: 12.0,  max: 15.0,  quimoMin: 8.0,  quimoMax: null, dec: 1, multiplier: 1 },
+  hema:   { label: 'Hematócrito',  unit: '%',      min: 36.0,  max: 46.0,  quimoMin: null, quimoMax: null, dec: 1, multiplier: 1 },
+  mono:   { label: 'Monócitos',    unit: 'Mil/mm³', min: 0.0,  max: 0.8,   quimoMin: null, quimoMax: null, dec: 2, multiplier: 1000 },
+  eosino: { label: 'Eosinófilos',  unit: 'Mil/mm³', min: 0.0,  max: 0.45,  quimoMin: null, quimoMax: null, dec: 2, multiplier: 1000 },
+  baso:   { label: 'Basófilos',    unit: 'Mil/mm³', min: 0.0,  max: 0.2,   quimoMin: null, quimoMax: null, dec: 2, multiplier: 1000 },
+  crea:   { label: 'Creatinina',   unit: 'mg/dL',  min: 0.5,   max: 0.9,   quimoMin: null, quimoMax: 1.5,  dec: 2, multiplier: 1 },
 };
 
-// =============================================
-// GRUPOS DE GRÁFICOS
-// =============================================
 const CHART_GROUPS = {
   imunidade: {
     keys: ['leuco', 'neutro', 'linfo', 'mono', 'eosino', 'baso'],
@@ -2250,35 +771,24 @@ const CHART_GROUPS = {
   renal: {
     keys: ['crea'],
     colors: ['#BA7517'],
-    limits: [
-      { label: 'Creat. máx. quimio', value: 1.5, color: '#BA7517' },
-    ]
+    limits: [{ label: 'Creat. máx. quimio', value: 1.5, color: '#BA7517' }]
   }
 };
 
-// =============================================
-// FUNÇÃO PARA OBTER STATUS DO EXAME
-// =============================================
 function getExamStatus(key, val) {
   if (val === '' || val === null || val === undefined || isNaN(parseFloat(val))) return 'none';
   let v = parseFloat(val);
   const r = EXAM_REFS[key];
   if (!r) return 'none';
-  
   if (r.multiplier === 1000) {
-    if (key === 'plaq' && v >= 100 && v <= 400) {
-      v = v * 1000;
-    } else if (v < 1) {
-      v = v * 1000;
-    }
+    if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
+    else if (v < 1) v = v * 1000;
   }
-  
   const compareV = v;
   const minLimit = r.min * r.multiplier;
   const maxLimit = r.max * r.multiplier;
   const quimoMinLimit = r.quimoMin !== null ? r.quimoMin * r.multiplier : null;
   const quimoMaxLimit = r.quimoMax !== null ? r.quimoMax * r.multiplier : null;
-  
   if (quimoMinLimit !== null && compareV < quimoMinLimit) return 'quimo';
   if (quimoMaxLimit !== null && compareV > quimoMaxLimit) return 'quimo';
   if (compareV < minLimit) return 'low';
@@ -2287,7 +797,7 @@ function getExamStatus(key, val) {
 }
 
 // =============================================
-// AUTENTICAÇÃO E ESTADO
+// AUTH
 // =============================================
 auth.onAuthStateChanged((user) => {
   if (user) {
@@ -2302,220 +812,144 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-// =============================================
-// DETECÇÃO DE OFFLINE
-// =============================================
-window.addEventListener('online', () => {
-  document.getElementById('offline-banner').style.display = 'none';
-  syncToCloud();
-});
+window.addEventListener('online', () => { document.getElementById('offline-banner').style.display = 'none'; syncToCloud(); });
+window.addEventListener('offline', () => { document.getElementById('offline-banner').style.display = 'block'; });
 
-window.addEventListener('offline', () => {
-  document.getElementById('offline-banner').style.display = 'block';
-});
+function saveLocal(key, val) { try { localStorage.setItem('gabi_' + key, JSON.stringify(val)); } catch (e) {} }
+function loadLocal(key, def) { try { const v = localStorage.getItem('gabi_' + key); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
 
-// =============================================
-// ARMAZENAMENTO LOCAL
-// =============================================
-function saveLocal(key, val) {
-  try {
-    localStorage.setItem('gabi_' + key, JSON.stringify(val));
-  } catch (e) {}
-}
-
-function loadLocal(key, def) {
-  try {
-    const v = localStorage.getItem('gabi_' + key);
-    return v ? JSON.parse(v) : def;
-  } catch (e) {
-    return def;
-  }
-}
-
-// =============================================
-// FUNÇÕES DE LOGIN/REGISTRO
-// =============================================
 window.login = function() {
   const e = document.getElementById('auth-email').value;
   const p = document.getElementById('auth-password').value;
   document.getElementById('login-error').style.display = 'none';
   auth.signInWithEmailAndPassword(e, p).catch(error => showError(error.code));
 };
-
 window.register = function() {
   const e = document.getElementById('auth-email').value;
   const p = document.getElementById('auth-password').value;
   document.getElementById('login-error').style.display = 'none';
-  if (p.length < 6) {
-    showError('auth/weak-password');
-    return;
-  }
+  if (p.length < 6) { showError('auth/weak-password'); return; }
   auth.createUserWithEmailAndPassword(e, p).catch(error => showError(error.code));
 };
-
-window.logout = function() {
-  auth.signOut();
-};
+window.logout = function() { auth.signOut(); };
 
 // =============================================
-// GERAÇÃO DE SESSÕES PADRÃO
+// SESSÕES PADRÃO
 // =============================================
 function generateDefaultSessions() {
   const arr = [];
   const START = new Date(2026, 3, 1, 12, 0, 0);
-  
   for (let i = 0; i < 12; i++) {
     const d = new Date(START);
     d.setDate(d.getDate() + (i * 7));
-    arr.push({
-      id: i,
-      num: i + 1,
-      phaseNum: i + 1,
-      type: 'BRANCA',
-      phase: 1,
-      date: toYMD(d),
-      examDate: addDaysYMD(toYMD(d), -2),
-      done: false,
-      examDone: false
-    });
+    arr.push({ id: i, num: i + 1, phaseNum: i + 1, type: 'BRANCA', phase: 1, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false, nadirHidden: false, examHidden: false });
   }
-  
   const lastWhite = fromYMD(arr[11].date);
   for (let i = 0; i < 4; i++) {
     const d = new Date(lastWhite);
     d.setDate(d.getDate() + 7 + (i * 21));
-    arr.push({
-      id: i + 12,
-      num: i + 13,
-      phaseNum: i + 1,
-      type: 'VERMELHA',
-      phase: 2,
-      date: toYMD(d),
-      examDate: addDaysYMD(toYMD(d), -2),
-      done: false,
-      examDone: false
-    });
+    arr.push({ id: i + 12, num: i + 13, phaseNum: i + 1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false, nadirHidden: false, examHidden: false });
   }
   return arr;
 }
 
 // =============================================
-// CARREGAR DADOS DA NUVEM
+// CLOUD
 // =============================================
 function loadDataFromCloud() {
   if (!currentUser) return;
-  
   const cachedSessions = loadLocal('sessions', []);
   if (cachedSessions.length > 0) {
     sessions = cachedSessions;
     dailyLogs = loadLocal('dailyLogs', {});
     diary = loadLocal('diary', []);
+    generalDiary = loadLocal('generalDiary', []);
     examResults = loadLocal('examResults', []);
     appointments = loadLocal('appointments', []);
     renderAll();
   }
-  
   db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
     if (docSnap.exists) {
       const data = docSnap.data();
       sessions = (data.sessions && data.sessions.length > 0) ? data.sessions : generateDefaultSessions();
+      sessions = sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
       dailyLogs = data.dailyLogs || {};
       diary = data.diary || [];
+      generalDiary = data.generalDiary || [];
       examResults = data.examResults || [];
       appointments = data.appointments || [];
       examResults.sort((a, b) => a.date.localeCompare(b.date));
       appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
     } else {
       sessions = generateDefaultSessions();
-      dailyLogs = {};
-      diary = [];
-      examResults = [];
-      appointments = [];
+      dailyLogs = {}; diary = []; generalDiary = []; examResults = []; appointments = [];
       syncToCloud();
     }
     renderAll();
-  }).catch(error => {
-    console.error("Erro ao carregar do Firebase:", error);
-    sessions = generateDefaultSessions();
-    renderAll();
-  });
+  }).catch(error => { console.error("Erro ao carregar do Firebase:", error); sessions = generateDefaultSessions(); renderAll(); });
 }
 
-// =============================================
-// SINCRONIZAR COM A NUVEM
-// =============================================
 function syncToCloud() {
   saveLocal('sessions', sessions);
   saveLocal('dailyLogs', dailyLogs);
   saveLocal('diary', diary);
+  saveLocal('generalDiary', generalDiary);
   saveLocal('examResults', examResults);
   saveLocal('appointments', appointments);
-  
   if (!currentUser || !navigator.onLine) return;
-  
-  db.collection("app_data").doc(currentUser.uid).set({
-    sessions,
-    dailyLogs,
-    diary,
-    examResults,
-    appointments
-  }, { merge: true });
+  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments }, { merge: true });
 }
 
 // =============================================
-// TROCAR DE ABA
+// ABAS
 // =============================================
 window.switchTab = function(n, b) {
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
   document.getElementById('tab-' + n).classList.add('active');
-  
-  if (b) {
-    b.classList.add('active');
-  } else {
+  if (b) { b.classList.add('active'); } else {
     document.querySelectorAll('.tab-btn').forEach(btn => {
       const onclick = btn.getAttribute('onclick');
-      if (onclick && onclick.includes("'"+n+"'")) {
-        btn.classList.add('active');
-      }
+      if (onclick && onclick.includes("'"+n+"'")) btn.classList.add('active');
     });
   }
-  
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (n === 'exames') setTimeout(renderExamChart, 100);
   if (n === 'consultas') renderAppointments();
 };
 
-// =============================================
-// RENDERIZAR TUDO
-// =============================================
 function renderAll() {
   renderSessions();
   buildSymGrid();
   window.setLogDate(currentLogDate);
-  
   const dDateInput = document.getElementById('d-date');
   if (dDateInput) dDateInput.value = todayYMD;
+  const gdDateInput = document.getElementById('gd-date');
+  if (gdDateInput) gdDateInput.value = todayYMD;
   const eDateInput = document.getElementById('e-date');
   if (eDateInput) eDateInput.value = todayYMD;
-  
   const apptDateInput = document.getElementById('appt-date');
   if (apptDateInput) apptDateInput.value = todayYMD;
-  
   renderDiary();
+  renderGeneralDiary();
   renderExamResults();
   renderAppointments();
   renderSmartAlerts();
   renderWeeklySummary();
+  initTempTimeInput();
 }
 
-// =============================================
-// MODO DE EDIÇÃO
-// =============================================
+function initTempTimeInput() {
+  const ti = document.getElementById('temp-time-input');
+  if (ti && !ti.value) {
+    const now = new Date();
+    ti.value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  }
+}
+
 window.toggleEditMode = function(section) {
   const calBtn = document.getElementById('btn-edit-cal');
   const examBtn = document.getElementById('btn-edit-exam');
-  
   if (section === 'cal') {
     document.body.classList.toggle('is-editing-cal');
     const isEditing = document.body.classList.contains('is-editing-cal');
@@ -2527,49 +961,27 @@ window.toggleEditMode = function(section) {
   }
 };
 
-// =============================================
-// ATUALIZAR DATAS
-// =============================================
-window.updateDate = function(index, val) {
-  if (val) {
-    sessions[index].date = val;
-    sessions[index].examDate = addDaysYMD(val, -2);
-    syncToCloud();
-    renderSessions();
-  }
+window.updateDate = function(index, val) { if (val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); syncToCloud(); renderSessions(); } };
+window.updateExam = function(index, val) { if (val) { sessions[index].examDate = val; syncToCloud(); renderSessions(); } };
+window.toggleDone = function(index) { sessions[index].done = !sessions[index].done; syncToCloud(); renderSessions(); renderSmartAlerts(); };
+window.toggleExamDone = function(index) { sessions[index].examDone = !sessions[index].examDone; syncToCloud(); renderSessions(); };
+
+window.toggleNadirHidden = function(index) {
+  sessions[index].nadirHidden = !sessions[index].nadirHidden;
+  syncToCloud(); renderSessions();
+};
+window.toggleExamHidden = function(index) {
+  sessions[index].examHidden = !sessions[index].examHidden;
+  syncToCloud(); renderSessions();
+};
+window.updateNadirDates = function(index, field, val) {
+  if (!sessions[index].nadirOverride) sessions[index].nadirOverride = {};
+  sessions[index].nadirOverride[field] = val;
+  syncToCloud(); renderSessions();
 };
 
-window.updateExam = function(index, val) {
-  if (val) {
-    sessions[index].examDate = val;
-    syncToCloud();
-    renderSessions();
-  }
-};
-
-window.toggleDone = function(index) {
-  sessions[index].done = !sessions[index].done;
-  syncToCloud();
-  renderSessions();
-  renderSmartAlerts();
-};
-
-window.toggleExamDone = function(index) {
-  sessions[index].examDone = !sessions[index].examDone;
-  syncToCloud();
-  renderSessions();
-};
-
-// =============================================
-// FUNÇÕES DE NADIR
-// =============================================
-function isInNadir(sessionDate, checkDate) {
-  return checkDate >= addDaysYMD(sessionDate, 7) && checkDate <= addDaysYMD(sessionDate, 10);
-}
-
-function isInRisk(sessionDate, checkDate) {
-  return checkDate >= addDaysYMD(sessionDate, 5) && checkDate <= addDaysYMD(sessionDate, 14);
-}
+function isInNadir(sessionDate, checkDate) { return checkDate >= addDaysYMD(sessionDate, 7) && checkDate <= addDaysYMD(sessionDate, 10); }
+function isInRisk(sessionDate, checkDate) { return checkDate >= addDaysYMD(sessionDate, 5) && checkDate <= addDaysYMD(sessionDate, 14); }
 
 window.calcNadir = function() {
   const val = document.getElementById('nadir-input').value;
@@ -2599,54 +1011,49 @@ window.calcNadir = function() {
   `;
 };
 
-// =============================================
-// RENDERIZAR SESSÕES
-// =============================================
 function renderSessions() {
   if (!sessions || sessions.length === 0) sessions = generateDefaultSessions();
   const gW = document.getElementById('grid-white');
   const gR = document.getElementById('grid-red');
   const eG = document.getElementById('exam-grid');
-  gW.innerHTML = '';
-  gR.innerHTML = '';
-  eG.innerHTML = '';
-  
-  let doneCount = 0;
-  let nextSessionDate = null;
+  gW.innerHTML = ''; gR.innerHTML = ''; eG.innerHTML = '';
+  let doneCount = 0; let nextSessionDate = null;
   const endDate = sessions[sessions.length - 1].date;
-  
-  let nadirSession = null;
-  let riskSession = null;
+  let nadirSession = null; let riskSession = null;
   sessions.forEach(s => {
     if (s.done && isInNadir(s.date, todayYMD)) nadirSession = s;
     else if (s.done && isInRisk(s.date, todayYMD)) riskSession = s;
   });
-  
   const banner = document.getElementById('nadir-banner');
   if (banner) {
     if (nadirSession) {
       banner.innerHTML = `<div class="nadir-alert"><div class="nadir-alert-icon"><i class="ph-fill ph-warning"></i></div><div><div class="nadir-alert-title">Período de Nadir Ativo</div><div class="nadir-alert-text">Hoje está no nadir da Sessão ${nadirSession.num} (${fmtFull(nadirSession.date)}). Imunidade no ponto mais baixo — monitore febre e evite aglomerações.</div></div></div>`;
     } else if (riskSession) {
       banner.innerHTML = `<div class="nadir-alert" style="background:linear-gradient(135deg,#FEF0E0,#FFF8F0);border-color:#F5C84A"><div class="nadir-alert-icon" style="background:var(--amber)"><i class="ph-fill ph-warning-circle"></i></div><div><div class="nadir-alert-title" style="color:#7A4A00">Aproximando-se do Nadir</div><div class="nadir-alert-text" style="color:#7A4A00">Imunidade caindo após Sessão ${riskSession.num}. Nadir entre ${fmtFull(addDaysYMD(riskSession.date, 7))} e ${fmtFull(addDaysYMD(riskSession.date, 10))}.</div></div></div>`;
-    } else {
-      banner.innerHTML = '';
-    }
+    } else { banner.innerHTML = ''; }
   }
-  
+
   sessions.forEach((s, i) => {
     if (s.done) doneCount++;
     if (!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
-    
-    const nadirS = fmtShort(addDaysYMD(s.date, 7));
-    const nadirE = fmtShort(addDaysYMD(s.date, 10));
-    
-    const examHtml = `
-      <span class="pill-exam">
-        <span class="date-text">Exam ${fmtShort(s.examDate)}</span>
-        <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent; border:none; color:inherit; font-family:inherit; font-size:11px; font-weight:700; padding:0; outline:none; height:14px;">
-      </span>
-    `;
-    
+
+    const nadirS_ymd = (s.nadirOverride && s.nadirOverride.nadirStart) ? s.nadirOverride.nadirStart : addDaysYMD(s.date, 7);
+    const nadirE_ymd = (s.nadirOverride && s.nadirOverride.nadirEnd)   ? s.nadirOverride.nadirEnd   : addDaysYMD(s.date, 10);
+
+    let nadirPill;
+    if (s.nadirHidden) {
+      nadirPill = `<button class="pill-add-nadir" onclick="toggleNadirHidden(${i})" title="Adicionar Nadir novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Nadir</button>`;
+    } else {
+      nadirPill = `<span class="pill-nadir">Nadir&nbsp;<input type="date" class="pill-date-edit" value="${nadirS_ymd}" title="Editar início do nadir" onchange="updateNadirDates(${i},'nadirStart',this.value)" style="width:85px;">–<input type="date" class="pill-date-edit" value="${nadirE_ymd}" title="Editar fim do nadir" onchange="updateNadirDates(${i},'nadirEnd',this.value)" style="width:85px;"><button class="pill-action-btn" onclick="toggleNadirHidden(${i})" title="Remover Nadir">✕</button></span>`;
+    }
+
+    let examPill;
+    if (s.examHidden) {
+      examPill = `<button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar data de coleta novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta</button>`;
+    } else {
+      examPill = `<span class="pill-exam"><span class="date-text">${fmtShort(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent;border:none;color:inherit;font-family:inherit;font-size:11px;font-weight:700;padding:0;outline:none;height:14px;"><button class="pill-action-btn" onclick="toggleExamHidden(${i})" title="Remover data de coleta">✕</button></span>`;
+    }
+
     const row = document.createElement('div');
     row.className = `session-card ${s.done ? 'done' : ''} ${(s.done && isInNadir(s.date, todayYMD)) ? 'nadir-active' : ''}`;
     row.innerHTML = `
@@ -2661,51 +1068,39 @@ function renderSessions() {
         </div>
       </div>
       <div class="session-right">
-        <span class="pill-nadir">Nadir ${nadirS}–${nadirE}</span>
-        ${examHtml}
-        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
-          ${s.done ? '✓ Feito' : 'Pendente'}
-        </button>
-      </div>
-    `;
-    
+        ${nadirPill}
+        ${examPill}
+        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">${s.done ? '✓ Feito' : 'Pendente'}</button>
+      </div>`;
     if (s.phase === 1) gW.appendChild(row);
     else gR.appendChild(row);
-    
+
     const exRow = document.createElement('div');
     exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
     exRow.innerHTML = `
       <div class="exam-info">
-        <div class="exam-date">
-          <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
-          <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
-        </div>
+        <div class="exam-date"><span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div>
         <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
       </div>
-      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
-        ${s.examDone ? '✓ Feito' : 'Pendente'}
-      </button>
-    `;
+      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">${s.examDone ? '✓ Feito' : 'Pendente'}</button>`;
     eG.appendChild(exRow);
   });
-  
+
   document.getElementById('met-done').textContent = doneCount;
   document.getElementById('met-end').textContent = fmtShort(endDate);
-  
   let nextDaysText = "—";
   if (nextSessionDate) {
     const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
     nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
   }
   document.getElementById('met-next').textContent = nextDaysText;
-  
   const pct = Math.round((doneCount / 16) * 100);
   document.getElementById('prog-val').textContent = pct + '%';
   document.getElementById('prog-fill').style.width = pct + '%';
 }
 
 // =============================================
-// DIÁRIO E HIDRATAÇÃO
+// HIDRATAÇÃO
 // =============================================
 const TOTAL_GLASSES = 15;
 const ML_PER_GLASS = 200;
@@ -2724,14 +1119,12 @@ const symsDef = [
 const dotC = ['#A5D6A7', '#FFE082', '#FFAB40', '#EF5350'];
 
 function getDailyLog(dateStr) {
-  if (!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {} };
+  if (!dailyLogs[dateStr]) dailyLogs[dateStr] = { water: 0, syms: {}, temps: [] };
+  if (!dailyLogs[dateStr].temps) dailyLogs[dateStr].temps = [];
   return dailyLogs[dateStr];
 }
 
-window.shiftLogDate = function(days) {
-  window.setLogDate(addDaysYMD(currentLogDate, days));
-};
-
+window.shiftLogDate = function(days) { window.setLogDate(addDaysYMD(currentLogDate, days)); };
 window.setLogDate = function(dateStr) {
   if (!dateStr) return;
   currentLogDate = dateStr;
@@ -2739,6 +1132,7 @@ window.setLogDate = function(dateStr) {
   renderDailyWater();
   renderDailySyms();
   renderVitals();
+  initTempTimeInput();
 };
 
 function renderDailyWater() {
@@ -2746,24 +1140,16 @@ function renderDailyWater() {
   const water = log.water;
   const cont = document.getElementById('wglasses');
   cont.innerHTML = '';
-  
   for (let i = 0; i < TOTAL_GLASSES; i++) {
     const g = document.createElement('div');
     g.className = 'wg';
-    g.onclick = () => {
-      getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1;
-      syncToCloud();
-      renderDailyWater();
-      renderWeeklySummary();
-    };
+    g.onclick = () => { getDailyLog(currentLogDate).water = (i + 1 === log.water) ? i : i + 1; syncToCloud(); renderDailyWater(); renderWeeklySummary(); };
     g.innerHTML = `<div class="wg-fill" style="height:${i < water ? '100%' : '0%'}"></div>`;
     cont.appendChild(g);
   }
-  
   const totalMl = water * ML_PER_GLASS;
   document.getElementById('w-ml').textContent = totalMl;
   document.getElementById('w-bar').style.width = ((water / TOTAL_GLASSES) * 100) + '%';
-  
   const msgElement = document.getElementById('w-msg');
   if (totalMl === 0) msgElement.textContent = "Vamos começar! 💪";
   else if (totalMl < 3000) msgElement.textContent = "Continue assim, Gabi! 💧";
@@ -2772,21 +1158,10 @@ function renderDailyWater() {
 
 window.addDailyWater = function() {
   const log = getDailyLog(currentLogDate);
-  if (log.water < TOTAL_GLASSES) {
-    log.water++;
-    syncToCloud();
-    renderDailyWater();
-    renderWeeklySummary();
-  }
+  if (log.water < TOTAL_GLASSES) { log.water++; syncToCloud(); renderDailyWater(); renderWeeklySummary(); }
 };
-
 window.resetDailyWater = function() {
-  if (confirm("Zerar hidratação DESTE DIA?")) {
-    getDailyLog(currentLogDate).water = 0;
-    syncToCloud();
-    renderDailyWater();
-    renderWeeklySummary();
-  }
+  if (confirm("Zerar hidratação DESTE DIA?")) { getDailyLog(currentLogDate).water = 0; syncToCloud(); renderDailyWater(); renderWeeklySummary(); }
 };
 
 function buildSymGrid() {
@@ -2797,14 +1172,8 @@ function buildSymGrid() {
     c.className = 'sym-card';
     c.innerHTML = `
       <div class="sym-label">${s.label}</div>
-      <div class="sym-row">
-        <span class="sym-dot" id="dot-${s.id}"></span>
-        <select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">
-          ${s.opts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}
-        </select>
-      </div>
-      <div class="sym-note" id="note-${s.id}"></div>
-    `;
+      <div class="sym-row"><span class="sym-dot" id="dot-${s.id}"></span><select class="sym-sel" id="sel-${s.id}" onchange="updateDailySym('${s.id}')">${s.opts.map((o, i) => `<option value="${i}">${o}</option>`).join('')}</select></div>
+      <div class="sym-note" id="note-${s.id}"></div>`;
     sg.appendChild(c);
   });
 }
@@ -2814,32 +1183,22 @@ function renderDailySyms() {
   symsDef.forEach(s => {
     const val = log.syms[s.id] || 0;
     const sel = document.getElementById('sel-' + s.id);
-    if (sel) {
-      sel.value = val;
-      updateVisualSymState(s.id, val);
-    }
+    if (sel) { sel.value = val; updateVisualSymState(s.id, val); }
   });
 }
 
 window.updateDailySym = function(id) {
   const v = parseInt(document.getElementById('sel-' + id).value);
   getDailyLog(currentLogDate).syms[id] = v;
-  syncToCloud();
-  updateVisualSymState(id, v);
-  renderSmartAlerts();
-  renderWeeklySummary();
+  syncToCloud(); updateVisualSymState(id, v); renderSmartAlerts(); renderWeeklySummary();
 };
 
 function updateVisualSymState(id, v) {
   document.getElementById('dot-' + id).style.background = dotC[v];
   const sym = symsDef.find(s => s.id === id);
   const note = document.getElementById('note-' + id);
-  if (v >= 2) {
-    note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`;
-    note.style.color = v === 3 ? 'var(--red-intense)' : 'var(--amber)';
-  } else {
-    note.innerHTML = '';
-  }
+  if (v >= 2) { note.innerHTML = `<i class="ph-fill ph-warning-circle"></i> ${sym.alert}`; note.style.color = v === 3 ? 'var(--red-intense)' : 'var(--amber)'; }
+  else { note.innerHTML = ''; }
   const fv = getDailyLog(currentLogDate).syms['febre'] || 0;
   document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
 }
@@ -2847,6 +1206,42 @@ function updateVisualSymState(id, v) {
 // =============================================
 // SINAIS VITAIS
 // =============================================
+window.addTempReading = function() {
+  const timeInput = document.getElementById('temp-time-input');
+  const valInput  = document.getElementById('temp-input');
+  const val = parseFloat(valInput.value);
+  if (isNaN(val) || val < 34 || val > 42) { alert('Digite uma temperatura válida entre 34 e 42°C.'); return; }
+  let timeStr = timeInput.value;
+  if (!timeStr) {
+    const now = new Date();
+    timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  }
+  const log = getDailyLog(currentLogDate);
+  if (!log.temps) log.temps = [];
+  const exists = log.temps.find(t => t.time === timeStr && parseFloat(t.value) === val);
+  if (!exists) {
+    log.temps.push({ time: timeStr, value: val.toFixed(1) });
+    log.temps.sort((a, b) => a.time.localeCompare(b.time));
+  }
+  syncToCloud();
+  valInput.value = '';
+  const now = new Date();
+  timeInput.value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  renderVitals();
+  renderSmartAlerts();
+  renderWeeklySummary();
+};
+
+window.deleteTempReading = function(dateStr, index) {
+  const log = getDailyLog(dateStr);
+  if (!log.temps) return;
+  log.temps.splice(index, 1);
+  syncToCloud();
+  renderVitals();
+  renderSmartAlerts();
+  renderWeeklySummary();
+};
+
 window.saveVital = function(type, val) {
   const log = getDailyLog(currentLogDate);
   log[type] = val;
@@ -2858,24 +1253,46 @@ window.saveVital = function(type, val) {
 
 function renderVitals() {
   const log = getDailyLog(currentLogDate);
-  const tempEl = document.getElementById('temp-display');
-  const tempAlert = document.getElementById('temp-alert');
-  const tempInput = document.getElementById('temp-input');
-  
-  if (log && log.temp) {
-    const t = parseFloat(log.temp);
+  const tempEl     = document.getElementById('temp-display');
+  const tempAlert  = document.getElementById('temp-alert');
+  const tempList   = document.getElementById('temp-log-list');
+  const lastTimeEl = document.getElementById('temp-last-time');
+  if (log && log.temp && (!log.temps || log.temps.length === 0)) {
+    log.temps = [{ time: '—', value: parseFloat(log.temp).toFixed(1) }];
+    delete log.temp;
+  }
+  const temps = (log && log.temps) ? log.temps : [];
+  const hasFever = temps.some(t => parseFloat(t.value) >= 37.8);
+  if (temps.length > 0) {
+    const last = temps[temps.length - 1];
+    const t = parseFloat(last.value);
     tempEl.textContent = t.toFixed(1);
     tempEl.style.color = t >= 37.8 ? 'var(--red-intense)' : '';
-    if (tempAlert) tempAlert.style.display = t >= 37.8 ? 'block' : 'none';
-    if (tempInput) tempInput.value = log.temp;
+    if (lastTimeEl) lastTimeEl.textContent = (last.time && last.time !== '—') ? '(' + last.time + ')' : '';
   } else {
     tempEl.textContent = '—';
     tempEl.style.color = '';
-    if (tempAlert) tempAlert.style.display = 'none';
-    if (tempInput) tempInput.value = '';
+    if (lastTimeEl) lastTimeEl.textContent = '';
   }
-  
-  const pesoEl = document.getElementById('peso-display');
+  if (tempAlert) tempAlert.style.display = hasFever ? 'block' : 'none';
+  if (tempList) {
+    if (temps.length === 0) {
+      tempList.innerHTML = '<div style="text-align:center;font-size:12px;color:var(--ink3);padding:6px 0;">Nenhuma aferição registrada hoje.</div>';
+    } else {
+      tempList.innerHTML = temps.map((t, i) => {
+        const isFever = parseFloat(t.value) >= 37.8;
+        const feverBadge = isFever ? '<span style="background:var(--red-intense);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;margin-left:6px;">FEBRE</span>' : '';
+        return `<div class="temp-log-item ${isFever ? 'fever' : ''}">
+            <span class="temp-log-time"><i class="ph-fill ph-clock" style="font-size:11px;"></i> ${(t.time && t.time !== '—') ? t.time : 'sem horário'}${feverBadge}</span>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <span class="temp-log-val ${isFever ? 'fever' : ''}">${parseFloat(t.value).toFixed(1)} °C</span>
+              <button onclick="deleteTempReading('${currentLogDate}', ${i})" style="background:transparent;border:none;color:var(--ink3);cursor:pointer;padding:2px;display:flex;align-items:center;" title="Remover aferição"><i class="ph-bold ph-x" style="font-size:13px;"></i></button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+  }
+  const pesoEl    = document.getElementById('peso-display');
   const pesoInput = document.getElementById('peso-input');
   if (log && log.peso) {
     pesoEl.textContent = parseFloat(log.peso).toFixed(1);
@@ -2887,46 +1304,155 @@ function renderVitals() {
 }
 
 // =============================================
-// DIÁRIO DE ANOTAÇÕES
+// DIÁRIO DE SINTOMAS (com edição)
 // =============================================
 function renderDiary() {
   const list = document.getElementById('diary-list');
   list.innerHTML = '';
-  
   if (!diary.length) {
     list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-notebook" style="font-size:32px;margin-bottom:8px;display:block;"></i>Sem anotações ainda.</div>';
     return;
   }
-  
   [...diary].reverse().forEach((e, ri) => {
     const realI = diary.length - 1 - ri;
     const div = document.createElement('div');
     div.className = 'diary-entry';
+    div.id = 'diary-entry-' + realI;
     div.innerHTML = `
-      <div>
+      <div style="flex:1;">
         <div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div>
-        <div style="font-size: 14px; color: var(--ink); margin-top: 4px;">${e.text}</div>
+        <div id="diary-text-${realI}" style="font-size: 14px; color: var(--ink); margin-top: 4px;">${escapeHtml(e.text)}</div>
+        <div id="diary-edit-${realI}" style="display:none; margin-top:6px;">
+          <input type="text" class="diary-edit-input" id="diary-edit-input-${realI}" value="${escapeHtml(e.text)}">
+          <div style="display:flex;gap:6px;margin-top:6px;">
+            <button class="btn-save-entry" onclick="saveDiaryEdit(${realI})"><i class="ph-bold ph-check"></i> Salvar</button>
+            <button class="btn-edit-entry" onclick="cancelDiaryEdit(${realI})" style="font-size:11px;padding:0 10px;height:32px;width:auto;"><i class="ph-bold ph-x"></i> Cancelar</button>
+          </div>
+        </div>
       </div>
-      <button class="btn-del" onclick="delDiary(${realI})"><i class="ph-bold ph-trash"></i></button>
-    `;
+      <div class="diary-entry-actions">
+        <button class="btn-edit-entry" id="diary-edit-btn-${realI}" onclick="startDiaryEdit(${realI})" title="Editar"><i class="ph-bold ph-pencil-simple"></i></button>
+        <button class="btn-del" onclick="delDiary(${realI})" title="Excluir"><i class="ph-bold ph-trash"></i></button>
+      </div>`;
     list.appendChild(div);
   });
 }
+
+function escapeHtml(text) {
+  return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+window.startDiaryEdit = function(i) {
+  document.getElementById('diary-text-' + i).style.display = 'none';
+  document.getElementById('diary-edit-' + i).style.display = 'block';
+  document.getElementById('diary-edit-btn-' + i).style.display = 'none';
+  const inp = document.getElementById('diary-edit-input-' + i);
+  if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+};
+
+window.cancelDiaryEdit = function(i) {
+  document.getElementById('diary-text-' + i).style.display = 'block';
+  document.getElementById('diary-edit-' + i).style.display = 'none';
+  document.getElementById('diary-edit-btn-' + i).style.display = 'flex';
+};
+
+window.saveDiaryEdit = function(i) {
+  const newText = document.getElementById('diary-edit-input-' + i).value.trim();
+  if (!newText) { alert('O texto não pode estar vazio.'); return; }
+  diary[i].text = newText;
+  syncToCloud();
+  renderDiary();
+};
 
 window.addDiary = function() {
   const date = document.getElementById('d-date').value;
   const text = document.getElementById('d-text').value.trim();
   if (!date || !text) return;
-  diary.push({ date, text });
-  syncToCloud();
+  diary.push({ date, text }); syncToCloud();
   document.getElementById('d-text').value = '';
   renderDiary();
 };
 
 window.delDiary = function(i) {
-  diary.splice(i, 1);
+  if (confirm('Excluir esta anotação?')) {
+    diary.splice(i, 1); syncToCloud(); renderDiary();
+  }
+};
+
+// =============================================
+// DIÁRIO GERAL (com edição e exclusão)
+// =============================================
+function renderGeneralDiary() {
+  const list = document.getElementById('general-diary-list');
+  if (!list) return;
+  list.innerHTML = '';
+  if (!generalDiary.length) {
+    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-book-bookmark" style="font-size:32px;margin-bottom:8px;display:block;color:var(--gold)"></i>Sem anotações gerais ainda.</div>';
+    return;
+  }
+  // Agrupar por data para exibição
+  [...generalDiary].reverse().forEach((e, ri) => {
+    const realI = generalDiary.length - 1 - ri;
+    const div = document.createElement('div');
+    div.className = 'general-diary-entry';
+    div.id = 'gd-entry-' + realI;
+    div.innerHTML = `
+      <div style="flex:1;">
+        <div class="d-tag"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(e.date)}</div>
+        <div id="gd-text-${realI}" style="font-size: 14px; color: var(--ink); margin-top: 4px;">${escapeHtml(e.text)}</div>
+        <div id="gd-edit-${realI}" style="display:none; margin-top:6px;">
+          <input type="text" class="diary-edit-input" id="gd-edit-input-${realI}" value="${escapeHtml(e.text)}">
+          <div style="display:flex;gap:6px;margin-top:6px;">
+            <button class="btn-save-entry" style="background:var(--amber);" onclick="saveGdEdit(${realI})"><i class="ph-bold ph-check"></i> Salvar</button>
+            <button class="btn-edit-entry" onclick="cancelGdEdit(${realI})" style="font-size:11px;padding:0 10px;height:32px;width:auto;"><i class="ph-bold ph-x"></i> Cancelar</button>
+          </div>
+        </div>
+      </div>
+      <div class="diary-entry-actions">
+        <button class="btn-edit-entry" id="gd-edit-btn-${realI}" onclick="startGdEdit(${realI})" title="Editar" style="color:var(--amber);border-color:var(--gold);"><i class="ph-bold ph-pencil-simple"></i></button>
+        <button class="btn-del" onclick="delGeneralDiary(${realI})" title="Excluir"><i class="ph-bold ph-trash"></i></button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+window.startGdEdit = function(i) {
+  document.getElementById('gd-text-' + i).style.display = 'none';
+  document.getElementById('gd-edit-' + i).style.display = 'block';
+  document.getElementById('gd-edit-btn-' + i).style.display = 'none';
+  const inp = document.getElementById('gd-edit-input-' + i);
+  if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
+};
+
+window.cancelGdEdit = function(i) {
+  document.getElementById('gd-text-' + i).style.display = 'block';
+  document.getElementById('gd-edit-' + i).style.display = 'none';
+  document.getElementById('gd-edit-btn-' + i).style.display = 'flex';
+};
+
+window.saveGdEdit = function(i) {
+  const newText = document.getElementById('gd-edit-input-' + i).value.trim();
+  if (!newText) { alert('O texto não pode estar vazio.'); return; }
+  generalDiary[i].text = newText;
   syncToCloud();
-  renderDiary();
+  renderGeneralDiary();
+};
+
+window.addGeneralDiary = function() {
+  const date = document.getElementById('gd-date').value;
+  const text = document.getElementById('gd-text').value.trim();
+  if (!date || !text) { alert('Preencha a data e a anotação.'); return; }
+  generalDiary.push({ date, text });
+  generalDiary.sort((a, b) => a.date.localeCompare(b.date));
+  syncToCloud();
+  document.getElementById('gd-text').value = '';
+  renderGeneralDiary();
+};
+
+window.delGeneralDiary = function(i) {
+  if (confirm('Excluir esta anotação geral?')) {
+    generalDiary.splice(i, 1); syncToCloud(); renderGeneralDiary();
+  }
 };
 
 // =============================================
@@ -2935,24 +1461,14 @@ window.delDiary = function(i) {
 function renderExamResults() {
   const list = document.getElementById('exam-results-list');
   list.innerHTML = '';
-  
   const chartSection = document.getElementById('chart-section');
-  if (examResults.length >= 2) {
-    chartSection.style.display = 'block';
-  } else {
-    chartSection.style.display = 'none';
-  }
-  
-  if (!examResults.length) {
-    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-file-text" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum resultado registrado.</div>';
-    return;
-  }
-  
+  if (examResults.length >= 2) chartSection.style.display = 'block';
+  else chartSection.style.display = 'none';
+  if (!examResults.length) { list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--ink3);"><i class="ph ph-file-text" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum resultado registrado.</div>'; return; }
   [...examResults].reverse().forEach((e, ri) => {
     const realI = examResults.length - 1 - ri;
     const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
     const spans = { leuco: 1, neutro: 1, linfo: 1, plaq: 1, hemo: 1, hema: 1, mono: 1, eosino: 1, baso: 1, crea: 2 };
-    
     let boxesHtml = '';
     keys.forEach(key => {
       const val = e[key];
@@ -2963,113 +1479,42 @@ function renderExamResults() {
       const statusClass = `status-${status}`;
       const badgeClass = status === 'ok' ? 'badge-ok' : status === 'low' ? 'badge-low' : status === 'high' ? 'badge-high' : status === 'quimo' ? 'badge-quimo' : '';
       const span = spans[key] > 1 ? `style="grid-column: span ${spans[key]};"` : '';
-      
       const displayVal = hasVal ? (() => {
         let v = parseFloat(val);
-        if (r.multiplier === 1000) {
-          if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
-          else if (v < 1) v = v * 1000;
-        }
+        if (r.multiplier === 1000) { if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000; else if (v < 1) v = v * 1000; }
         return (v / r.multiplier).toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec });
       })() : '—';
-      
       let refText = `Ref: ${(r.min).toLocaleString('pt-BR')}–${(r.max).toLocaleString('pt-BR')} ${r.unit}`;
       if (r.quimoMin) refText += ` | Quimio ≥${r.quimoMin.toLocaleString('pt-BR')}`;
       if (r.quimoMax) refText += ` | Quimio ≤${r.quimoMax.toLocaleString('pt-BR')}`;
-      
-      boxesHtml += `
-        <div class="exam-val-box ${statusClass}" title="${refText}" ${span}>
-          ${badgeClass ? `<div class="status-badge ${badgeClass}"></div>` : ''}
-          <div class="exam-val-t">${r.label}</div>
-          <div class="exam-val-v">${displayVal}</div>
-          <div style="font-size:9px;color:inherit;opacity:0.7;margin-top:2px;">${hasVal ? r.unit : ''}</div>
-        </div>
-      `;
+      boxesHtml += `<div class="exam-val-box ${statusClass}" title="${refText}" ${span}>${badgeClass ? `<div class="status-badge ${badgeClass}"></div>` : ''}<div class="exam-val-t">${r.label}</div><div class="exam-val-v">${displayVal}</div><div style="font-size:9px;color:inherit;opacity:0.7;margin-top:2px;">${hasVal ? r.unit : ''}</div></div>`;
     });
-    
     let nadirNote = '';
-    sessions.forEach(s => {
-      if (s.done && isInNadir(s.date, e.date)) {
-        nadirNote = `<div style="margin-top:8px;padding:6px 10px;background:#FDE8E8;border-radius:6px;font-size:11px;color:#C84646;font-weight:600"><i class="ph-fill ph-warning"></i> Coleta no período de nadir da Sessão ${s.num} — valores baixos são esperados neste período.</div>`;
-      }
-    });
-    
+    sessions.forEach(s => { if (s.done && isInNadir(s.date, e.date)) nadirNote = `<div style="margin-top:8px;padding:6px 10px;background:#FDE8E8;border-radius:6px;font-size:11px;color:#C84646;font-weight:600"><i class="ph-fill ph-warning"></i> Coleta no período de nadir da Sessão ${s.num} — valores baixos são esperados neste período.</div>`; });
     const hasQuimoAlert = keys.some(k => getExamStatus(k, e[k]) === 'quimo');
     const alertBanner = hasQuimoAlert ? `<div style="margin-top:10px;padding:8px 10px;background:var(--red-bg);border:1px solid rgba(214,69,69,0.3);border-radius:6px;font-size:12px;color:var(--red-intense);font-weight:600;display:flex;align-items:center;gap:6px;"><i class="ph-fill ph-warning-octagon"></i> Valor abaixo do mínimo para quimioterapia. Comunique ao médico.</div>` : '';
-    
     const div = document.createElement('div');
     div.className = 'exam-entry';
-    div.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div class="d-tag" style="margin: 0;"><i class="ph-fill ph-calendar-blank"></i> Coleta: ${fmtFull(e.date)}</div>
-        <button class="btn-del" style="width:28px; height:28px; font-size:14px; background: transparent; border: 1px solid var(--border);" onclick="delExamResult(${realI})"><i class="ph-bold ph-trash"></i></button>
-      </div>
-      <div class="exam-val-grid">${boxesHtml}</div>
-      ${nadirNote}${alertBanner}
-    `;
+    div.innerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;"><div class="d-tag" style="margin: 0;"><i class="ph-fill ph-calendar-blank"></i> Coleta: ${fmtFull(e.date)}</div><button class="btn-del" style="width:28px; height:28px; font-size:14px; background: transparent; border: 1px solid var(--border);" onclick="delExamResult(${realI})"><i class="ph-bold ph-trash"></i></button></div><div class="exam-val-grid">${boxesHtml}</div>${nadirNote}${alertBanner}`;
     list.appendChild(div);
   });
-  
   renderExamChart();
 }
 
 window.addExamResult = function() {
   const date = document.getElementById('e-date').value;
-  
-  const getValue = (id, key) => {
-    const input = document.getElementById(id);
-    if (!input || input.value === '') return '';
-    let val = input.value.replace(',', '.');
-    const num = parseFloat(val);
-    if (isNaN(num)) return '';
-    const r = EXAM_REFS[key];
-    return (num * r.multiplier).toString();
-  };
-  
-  const leuco  = getValue('e-leuco', 'leuco');
-  const neutro = getValue('e-neutro', 'neutro');
-  const linfo  = getValue('e-linfo', 'linfo');
-  const plaq   = getValue('e-plaq', 'plaq');
-  const hemo   = getValue('e-hemo', 'hemo');
-  const hema   = getValue('e-hema', 'hema');
-  const mono   = getValue('e-mono', 'mono');
-  const eosino = getValue('e-eosino', 'eosino');
-  const baso   = getValue('e-baso', 'baso');
-  const crea   = getValue('e-crea', 'crea');
-  
-  if (!date) {
-    alert("A data da coleta é obrigatória.");
-    return;
-  }
-  
-  if (!leuco && !neutro && !linfo && !plaq && !hemo && !hema && !mono && !eosino && !baso && !crea) {
-    alert("Preencha pelo menos um resultado.");
-    return;
-  }
-  
+  const getValue = (id, key) => { const input = document.getElementById(id); if (!input || input.value === '') return ''; let val = input.value.replace(',', '.'); const num = parseFloat(val); if (isNaN(num)) return ''; const r = EXAM_REFS[key]; return (num * r.multiplier).toString(); };
+  const leuco = getValue('e-leuco', 'leuco'); const neutro = getValue('e-neutro', 'neutro'); const linfo = getValue('e-linfo', 'linfo'); const plaq = getValue('e-plaq', 'plaq'); const hemo = getValue('e-hemo', 'hemo'); const hema = getValue('e-hema', 'hema'); const mono = getValue('e-mono', 'mono'); const eosino = getValue('e-eosino', 'eosino'); const baso = getValue('e-baso', 'baso'); const crea = getValue('e-crea', 'crea');
+  if (!date) { alert("A data da coleta é obrigatória."); return; }
+  if (!leuco && !neutro && !linfo && !plaq && !hemo && !hema && !mono && !eosino && !baso && !crea) { alert("Preencha pelo menos um resultado."); return; }
   examResults.push({ date, leuco, neutro, linfo, plaq, hemo, hema, mono, eosino, baso, crea });
   examResults.sort((a, b) => a.date.localeCompare(b.date));
   syncToCloud();
-  
-  ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'].forEach(id => {
-    document.getElementById('e-' + id).value = '';
-  });
-  
-  renderExamResults();
-  renderSmartAlerts();
+  ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'].forEach(id => { document.getElementById('e-' + id).value = ''; });
+  renderExamResults(); renderSmartAlerts();
 };
+window.delExamResult = function(i) { if (confirm("Apagar este registro de exame?")) { examResults.splice(i, 1); syncToCloud(); renderExamResults(); } };
 
-window.delExamResult = function(i) {
-  if (confirm("Apagar este registro de exame?")) {
-    examResults.splice(i, 1);
-    syncToCloud();
-    renderExamResults();
-  }
-};
-
-// =============================================
-// GRÁFICO DE EXAMES
-// =============================================
 window.setChartGroup = function(group, btnElement) {
   if (!group) return;
   currentChartGroup = group;
@@ -3081,106 +1526,32 @@ window.setChartGroup = function(group, btnElement) {
 function renderExamChart() {
   const section = document.getElementById('chart-section');
   const canvas = document.getElementById('exam-chart');
-  
-  if (!examResults || examResults.length < 2) {
-    if (section) section.style.display = 'none';
-    return;
-  }
+  if (!examResults || examResults.length < 2) { if (section) section.style.display = 'none'; return; }
   if (section) section.style.display = 'block';
   if (!canvas) return;
-  
   const sorted = [...examResults].sort((a, b) => a.date.localeCompare(b.date));
   const labels = sorted.map(e => fmtShort(e.date));
   const group = CHART_GROUPS[currentChartGroup];
   if (!group) return;
-  
   const datasets = group.keys.map((key, ci) => {
     const r = EXAM_REFS[key];
-    const data = sorted.map(e => {
-      let v = parseFloat(e[key]);
-      if (isNaN(v)) return null;
-      if (r.multiplier === 1000) {
-        if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
-        else if (v < 1) v = v * 1000;
-      }
-      return v;
-    });
-    return {
-      label: r.label + ' (' + r.unit + ')',
-      data,
-      borderColor: group.colors[ci % group.colors.length],
-      backgroundColor: 'transparent',
-      tension: 0.3,
-      pointRadius: 5,
-      pointHoverRadius: 7,
-      borderWidth: 2,
-      spanGaps: true,
-    };
+    const data = sorted.map(e => { let v = parseFloat(e[key]); if (isNaN(v)) return null; if (r.multiplier === 1000) { if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000; else if (v < 1) v = v * 1000; } return v; });
+    return { label: r.label + ' (' + r.unit + ')', data, borderColor: group.colors[ci % group.colors.length], backgroundColor: 'transparent', tension: 0.3, pointRadius: 5, pointHoverRadius: 7, borderWidth: 2, spanGaps: true };
   });
-  
-  group.limits.forEach(lim => {
-    datasets.push({
-      label: lim.label,
-      data: labels.map(() => lim.value),
-      borderColor: lim.color,
-      backgroundColor: 'transparent',
-      borderDash: [6, 4],
-      borderWidth: 1.5,
-      pointRadius: 0,
-      tension: 0,
-    });
-  });
-  
-  if (examChartInstance) {
-    examChartInstance.destroy();
-    examChartInstance = null;
-  }
-  
+  group.limits.forEach(lim => { datasets.push({ label: lim.label, data: labels.map(() => lim.value), borderColor: lim.color, backgroundColor: 'transparent', borderDash: [6, 4], borderWidth: 1.5, pointRadius: 0, tension: 0 }); });
+  if (examChartInstance) { examChartInstance.destroy(); examChartInstance = null; }
   examChartInstance = new Chart(canvas, {
-    type: 'line',
-    data: { labels, datasets },
+    type: 'line', data: { labels, datasets },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: {
-          labels: { font: { size: 11, family: 'Inter' }, color: '#6B7280', boxWidth: 14, padding: 12 }
-        },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => {
-              const datasetIndex = ctx.datasetIndex;
-              const key = datasetIndex < group.keys.length ? group.keys[datasetIndex] : null;
-              const r = key ? EXAM_REFS[key] : null;
-              if (!r) return `${ctx.dataset.label}: ${ctx.parsed.y}`;
-              const v = ctx.parsed.y;
-              const displayV = v / r.multiplier;
-              const status = getExamStatus(key, v);
-              const icon = status === 'ok' ? '✓' : status === 'quimo' ? '⚠' : status === 'low' ? '↓' : status === 'high' ? '↑' : '';
-              return `${icon} ${r.label}: ${displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec })} ${r.unit}`;
-            }
-          }
-        }
+        legend: { labels: { font: { size: 11, family: 'Inter' }, color: '#6B7280', boxWidth: 14, padding: 12 } },
+        tooltip: { callbacks: { label: (ctx) => { const datasetIndex = ctx.datasetIndex; const key = datasetIndex < group.keys.length ? group.keys[datasetIndex] : null; const r = key ? EXAM_REFS[key] : null; if (!r) return `${ctx.dataset.label}: ${ctx.parsed.y}`; const v = ctx.parsed.y; const displayV = v / r.multiplier; const status = getExamStatus(key, v); const icon = status === 'ok' ? '✓' : status === 'quimo' ? '⚠' : status === 'low' ? '↓' : status === 'high' ? '↑' : ''; return `${icon} ${r.label}: ${displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec })} ${r.unit}`; } } }
       },
       scales: {
-        x: {
-          ticks: { color: '#9CA3AF', font: { size: 11 } },
-          grid: { color: 'rgba(0,0,0,0.05)' }
-        },
-        y: {
-          ticks: {
-            color: '#9CA3AF',
-            font: { size: 11 },
-            callback: (value) => {
-              if (currentChartGroup === 'imunidade' || currentChartGroup === 'sangue') {
-                return (value / 1000).toFixed(0) + 'k';
-              }
-              return value;
-            }
-          },
-          grid: { color: 'rgba(0,0,0,0.05)' }
-        }
+        x: { ticks: { color: '#9CA3AF', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: { ticks: { color: '#9CA3AF', font: { size: 11 }, callback: (value) => { if (currentChartGroup === 'imunidade' || currentChartGroup === 'sangue') return (value / 1000).toFixed(0) + 'k'; return value; } }, grid: { color: 'rgba(0,0,0,0.05)' } }
       }
     }
   });
@@ -3190,146 +1561,96 @@ function renderExamChart() {
 // RELATÓRIOS
 // =============================================
 window.copiarRelatorioExames = function() {
-  if (!examResults.length) {
-    alert('Nenhum exame registrado.');
-    return;
-  }
+  if (!examResults.length) { alert('Nenhum exame registrado.'); return; }
   const sorted = [...examResults].sort((a, b) => b.date.localeCompare(a.date));
   const last = sorted[0];
   const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
   let txt = '*Hemograma — Gabi*\nColeta: ' + fmtFull(last.date) + '\n\n';
-  
   keys.forEach(key => {
-    const r = EXAM_REFS[key];
-    const val = last[key];
+    const r = EXAM_REFS[key]; const val = last[key];
     if (!r || val === '' || val === null || val === undefined) return;
     const status = getExamStatus(key, val);
     const flag = status === 'quimo' ? '⚠️ ' : status === 'low' ? '↓ ' : status === 'high' ? '↑ ' : '✓ ';
     let v = parseFloat(val);
-    if (r.multiplier === 1000) {
-      if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
-      else if (v < 1) v = v * 1000;
-    }
+    if (r.multiplier === 1000) { if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000; else if (v < 1) v = v * 1000; }
     const displayV = v / r.multiplier;
     txt += flag + r.label + ': ' + displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec }) + ' ' + r.unit + '\n';
   });
-  
   txt += '\nGerado pelo Guia de Cuidados da Gabi';
-  
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(txt).then(() => alert('Copiado! Cole no WhatsApp do médico.')).catch(() => copyFallback(txt));
-  } else {
-    copyFallback(txt);
-  }
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(() => alert('Copiado! Cole no WhatsApp do médico.')).catch(() => copyFallback(txt));
+  else copyFallback(txt);
 };
 
 window.exportarPDF = function() {
-  if (!examResults.length) {
-    alert('Nenhum exame registrado.');
-    return;
-  }
+  if (!examResults.length) { alert('Nenhum exame registrado.'); return; }
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
   const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
   let y = 20;
-  
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(16);
-  doc.text('Relatório de Exames — Gabi', 105, y, { align: 'center' });
-  y += 8;
-  
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(10);
-  doc.text('Gerado em ' + fmtFull(todayYMD), 105, y, { align: 'center' });
-  y += 12;
-  
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(16); doc.text('Relatório de Exames — Gabi', 105, y, { align: 'center' }); y += 8;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(10); doc.text('Gerado em ' + fmtFull(todayYMD), 105, y, { align: 'center' }); y += 12;
   const sorted = [...examResults].sort((a, b) => a.date.localeCompare(b.date));
   sorted.forEach(e => {
-    if (y > 260) {
-      doc.addPage();
-      y = 20;
-    }
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('Coleta: ' + fmtFull(e.date), 14, y);
-    y += 6;
-    
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(9);
-    
+    if (y > 260) { doc.addPage(); y = 20; }
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(12); doc.text('Coleta: ' + fmtFull(e.date), 14, y); y += 6;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
     keys.forEach(key => {
-      const r = EXAM_REFS[key];
-      const val = e[key];
+      const r = EXAM_REFS[key]; const val = e[key];
       if (!r || val === '' || val === null || val === undefined) return;
-      
       const status = getExamStatus(key, val);
       const flag = status === 'quimo' ? '[!] ' : status === 'low' ? '[v] ' : status === 'high' ? '[^] ' : '[ok] ';
       let v = parseFloat(val);
-      if (r.multiplier === 1000) {
-        if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000;
-        else if (v < 1) v = v * 1000;
-      }
+      if (r.multiplier === 1000) { if (key === 'plaq' && v >= 100 && v <= 400) v = v * 1000; else if (v < 1) v = v * 1000; }
       const displayV = v / r.multiplier;
       const vFmt = displayV.toLocaleString('pt-BR', { minimumFractionDigits: r.dec, maximumFractionDigits: r.dec });
       const line = flag + r.label + ': ' + vFmt + ' ' + r.unit + '  (Ref: ' + r.min.toLocaleString('pt-BR') + '-' + r.max.toLocaleString('pt-BR') + ')';
-      
-      if (y > 270) {
-        doc.addPage();
-        y = 20;
-      }
-      
+      if (y > 270) { doc.addPage(); y = 20; }
       if (status === 'quimo') doc.setTextColor(198, 68, 68);
       else if (status === 'low' || status === 'high') doc.setTextColor(201, 130, 43);
       else doc.setTextColor(42, 106, 42);
-      
-      doc.text(line, 18, y);
-      y += 5;
-      doc.setTextColor(0, 0, 0);
+      doc.text(line, 18, y); y += 5; doc.setTextColor(0, 0, 0);
     });
     y += 4;
   });
-  
   doc.save('exames-gabi.pdf');
 };
 
 window.gerarRelatorio = function() {
   const log = getDailyLog(currentLogDate);
   const waterMl = log.water * ML_PER_GLASS;
-  const tempVal = log.temp ? '\n🌡️ *Temperatura:* ' + parseFloat(log.temp).toFixed(1) + '°C' : '';
+  const logTemps = log.temps || (log.temp ? [{ time: '—', value: log.temp }] : []);
+  let tempVal = '';
+  if (logTemps.length === 1) {
+    const t = logTemps[0];
+    const tLabel = (t.time && t.time !== '—') ? ' (' + t.time + ')' : '';
+    const fever = parseFloat(t.value) >= 37.8 ? ' ⚠️ FEBRE' : '';
+    tempVal = '\n🌡️ *Temperatura:* ' + parseFloat(t.value).toFixed(1) + '°C' + tLabel + fever;
+  } else if (logTemps.length > 1) {
+    tempVal = '\n🌡️ *Temperatura (aferições do dia):*\n';
+    logTemps.forEach(t => {
+      const tLabel = (t.time && t.time !== '—') ? t.time : '—';
+      const fever = parseFloat(t.value) >= 37.8 ? ' ⚠️ FEBRE' : '';
+      tempVal += '   • ' + tLabel + ' → ' + parseFloat(t.value).toFixed(1) + '°C' + fever + '\n';
+    });
+    tempVal = tempVal.trimEnd();
+  }
   const pesoVal = log.peso ? '\n⚖️ *Peso:* ' + parseFloat(log.peso).toFixed(1) + ' kg' : '';
-  
   let r = `*Relatório Diário - Gabi*\nData: ${fmtFull(currentLogDate)}${tempVal}${pesoVal}\n\n💧 *Hidratação:* ${waterMl} ml / 3000 ml\n\n📋 *Sintomas:*\n`;
-  symsDef.forEach(s => {
-    r += `- ${s.label}: ${s.opts[log.syms[s.id] || 0]}\n`;
-  });
-  
+  symsDef.forEach(s => { r += `- ${s.label}: ${s.opts[log.syms[s.id] || 0]}\n`; });
   const dE = diary.filter(e => e.date === currentLogDate);
-  if (dE.length > 0) {
-    r += `\n📓 *Diário de Sintomas:*\n`;
-    dE.forEach(e => { r += `- ${e.text}\n`; });
-  }
-  
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(r).then(() => alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.")).catch(err => copyFallback(r));
-  } else {
-    copyFallback(r);
-  }
+  if (dE.length > 0) { r += `\n📓 *Diário de Sintomas:*\n`; dE.forEach(e => { r += `- ${e.text}\n`; }); }
+  const gdE = generalDiary.filter(e => e.date === currentLogDate);
+  if (gdE.length > 0) { r += `\n📔 *Diário Geral:*\n`; gdE.forEach(e => { r += `- ${e.text}\n`; }); }
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(r).then(() => alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.")).catch(err => copyFallback(r));
+  else copyFallback(r);
 };
 
 function copyFallback(text) {
   let ta = document.createElement("textarea");
-  ta.value = text;
-  ta.style.position = "fixed";
-  ta.style.left = "-999999px";
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  try {
-    document.execCommand('copy');
-    alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico.");
-  } catch (err) {
-    alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela.");
-  }
+  ta.value = text; ta.style.position = "fixed"; ta.style.left = "-999999px";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico."); }
+  catch (err) { alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela."); }
   ta.remove();
 }
 
@@ -3342,26 +1663,11 @@ window.addAppointment = function() {
   const time = document.getElementById('appt-time').value;
   const location = document.getElementById('appt-location').value;
   const notes = document.getElementById('appt-notes').value;
-
-  if (!title || !date || !time) {
-    alert("Preencha título, data e hora.");
-    return;
-  }
-
-  appointments.push({
-    id: Date.now(),
-    title, date, time, location, notes
-  });
-
+  if (!title || !date || !time) { alert("Preencha título, data e hora."); return; }
+  appointments.push({ id: Date.now(), title, date, time, location, notes });
   appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  
-  syncToCloud();
-  renderAppointments();
-  renderSmartAlerts();
-
-  ['appt-title', 'appt-date', 'appt-time', 'appt-location', 'appt-notes'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
+  syncToCloud(); renderAppointments(); renderSmartAlerts();
+  ['appt-title', 'appt-date', 'appt-time', 'appt-location', 'appt-notes'].forEach(id => { document.getElementById(id).value = ''; });
   document.getElementById('appt-time').value = '10:00';
   document.getElementById('appt-date').value = todayYMD;
 };
@@ -3369,44 +1675,18 @@ window.addAppointment = function() {
 function renderAppointments() {
   const list = document.getElementById('appointments-list');
   if (!list) return;
-  
   list.innerHTML = '';
   const futureAppts = appointments.filter(a => a.date >= todayYMD);
-  
-  if (!futureAppts.length) {
-    list.innerHTML = '<div class="card" style="text-align:center;color:var(--ink3);"><i class="ph-fill ph-calendar-plus" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum compromisso futuro agendado.</div>';
-    return;
-  }
-
+  if (!futureAppts.length) { list.innerHTML = '<div class="card" style="text-align:center;color:var(--ink3);"><i class="ph-fill ph-calendar-plus" style="font-size:32px;margin-bottom:8px;display:block;"></i>Nenhum compromisso futuro agendado.</div>'; return; }
   futureAppts.forEach((a) => {
     const originalIndex = appointments.findIndex(x => x.id === a.id);
     const div = document.createElement('div');
     div.className = 'card';
-    div.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:start;">
-        <div>
-          <div class="card-title" style="margin-bottom:2px;">${a.title}</div>
-          <div style="font-size:13px; color:var(--ink2);">
-            <i class="ph-fill ph-calendar-blank"></i> ${fmtFull(a.date)} às ${a.time}
-          </div>
-          ${a.location ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-map-pin"></i> ${a.location}</div>` : ''}
-          ${a.notes ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-note"></i> ${a.notes}</div>` : ''}
-        </div>
-        <button class="btn-del" onclick="deleteAppointment(${originalIndex})"><i class="ph-bold ph-trash"></i></button>
-      </div>
-    `;
+    div.innerHTML = `<div style="display:flex; justify-content:space-between; align-items:start;"><div><div class="card-title" style="margin-bottom:2px;">${a.title}</div><div style="font-size:13px; color:var(--ink2);"><i class="ph-fill ph-calendar-blank"></i> ${fmtFull(a.date)} às ${a.time}</div>${a.location ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-map-pin"></i> ${a.location}</div>` : ''}${a.notes ? `<div style="font-size:12px; color:var(--ink3); margin-top:4px;"><i class="ph-fill ph-note"></i> ${a.notes}</div>` : ''}</div><button class="btn-del" onclick="deleteAppointment(${originalIndex})"><i class="ph-bold ph-trash"></i></button></div>`;
     list.appendChild(div);
   });
 }
-
-window.deleteAppointment = function(index) {
-  if(confirm("Remover este compromisso?")) {
-    appointments.splice(index, 1);
-    syncToCloud();
-    renderAppointments();
-    renderSmartAlerts();
-  }
-};
+window.deleteAppointment = function(index) { if(confirm("Remover este compromisso?")) { appointments.splice(index, 1); syncToCloud(); renderAppointments(); renderSmartAlerts(); } };
 
 // =============================================
 // ALERTAS INTELIGENTES
@@ -3415,41 +1695,28 @@ function renderSmartAlerts() {
   const container = document.getElementById('smart-alerts');
   if (!container) return;
   const alerts = [];
-  
   const upcoming = sessions.filter(s => !s.done && s.examDate >= todayYMD).sort((a, b) => a.examDate.localeCompare(b.examDate));
   if (upcoming.length > 0) {
     const next = upcoming[0];
     const diff = Math.ceil((fromYMD(next.examDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
-    if (diff === 0) {
-      alerts.push({ cls: 'ac-red', icon: 'ph-fill ph-test-tube', title: 'Coleta HOJE — Sessão ' + next.num, text: 'Realize o hemograma e a creatinina hoje para liberar a sessão de ' + fmtFull(next.date) + '.' });
-    } else if (diff === 1) {
-      alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-test-tube', title: 'Coleta amanhã — Sessão ' + next.num, text: 'Lembre-se de agendar o hemograma e a creatinina para amanhã (' + fmtFull(next.examDate) + ').' });
-    } else if (diff === 2) {
-      alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-bell', title: 'Coleta em 2 dias — Sessão ' + next.num, text: 'Prepare-se: a coleta para a Sessão ' + next.num + ' é em ' + fmtFull(next.examDate) + '.' });
-    }
+    if (diff === 0) alerts.push({ cls: 'ac-red', icon: 'ph-fill ph-test-tube', title: 'Coleta HOJE — Sessão ' + next.num, text: 'Realize o hemograma e a creatinina hoje para liberar a sessão de ' + fmtFull(next.date) + '.' });
+    else if (diff === 1) alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-test-tube', title: 'Coleta amanhã — Sessão ' + next.num, text: 'Lembre-se de agendar o hemograma e a creatinina para amanhã (' + fmtFull(next.examDate) + ').' });
+    else if (diff === 2) alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-bell', title: 'Coleta em 2 dias — Sessão ' + next.num, text: 'Prepare-se: a coleta para a Sessão ' + next.num + ' é em ' + fmtFull(next.examDate) + '.' });
   }
-  
   const nextSession = sessions.filter(s => !s.done && s.date >= todayYMD).sort((a, b) => a.date.localeCompare(b.date))[0];
   if (nextSession) {
     const diff = Math.ceil((fromYMD(nextSession.date).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
-    if (diff === 0) {
-      alerts.push({ cls: 'ac-blue', icon: 'ph-fill ph-syringe', title: 'Sessão ' + nextSession.num + ' é HOJE', text: 'Leve os resultados dos exames. Beba bastante água antes de sair.' });
-    } else if (diff <= 3 && diff > 0) {
-      alerts.push({ cls: 'ac-blue', icon: 'ph-fill ph-syringe', title: 'Sessão ' + nextSession.num + ' em ' + diff + ' dia' + (diff > 1 ? 's' : ''), text: fmtFull(nextSession.date) + ' — Hidrate-se bem nos dias anteriores e evite aglomerações.' });
-    }
+    if (diff === 0) alerts.push({ cls: 'ac-blue', icon: 'ph-fill ph-syringe', title: 'Sessão ' + nextSession.num + ' é HOJE', text: 'Leve os resultados dos exames. Beba bastante água antes de sair.' });
+    else if (diff <= 3 && diff > 0) alerts.push({ cls: 'ac-blue', icon: 'ph-fill ph-syringe', title: 'Sessão ' + nextSession.num + ' em ' + diff + ' dia' + (diff > 1 ? 's' : ''), text: fmtFull(nextSession.date) + ' — Hidrate-se bem nos dias anteriores e evite aglomerações.' });
   }
-  
-  sessions.forEach(s => {
-    if (s.done && isInNadir(s.date, todayYMD)) {
-      alerts.push({ cls: 'ac-red', icon: 'ph-fill ph-warning', title: 'Nadir ativo — Sessão ' + s.num, text: 'Imunidade no ponto mais baixo hoje. Evite aglomerações e monitore febre de hora em hora.' });
-    }
-  });
-  
+  sessions.forEach(s => { if (s.done && isInNadir(s.date, todayYMD)) alerts.push({ cls: 'ac-red', icon: 'ph-fill ph-warning', title: 'Nadir ativo — Sessão ' + s.num, text: 'Imunidade no ponto mais baixo hoje. Evite aglomerações e monitore febre de hora em hora.' }); });
   const todayLog = getDailyLog(todayYMD);
-  if (todayLog.temp && parseFloat(todayLog.temp) >= 37.8) {
-    alerts.unshift({ cls: 'ac-red', icon: 'ph-fill ph-siren', title: 'Febre registrada hoje: ' + parseFloat(todayLog.temp).toFixed(1) + '°C', text: 'Temperatura acima de 37,8°C. Procure o pronto-socorro imediatamente.' });
+  const todayTemps = todayLog.temps || (todayLog.temp ? [{ time: '—', value: todayLog.temp }] : []);
+  const feverReading = todayTemps.find(t => parseFloat(t.value) >= 37.8);
+  if (feverReading) {
+    const timeLabel = (feverReading.time && feverReading.time !== '—') ? ' às ' + feverReading.time : '';
+    alerts.unshift({ cls: 'ac-red', icon: 'ph-fill ph-siren', title: 'Febre registrada hoje: ' + parseFloat(feverReading.value).toFixed(1) + '°C' + timeLabel, text: 'Temperatura acima de 37,8°C. Procure o pronto-socorro imediatamente.' });
   }
-  
   if (examResults.length > 0) {
     const last = [...examResults].sort((a, b) => b.date.localeCompare(a.date))[0];
     const keys = ['leuco', 'neutro', 'linfo', 'plaq', 'hemo', 'hema', 'mono', 'eosino', 'baso', 'crea'];
@@ -3459,32 +1726,15 @@ function renderSmartAlerts() {
       alerts.push({ cls: 'ac-amber', icon: 'ph-fill ph-warning-octagon', title: 'Exame de ' + fmtFull(last.date) + ' com alerta', text: names + ' abaixo do mínimo para quimioterapia. Informe o médico.' });
     }
   }
-  
   const upcomingAppts = appointments.filter(a => a.date >= todayYMD).sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time));
   if (upcomingAppts.length > 0) {
     const next = upcomingAppts[0];
     const diff = Math.ceil((fromYMD(next.date).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
-    
-    if (diff === 0) {
-      alerts.push({cls:'ac-blue', icon:'ph-fill ph-calendar-check', title:`HOJE: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
-    } else if (diff === 1) {
-      alerts.push({cls:'ac-amber', icon:'ph-fill ph-calendar-plus', title:`AMANHÃ: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
-    }
+    if (diff === 0) alerts.push({cls:'ac-blue', icon:'ph-fill ph-calendar-check', title:`HOJE: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
+    else if (diff === 1) alerts.push({cls:'ac-amber', icon:'ph-fill ph-calendar-plus', title:`AMANHÃ: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
   }
-  
-  if (alerts.length === 0) {
-    alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
-  }
-  
-  container.innerHTML = alerts.map(a => `
-    <div class="alert-card ${a.cls}">
-      <div class="alert-card-icon"><i class="${a.icon}"></i></div>
-      <div class="alert-card-body">
-        <div class="alert-card-title">${a.title}</div>
-        <div class="alert-card-text">${a.text}</div>
-      </div>
-    </div>
-  `).join('');
+  if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
+  container.innerHTML = alerts.map(a => `<div class="alert-card ${a.cls}"><div class="alert-card-icon"><i class="${a.icon}"></i></div><div class="alert-card-body"><div class="alert-card-title">${a.title}</div><div class="alert-card-text">${a.text}</div></div></div>`).join('');
 }
 
 // =============================================
@@ -3493,87 +1743,58 @@ function renderSmartAlerts() {
 function renderWeeklySummary() {
   const wrap = document.getElementById('week-summary');
   if (!wrap) return;
-  
   const days7 = [];
   for (let i = 6; i >= 0; i--) days7.push(addDaysYMD(todayYMD, -i));
-  
   const hydrationVals = days7.map(d => { const l = dailyLogs[d]; return l ? l.water * 200 : null; }).filter(v => v !== null);
   const hydAvg = hydrationVals.length ? Math.round(hydrationVals.reduce((a, b) => a + b, 0) / hydrationVals.length) : null;
-  
-  const tempVals = days7.map(d => { const l = dailyLogs[d]; return l && l.temp ? parseFloat(l.temp) : null; }).filter(v => v !== null);
+  const tempVals = days7.map(d => {
+    const l = dailyLogs[d];
+    if (!l) return null;
+    const temps = l.temps || (l.temp ? [{ value: l.temp }] : []);
+    if (!temps.length) return null;
+    const dayAvg = temps.reduce((s, t) => s + parseFloat(t.value), 0) / temps.length;
+    return dayAvg;
+  }).filter(v => v !== null);
   const tempAvg = tempVals.length ? (tempVals.reduce((a, b) => a + b, 0) / tempVals.length).toFixed(1) : null;
-  
   let lastPeso = null;
-  for (let i = 0; i < days7.length; i++) {
-    const l = dailyLogs[days7[days7.length - 1 - i]];
-    if (l && l.peso) {
-      lastPeso = parseFloat(l.peso).toFixed(1);
-      break;
-    }
-  }
-  
+  for (let i = 0; i < days7.length; i++) { const l = dailyLogs[days7[days7.length - 1 - i]]; if (l && l.peso) { lastPeso = parseFloat(l.peso).toFixed(1); break; } }
   const hasData = hydrationVals.length >= 2 || tempVals.length >= 1;
   wrap.style.display = hasData ? 'block' : 'none';
   if (!hasData) return;
-  
   const rangeEl = document.getElementById('week-date-range');
   if (rangeEl) rangeEl.textContent = fmtShort(days7[0]) + ' – ' + fmtShort(days7[6]);
-  
   document.getElementById('week-hydration').textContent = hydAvg !== null ? hydAvg + ' ml' : '—';
   document.getElementById('week-temp').textContent = tempAvg !== null ? tempAvg + '°C' : '—';
   document.getElementById('week-weight').textContent = lastPeso !== null ? lastPeso + ' kg' : '—';
-  
   const symCount = {};
   days7.forEach(d => {
     const l = dailyLogs[d];
     if (!l || !l.syms) return;
     symsDef.forEach(s => {
       const v = l.syms[s.id] || 0;
-      if (v >= 1) {
-        if (!symCount[s.id]) symCount[s.id] = { label: s.label, max: 0, total: 0, days: 0 };
-        symCount[s.id].total += v;
-        symCount[s.id].days++;
-        if (v > symCount[s.id].max) symCount[s.id].max = v;
-      }
+      if (v >= 1) { if (!symCount[s.id]) symCount[s.id] = { label: s.label, max: 0, total: 0, days: 0 }; symCount[s.id].total += v; symCount[s.id].days++; if (v > symCount[s.id].max) symCount[s.id].max = v; }
     });
   });
-  
-  const symPills = Object.values(symCount).sort((a, b) => b.days - a.days).slice(0, 5).map(s => {
-    const cls = s.max >= 3 ? 'background:#FDE8E8;color:#C84646' : s.max >= 2 ? 'background:#FEF0E0;color:#A06828' : 'background:#EAF5EA;color:#2A6A2A';
-    return `<span class="week-sym-pill" style="${cls}">${s.label} (${s.days}d)</span>`;
-  }).join('');
-  
+  const symPills = Object.values(symCount).sort((a, b) => b.days - a.days).slice(0, 5).map(s => { const cls = s.max >= 3 ? 'background:#FDE8E8;color:#C84646' : s.max >= 2 ? 'background:#FEF0E0;color:#A06828' : 'background:#EAF5EA;color:#2A6A2A'; return `<span class="week-sym-pill" style="${cls}">${s.label} (${s.days}d)</span>`; }).join('');
   document.getElementById('week-symptoms').innerHTML = symPills || '<span style="font-size:12px;color:var(--ink3)">Sem sintomas registrados esta semana</span>';
-  
   const canvas = document.getElementById('mini-chart');
   if (!canvas) return;
-  if (miniChartInstance) {
-    miniChartInstance.destroy();
-    miniChartInstance = null;
-  }
-  
+  if (miniChartInstance) { miniChartInstance.destroy(); miniChartInstance = null; }
   const labels = days7.map(d => fmtShort(d));
   const hydData = days7.map(d => { const l = dailyLogs[d]; return l ? l.water * 200 : 0; });
-  const tempData = days7.map(d => { const l = dailyLogs[d]; return l && l.temp ? parseFloat(l.temp) : null; });
-  
+  const tempData = days7.map(d => {
+    const l = dailyLogs[d];
+    if (!l) return null;
+    const temps = l.temps || (l.temp ? [{ value: l.temp }] : []);
+    if (!temps.length) return null;
+    return Math.max(...temps.map(t => parseFloat(t.value)));
+  });
   miniChartInstance = new Chart(canvas, {
-    data: {
-      labels,
-      datasets: [
-        { type: 'bar', label: 'Hidratação (ml)', data: hydData, backgroundColor: 'rgba(122,171,150,0.5)', borderColor: 'rgba(47,92,72,0.8)', borderWidth: 1, yAxisID: 'y' },
-        { type: 'line', label: 'Temperatura (°C)', data: tempData, borderColor: '#D64545', backgroundColor: 'transparent', pointRadius: 3, borderWidth: 2, tension: 0.3, spanGaps: true, yAxisID: 'y2' }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        x: { ticks: { font: { size: 9 }, color: '#9CA3AF' }, grid: { display: false } },
-        y: { display: false, min: 0, max: 4000 },
-        y2: { display: false, min: 35, max: 40, position: 'right' }
-      }
-    }
+    data: { labels, datasets: [
+      { type: 'bar', label: 'Hidratação (ml)', data: hydData, backgroundColor: 'rgba(122,171,150,0.5)', borderColor: 'rgba(47,92,72,0.8)', borderWidth: 1, yAxisID: 'y' },
+      { type: 'line', label: 'Temperatura (°C)', data: tempData, borderColor: '#D64545', backgroundColor: 'transparent', pointRadius: 3, borderWidth: 2, tension: 0.3, spanGaps: true, yAxisID: 'y2' }
+    ]},
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 }, color: '#9CA3AF' }, grid: { display: false } }, y: { display: false, min: 0, max: 4000 }, y2: { display: false, min: 35, max: 40, position: 'right' } } }
   });
 }
 </script>
