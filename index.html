@@ -875,17 +875,52 @@ window.logout = function() { auth.signOut(); };
 // =============================================
 function generateDefaultSessions() {
   const arr = [];
-  const START = new Date(2026, 3, 1, 12, 0, 0);
-  for (let i = 0; i < 12; i++) {
-    const d = new Date(START);
+
+  // Fase Branca: 12 sessoes
+  // Sessao 1: 16/04/2026
+  // Sessao 2: 24/04/2026 (excecao: 8 dias depois)
+  // Sessoes 3-12: toda quinta, a cada 7 dias a partir de 01/05/2026
+  const whiteDates = [
+    '2026-04-16',
+    '2026-04-24',
+  ];
+  const thirdSession = new Date(2026, 4, 1, 12, 0, 0);
+  for (let i = 0; i < 10; i++) {
+    const d = new Date(thirdSession);
     d.setDate(d.getDate() + (i * 7));
-    arr.push({ id: i, num: i + 1, phaseNum: i + 1, type: 'BRANCA', phase: 1, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false, nadirHidden: false, examHidden: false });
+    whiteDates.push(toYMD(d));
   }
+
+  // Coleta 1: 05/03/2026 (fixa)
+  // Coletas 2-6: 48h antes da sessao impar de cada par
+  const examDates = ['2026-03-05'];
+  for (let i = 1; i < 6; i++) {
+    examDates.push(addDaysYMD(whiteDates[i * 2], -2));
+  }
+
+  for (let i = 0; i < 12; i++) {
+    const examDate = examDates[Math.floor(i / 2)];
+    arr.push({
+      id: i, num: i + 1, phaseNum: i + 1,
+      type: 'BRANCA', phase: 1,
+      date: whiteDates[i],
+      examDate,
+      done: false, examDone: false, nadirHidden: false, examHidden: false
+    });
+  }
+
+  // Fase Vermelha: 4 sessoes, 14 dias apos ultima branca, a cada 21 dias
   const lastWhite = fromYMD(arr[11].date);
   for (let i = 0; i < 4; i++) {
     const d = new Date(lastWhite);
-    d.setDate(d.getDate() + 7 + (i * 21));
-    arr.push({ id: i + 12, num: i + 13, phaseNum: i + 1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false, nadirHidden: false, examHidden: false });
+    d.setDate(d.getDate() + 14 + (i * 21));
+    arr.push({
+      id: i + 12, num: i + 13, phaseNum: i + 1,
+      type: 'VERMELHA', phase: 2,
+      date: toYMD(d),
+      examDate: addDaysYMD(toYMD(d), -2),
+      done: false, examDone: false, nadirHidden: false, examHidden: false
+    });
   }
   return arr;
 }
@@ -1007,6 +1042,13 @@ window.updateDate = function(index, val) { if (val) { sessions[index].date = val
 window.updateExam = function(index, val) { if (val) { sessions[index].examDate = val; syncToCloud(); renderSessions(); } };
 window.toggleDone = function(index) { sessions[index].done = !sessions[index].done; syncToCloud(); renderSessions(); renderSmartAlerts(); };
 window.toggleExamDone = function(index) { sessions[index].examDone = !sessions[index].examDone; syncToCloud(); renderSessions(); };
+// Marca/desmarca coleta para um par de sessões da fase branca
+window.toggleExamDonePair = function(i1, i2) {
+  const newState = !(sessions[i1].examDone && sessions[i2].examDone);
+  sessions[i1].examDone = newState;
+  sessions[i2].examDone = newState;
+  syncToCloud(); renderSessions();
+};
 
 window.toggleNadirHidden = function(index) {
   sessions[index].nadirHidden = !sessions[index].nadirHidden;
@@ -1061,6 +1103,7 @@ const MEDS_DEF = [
   { id: 'metoclopramida', name: 'Metoclopramida (10mg)', dose: '1 comp / 8h',         intervalH: 8,   desc: 'Se náuseas persistirem com Ondansetrona.',          warn: null },
   { id: 'loperamida',     name: 'Loperamida (2mg)',      dose: '1 comp / evacuação',  intervalH: null, desc: 'Somente em caso de diarreia.',                     warn: null },
   { id: 'lactulose',      name: 'Lactulose (667mg/mL)',  dose: '20mL / 8h',           intervalH: 8,   desc: 'Somente se o intestino prender.',                   warn: null },
+  { id: 'loratadina',     name: 'Loratadina (10mg)',     dose: '1 comp à noite',      intervalH: 24,  desc: 'Tomar 1 comprimido por dia na hora de dormir.',     warn: null },
   { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 1g',         intervalH: 6,   desc: 'Para dor. Não use para mascarar febre.',            warn: 'Não usar para mascarar febre!' },
 ];
 
@@ -1244,15 +1287,40 @@ function renderSessions() {
     if (s.phase === 1) gW.appendChild(row);
     else gR.appendChild(row);
 
-    const exRow = document.createElement('div');
-    exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
-    exRow.innerHTML = `
-      <div class="exam-info">
-        <div class="exam-date"><span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div>
-        <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
-      </div>
-      <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">${s.examDone ? '✓ Feito' : 'Pendente'}</button>`;
-    eG.appendChild(exRow);
+    // Exam grid: fase branca agrupa de 2 em 2 (coleta cobre 2 sessões)
+    // Só renderiza na sessão ímpar (1ª de cada par: phaseNum 1,3,5,7,9,11)
+    if (s.phase === 1) {
+      if (s.phaseNum % 2 === 1) {
+        // Este é o primeiro de um par (sessões N e N+1)
+        const s2 = sessions[i + 1]; // segunda sessão do par (pode não existir se 12 for ímpar)
+        const isDone = s.examDone && (s2 ? s2.examDone : true);
+        const toggleFn = s2
+          ? `toggleExamDonePair(${i}, ${i+1})`
+          : `toggleExamDone(${i})`;
+        const sess2Label = s2 ? ` e ${s2.num}` : '';
+        const exRow = document.createElement('div');
+        exRow.className = `exam-row ${isDone ? 'done' : ''}`;
+        exRow.innerHTML = `
+          <div class="exam-info">
+            <div class="exam-date"><span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div>
+            <div class="exam-sub">Coleta para as Sessões ${s.num}${sess2Label}</div>
+          </div>
+          <button class="pill-toggle ${isDone ? 'pill-done' : 'pill-pending'}" onclick="${toggleFn}">${isDone ? '✓ Feito' : 'Pendente'}</button>`;
+        eG.appendChild(exRow);
+      }
+      // sessões pares da fase branca: não renderizam linha própria
+    } else {
+      // Fase vermelha: individual como antes
+      const exRow = document.createElement('div');
+      exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
+      exRow.innerHTML = `
+        <div class="exam-info">
+          <div class="exam-date"><span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div>
+          <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+        </div>
+        <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">${s.examDone ? '✓ Feito' : 'Pendente'}</button>`;
+      eG.appendChild(exRow);
+    }
   });
 
   document.getElementById('met-done').textContent = doneCount;
