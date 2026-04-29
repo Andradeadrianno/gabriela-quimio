@@ -1,0 +1,23 @@
+{
+  "name": "Guia de Cuidados - Gabi",
+  "short_name": "Guia Gabi",
+  "description": "Guia de cuidados e acompanhamento do tratamento da Gabi",
+  "start_url": "/gabriela-quimio/",
+  "scope": "/gabriela-quimio/",
+  "display": "standalone",
+  "background_color": "#FDFCFB",
+  "theme_color": "#2F5C48",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/Andradeadrianno/gabriela-quimio/main/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/Andradeadrianno/gabriela-quimio/main/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
