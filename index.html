@@ -2,11 +2,6 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2F5C48">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Guia Gabi">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title>Guia de Cuidados - Gabi</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -408,7 +403,10 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
     <input type="password" id="auth-password" class="login-input" placeholder="Senha">
     <button class="btn-login" onclick="login()">Entrar</button>
     <button class="btn-register" onclick="register()">Criar nova conta</button>
-    <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Seus dados ficam salvos na nuvem e apenas você tem acesso.</p>
+    <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Entre com o e-mail da Gabi para acesso completo, ou com qualquer outro e-mail para visualizar.</p>
+    <div style="background: var(--sage-bg); border: 1px solid var(--sage-light); border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 11px; color: var(--sage-dark); line-height: 1.5;">
+      <i class="ph-fill ph-info"></i> <strong>Visitante:</strong> crie uma conta com qualquer e-mail e uma senha de pelo menos 6 caracteres para visualizar os dados da Gabi.
+    </div>
   </div>
 </div>
 
@@ -417,6 +415,9 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
 <div id="app-content">
   <header>
     <button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button>
+    <div id="viewer-badge" style="display:none; position:absolute; top:20px; left:20px; background:rgba(212,163,115,0.3); border:1px solid rgba(212,163,115,0.5); color:rgba(255,255,255,0.9); padding:5px 12px; border-radius:20px; font-size:11px; font-weight:600; z-index:10; backdrop-filter:blur(4px); align-items:center; gap:4px;">
+      <i class="ph-fill ph-eye"></i> Modo Visitante
+    </div>
     <div class="header-inner">
       <div class="header-pill"><i class="ph-fill ph-plant"></i> Guia de Cuidados</div>
       <h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1>
@@ -754,6 +755,14 @@ function showError(errorCode) {
 // =============================================
 // VARIÁVEIS GLOBAIS
 // =============================================
+// =============================================
+// OWNER & VIEWER CONFIG
+// =============================================
+const OWNER_EMAIL = 'ramos.adriano.andrade@gmail.com';
+const OWNER_UID_KEY = 'gabi_owner_uid'; // cached after first owner login
+let isViewer = false; // true = visitante (somente leitura)
+let ownerUID = null;  // UID do dono — dados sempre carregados daqui
+
 let currentUser = null;
 let sessions = [];
 let dailyLogs = {};
@@ -844,11 +853,18 @@ function getExamStatus(key, val) {
 auth.onAuthStateChanged((user) => {
   if (user) {
     currentUser = user;
+    isViewer = user.email.toLowerCase() !== OWNER_EMAIL.toLowerCase();
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
+    // Visitante vê badge no header
+    const viewerBadge = document.getElementById('viewer-badge');
+    if (viewerBadge) viewerBadge.style.display = isViewer ? 'flex' : 'none';
+    // Aplica modo leitura se visitante
+    if (isViewer) applyViewerMode();
     loadDataFromCloud();
   } else {
     currentUser = null;
+    isViewer = false;
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('app-content').style.display = 'none';
   }
@@ -870,9 +886,16 @@ window.register = function() {
   const e = document.getElementById('auth-email').value;
   const p = document.getElementById('auth-password').value;
   document.getElementById('login-error').style.display = 'none';
-  if (p.length < 6) { showError('auth/weak-password'); return; }
+  if (!e) { showErrorMsg('Digite um e-mail válido.'); return; }
+  if (p.length < 6) { showErrorMsg('A senha precisa ter pelo menos 6 caracteres.'); return; }
   auth.createUserWithEmailAndPassword(e, p).catch(error => showError(error.code));
 };
+
+function showErrorMsg(msg) {
+  const errDiv = document.getElementById('login-error');
+  errDiv.textContent = msg;
+  errDiv.style.display = 'block';
+}
 window.logout = function() { auth.signOut(); };
 
 // =============================================
@@ -935,6 +958,28 @@ function generateDefaultSessions() {
 // =============================================
 function loadDataFromCloud() {
   if (!currentUser) return;
+  // Visitante carrega dados do dono; dono carrega os próprios
+  const targetUID = isViewer ? OWNER_EMAIL : currentUser.uid;
+
+  // Se visitante, busca UID do dono primeiro pelo email
+  if (isViewer) {
+    // Buscamos direto pela coleção usando o email como chave alternativa
+    db.collection("app_data").where("ownerEmail", "==", OWNER_EMAIL).limit(1).get().then((snap) => {
+      if (!snap.empty) {
+        const ownerDoc = snap.docs[0];
+        loadFromDoc(ownerDoc);
+      } else {
+        // Fallback: tenta pelo UID cacheado localmente
+        const cachedUID = loadLocal('owner_uid', null);
+        if (cachedUID) {
+          db.collection("app_data").doc(cachedUID).get().then(doc => { if (doc.exists) loadFromDoc(doc); });
+        }
+      }
+    }).catch(() => renderAll());
+    return;
+  }
+
+  // Dono: carrega normalmente
   const cachedSessions = loadLocal('sessions', []);
   if (cachedSessions.length > 0) {
     sessions = cachedSessions;
@@ -974,7 +1019,71 @@ function syncToCloud() {
   saveLocal('examResults', examResults);
   saveLocal('appointments', appointments);
   if (!currentUser || !navigator.onLine) return;
-  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments }, { merge: true });
+  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments, ownerEmail: OWNER_EMAIL }, { merge: true });
+}
+
+// Carrega dados de um documento Firestore (usado pelo visitante)
+function loadFromDoc(docSnap) {
+  const data = docSnap.data();
+  sessions = (data.sessions && data.sessions.length > 0) ? data.sessions : generateDefaultSessions();
+  sessions = sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
+  dailyLogs = data.dailyLogs || {};
+  diary = data.diary || [];
+  generalDiary = data.generalDiary || [];
+  examResults = data.examResults || [];
+  appointments = data.appointments || [];
+  examResults.sort((a, b) => a.date.localeCompare(b.date));
+  appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  renderAll();
+}
+
+// Aplica modo somente leitura: oculta todos os elementos de edição
+function applyViewerMode() {
+  // Apenas bloqueia funções de escrita — NADA é ocultado ou desativado visualmente
+  // Navegação, abas, alertas e todo o visual permanecem idênticos ao da Gabi
+  const noop = () => {};
+  window.toggleDone = noop;
+  window.toggleExamDone = noop;
+  window.toggleExamDonePair = noop;
+  window.toggleNadirHidden = noop;
+  window.toggleExamHidden = noop;
+  window.updateDate = noop;
+  window.updateExam = noop;
+  window.updateNadirDates = noop;
+  window.addDiary = noop;
+  window.delDiary = noop;
+  window.saveDiaryEdit = noop;
+  window.startDiaryEdit = noop;
+  window.cancelDiaryEdit = noop;
+  window.addGeneralDiary = noop;
+  window.delGeneralDiary = noop;
+  window.saveGdEdit = noop;
+  window.startGdEdit = noop;
+  window.cancelGdEdit = noop;
+  window.addExamResult = noop;
+  window.delExamResult = noop;
+  window.addAppointment = noop;
+  window.deleteAppointment = noop;
+  window.startApptEdit = noop;
+  window.saveApptEdit = noop;
+  window.cancelApptEdit = noop;
+  window.addDailyWater = noop;
+  window.resetDailyWater = noop;
+  window.addTempReading = noop;
+  window.deleteTempReading = noop;
+  window.saveVital = noop;
+  window.updateDailySym = noop;
+  window.addMedTime = noop;
+  window.deleteMedTime = noop;
+  window.calcNadir = noop;
+  window.gerarRelatorio = noop;
+  window.copiarRelatorioExames = noop;
+  window.exportarPDF = noop;
+  window.toggleEditMode = noop;
+  window.shiftLogDate = noop;
+  window.shiftMedDate = noop;
+  window.addTempReading = noop;
+  window.deleteTempReading = noop;
 }
 
 // =============================================
@@ -2142,14 +2251,5 @@ function renderWeeklySummary() {
 }
 </script>
 
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/gabriela-quimio/sw.js')
-        .then(reg => console.log('Service Worker registrado:', reg.scope))
-        .catch(err => console.warn('Service Worker falhou:', err));
-    });
-  }
-</script>
 </body>
 </html>
