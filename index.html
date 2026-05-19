@@ -134,6 +134,154 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .session-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; text-transform: lowercase; }
 .session-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
+
+/* ===== COLETAS COMPARTILHADAS / EDITOR INTERATIVO ===== */
+.collection-help {
+  background: linear-gradient(135deg, var(--gold-bg), #FFF8F0);
+  border: 1px solid rgba(201,130,43,0.18);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.collection-help i { color: var(--amber); font-size: 20px; flex-shrink: 0; }
+.collection-help-title { font-size: 13px; font-weight: 800; color: #7A4A00; margin-bottom: 2px; }
+.collection-help-text { font-size: 12px; color: #7A4A00; line-height: 1.45; opacity: .9; }
+
+.session-pair {
+  position: relative;
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+}
+.session-pair::before {
+  content: "";
+  position: absolute;
+  left: 31px;
+  top: 55px;
+  bottom: 55px;
+  width: 2px;
+  background: var(--amber-bg);
+  border-radius: 3px;
+}
+.session-card.pair-first {
+  margin-bottom: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.session-card.pair-second {
+  margin-top: 0;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.session-card.pair-first::after {
+  content: "coleta compartilhada";
+  position: absolute;
+  right: 14px;
+  top: -8px;
+  background: var(--amber);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  display: none;
+}
+.session-card.pair-first { position: relative; }
+.session-card.pair-first:hover::after { display: inline-flex; }
+
+.shared-exam-pill {
+  background: var(--amber-bg);
+  color: var(--amber);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 1px solid rgba(201,130,43,0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.shared-exam-pill .date-input,
+.pill-exam .date-input {
+  font-family: 'Inter';
+  font-size: 11px;
+  font-weight: 800;
+  border: none;
+  background: transparent;
+  color: inherit;
+  outline: none;
+  padding: 0;
+  height: 16px;
+  width: 96px;
+}
+.shared-exam-pill small {
+  font-size: 10px;
+  font-weight: 700;
+  color: #A06828;
+  opacity: .85;
+}
+.pill-exam-covered {
+  background: #F8FAFC;
+  color: var(--ink3);
+  border: 1px dashed var(--border-focus);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.date-mini-actions {
+  display: none;
+  gap: 4px;
+  margin-top: 5px;
+  flex-wrap: wrap;
+}
+.is-editing-cal .date-mini-actions,
+.is-editing-exam .date-mini-actions { display: flex; }
+.mini-date-btn {
+  background: #F3F4F6;
+  color: var(--ink2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.mini-date-btn:hover { background: var(--sage-bg); color: var(--sage-dark); border-color: var(--sage-light); }
+.exam-editor-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+.exam-pair-badges { display: flex; gap: 5px; margin-top: 6px; flex-wrap: wrap; }
+.exam-session-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+}
+.exam-session-badge.done { background: #EAF5EA; color: #2A6A2A; }
+.exam-session-badge.pending { background: #F3F4F6; color: #6B7280; }
+@media (max-width: 500px) {
+  .session-pair::before { left: 31px; top: 76px; bottom: 76px; }
+  .shared-exam-pill, .pill-exam-covered, .pill-exam, .pill-nadir { width: 100%; justify-content: center; }
+  .date-mini-actions { width: 100%; justify-content: flex-start; }
+}
+
 /* ===== PILLS ===== */
 .pill-nadir { background: #FDE8E8; color: #C84646; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: none; display: inline-flex; align-items: center; gap: 4px; }
 .pill-exam { background: #FEF0E0; color: #A06828; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: none; display: inline-flex; align-items: center; gap: 4px; }
@@ -403,10 +551,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
     <input type="password" id="auth-password" class="login-input" placeholder="Senha">
     <button class="btn-login" onclick="login()">Entrar</button>
     <button class="btn-register" onclick="register()">Criar nova conta</button>
-    <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Entre com o e-mail da Gabi para acesso completo, ou com qualquer outro e-mail para visualizar.</p>
-    <div style="background: var(--sage-bg); border: 1px solid var(--sage-light); border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-size: 11px; color: var(--sage-dark); line-height: 1.5;">
-      <i class="ph-fill ph-info"></i> <strong>Visitante:</strong> crie uma conta com qualquer e-mail e uma senha de pelo menos 6 caracteres para visualizar os dados da Gabi.
-    </div>
+    <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Seus dados ficam salvos na nuvem e apenas você tem acesso.</p>
   </div>
 </div>
 
@@ -415,9 +560,6 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
 <div id="app-content">
   <header>
     <button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button>
-    <div id="viewer-badge" style="display:none; position:absolute; top:20px; left:20px; background:rgba(212,163,115,0.3); border:1px solid rgba(212,163,115,0.5); color:rgba(255,255,255,0.9); padding:5px 12px; border-radius:20px; font-size:11px; font-weight:600; z-index:10; backdrop-filter:blur(4px); align-items:center; gap:4px;">
-      <i class="ph-fill ph-eye"></i> Modo Visitante
-    </div>
     <div class="header-inner">
       <div class="header-pill"><i class="ph-fill ph-plant"></i> Guia de Cuidados</div>
       <h1>Gabi <span class="heart"><i class="ph-fill ph-heart"></i></span></h1>
@@ -755,14 +897,6 @@ function showError(errorCode) {
 // =============================================
 // VARIÁVEIS GLOBAIS
 // =============================================
-// =============================================
-// OWNER & VIEWER CONFIG
-// =============================================
-const OWNER_EMAIL = 'ramos.adriano.andrade@gmail.com';
-const OWNER_UID_KEY = 'gabi_owner_uid'; // cached after first owner login
-let isViewer = false; // true = visitante (somente leitura)
-let ownerUID = null;  // UID do dono — dados sempre carregados daqui
-
 let currentUser = null;
 let sessions = [];
 let dailyLogs = {};
@@ -853,18 +987,11 @@ function getExamStatus(key, val) {
 auth.onAuthStateChanged((user) => {
   if (user) {
     currentUser = user;
-    isViewer = user.email.toLowerCase() !== OWNER_EMAIL.toLowerCase();
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app-content').style.display = 'block';
-    // Visitante vê badge no header
-    const viewerBadge = document.getElementById('viewer-badge');
-    if (viewerBadge) viewerBadge.style.display = isViewer ? 'flex' : 'none';
-    // Aplica modo leitura se visitante
-    if (isViewer) applyViewerMode();
     loadDataFromCloud();
   } else {
     currentUser = null;
-    isViewer = false;
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('app-content').style.display = 'none';
   }
@@ -958,28 +1085,6 @@ function generateDefaultSessions() {
 // =============================================
 function loadDataFromCloud() {
   if (!currentUser) return;
-  // Visitante carrega dados do dono; dono carrega os próprios
-  const targetUID = isViewer ? OWNER_EMAIL : currentUser.uid;
-
-  // Se visitante, busca UID do dono primeiro pelo email
-  if (isViewer) {
-    // Buscamos direto pela coleção usando o email como chave alternativa
-    db.collection("app_data").where("ownerEmail", "==", OWNER_EMAIL).limit(1).get().then((snap) => {
-      if (!snap.empty) {
-        const ownerDoc = snap.docs[0];
-        loadFromDoc(ownerDoc);
-      } else {
-        // Fallback: tenta pelo UID cacheado localmente
-        const cachedUID = loadLocal('owner_uid', null);
-        if (cachedUID) {
-          db.collection("app_data").doc(cachedUID).get().then(doc => { if (doc.exists) loadFromDoc(doc); });
-        }
-      }
-    }).catch(() => renderAll());
-    return;
-  }
-
-  // Dono: carrega normalmente
   const cachedSessions = loadLocal('sessions', []);
   if (cachedSessions.length > 0) {
     sessions = cachedSessions;
@@ -1019,71 +1124,7 @@ function syncToCloud() {
   saveLocal('examResults', examResults);
   saveLocal('appointments', appointments);
   if (!currentUser || !navigator.onLine) return;
-  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments, ownerEmail: OWNER_EMAIL }, { merge: true });
-}
-
-// Carrega dados de um documento Firestore (usado pelo visitante)
-function loadFromDoc(docSnap) {
-  const data = docSnap.data();
-  sessions = (data.sessions && data.sessions.length > 0) ? data.sessions : generateDefaultSessions();
-  sessions = sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
-  dailyLogs = data.dailyLogs || {};
-  diary = data.diary || [];
-  generalDiary = data.generalDiary || [];
-  examResults = data.examResults || [];
-  appointments = data.appointments || [];
-  examResults.sort((a, b) => a.date.localeCompare(b.date));
-  appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  renderAll();
-}
-
-// Aplica modo somente leitura: oculta todos os elementos de edição
-function applyViewerMode() {
-  // Apenas bloqueia funções de escrita — NADA é ocultado ou desativado visualmente
-  // Navegação, abas, alertas e todo o visual permanecem idênticos ao da Gabi
-  const noop = () => {};
-  window.toggleDone = noop;
-  window.toggleExamDone = noop;
-  window.toggleExamDonePair = noop;
-  window.toggleNadirHidden = noop;
-  window.toggleExamHidden = noop;
-  window.updateDate = noop;
-  window.updateExam = noop;
-  window.updateNadirDates = noop;
-  window.addDiary = noop;
-  window.delDiary = noop;
-  window.saveDiaryEdit = noop;
-  window.startDiaryEdit = noop;
-  window.cancelDiaryEdit = noop;
-  window.addGeneralDiary = noop;
-  window.delGeneralDiary = noop;
-  window.saveGdEdit = noop;
-  window.startGdEdit = noop;
-  window.cancelGdEdit = noop;
-  window.addExamResult = noop;
-  window.delExamResult = noop;
-  window.addAppointment = noop;
-  window.deleteAppointment = noop;
-  window.startApptEdit = noop;
-  window.saveApptEdit = noop;
-  window.cancelApptEdit = noop;
-  window.addDailyWater = noop;
-  window.resetDailyWater = noop;
-  window.addTempReading = noop;
-  window.deleteTempReading = noop;
-  window.saveVital = noop;
-  window.updateDailySym = noop;
-  window.addMedTime = noop;
-  window.deleteMedTime = noop;
-  window.calcNadir = noop;
-  window.gerarRelatorio = noop;
-  window.copiarRelatorioExames = noop;
-  window.exportarPDF = noop;
-  window.toggleEditMode = noop;
-  window.shiftLogDate = noop;
-  window.shiftMedDate = noop;
-  window.addTempReading = noop;
-  window.deleteTempReading = noop;
+  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments }, { merge: true });
 }
 
 // =============================================
@@ -1152,25 +1193,132 @@ window.toggleEditMode = function(section) {
   }
 };
 
-window.updateDate = function(index, val) { if (val) { sessions[index].date = val; sessions[index].examDate = addDaysYMD(val, -2); syncToCloud(); renderSessions(); } };
-window.updateExam = function(index, val) { if (val) { sessions[index].examDate = val; syncToCloud(); renderSessions(); } };
-window.toggleDone = function(index) { sessions[index].done = !sessions[index].done; syncToCloud(); renderSessions(); renderSmartAlerts(); };
-window.toggleExamDone = function(index) { sessions[index].examDone = !sessions[index].examDone; syncToCloud(); renderSessions(); };
+function getWhitePairStartIndex(index) {
+  if (!sessions[index] || sessions[index].phase !== 1) return index;
+  return index % 2 === 0 ? index : index - 1;
+}
+
+function setExamForSessionOrPair(index, val) {
+  if (!val || !sessions[index]) return;
+  if (sessions[index].phase === 1) {
+    const p = getWhitePairStartIndex(index);
+    sessions[p].examDate = val;
+    if (sessions[p + 1] && sessions[p + 1].phase === 1) sessions[p + 1].examDate = val;
+  } else {
+    sessions[index].examDate = val;
+  }
+}
+
+window.updateDate = function(index, val) {
+  if (!val || !sessions[index]) return;
+  sessions[index].date = val;
+
+  // Na fase branca, a coleta pertence ao par. Ao editar a primeira sessão do par,
+  // recalcula a coleta do par para 48h antes. Ao editar a segunda, mantém a coleta do par.
+  if (sessions[index].phase === 1) {
+    const p = getWhitePairStartIndex(index);
+    if (index === p) setExamForSessionOrPair(index, addDaysYMD(val, -2));
+  } else {
+    sessions[index].examDate = addDaysYMD(val, -2);
+  }
+
+  syncToCloud();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.shiftSessionDate = function(index, days) {
+  if (!sessions[index]) return;
+  window.updateDate(index, addDaysYMD(sessions[index].date, days));
+};
+
+window.updateExam = function(index, val) {
+  setExamForSessionOrPair(index, val);
+  syncToCloud();
+  renderSessions();
+};
+
+window.updateExamPair = function(index, val) {
+  setExamForSessionOrPair(index, val);
+  syncToCloud();
+  renderSessions();
+};
+
+window.shiftExamDate = function(index, days) {
+  if (!sessions[index]) return;
+  const p = sessions[index].phase === 1 ? getWhitePairStartIndex(index) : index;
+  window.updateExam(p, addDaysYMD(sessions[p].examDate, days));
+};
+
+window.resetExamToDefault = function(index) {
+  if (!sessions[index]) return;
+  if (sessions[index].phase === 1) {
+    const p = getWhitePairStartIndex(index);
+    setExamForSessionOrPair(p, addDaysYMD(sessions[p].date, -2));
+  } else {
+    sessions[index].examDate = addDaysYMD(sessions[index].date, -2);
+  }
+  syncToCloud();
+  renderSessions();
+};
+
+window.recalcularColetasBrancas = function() {
+  for (let i = 0; i < 12; i += 2) {
+    if (sessions[i]) setExamForSessionOrPair(i, addDaysYMD(sessions[i].date, -2));
+  }
+  syncToCloud();
+  renderSessions();
+};
+
+window.toggleDone = function(index) {
+  sessions[index].done = !sessions[index].done;
+  syncToCloud();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.toggleExamDone = function(index) {
+  if (!sessions[index]) return;
+  if (sessions[index].phase === 1) {
+    const p = getWhitePairStartIndex(index);
+    const p2 = sessions[p + 1];
+    const newState = !(sessions[p].examDone && (p2 ? p2.examDone : true));
+    sessions[p].examDone = newState;
+    if (p2 && p2.phase === 1) p2.examDone = newState;
+  } else {
+    sessions[index].examDone = !sessions[index].examDone;
+  }
+  syncToCloud();
+  renderSessions();
+};
+
 // Marca/desmarca coleta para um par de sessões da fase branca
 window.toggleExamDonePair = function(i1, i2) {
   const newState = !(sessions[i1].examDone && sessions[i2].examDone);
   sessions[i1].examDone = newState;
   sessions[i2].examDone = newState;
-  syncToCloud(); renderSessions();
+  syncToCloud();
+  renderSessions();
 };
 
 window.toggleNadirHidden = function(index) {
   sessions[index].nadirHidden = !sessions[index].nadirHidden;
-  syncToCloud(); renderSessions();
+  syncToCloud();
+  renderSessions();
 };
+
 window.toggleExamHidden = function(index) {
-  sessions[index].examHidden = !sessions[index].examHidden;
-  syncToCloud(); renderSessions();
+  if (!sessions[index]) return;
+  if (sessions[index].phase === 1) {
+    const p = getWhitePairStartIndex(index);
+    const newState = !sessions[p].examHidden;
+    sessions[p].examHidden = newState;
+    if (sessions[p + 1] && sessions[p + 1].phase === 1) sessions[p + 1].examHidden = newState;
+  } else {
+    sessions[index].examHidden = !sessions[index].examHidden;
+  }
+  syncToCloud();
+  renderSessions();
 };
 window.updateNadirDates = function(index, field, val) {
   if (!sessions[index].nadirOverride) sessions[index].nadirOverride = {};
@@ -1217,7 +1365,8 @@ const MEDS_DEF = [
   { id: 'metoclopramida', name: 'Metoclopramida (10mg)', dose: '1 comp / 8h',         intervalH: 8,   desc: 'Se náuseas persistirem com Ondansetrona.',          warn: null },
   { id: 'loperamida',     name: 'Loperamida (2mg)',      dose: '1 comp / evacuação',  intervalH: null, desc: 'Somente em caso de diarreia.',                     warn: null },
   { id: 'lactulose',      name: 'Lactulose (667mg/mL)',  dose: '20mL / 8h',           intervalH: 8,   desc: 'Somente se o intestino prender.',                   warn: null },
-  { id: 'loratadina',     name: 'Loratadina (10mg)',     dose: '1 comp à noite',      intervalH: 24,  desc: 'Tomar 1 comprimido por dia na hora de dormir.',     warn: null },
+  { id: 'dexametasona',   name: 'Dexametasona (4mg)',    dose: '1 comp às 08h e 16h', intervalH: 8,   desc: 'Preparo da quimio branca: 1 dia ANTES (08h e 16h) e 2 dias APÓS (08h e 16h).', warn: 'Preparo obrigatório da quimioterapia branca!' },
+  { id: 'fexofenadina',   name: 'Fexofenadina (120mg)',  dose: '1 comp à noite',      intervalH: 24,  desc: 'Preparo da quimio branca: 1 dia ANTES e 4 dias APÓS, sempre à noite.', warn: 'Preparo obrigatório da quimioterapia branca!' },
   { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 1g',         intervalH: 6,   desc: 'Para dor. Não use para mascarar febre.',            warn: 'Não usar para mascarar febre!' },
 ];
 
@@ -1284,7 +1433,7 @@ function renderMedCards() {
     const warnHtml = med.warn
       ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>`
       : '';
-    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : '';
+    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : (med.id === 'dexametasona' || med.id === 'fexofenadina') ? 'border-color:#e6f0ff;' : '';
 
     return `<div class="med-track-card" style="${borderStyle}">
       <div class="med-track-head">
@@ -1339,49 +1488,170 @@ function scheduleNextRefresh() {
 
 function renderSessions() {
   if (!sessions || sessions.length === 0) sessions = generateDefaultSessions();
+
   const gW = document.getElementById('grid-white');
   const gR = document.getElementById('grid-red');
   const eG = document.getElementById('exam-grid');
-  gW.innerHTML = ''; gR.innerHTML = ''; eG.innerHTML = '';
-  let doneCount = 0; let nextSessionDate = null;
-  const endDate = sessions[sessions.length - 1].date;
-  let nadirSession = null; let riskSession = null;
-  sessions.forEach(s => {
-    if (s.done && isInNadir(s.date, todayYMD)) nadirSession = s;
-    else if (s.done && isInRisk(s.date, todayYMD)) riskSession = s;
-  });
-  const banner = document.getElementById('nadir-banner');
-  if (banner) {
-    if (nadirSession) {
-      banner.innerHTML = `<div class="nadir-alert"><div class="nadir-alert-icon"><i class="ph-fill ph-warning"></i></div><div><div class="nadir-alert-title">Período de Nadir Ativo</div><div class="nadir-alert-text">Hoje está no nadir da Sessão ${nadirSession.num} (${fmtFull(nadirSession.date)}). Imunidade no ponto mais baixo — monitore febre e evite aglomerações.</div></div></div>`;
-    } else if (riskSession) {
-      banner.innerHTML = `<div class="nadir-alert" style="background:linear-gradient(135deg,#FEF0E0,#FFF8F0);border-color:#F5C84A"><div class="nadir-alert-icon" style="background:var(--amber)"><i class="ph-fill ph-warning-circle"></i></div><div><div class="nadir-alert-title" style="color:#7A4A00">Aproximando-se do Nadir</div><div class="nadir-alert-text" style="color:#7A4A00">Imunidade caindo após Sessão ${riskSession.num}. Nadir entre ${fmtFull(addDaysYMD(riskSession.date, 7))} e ${fmtFull(addDaysYMD(riskSession.date, 10))}.</div></div></div>`;
-    } else { banner.innerHTML = ''; }
-  }
 
-  sessions.forEach((s, i) => {
+  if (gW) gW.innerHTML = '';
+  if (gR) gR.innerHTML = '';
+  if (eG) eG.innerHTML = '';
+
+  let doneCount = 0;
+  let nextSessionDate = null;
+  const endDate = sessions[sessions.length - 1].date;
+
+  let nadirSession = null;
+  let riskSession = null;
+
+  sessions.forEach(s => {
     if (s.done) doneCount++;
     if (!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
 
+    if (s.done && isInNadir(s.date, todayYMD)) nadirSession = s;
+    else if (s.done && isInRisk(s.date, todayYMD)) riskSession = s;
+  });
+
+  const banner = document.getElementById('nadir-banner');
+  if (banner) {
+    if (nadirSession) {
+      banner.innerHTML = `
+        <div class="nadir-alert">
+          <div class="nadir-alert-icon"><i class="ph-fill ph-warning"></i></div>
+          <div>
+            <div class="nadir-alert-title">Período de Nadir Ativo</div>
+            <div class="nadir-alert-text">
+              Hoje está no nadir da Sessão ${nadirSession.num} (${fmtFull(nadirSession.date)}).
+              Imunidade no ponto mais baixo — monitore febre e evite aglomerações.
+            </div>
+          </div>
+        </div>`;
+    } else if (riskSession) {
+      banner.innerHTML = `
+        <div class="nadir-alert" style="background:linear-gradient(135deg,#FEF0E0,#FFF8F0);border-color:#F5C84A">
+          <div class="nadir-alert-icon" style="background:var(--amber)"><i class="ph-fill ph-warning-circle"></i></div>
+          <div>
+            <div class="nadir-alert-title" style="color:#7A4A00">Aproximando-se do Nadir</div>
+            <div class="nadir-alert-text" style="color:#7A4A00">
+              Imunidade caindo após Sessão ${riskSession.num}.
+              Nadir entre ${fmtFull(addDaysYMD(riskSession.date, 7))} e ${fmtFull(addDaysYMD(riskSession.date, 10))}.
+            </div>
+          </div>
+        </div>`;
+    } else {
+      banner.innerHTML = '';
+    }
+  }
+
+  if (gW) {
+    const help = document.createElement('div');
+    help.className = 'collection-help';
+    help.innerHTML = `
+      <i class="ph-fill ph-drop"></i>
+      <div>
+        <div class="collection-help-title">Fase branca: 1 coleta vale para 2 sessões</div>
+        <div class="collection-help-text">
+          Edite a coleta no primeiro card de cada par. A segunda sessão fica automaticamente coberta pela mesma coleta.
+          Use “Ajustar Datas” para liberar os campos de edição e os botões rápidos.
+        </div>
+        <div class="date-mini-actions" style="display:flex;margin-top:8px">
+          <button class="mini-date-btn" onclick="toggleEditMode('cal')">Editar datas das sessões</button>
+          <button class="mini-date-btn" onclick="recalcularColetasBrancas()">Recalcular coletas 48h antes</button>
+        </div>
+      </div>`;
+    gW.appendChild(help);
+  }
+
+  function buildNadirPill(s, i) {
     const nadirS_ymd = (s.nadirOverride && s.nadirOverride.nadirStart) ? s.nadirOverride.nadirStart : addDaysYMD(s.date, 7);
-    const nadirE_ymd = (s.nadirOverride && s.nadirOverride.nadirEnd)   ? s.nadirOverride.nadirEnd   : addDaysYMD(s.date, 10);
+    const nadirE_ymd = (s.nadirOverride && s.nadirOverride.nadirEnd) ? s.nadirOverride.nadirEnd : addDaysYMD(s.date, 10);
 
-    let nadirPill;
     if (s.nadirHidden) {
-      nadirPill = `<button class="pill-add-nadir" onclick="toggleNadirHidden(${i})" title="Adicionar Nadir novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Nadir</button>`;
-    } else {
-      nadirPill = `<span class="pill-nadir">Nadir&nbsp;<input type="date" class="pill-date-edit" value="${nadirS_ymd}" title="Editar início do nadir" onchange="updateNadirDates(${i},'nadirStart',this.value)" style="width:85px;">–<input type="date" class="pill-date-edit" value="${nadirE_ymd}" title="Editar fim do nadir" onchange="updateNadirDates(${i},'nadirEnd',this.value)" style="width:85px;"><button class="pill-action-btn" onclick="toggleNadirHidden(${i})" title="Remover Nadir">✕</button></span>`;
+      return `
+        <button class="pill-add-nadir" onclick="toggleNadirHidden(${i})" title="Adicionar Nadir novamente">
+          <i class="ph-bold ph-plus" style="font-size:10px;"></i> Nadir
+        </button>`;
     }
 
-    let examPill;
+    return `
+      <span class="pill-nadir">
+        Nadir&nbsp;
+        <input type="date" class="pill-date-edit" value="${nadirS_ymd}" title="Editar início do nadir"
+          onchange="updateNadirDates(${i},'nadirStart',this.value)" style="width:85px;">
+        –
+        <input type="date" class="pill-date-edit" value="${nadirE_ymd}" title="Editar fim do nadir"
+          onchange="updateNadirDates(${i},'nadirEnd',this.value)" style="width:85px;">
+        <button class="pill-action-btn" onclick="toggleNadirHidden(${i})" title="Remover Nadir">✕</button>
+      </span>`;
+  }
+
+  function buildExamPill(s, i) {
+    if (s.phase === 1) {
+      const p = getWhitePairStartIndex(i);
+      const pairFirst = sessions[p];
+      const pairSecond = sessions[p + 1];
+
+      if (i === p) {
+        if (pairFirst.examHidden) {
+          return `
+            <button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar coleta novamente">
+              <i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta do par
+            </button>`;
+        }
+
+        return `
+          <span class="shared-exam-pill" title="Esta coleta vale para as sessões ${pairFirst.num}${pairSecond ? ' e ' + pairSecond.num : ''}">
+            <i class="ph-fill ph-drop"></i>
+            <strong>Coleta</strong>
+            <span class="date-text">${fmtShort(pairFirst.examDate)}</span>
+            <input type="date" class="date-input" value="${pairFirst.examDate}" onchange="updateExamPair(${i}, this.value)">
+            <small>sessões ${pairFirst.num}${pairSecond ? ' e ' + pairSecond.num : ''}</small>
+            <button class="pill-action-btn" onclick="toggleExamHidden(${i})" title="Ocultar coleta">✕</button>
+          </span>
+          <div class="date-mini-actions">
+            <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">coleta -1d</button>
+            <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">coleta +1d</button>
+            <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
+          </div>`;
+      }
+
+      return `
+        <span class="pill-exam-covered" title="Esta sessão usa a mesma coleta da sessão ${pairFirst.num}">
+          <i class="ph-fill ph-check-circle"></i>
+          coberta pela coleta de ${fmtShort(pairFirst.examDate)}
+        </span>
+        <div class="date-mini-actions">
+          <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">coleta -1d</button>
+          <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">coleta +1d</button>
+          <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
+        </div>`;
+    }
+
     if (s.examHidden) {
-      examPill = `<button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar data de coleta novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta</button>`;
-    } else {
-      examPill = `<span class="pill-exam"><span class="date-text">${fmtShort(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)" style="background:transparent;border:none;color:inherit;font-family:inherit;font-size:11px;font-weight:700;padding:0;outline:none;height:14px;"><button class="pill-action-btn" onclick="toggleExamHidden(${i})" title="Remover data de coleta">✕</button></span>`;
+      return `
+        <button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar data de coleta novamente">
+          <i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta
+        </button>`;
     }
 
+    return `
+      <span class="pill-exam">
+        <i class="ph-fill ph-drop"></i>
+        <span class="date-text">${fmtShort(s.examDate)}</span>
+        <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
+        <button class="pill-action-btn" onclick="toggleExamHidden(${i})" title="Remover data de coleta">✕</button>
+      </span>
+      <div class="date-mini-actions">
+        <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">coleta -1d</button>
+        <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">coleta +1d</button>
+        <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
+      </div>`;
+  }
+
+  function buildSessionCard(s, i, pairClass = '') {
     const row = document.createElement('div');
-    row.className = `session-card ${s.done ? 'done' : ''} ${(s.done && isInNadir(s.date, todayYMD)) ? 'nadir-active' : ''}`;
+    row.className = `session-card ${pairClass} ${s.done ? 'done' : ''} ${(s.done && isInNadir(s.date, todayYMD)) ? 'nadir-active' : ''}`;
+
     row.innerHTML = `
       <div class="session-left">
         <div class="session-num">${s.num}</div>
@@ -1391,60 +1661,120 @@ function renderSessions() {
             <input type="date" class="date-input" value="${s.date}" onchange="updateDate(${i}, this.value)">
           </div>
           <div class="session-sub">${getWeekDay(s.date)} - sessão ${s.phaseNum} de ${s.type === 'BRANCA' ? 12 : 4}</div>
+          <div class="date-mini-actions">
+            <button class="mini-date-btn" onclick="shiftSessionDate(${i}, -1)">sessão -1d</button>
+            <button class="mini-date-btn" onclick="shiftSessionDate(${i}, 1)">sessão +1d</button>
+          </div>
         </div>
       </div>
       <div class="session-right">
-        ${nadirPill}
-        ${examPill}
-        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">${s.done ? '✓ Feito' : 'Pendente'}</button>
+        ${buildNadirPill(s, i)}
+        ${buildExamPill(s, i)}
+        <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleDone(${i})">
+          ${s.done ? '✓ Feito' : 'Pendente'}
+        </button>
       </div>`;
-    if (s.phase === 1) gW.appendChild(row);
-    else gR.appendChild(row);
 
-    // Exam grid: fase branca agrupa de 2 em 2 (coleta cobre 2 sessões)
-    // Só renderiza na sessão ímpar (1ª de cada par: phaseNum 1,3,5,7,9,11)
-    if (s.phase === 1) {
-      if (s.phaseNum % 2 === 1) {
-        // Este é o primeiro de um par (sessões N e N+1)
-        const s2 = sessions[i + 1]; // segunda sessão do par (pode não existir se 12 for ímpar)
+    return row;
+  }
+
+  // Fase branca em pares visuais: 1 coleta para 2 sessões.
+  for (let i = 0; i < 12; i += 2) {
+    if (!sessions[i]) continue;
+
+    const pairWrap = document.createElement('div');
+    pairWrap.className = 'session-pair';
+
+    pairWrap.appendChild(buildSessionCard(sessions[i], i, 'pair-first'));
+
+    if (sessions[i + 1]) {
+      pairWrap.appendChild(buildSessionCard(sessions[i + 1], i + 1, 'pair-second'));
+    }
+
+    if (gW) gW.appendChild(pairWrap);
+  }
+
+  // Fase vermelha individual.
+  for (let i = 12; i < sessions.length; i++) {
+    if (gR) gR.appendChild(buildSessionCard(sessions[i], i));
+  }
+
+  // Aba Exames: fase branca em pares editáveis; fase vermelha individual.
+  if (eG) {
+    for (let i = 0; i < sessions.length; i++) {
+      const s = sessions[i];
+
+      if (s.phase === 1) {
+        if (i % 2 !== 0) continue;
+
+        const s2 = sessions[i + 1];
         const isDone = s.examDone && (s2 ? s2.examDone : true);
-        const toggleFn = s2
-          ? `toggleExamDonePair(${i}, ${i+1})`
-          : `toggleExamDone(${i})`;
-        const sess2Label = s2 ? ` e ${s2.num}` : '';
+        const toggleFn = s2 ? `toggleExamDonePair(${i}, ${i + 1})` : `toggleExamDone(${i})`;
+
+        const badgeS1 = `<span class="exam-session-badge ${s.done ? 'done' : 'pending'}">${s.done ? '✓ ' : ''}Sessão ${s.num}</span>`;
+        const badgeS2 = s2 ? `<span class="exam-session-badge ${s2.done ? 'done' : 'pending'}">${s2.done ? '✓ ' : ''}Sessão ${s2.num}</span>` : '';
+
         const exRow = document.createElement('div');
         exRow.className = `exam-row ${isDone ? 'done' : ''}`;
         exRow.innerHTML = `
           <div class="exam-info">
-            <div class="exam-date"><span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div>
-            <div class="exam-sub">Coleta para as Sessões ${s.num}${sess2Label}</div>
+            <div class="exam-date">
+              <span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
+                ${fmtFull(s.examDate)}
+              </span>
+              <input type="date" class="date-input" value="${s.examDate}" onchange="updateExamPair(${i}, this.value)">
+            </div>
+            <div class="exam-sub" style="margin-top:4px;">
+              Coleta única para as Sessões ${s.num}${s2 ? ' e ' + s2.num : ''}
+            </div>
+            <div class="exam-pair-badges">${badgeS1}${badgeS2}</div>
+            <div class="exam-editor-row">
+              <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">-1 dia</button>
+              <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">+1 dia</button>
+              <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
+            </div>
           </div>
-          <button class="pill-toggle ${isDone ? 'pill-done' : 'pill-pending'}" onclick="${toggleFn}">${isDone ? '✓ Feito' : 'Pendente'}</button>`;
+          <button class="pill-toggle ${isDone ? 'pill-done' : 'pill-pending'}" onclick="${toggleFn}" style="white-space:nowrap;min-width:104px;">
+            ${isDone ? '✓ Realizada' : 'Marcar feita'}
+          </button>`;
+        eG.appendChild(exRow);
+      } else {
+        const exRow = document.createElement('div');
+        exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
+        exRow.innerHTML = `
+          <div class="exam-info">
+            <div class="exam-date">
+              <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
+                ${fmtFull(s.examDate)}
+              </span>
+              <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
+            </div>
+            <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+            <div class="exam-editor-row">
+              <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">-1 dia</button>
+              <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">+1 dia</button>
+              <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
+            </div>
+          </div>
+          <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
+            ${s.examDone ? '✓ Feito' : 'Pendente'}
+          </button>`;
         eG.appendChild(exRow);
       }
-      // sessões pares da fase branca: não renderizam linha própria
-    } else {
-      // Fase vermelha: individual como antes
-      const exRow = document.createElement('div');
-      exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
-      exRow.innerHTML = `
-        <div class="exam-info">
-          <div class="exam-date"><span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span><input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)"></div>
-          <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
-        </div>
-        <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">${s.examDone ? '✓ Feito' : 'Pendente'}</button>`;
-      eG.appendChild(exRow);
     }
-  });
+  }
 
   document.getElementById('met-done').textContent = doneCount;
   document.getElementById('met-end').textContent = fmtShort(endDate);
+
   let nextDaysText = "—";
   if (nextSessionDate) {
     const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
     nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
   }
+
   document.getElementById('met-next').textContent = nextDaysText;
+
   const pct = Math.round((doneCount / 16) * 100);
   document.getElementById('prog-val').textContent = pct + '%';
   document.getElementById('prog-fill').style.width = pct + '%';
@@ -2185,6 +2515,36 @@ function renderSmartAlerts() {
     if (diff === 0) alerts.push({cls:'ac-blue', icon:'ph-fill ph-calendar-check', title:`HOJE: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
     else if (diff === 1) alerts.push({cls:'ac-amber', icon:'ph-fill ph-calendar-plus', title:`AMANHÃ: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
   }
+  // Alertas de preparo da quimio branca (dexametasona e fexofenadina)
+  // Só aplica para sessões da fase branca
+  const whiteSessions = sessions.filter(s => s.phase === 1);
+  whiteSessions.forEach(s => {
+    const sessionDate = s.date;
+    const dayBefore = addDaysYMD(sessionDate, -1);
+    const day1After = addDaysYMD(sessionDate, 1);
+    const day2After = addDaysYMD(sessionDate, 2);
+    const day3After = addDaysYMD(sessionDate, 3);
+    const day4After = addDaysYMD(sessionDate, 4);
+
+    // Dexametasona: 1 dia antes e 2 dias após
+    if (todayYMD === dayBefore) {
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Preparo Sessão ${s.num}`, text: `Tomar às 08h e às 16h. Amanhã é a Sessão ${s.num} (${fmtFull(sessionDate)}).` });
+    } else if (todayYMD === day1After) {
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+1)`, text: `Tomar às 08h e às 16h. Ainda há amanhã (D+2).` });
+    } else if (todayYMD === day2After) {
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+2)`, text: `Último dia — tomar às 08h e às 16h.` });
+    }
+
+    // Fexofenadina: 1 dia antes e 4 dias após, à noite
+    if (todayYMD === dayBefore) {
+      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: `Fexofenadina — Preparo Sessão ${s.num}`, text: `Tomar 1 comprimido esta noite. Amanhã é a Sessão ${s.num}.` });
+    } else if ([day1After, day2After, day3After, day4After].includes(todayYMD)) {
+      const dPlus = [day1After, day2After, day3After, day4After].indexOf(todayYMD) + 1;
+      const isLast = dPlus === 4;
+      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: `Fexofenadina — Pós Sessão ${s.num} (D+${dPlus})`, text: `Tomar 1 comprimido esta noite.${isLast ? ' Último dia!' : ` Ainda faltam ${4 - dPlus} dia(s).`}` });
+    }
+  });
+
   if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
   container.innerHTML = alerts.map(a => `<div class="alert-card ${a.cls}"><div class="alert-card-icon"><i class="${a.icon}"></i></div><div class="alert-card-body"><div class="alert-card-title">${a.title}</div><div class="alert-card-text">${a.text}</div></div></div>`).join('');
 }
