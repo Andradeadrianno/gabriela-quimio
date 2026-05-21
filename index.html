@@ -101,7 +101,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius: 20px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
 /* ===== TABS ===== */
-.tab-nav { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 2rem; }
+.tab-nav { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 2rem; }
 .tab-btn { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 4px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink2); cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: var(--shadow-sm); }
 .tab-btn i { font-size: 22px; transition: transform 0.2s; }
 .tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); box-shadow: 0 8px 20px rgba(44,54,49,0.25); }
@@ -552,6 +552,54 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-cancel-appt { background: transparent; color: var(--ink3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-family: 'Inter'; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .btn-cancel-appt:hover { background: var(--surface-hover); color: var(--ink2); }
 
+
+
+/* ===== NUTRIÇÃO ===== */
+.nutri-hero { background: linear-gradient(135deg, #FFF8EF 0%, #F1F8F4 100%); border: 1px solid #F2D9B8; border-left: 4px solid var(--gold); border-radius: var(--radius); padding: 18px; margin-bottom: 1.2rem; }
+.nutri-hero-title { font-size: 17px; font-weight: 800; color: #7A4A00; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.nutri-hero-text { font-size: 13px; color: var(--ink2); line-height: 1.55; }
+.nutri-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.nutri-chip-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 16px; }
+.nutri-chip { border: 1px solid var(--border); background: var(--surface); color: var(--ink2); border-radius: 20px; padding: 6px 11px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; transition: all .2s; }
+.nutri-chip:hover, .nutri-chip.active { background: var(--ink); color: white; border-color: var(--ink); }
+.nutri-section { scroll-margin-top: 16px; }
+.nutri-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.nutri-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow-sm); }
+.nutri-card.gold { border-left: 4px solid var(--gold); }
+.nutri-card.sage { border-left: 4px solid var(--sage); }
+.nutri-card.red { border-left: 4px solid var(--red-intense); }
+.nutri-card.amber { border-left: 4px solid var(--amber); }
+.nutri-card-title { font-size: 14px; font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.nutri-list { padding-left: 18px; color: var(--ink2); font-size: 13px; line-height: 1.55; }
+.nutri-list li { margin-bottom: 5px; }
+.nutri-subtitle { font-size: 12px; font-weight: 800; color: var(--ink3); text-transform: uppercase; letter-spacing: .04em; margin: 12px 0 6px; }
+.meal-plan { display: grid; gap: 10px; }
+.meal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; display: grid; gap: 8px; }
+.meal-card.done { background: #FAFAFA; border-color: #BEE3C4; }
+.meal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.meal-time { font-size: 11px; color: var(--ink3); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.meal-time-input { font-family:'Inter'; font-size:12px; font-weight:800; color:var(--sage-dark); border:1px solid var(--border); border-radius:8px; padding:5px 8px; outline:none; background:var(--surface); }
+.meal-time-input:focus { border-color: var(--sage-dark); }
+.meal-title { font-size: 14px; font-weight: 800; color: var(--sage-dark); }
+.meal-body { font-size: 13px; color: var(--ink2); line-height: 1.5; }
+.meal-consumed-box { background: #F8FAFC; border: 1px dashed var(--border-focus); border-radius: var(--radius-sm); padding: 10px; display: grid; gap: 8px; }
+.meal-consumed-label { font-size: 11px; font-weight: 800; color: var(--ink3); text-transform: uppercase; letter-spacing: .04em; display:flex; align-items:center; gap:5px; }
+.meal-consumed-input { width: 100%; min-height: 58px; resize: vertical; font-family:'Inter'; font-size:13px; color:var(--ink); border:1px solid var(--border); border-radius: var(--radius-sm); padding:9px 10px; outline:none; background:var(--surface); }
+.meal-consumed-input:focus { border-color: var(--sage-dark); }
+.meal-log-actions { display:flex; gap:6px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+.meal-status-pill { display:inline-flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:800; border:1px solid var(--border); background:#F3F4F6; color:var(--ink3); }
+.meal-status-pill.done { background:#EAF5EA; border-color:#BEE3C4; color:#2A6A2A; }
+.nutri-day-toolbar { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-sm); padding:12px; margin: 12px 0 16px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+.nutri-date-control { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.nutri-date-control input { font-family:'Inter'; font-size:14px; font-weight:700; color:var(--ink); border:1px solid var(--border); border-radius:var(--radius-sm); padding:8px 10px; outline:none; background:var(--surface); }
+.nutri-log-summary { font-size:12px; font-weight:700; color:var(--ink2); }
+.recipe-card { background: #FFFDF8; border: 1px solid #F2D9B8; border-radius: var(--radius-sm); padding: 14px; margin-bottom: 10px; }
+.recipe-title { font-size: 14px; font-weight: 800; color: #7A4A00; margin-bottom: 6px; display:flex; align-items:center; gap:6px; }
+.recipe-body { font-size: 13px; color: var(--ink2); line-height: 1.55; }
+.nutri-alert-preview { background: #E6F1FB; border: 1px solid #B5D4F4; color: #042C53; border-radius: var(--radius-sm); padding: 12px; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
+.nutri-source { font-size: 11px; color: var(--ink3); margin-top: 8px; font-style: italic; }
+@media (max-width: 600px) { .tab-nav { grid-template-columns: repeat(4, 1fr); } .nutri-grid { grid-template-columns: 1fr; } }
+
 /* ===== FOOTER ===== */
 footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: var(--ink3); max-width: 700px; margin: 0 auto; }
 
@@ -654,6 +702,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <button class="tab-btn" onclick="switchTab('exames',this)"><i class="ph-fill ph-drop"></i><span>Exames</span></button>
       <button class="tab-btn" onclick="switchTab('consultas',this)"><i class="ph-fill ph-calendar-plus"></i><span>Consultas</span></button>
       <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Emergência</span></button>
+      <button class="tab-btn" onclick="switchTab('nutricao',this)"><i class="ph-fill ph-bowl-food"></i><span>Nutrição</span></button>
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
 
@@ -900,6 +949,111 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <div class="card hosp-emergency"><span class="hosp-option">3ª Opção</span><div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div><div class="card-body">Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br><a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
     </div>
 
+
+
+    <!-- TAB NUTRIÇÃO -->
+    <div id="tab-nutricao" class="tab-pane">
+      <div class="sec-title">
+        <div class="sec-title-left"><i class="ph-fill ph-bowl-food"></i> Nutrição</div>
+        <button class="btn-edit" onclick="downloadNutritionICS()"><i class="ph-bold ph-calendar-plus"></i> Lembretes de refeições</button>
+      </div>
+
+      <div class="nutri-hero">
+        <div class="nutri-hero-title"><i class="ph-fill ph-fork-knife"></i> Plano alimentar de apoio</div>
+        <div class="nutri-hero-text">
+          Conteúdo transcrito e organizado de forma fiel a partir das orientações do Hospital da Mulher sobre alimentação no diabetes, tratamento oncológico, orientações gerais e suplementação caseira diet. Use como apoio diário, sem substituir a conduta da nutricionista ou da equipe médica.
+        </div>
+        <div class="nutri-actions">
+          <button class="btn-calendar dark" onclick="downloadNutritionICS()"><i class="ph-bold ph-download-simple"></i> Exportar lembretes 30 dias (.ics)</button>
+          <button class="btn-calendar" onclick="openGoogleNutritionToday()"><i class="ph-bold ph-calendar-plus"></i> Sugestão de hoje no Google Agenda</button>
+          <button class="btn-calendar" onclick="copyNutritionSummary()"><i class="ph-bold ph-copy"></i> Copiar resumo</button>
+        </div>
+      </div>
+
+      <div class="nutri-alert-preview" id="nutri-today-box"></div>
+
+      <div class="nutri-day-toolbar">
+        <div class="nutri-date-control">
+          <button class="date-nav-btn" onclick="shiftNutritionDate(-1)" title="Dia anterior"><i class="ph-bold ph-caret-left"></i></button>
+          <input type="date" id="nutrition-date-input" onchange="setNutritionDate(this.value)">
+          <button class="date-nav-btn" onclick="shiftNutritionDate(1)" title="Próximo dia"><i class="ph-bold ph-caret-right"></i></button>
+        </div>
+        <div class="nutri-log-summary" id="nutrition-log-summary">—</div>
+        <button class="btn-calendar secondary" onclick="resetNutritionTimes()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Restaurar horários</button>
+      </div>
+
+      <div class="nutri-chip-row">
+        <button class="nutri-chip" onclick="scrollToNutri('nutri-rotina')"><i class="ph-bold ph-clock"></i> Rotina</button>
+        <button class="nutri-chip" onclick="scrollToNutri('nutri-cardapio')"><i class="ph-bold ph-list-checks"></i> Cardápios</button>
+        <button class="nutri-chip" onclick="scrollToNutri('nutri-sintomas')"><i class="ph-bold ph-first-aid"></i> Sintomas</button>
+        <button class="nutri-chip" onclick="scrollToNutri('nutri-diabetes')"><i class="ph-bold ph-drop"></i> Controle glicêmico</button>
+        <button class="nutri-chip" onclick="scrollToNutri('nutri-suplementos')"><i class="ph-bold ph-cooking-pot"></i> Suplementos</button>
+        <button class="nutri-chip" onclick="scrollToNutri('nutri-substitutos')"><i class="ph-bold ph-arrows-left-right"></i> Substitutos</button>
+      </div>
+
+      <div id="nutri-rotina" class="nutri-section">
+        <h2 class="sec-title"><i class="ph-fill ph-clock-countdown"></i> Rotina alimentar diária</h2>
+        <div class="nutri-grid">
+          <div class="nutri-card sage"><div class="nutri-card-title"><i class="ph-fill ph-check-circle"></i> O que priorizar</div><ul class="nutri-list">
+            <li>Não fazer jejum; procurar se alimentar a cada 3 horas.</li><li>Manter refeições pequenas entre as principais: frutas, iogurte desnatado, sucos naturais, salada de frutas, mix de oleaginosas e vitaminas.</li><li>Preferir alimentos em forma natural e preparações cozidas, com digestão fácil.</li><li>Usar temperos naturais, pouco óleo vegetal e pouco sal.</li><li>Hidratar-se bem: água é o líquido principal. No app, a meta geral permanece 3 litros/dia, salvo restrição médica.</li><li>Higienizar bem frutas, verduras e legumes; durante a quimioterapia, evitar carnes cruas.</li>
+          </ul></div>
+          <div class="nutri-card red"><div class="nutri-card-title"><i class="ph-fill ph-x-circle"></i> Evitar ou reduzir</div><ul class="nutri-list">
+            <li>Bebida alcoólica durante o tratamento.</li><li>Frituras, massas recheadas e preparações muito gordurosas.</li><li>Fast food, embutidos, carnes processadas, salgadinhos, refrigerantes e empanados industrializados.</li><li>Açúcar de adição e doces, especialmente por causa do diabetes: açúcar branco, mascavo, demerara, mel, melado, bolos, sorvetes e bebidas adoçadas.</li><li>Trocar sucos por frutas inteiras com casca, talos e bagaços sempre que possível.</li>
+          </ul></div>
+        </div>
+      </div>
+
+      <div id="nutri-cardapio" class="nutri-section">
+        <h2 class="sec-title"><i class="ph-fill ph-calendar-check"></i> Sugestão de cardápio saudável</h2>
+        <div class="meal-plan" id="nutrition-meal-plan"></div>
+      </div>
+
+      <div id="nutri-sintomas" class="nutri-section">
+        <h2 class="sec-title"><i class="ph-fill ph-heartbeat"></i> Dicas conforme sintomas</h2>
+        <div class="nutri-grid">
+          <div class="nutri-card amber"><div class="nutri-card-title">Dificuldade para sólidos ou falta de apetite</div><ul class="nutri-list"><li>Preferir sopas, purês, papas, mingaus, sucos de frutas, leite com frutas, caldo de feijão, arroz pastoso, macarrão bem cozido, carnes desfiadas e ovo bem cozido amassado.</li><li>Comer pequenas quantidades mais vezes ao dia.</li><li>Preparar pratos coloridos e atraentes, em ambiente tranquilo.</li><li>Se houver dificuldade persistente, a equipe pode avaliar necessidade de suplemento alimentar.</li></ul></div>
+          <div class="nutri-card sage"><div class="nutri-card-title">Boca seca ou alteração de paladar</div><ul class="nutri-list"><li>Beber água; referência do material: 5 a 8 copos de 200 ml ao dia, além da hidratação orientada pela equipe.</li><li>Usar molhos, caldos e sopas nas refeições.</li><li>Chupar gelinho de água ou de suco de fruta.</li><li>Fazer bochechos com chá ou água de hortelã antes das refeições.</li><li>Higienizar dentes e língua; usar talher de plástico se o metal incomodar.</li></ul></div>
+          <div class="nutri-card red"><div class="nutri-card-title">Enjoo e vômitos</div><ul class="nutri-list"><li>Fazer pequenas refeições ao longo do dia.</li><li>Evitar líquidos junto das refeições, frituras, gorduras, bebidas alcoólicas, cafeína, refrigerante de cola e temperos fortes.</li><li>Evitar cheiros de comida no preparo e não se deitar logo após comer.</li><li>Não comer no momento da náusea.</li><li>Se tolerado, chá de gengibre puro: ferver um pedaço médio de raiz em 300 ml de água, deixar amornar e tomar em goles ao longo do dia.</li></ul></div>
+          <div class="nutri-card red"><div class="nutri-card-title">Feridas na boca</div><ul class="nutri-list"><li>Evitar alimentos muito ácidos, secos, duros, picantes e vinagre.</li><li>Diminuir o sal.</li><li>Preferir alimentos macios, pastosos e bem cozidos, como pudim, gelatina, sorvete, sopa e mingau.</li><li>Usar alimentos em temperatura ambiente.</li><li>Chá de camomila em temperatura ambiente, 2 vezes ao dia.</li></ul></div>
+          <div class="nutri-card amber"><div class="nutri-card-title">Diarreia</div><ul class="nutri-list"><li>Evitar alimentos laxativos: verduras cruas, frutas com muitas fibras, leite e derivados se necessário, arroz/pão integral e granola.</li><li>Preferir maçã sem casca, goiaba sem casca e sem semente, limão, melancia, melão.</li><li>Preferir arroz bem cozido, caldo de feijão, macarrão com legumes cozidos, carne bem cozida, sopas de legumes e mingaus.</li><li>Hidratar-se bastante com água, água de coco e chás suaves.</li></ul></div>
+          <div class="nutri-card sage"><div class="nutri-card-title">Intestino preso</div><ul class="nutri-list"><li>Aumentar verduras e frutas com bagaço.</li><li>Usar cereais integrais: arroz, pão, aveia e granola, conforme tolerância e orientação do diabetes.</li><li>Hidratar-se bastante, principalmente com água.</li><li>Vitamina laxativa sugerida: 200 ml de leite/iogurte/bebida de soja/água + mamão ou laranja com bagaço + ameixas pretas + aveia ou farinha de linhaça.</li></ul></div>
+        </div>
+      </div>
+
+      <div id="nutri-diabetes" class="nutri-section">
+        <h2 class="sec-title"><i class="ph-fill ph-drop-half"></i> Alimentação para controle glicêmico</h2>
+        <div class="nutri-grid">
+          <div class="nutri-card sage"><div class="nutri-card-title">Composição do prato</div><ul class="nutri-list"><li>Cereais, tubérculos e leguminosas em quantidade saudável: arroz, milho, trigo, pães, aveia, batata-doce, cará, inhame, feijões, lentilha, grão-de-bico e soja.</li><li>Legumes e verduras nas refeições.</li><li>3 porções de frutas ao dia, preferindo alimentos da época.</li><li>2 a 3 porções de leite, queijo ou iogurte naturais, preferencialmente desnatados ou light.</li><li>1 a 2 porções de carnes, aves, peixes ou ovos por dia; referência: palma da mão sem os dedos, cerca de 100 g.</li></ul></div>
+          <div class="nutri-card amber"><div class="nutri-card-title">Cuidados importantes</div><ul class="nutri-list"><li>Retirar gordura aparente das carnes e pele das aves antes do preparo.</li><li>Preferir preparações cozidas, assadas ou grelhadas.</li><li>Mascar bem os alimentos e comer sem pressa.</li><li>Estipular horários para refeições.</li><li>Atividade física por pelo menos 30 minutos todos os dias quando autorizada pelo médico.</li><li>Manter peso corporal dentro da normalidade conforme orientação profissional.</li></ul></div>
+        </div>
+      </div>
+
+      <div id="nutri-suplementos" class="nutri-section">
+        <h2 class="sec-title"><i class="ph-fill ph-cooking-pot"></i> Suplementação caseira diet</h2>
+        <div class="info-box"><i class="ph-fill ph-warning-circle" style="color:var(--amber)"></i><div>A suplementação caseira é uma alternativa simples e econômica para complementar necessidades nutricionais, mas <strong>não substitui refeições principais</strong>. Pode ser usada entre lanches ou quando a alimentação normal estiver difícil. Atenção redobrada à higiene e preparo dos alimentos durante o tratamento.</div></div>
+        <div class="recipe-card"><div class="recipe-title"><i class="ph-fill ph-jar"></i> Leite condensado diet — base das receitas</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• ½ xícara de chá de água fervente;<br>• 1 xícara de chá de leite em pó desnatado;<br>• 2 colheres de chá de margarina sem sal;<br>• ½ xícara de chá de adoçante culinário.<br><br><strong>Modo de preparo:</strong> junte todos os ingredientes e bata no liquidificador durante 5 minutos, ou até obter uma mistura homogênea. Despeje em um recipiente e espere esfriar. Deixe na geladeira por no mínimo 6 horas antes de utilizar. <strong>OBS:</strong> utilizar nas receitas abaixo.</div></div>
+        <div class="recipe-card"><div class="recipe-title">Mingau de groselha diet</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• 1 copo americano de leite integral;<br>• 1 colher de sobremesa de margarina sem sal;<br>• 1 gema de ovo;<br>• 2 colheres de sopa de leite em pó;<br>• 2 colheres de sopa de leite condensado diet;<br>• 2 colheres de sopa de amido de milho;<br>• 2 colheres de sopa de groselha diet.<br><br><strong>Modo de preparo:</strong> liquidificar a gema do ovo crua com os outros ingredientes e levar ao fogo cozinhando por 5 minutos. Após acrescentar a groselha e misturar no mingau. Para variar o sabor, pode acrescentar cacau em pó ou fruta amassada no lugar da groselha diet. <strong>OBS:</strong> a clara de ovo pode ser congelada para ser utilizada posteriormente.</div></div>
+        <div class="recipe-card"><div class="recipe-title">Mingau mix de fruta</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• 1 copo americano de leite integral;<br>• 1 colher de sobremesa de margarina sem sal;<br>• 1 gema de ovo;<br>• 2 colheres de sopa de leite em pó;<br>• 2 colheres de sopa de leite condensado diet;<br>• 2 colheres de sopa de amido de milho;<br>• 1 fatia média de mamão formosa;<br>• 1 unidade de banana-maçã.<br><br><strong>Modo de preparo:</strong> liquidificar a gema do ovo crua com os outros ingredientes e levar ao fogo cozinhando por 5 minutos, mexendo sempre. Se preferir fazer em forma de bebida, preparar o mingau sem adicionar a fruta e a seguir bater no liquidificador. <strong>OBS:</strong> a clara de ovo pode ser congelada para ser utilizada posteriormente.</div></div>
+        <div class="recipe-card"><div class="recipe-title">Mingau de chocolate</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• 1 copo americano de leite integral;<br>• 1 colher de sobremesa de margarina sem sal;<br>• 1 gema de ovo;<br>• 2 colheres de sopa de leite em pó;<br>• 2 colheres de sopa de leite condensado diet;<br>• 2 colheres de sopa de amido de milho;<br>• 1 colher de sopa de cacau em pó.<br><br><strong>Modo de preparo:</strong> liquidificar a gema do ovo crua com os outros ingredientes e levar ao fogo cozinhando por 5 minutos, mexendo sempre. Se preferir fazer em forma de bebida, preparar o mingau e a seguir bater no liquidificador. <strong>OBS:</strong> a clara de ovo pode ser congelada para ser utilizada posteriormente.</div></div>
+        <div class="recipe-card"><div class="recipe-title">Milk-shake</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• 1 xícara de chá de leite integral;<br>• 1 colher de chá de margarina sem sal;<br>• 1 clara de ovo;<br>• 1 ½ colher de sopa de leite em pó;<br>• 2 colheres de sopa de leite condensado diet;<br>• 1 colher de sopa de amido de milho;<br>• 1 bola de sorvete de massa.<br><br><strong>Modo de preparo:</strong> misturar a margarina, amido de milho, clara de ovo e 50 ml de leite em uma panela pequena ou levar ao micro-ondas em um copo de vidro. Cozinhe até formar um mingau, reserve. Em seguida, liquidificar 150 ml de leite com o mingau preparado, leite condensado diet, leite em pó e o sorvete por 3 minutos, peneire. Servir gelado.</div></div>
+        <div class="recipe-card"><div class="recipe-title">Milk-shake de abacate</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• 1 xícara de chá de leite integral;<br>• 1 colher de chá de margarina sem sal;<br>• 1 clara de ovo;<br>• 1 ½ colher de sopa de leite em pó;<br>• 2 colheres de sopa de leite condensado diet;<br>• 1 colher de sopa de amido de milho;<br>• 1 fatia média de abacate.<br><br><strong>Modo de preparo:</strong> misturar a margarina, amido de milho, clara de ovo e 50 ml de leite em uma panela pequena ou levar ao micro-ondas em um copo de vidro. Cozinhe até formar um mingau, reserve. Em seguida, liquidificar 150 ml de leite com o mingau preparado, leite condensado diet, leite em pó e o abacate por 3 minutos, peneire. Servir gelado.</div></div>
+        <div class="recipe-card"><div class="recipe-title">Milk-shake de capuccino</div><div class="recipe-body"><strong>Ingredientes:</strong><br>• 1 xícara de chá de leite integral;<br>• 1 colher de chá de margarina sem sal;<br>• 1 clara de ovo;<br>• 1 ½ colher de sopa de leite em pó;<br>• 1 colher de sopa de leite condensado diet;<br>• 1 colher de sopa de amido de milho;<br>• 1 colher de sopa de café.<br><br><strong>Modo de preparo:</strong> misturar a margarina, amido de milho, clara de ovo e 50 ml de leite em uma panela pequena ou levar ao micro-ondas em um copo de vidro. Cozinhe até formar um mingau, reserve. Em seguida, liquidificar 150 ml de leite com o mingau preparado, leite condensado diet, leite em pó e o café por 3 minutos, peneire. Servir gelado.</div></div>
+      </div>
+
+      <div id="nutri-substitutos" class="nutri-section">
+        <h2 class="sec-title"><i class="ph-fill ph-arrows-left-right"></i> Grupos de substitutos e porções</h2>
+        <div class="nutri-grid">
+          <div class="nutri-card"><div class="nutri-card-title">Saladas, legumes e frutas</div><ul class="nutri-list"><li>Saladas: 1 prato de sobremesa. Alface, escarola, repolho, agrião, almeirão, rúcula, couve; tomate/pepino à vontade; rabanete 4 unidades médias.</li><li>Legumes: 4 colheres de sopa. Cenoura, chuchu, abóbora, abobrinha, beterraba, berinjela, couve-flor, brócolis, vagem, maxixe, jiló, quiabo.</li><li>Frutas: laranja, maçã ou banana 1 unidade; mamão papaia ½ unidade; mamão formosa/melão/melancia 1 fatia média; uva 10 bagos ou 15 pequenos; abacate ¼ unidade; pêssego/ameixa 2 unidades; morango 6; nozes/castanha-do-Pará 2; castanha de caju 4.</li></ul></div>
+          <div class="nutri-card"><div class="nutri-card-title">Carboidratos e feijões</div><ul class="nutri-list"><li>Arroz branco/integral: 3 colheres de sopa.</li><li>Batata/batata-doce: 1 unidade pequena.</li><li>Mandioca: 1 pedaço médio.</li><li>Macarrão/nhoque: 1½ colher de servir.</li><li>Farinha/farofa: 3 colheres de sopa.</li><li>Feijão, lentilha, ervilha, soja: 2 colheres de sopa. Grão-de-bico: 2 colheres de sopa.</li></ul></div>
+          <div class="nutri-card"><div class="nutri-card-title">Pães, leite e gorduras</div><ul class="nutri-list"><li>Pão francês sem miolo: 1 unidade; pão de forma/integral/light: 2 fatias; bolacha sem recheio: 5 unidades; torradas: 4 unidades; aveia/farinha de tapioca: 2 colheres rasas; cereais matinais: 3 colheres de sopa.</li><li>Margarina/manteiga/requeijão light/maionese: 1 colher de chá rasa.</li><li>Leite semi ou desnatado: 1 copo americano 200 ml; iogurte desnatado: 1 pote; queijo branco/ricota: 1 fatia média; muçarela/queijo prato: 1 fatia padrão.</li></ul></div>
+          <div class="nutri-card"><div class="nutri-card-title">Carnes e ovos</div><ul class="nutri-list"><li>Bife bovino, filé de frango, coxa/sobrecoxa ou filé/posta de peixe: 1 unidade média de 100 g.</li><li>Carne moída: 2 colheres de sopa.</li><li>Hambúrguer pequeno: 100 g.</li><li>Almôndega: 3 unidades pequenas.</li><li>Ovo cozido, pochê ou omelete: 1 unidade.</li></ul></div>
+        </div>
+      </div>
+
+      <div class="nutri-card gold"><div class="nutri-card-title"><i class="ph-fill ph-moon-stars"></i> Sono, ansiedade, ferro e doces</div><ul class="nutri-list"><li>Para ansiedade, as orientações citam alimentos como chocolate amargo 70% ou mais, sementes, oleaginosas, ovo, banana, uva, chá-verde, maracujá, iogurte natural/desnatado, frutas cítricas e peixes ricos em ômega 3.</li><li>Para sono: evitar cafeína e energéticos próximo ao horário de dormir; criar rotina; ambiente escuro, silencioso e livre de barulho; evitar cama para computador, celular e TV.</li><li>Para ferro: aumentar carnes, vísceras, mariscos, vegetais verde-escuros, leguminosas, grãos integrais, oleaginosas, sementes e frutas secas. Associar vitamina C nas refeições.</li><li>Evitar chá preto, chá-mate, café, leite e derivados, preparações com leite, guaraná, refrigerante, aveia, linhaça e chocolate logo após almoço ou jantar; melhor consumir 1h a 2h depois.</li><li>Para vontade de doce: preferir frutas in natura, frutas secas/desidratadas, pequenas porções de chocolate amargo ou banana com canela/cacau sem açúcar.</li></ul></div>
+      <div class="nutri-source">Fontes anexadas: Alimentação saudável no Diabetes; Alimentação saudável no tratamento oncológico; Orientações Gerais; Suplementação Caseira Diet.</div>
+    </div>
+
     <!-- TAB ORIENTAÇÕES -->
     <div id="tab-orientacoes" class="tab-pane">
       <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia (ANTES DA SESSÃO)</h2>
@@ -958,6 +1112,9 @@ let diary = [];
 let generalDiary = [];
 let examResults = [];
 let appointments = [];
+let nutritionLogs = {};
+let nutritionSettings = {};
+let currentNutritionDate = null;
 let examChartInstance = null;
 let miniChartInstance = null;
 let currentChartGroup = 'imunidade';
@@ -1115,6 +1272,153 @@ window.openGoogleCalendarMedDose = function(medId) {
   const input = document.getElementById('med-time-' + medId);
   const time = input && input.value ? input.value : '09:00';
   openGoogleEvent(calendarEvent(`${med ? med.name : 'Medicação'} - dose`, currentMedDate, time, 10, med ? med.desc : 'Dose registrada no Guia de Cuidados.', ''));
+};
+
+
+
+// =============================================
+// NUTRIÇÃO — SUGESTÕES, REGISTROS E LEMBRETES
+// =============================================
+const NUTRITION_MEALS = [
+  { id:'cafe', time:'08:00', label:'Café da manhã', title:'Sugestão do dia — café da manhã', text:'Opção para controle glicêmico: 1 copo (200 ml) de leite desnatado ou iogurte desnatado + café para misturar no leite + 2 fatias de pão integral OU 2 colheres de sopa de aveia/granola sem açúcar e mel/com flakes/tapioca OU 1 pão francês sem miolo OU 4 bolachas cream cracker. Recheio: margarina cremosa light, manteiga, requeijão light ou geleia diet: 1 colher de café rasa; OU queijo branco/ricota: 1 fatia média. Opção durante o tratamento oncológico: 1 copo (200 ml) de leite semi/desnatado ou iogurte desnatado ou bebida com soja + 1 pão francês OU 6 bolachas OU 2 fatias de pão de forma OU 1 tapioca média. Opção: mingau de aveia, Maisena, arrozina ou milho.' },
+  { id:'lanche-manha', time:'10:30', label:'Lanche da manhã', title:'Fruta ou opção leve', text:'Opção para controle glicêmico: 1 porção de fruta — 1 laranja OU 1 pedaço de mamão OU 1 maçã com casca OU 1 banana média — OU 2 castanhas-do-Pará. Opção durante o tratamento oncológico: 1 fruta fresca ou cozida, em forma de purê, OU 1 copo (200 ml) de suco misto: laranja com couve ou agrião; água de coco com couve ou hortelã; beterraba com limão; cenoura com laranja; ou melancia com água de coco.' },
+  { id:'almoco', time:'12:30', label:'Almoço', title:'Almoço/Jantar conforme prescrição', text:'Salada de folhas + tomate/pepino/rabanete: 1 prato de sobremesa. Arroz/macarrão/farinha/purê/milho/batata pequena/mandioca/batata-doce: quantidade prescrita no cardápio; no material oncológico aparecem 6 colheres de sopa. Feijão/ervilha/lentilha/grão-de-bico/soja: quantidade prescrita; no material oncológico aparecem 4 colheres de sopa. Legumes ou verduras cozidas: 4 colheres de sopa. Proteína: 1 pedaço médio de carne sem gordura, frango ou peixe, ou 1 ovo, sem frituras. Sobremesa: 1 fruta ou suco de fruta, 1 copo americano.' },
+  { id:'lanche-tarde', time:'15:30', label:'Lanche da tarde', title:'Sugestão do dia — lanche da tarde', text:'Opção para controle glicêmico: 1 copo de leite (200 ml) + café OU 1 iogurte desnatado. Opção durante o tratamento oncológico: leite semi/desnatado 1 copo de 200 ml OU 1 iogurte desnatado OU bebida de soja OU suco de fruta + 1 pão francês OU 6 bolachas/torradas OU 2 fatias de pão de forma. Opção: mingau ou vitamina de leite/iogurte com fruta.' },
+  { id:'jantar', time:'18:30', label:'Jantar', title:'Jantar com ajuste do material de diabetes', text:'Seguir a estrutura do almoço/jantar: salada, legumes ou verduras cozidas, carboidrato, leguminosa e proteína. O material de diabetes orienta que, no jantar, se preferir, pode diminuir as quantidades de arroz para 3 colheres de sopa e feijão para 2 colheres de sopa. Usar pouco óleo e sal, preferindo temperos naturais e suaves.' },
+  { id:'ceia', time:'21:00', label:'Ceia opcional', title:'Ceia opcional', text:'Opção para controle glicêmico: 1 copo de leite/iogurte ou chá, como erva-doce, hortelã ou capim-cidreira. Opção durante o tratamento oncológico: 1 copo de leite (200 ml) OU 1 iogurte OU chá, como hortelã, camomila ou erva-doce, acompanhado de 2 a 3 bolachas ou torradas, se tolerado.' }
+];
+function getNutritionTimes() {
+  const defaults = Object.fromEntries(NUTRITION_MEALS.map(m => [m.id, m.time]));
+  return { ...defaults, ...(nutritionSettings.mealTimes || {}) };
+}
+function getMealTime(id) { return getNutritionTimes()[id] || (NUTRITION_MEALS.find(m => m.id === id)?.time || '09:00'); }
+function minutesFromTime(t) { const [h,m] = (t || '00:00').split(':').map(Number); return (h || 0) * 60 + (m || 0); }
+function getNutritionLog(date) {
+  if (!nutritionLogs[date]) nutritionLogs[date] = {};
+  return nutritionLogs[date];
+}
+function getCurrentNutritionMeal() {
+  const now = new Date();
+  const mins = now.getHours()*60 + now.getMinutes();
+  let chosen = NUTRITION_MEALS[0];
+  const sorted = [...NUTRITION_MEALS].sort((a,b)=> minutesFromTime(getMealTime(a.id)) - minutesFromTime(getMealTime(b.id)));
+  for (const meal of sorted) if (mins >= minutesFromTime(getMealTime(meal.id)) - 45) chosen = meal;
+  return chosen;
+}
+function renderNutritionTab() {
+  if (!currentNutritionDate) currentNutritionDate = todayYMD;
+  const dateInput = document.getElementById('nutrition-date-input');
+  if (dateInput) dateInput.value = currentNutritionDate;
+  const plan = document.getElementById('nutrition-meal-plan');
+  const log = getNutritionLog(currentNutritionDate);
+  if (plan) {
+    plan.innerHTML = NUTRITION_MEALS.map(m => {
+      const entry = log[m.id] || {};
+      const done = !!entry.done;
+      const consumed = entry.consumed || '';
+      const time = getMealTime(m.id);
+      return `<div class="meal-card ${done ? 'done' : ''}" id="meal-card-${m.id}">
+        <div class="meal-head">
+          <div>
+            <div class="meal-time"><i class="ph-fill ph-clock"></i> <input type="time" class="meal-time-input" value="${time}" onchange="updateNutritionMealTime('${m.id}', this.value)"> • ${m.label}</div>
+            <div class="meal-title">${m.title}</div>
+          </div>
+          <span class="meal-status-pill ${done ? 'done' : ''}"><i class="ph-fill ${done ? 'ph-check-circle' : 'ph-circle'}"></i>${done ? 'Registrado' : 'Pendente'}</span>
+        </div>
+        <div class="meal-body"><strong>Sugestão do dia:</strong> ${m.text}</div>
+        <div class="meal-consumed-box">
+          <label class="meal-consumed-label"><i class="ph-fill ph-note-pencil"></i> O que foi consumido</label>
+          <textarea class="meal-consumed-input" id="consumed-${m.id}" placeholder="Ex: 1 iogurte desnatado + 1 banana; aceitou metade; teve enjoo...">${escapeHtml(consumed)}</textarea>
+          <div class="meal-log-actions">
+            <div class="calendar-actions" style="margin:0">
+              <button class="btn-calendar" onclick="saveNutritionMeal('${m.id}', false)"><i class="ph-bold ph-floppy-disk"></i> Salvar</button>
+              <button class="btn-calendar dark" onclick="saveNutritionMeal('${m.id}', true)"><i class="ph-bold ph-check"></i> Marcar consumido</button>
+              <button class="btn-calendar secondary" onclick="clearNutritionMeal('${m.id}')"><i class="ph-bold ph-x"></i> Limpar</button>
+            </div>
+            <div class="calendar-actions" style="margin:0">
+              <button class="btn-calendar" onclick="openGoogleNutritionMeal('${m.id}')"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  const doneCount = Object.values(log).filter(x => x && x.done).length;
+  const summary = document.getElementById('nutrition-log-summary');
+  if (summary) summary.innerHTML = `${fmtFull(currentNutritionDate)} • ${doneCount}/${NUTRITION_MEALS.length} refeições registradas`;
+  const box = document.getElementById('nutri-today-box');
+  if (box) {
+    const m = getCurrentNutritionMeal();
+    const time = getMealTime(m.id);
+    const entry = getNutritionLog(todayYMD)[m.id] || {};
+    box.innerHTML = `<i class="ph-fill ph-bell-ringing" style="font-size:22px;flex-shrink:0"></i><div><strong>Sugestão agora: ${m.label} (${time})</strong><br>${m.text}<br><span style="font-size:12px;opacity:.8">Status de hoje: ${entry.done ? 'já registrado' : 'ainda não registrado'}. A sugestão permanece visível mesmo registrando o que foi realmente consumido.</span></div>`;
+  }
+}
+function scrollToNutri(id) { const el = document.getElementById(id); if (el) el.scrollIntoView({behavior:'smooth', block:'start'}); }
+window.setNutritionDate = function(date) { if (!date) return; currentNutritionDate = date; renderNutritionTab(); };
+window.shiftNutritionDate = function(delta) { currentNutritionDate = addDaysYMD(currentNutritionDate, delta); renderNutritionTab(); };
+window.updateNutritionMealTime = function(id, val) {
+  if (!val) return;
+  nutritionSettings.mealTimes = { ...(nutritionSettings.mealTimes || {}), [id]: val };
+  syncToCloud();
+  renderNutritionTab();
+  renderSmartAlerts();
+};
+window.resetNutritionTimes = function() {
+  if (!confirm('Restaurar os horários padrão das refeições? Os registros do que foi consumido serão mantidos.')) return;
+  nutritionSettings.mealTimes = {};
+  syncToCloud();
+  renderNutritionTab();
+  renderSmartAlerts();
+};
+window.saveNutritionMeal = function(id, markDone) {
+  const input = document.getElementById('consumed-' + id);
+  const log = getNutritionLog(currentNutritionDate);
+  log[id] = { ...(log[id] || {}), consumed: input ? input.value.trim() : '', done: markDone || !!(log[id] && log[id].done), savedAt: new Date().toISOString(), time: getMealTime(id) };
+  syncToCloud();
+  renderNutritionTab();
+  renderSmartAlerts();
+};
+window.clearNutritionMeal = function(id) {
+  const log = getNutritionLog(currentNutritionDate);
+  delete log[id];
+  syncToCloud();
+  renderNutritionTab();
+  renderSmartAlerts();
+};
+function buildNutritionMealEvent(meal, date) {
+  const log = getNutritionLog(date || todayYMD)[meal.id] || {};
+  const actual = log.consumed ? '\n\nRegistro do dia: ' + log.consumed : '';
+  return calendarEvent('Nutrição - ' + meal.label, date || todayYMD, getMealTime(meal.id), 20, meal.text + actual + '\n\nOrientação geral: alimentar-se a cada 3 horas, manter hidratação e seguir recomendações da equipe.', '');
+}
+function buildNutritionReminderEvents(days) {
+  const events = [];
+  const n = days || 30;
+  for (let d = 0; d < n; d++) {
+    const date = addDaysYMD(todayYMD, d);
+    NUTRITION_MEALS.forEach(m => events.push(buildNutritionMealEvent(m, date)));
+  }
+  return events;
+}
+window.downloadNutritionICS = function() { downloadICS(buildNutritionReminderEvents(30), 'lembretes-nutricao-gabi-30-dias.ics'); };
+window.openGoogleNutritionMeal = function(id) { const m = NUTRITION_MEALS.find(x => x.id === id) || getCurrentNutritionMeal(); openGoogleEvent(buildNutritionMealEvent(m, currentNutritionDate || todayYMD)); };
+window.openGoogleNutritionToday = function() { const m = getCurrentNutritionMeal(); openGoogleEvent(buildNutritionMealEvent(m, todayYMD)); };
+function addNutritionAlert(alerts) {
+  const meal = getCurrentNutritionMeal();
+  if (!meal) return;
+  const entry = getNutritionLog(todayYMD)[meal.id] || {};
+  const time = getMealTime(meal.id);
+  const cls = entry.done ? 'ac-green' : 'ac-blue';
+  alerts.push({ cls, icon:'ph-fill ph-bowl-food', title:`Nutrição — ${meal.label} (${time})`, text: entry.done ? 'Refeição registrada hoje. A sugestão do cardápio permanece salva na aba Nutrição.' : meal.text });
+}
+window.copyNutritionSummary = function() {
+  const log = getNutritionLog(currentNutritionDate);
+  const consumedLines = NUTRITION_MEALS.map(m => {
+    const entry = log[m.id] || {};
+    return `- ${m.label} (${getMealTime(m.id)}): ${entry.consumed || 'sem registro'}${entry.done ? ' [registrado]' : ''}`;
+  }).join('\n');
+  const text = `Nutrição - resumo\nData: ${fmtFull(currentNutritionDate)}\n\nRotina: não fazer jejum; alimentar-se a cada 3 horas; hidratar-se; preferir alimentos naturais, cozidos e de fácil digestão; evitar álcool, carnes cruas, frituras, ultraprocessados, açúcar e bebidas adoçadas.\n\nCardápio base: café da manhã com leite/iogurte e pão/tapioca/bolachas; lanche com fruta; almoço/jantar com salada, legumes, arroz ou equivalente, feijão/leguminosa e proteína magra; lanche da tarde com leite/iogurte/fruta; ceia opcional com leite/iogurte/chá sem cafeína.\n\nRegistros do dia:\n${consumedLines}\n\nAtenção: adaptar conforme sintomas como enjoo, diarreia, feridas na boca, boca seca ou intestino preso e procurar nutricionista em caso de perda de peso ou dificuldade alimentar.`;
+  navigator.clipboard?.writeText(text).then(()=>alert('Resumo de nutrição copiado!')).catch(()=>alert(text));
 };
 
 // =============================================
@@ -1290,6 +1594,8 @@ function loadDataFromCloud() {
     generalDiary = loadLocal('generalDiary', []);
     examResults = loadLocal('examResults', []);
     appointments = loadLocal('appointments', []);
+    nutritionLogs = loadLocal('nutritionLogs', {});
+    nutritionSettings = loadLocal('nutritionSettings', {});
     renderAll();
   }
   db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
@@ -1302,11 +1608,13 @@ function loadDataFromCloud() {
       generalDiary = data.generalDiary || [];
       examResults = data.examResults || [];
       appointments = data.appointments || [];
+      nutritionLogs = data.nutritionLogs || {};
+      nutritionSettings = data.nutritionSettings || {};
       examResults.sort((a, b) => a.date.localeCompare(b.date));
       appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
     } else {
       sessions = generateDefaultSessions();
-      dailyLogs = {}; diary = []; generalDiary = []; examResults = []; appointments = [];
+      dailyLogs = {}; diary = []; generalDiary = []; examResults = []; appointments = []; nutritionLogs = {}; nutritionSettings = {};
       syncToCloud();
     }
     renderAll();
@@ -1320,8 +1628,10 @@ function syncToCloud() {
   saveLocal('generalDiary', generalDiary);
   saveLocal('examResults', examResults);
   saveLocal('appointments', appointments);
+  saveLocal('nutritionLogs', nutritionLogs);
+  saveLocal('nutritionSettings', nutritionSettings);
   if (!currentUser || !navigator.onLine) return;
-  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments }, { merge: true });
+  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments, nutritionLogs, nutritionSettings }, { merge: true });
 }
 
 // =============================================
@@ -1341,6 +1651,7 @@ window.switchTab = function(n, b) {
   if (n === 'exames') setTimeout(renderExamChart, 100);
   if (n === 'consultas') renderAppointments();
   if (n === 'medicacoes') { setMedDate(currentMedDate); scheduleNextRefresh(); }
+  if (n === 'nutricao') renderNutritionTab();
 };
 
 function renderAll() {
@@ -1366,7 +1677,10 @@ function renderAll() {
   const medDateInput = document.getElementById('med-date-input');
   if (medDateInput) medDateInput.value = todayYMD;
   renderMedCards();
+  currentNutritionDate = todayYMD;
+  renderNutritionTab();
 }
+
 
 function initTempTimeInput() {
   const ti = document.getElementById('temp-time-input');
@@ -2764,6 +3078,7 @@ function renderSmartAlerts() {
     }
   });
 
+  addNutritionAlert(alerts);
   if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
   container.innerHTML = alerts.map(a => `<div class="alert-card ${a.cls}"><div class="alert-card-icon"><i class="${a.icon}"></i></div><div class="alert-card-body"><div class="alert-card-title">${a.title}</div><div class="alert-card-text">${a.text}</div></div></div>`).join('');
 }
@@ -2828,6 +3143,7 @@ function renderWeeklySummary() {
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 }, color: '#9CA3AF' }, grid: { display: false } }, y: { display: false, min: 0, max: 4000 }, y2: { display: false, min: 35, max: 40, position: 'right' } } }
   });
 }
+setTimeout(renderNutritionTab, 0);
 </script>
 
 </body>
