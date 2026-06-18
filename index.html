@@ -1215,7 +1215,7 @@ function downloadICS(events, filename) {
   a.click();
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 500);
 }
-function getPairStartIndex(index) { return index < 12 ? Math.floor(index / 2) * 2 : index; }
+function getPairStartIndex(index) { return index < 12 ? getWhitePairStartIndex(index) : index; }
 function buildSessionEvent(index) {
   const s = sessions[index];
   return calendarEvent(`Quimioterapia - Sessão ${s.num} (${s.type})`, s.date, '08:00', 240, `Sessão ${s.phaseNum} de ${s.type === 'BRANCA' ? '12 - Fase Branca (Paclitaxel 80 mg)' : '4 - Fase Vermelha (AC)'}.\nLevar documentos, exames e medicações conforme orientação.`, 'Hospital da Mulher - Av. Rio Branco, 1162 - Campos Elíseos, São Paulo - SP');
@@ -1223,9 +1223,12 @@ function buildSessionEvent(index) {
 function buildExamEvent(index) {
   const start = getPairStartIndex(index);
   const s = sessions[start];
-  const s2 = start < 11 ? sessions[start + 1] : null;
   if (s.phase === 1) {
-    return calendarEvent(`Coleta de sangue - Sessões ${s.num}${s2 ? ' e ' + s2.num : ''}`, s.examDate, '08:00', 30, `Coleta única para liberar as sessões ${s.num}${s2 ? ' e ' + s2.num : ''} da fase branca. Hemograma completo + creatinina.`, '');
+    const group = getWhiteExamGroupByIndex(start);
+    const nums = whiteGroupLabel(group);
+    const title = group.length > 1 ? `Coleta de sangue - Sessões ${nums}` : `Coleta de sangue - Sessão ${nums}`;
+    const desc = group.length > 1 ? `Coleta única para liberar as sessões ${nums} da fase branca. Hemograma completo + creatinina.` : `Coleta para liberar a Sessão ${nums} da fase branca. Hemograma completo + creatinina.`;
+    return calendarEvent(title, s.examDate, '08:00', 30, desc, '');
   }
   return calendarEvent(`Coleta de sangue - Sessão ${s.num}`, s.examDate, '08:00', 30, `Coleta para liberar a Sessão ${s.num} da fase vermelha. Hemograma completo + creatinina.`, '');
 }
@@ -1250,9 +1253,10 @@ function buildMandatoryMedEvents() {
 }
 function buildAllCalendarEvents() {
   const events = [];
+  const whiteExamStarts = new Set(getWhiteExamGroups().map(g => g[0]));
   sessions.forEach((s, i) => events.push(buildSessionEvent(i)));
   sessions.forEach((s, i) => {
-    if (s.phase === 1) { if (i % 2 === 0) events.push(buildExamEvent(i)); }
+    if (s.phase === 1) { if (whiteExamStarts.has(i)) events.push(buildExamEvent(i)); }
     else events.push(buildExamEvent(i));
   });
   appointments.forEach((a, i) => events.push(buildAppointmentEvent(i)));
@@ -1589,6 +1593,7 @@ function loadDataFromCloud() {
   const cachedSessions = loadLocal('sessions', []);
   if (cachedSessions.length > 0) {
     sessions = cachedSessions;
+    applyGabiJuneHolidayAdjustment();
     dailyLogs = loadLocal('dailyLogs', {});
     diary = loadLocal('diary', []);
     generalDiary = loadLocal('generalDiary', []);
@@ -1603,6 +1608,7 @@ function loadDataFromCloud() {
       const data = docSnap.data();
       sessions = (data.sessions && data.sessions.length > 0) ? data.sessions : generateDefaultSessions();
       sessions = sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
+      applyGabiJuneHolidayAdjustment();
       dailyLogs = data.dailyLogs || {};
       diary = data.diary || [];
       generalDiary = data.generalDiary || [];
@@ -1614,11 +1620,12 @@ function loadDataFromCloud() {
       appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
     } else {
       sessions = generateDefaultSessions();
+      applyGabiJuneHolidayAdjustment();
       dailyLogs = {}; diary = []; generalDiary = []; examResults = []; appointments = []; nutritionLogs = {}; nutritionSettings = {};
       syncToCloud();
     }
     renderAll();
-  }).catch(error => { console.error("Erro ao carregar do Firebase:", error); sessions = generateDefaultSessions(); renderAll(); });
+  }).catch(error => { console.error("Erro ao carregar do Firebase:", error); sessions = generateDefaultSessions(); applyGabiJuneHolidayAdjustment(); renderAll(); });
 }
 
 function syncToCloud() {
@@ -1704,20 +1711,73 @@ window.toggleEditMode = function(section) {
   }
 };
 
+function diffDaysYMD(a, b) {
+  return Math.round((fromYMD(b).getTime() - fromYMD(a).getTime()) / 86400000);
+}
+
+// Na fase branca, a coleta normalmente vale para 2 sessões.
+// Quando há um intervalo maior que 8 dias entre sessões consecutivas,
+// o app entende que houve uma quebra no par, como aconteceu no feriado de 04/06.
+function getWhiteExamGroups() {
+  const groups = [];
+  for (let i = 0; i < 12; i++) {
+    if (!sessions[i] || sessions[i].phase !== 1) continue;
+
+    const next = sessions[i + 1];
+    if (next && next.phase === 1 && diffDaysYMD(sessions[i].date, next.date) <= 8) {
+      groups.push([i, i + 1]);
+      i++;
+    } else {
+      groups.push([i]);
+    }
+  }
+  return groups;
+}
+
+function getWhiteExamGroupByIndex(index) {
+  if (!sessions[index] || sessions[index].phase !== 1) return [index];
+  return getWhiteExamGroups().find(g => g.includes(index)) || [index];
+}
+
 function getWhitePairStartIndex(index) {
   if (!sessions[index] || sessions[index].phase !== 1) return index;
-  return index % 2 === 0 ? index : index - 1;
+  return getWhiteExamGroupByIndex(index)[0];
+}
+
+function whiteGroupLabel(group) {
+  return group.map(idx => sessions[idx].num).join(' e ');
 }
 
 function setExamForSessionOrPair(index, val) {
   if (!val || !sessions[index]) return;
   if (sessions[index].phase === 1) {
-    const p = getWhitePairStartIndex(index);
-    sessions[p].examDate = val;
-    if (sessions[p + 1] && sessions[p + 1].phase === 1) sessions[p + 1].examDate = val;
+    const group = getWhiteExamGroupByIndex(index);
+    group.forEach(idx => { if (sessions[idx]) sessions[idx].examDate = val; });
   } else {
     sessions[index].examDate = val;
   }
+}
+
+function applyGabiJuneHolidayAdjustment() {
+  if (!Array.isArray(sessions) || sessions.length < 12) return;
+
+  const s7 = sessions.find(s => s.phase === 1 && s.num === 7);
+  const s8 = sessions.find(s => s.phase === 1 && s.num === 8);
+  const s9 = sessions.find(s => s.phase === 1 && s.num === 9);
+
+  // Sessão 8 não foi feita em 04/06 por causa do feriado; foi realizada em 11/06
+  // com coleta em 09/06. Esta marca evita reaplicar a migração a cada carregamento.
+  if (s8 && !s8.juneHolidayAdjusted) {
+    s8.date = '2026-06-11';
+    s8.examDate = '2026-06-09';
+    s8.juneHolidayAdjusted = true;
+  }
+
+  // Mantém a coleta de 26/05 ligada apenas à Sessão 7, quando essa data está no cronograma.
+  if (s7 && s7.date === '2026-05-28') s7.examDate = '2026-05-26';
+
+  // Com a quebra do par 7-8, a coleta de 09/06 passa a abrir o novo grupo.
+  if (s9 && s8 && s8.date === '2026-06-11') s9.examDate = '2026-06-09';
 }
 
 window.updateDate = function(index, val) {
@@ -1774,9 +1834,10 @@ window.resetExamToDefault = function(index) {
 };
 
 window.recalcularColetasBrancas = function() {
-  for (let i = 0; i < 12; i += 2) {
-    if (sessions[i]) setExamForSessionOrPair(i, addDaysYMD(sessions[i].date, -2));
-  }
+  getWhiteExamGroups().forEach(group => {
+    const start = group[0];
+    if (sessions[start]) setExamForSessionOrPair(start, addDaysYMD(sessions[start].date, -2));
+  });
   syncToCloud();
   renderSessions();
 };
@@ -1791,11 +1852,9 @@ window.toggleDone = function(index) {
 window.toggleExamDone = function(index) {
   if (!sessions[index]) return;
   if (sessions[index].phase === 1) {
-    const p = getWhitePairStartIndex(index);
-    const p2 = sessions[p + 1];
-    const newState = !(sessions[p].examDone && (p2 ? p2.examDone : true));
-    sessions[p].examDone = newState;
-    if (p2 && p2.phase === 1) p2.examDone = newState;
+    const group = getWhiteExamGroupByIndex(index);
+    const newState = !group.every(idx => sessions[idx].examDone);
+    group.forEach(idx => { sessions[idx].examDone = newState; });
   } else {
     sessions[index].examDone = !sessions[index].examDone;
   }
@@ -1803,11 +1862,11 @@ window.toggleExamDone = function(index) {
   renderSessions();
 };
 
-// Marca/desmarca coleta para um par de sessões da fase branca
+// Marca/desmarca coleta para um grupo de sessões da fase branca
 window.toggleExamDonePair = function(i1, i2) {
-  const newState = !(sessions[i1].examDone && sessions[i2].examDone);
-  sessions[i1].examDone = newState;
-  sessions[i2].examDone = newState;
+  const group = getWhiteExamGroupByIndex(i1);
+  const newState = !group.every(idx => sessions[idx].examDone);
+  group.forEach(idx => { sessions[idx].examDone = newState; });
   syncToCloud();
   renderSessions();
 };
@@ -1821,10 +1880,9 @@ window.toggleNadirHidden = function(index) {
 window.toggleExamHidden = function(index) {
   if (!sessions[index]) return;
   if (sessions[index].phase === 1) {
-    const p = getWhitePairStartIndex(index);
-    const newState = !sessions[p].examHidden;
-    sessions[p].examHidden = newState;
-    if (sessions[p + 1] && sessions[p + 1].phase === 1) sessions[p + 1].examHidden = newState;
+    const group = getWhiteExamGroupByIndex(index);
+    const newState = !sessions[group[0]].examHidden;
+    group.forEach(idx => { sessions[idx].examHidden = newState; });
   } else {
     sessions[index].examHidden = !sessions[index].examHidden;
   }
@@ -2067,7 +2125,7 @@ function renderSessions() {
       <div>
         <div class="collection-help-title">Fase branca: 1 coleta vale para 2 sessões</div>
         <div class="collection-help-text">
-          Edite a coleta no primeiro card de cada par. A segunda sessão fica automaticamente coberta pela mesma coleta.
+          Edite a coleta no primeiro card de cada grupo. Quando houver feriado ou adiamento, o app quebra o par e reorganiza as coletas automaticamente.
           Use “Ajustar Datas” para liberar os campos de edição e os botões rápidos.
         </div>
         <div class="date-mini-actions" style="display:flex;margin-top:8px">
@@ -2104,9 +2162,10 @@ function renderSessions() {
 
   function buildExamPill(s, i) {
     if (s.phase === 1) {
-      const p = getWhitePairStartIndex(i);
+      const group = getWhiteExamGroupByIndex(i);
+      const p = group[0];
       const pairFirst = sessions[p];
-      const pairSecond = sessions[p + 1];
+      const pairSecond = group.length > 1 ? sessions[group[1]] : null;
 
       if (i === p) {
         if (pairFirst.examHidden) {
@@ -2203,93 +2262,87 @@ function renderSessions() {
     return row;
   }
 
-  // Fase branca em pares visuais: 1 coleta para 2 sessões.
-  for (let i = 0; i < 12; i += 2) {
-    if (!sessions[i]) continue;
-
+  // Fase branca em grupos visuais: normalmente 1 coleta para 2 sessões.
+  // Se houver quebra por feriado/adiamento, o grupo é recalculado automaticamente.
+  getWhiteExamGroups().forEach(group => {
     const pairWrap = document.createElement('div');
     pairWrap.className = 'session-pair';
 
-    pairWrap.appendChild(buildSessionCard(sessions[i], i, 'pair-first'));
-
-    if (sessions[i + 1]) {
-      pairWrap.appendChild(buildSessionCard(sessions[i + 1], i + 1, 'pair-second'));
-    }
+    group.forEach((idx, pos) => {
+      const pairClass = group.length > 1 ? (pos === 0 ? 'pair-first' : 'pair-second') : '';
+      pairWrap.appendChild(buildSessionCard(sessions[idx], idx, pairClass));
+    });
 
     if (gW) gW.appendChild(pairWrap);
-  }
+  });
 
   // Fase vermelha individual.
   for (let i = 12; i < sessions.length; i++) {
     if (gR) gR.appendChild(buildSessionCard(sessions[i], i));
   }
 
-  // Aba Exames: fase branca em pares editáveis; fase vermelha individual.
+  // Aba Exames: fase branca em grupos editáveis; fase vermelha individual.
   if (eG) {
-    for (let i = 0; i < sessions.length; i++) {
+    getWhiteExamGroups().forEach(group => {
+      const s = sessions[group[0]];
+      const isDone = group.every(idx => sessions[idx].examDone);
+      const toggleFn = group.length > 1 ? `toggleExamDonePair(${group[0]}, ${group[1]})` : `toggleExamDone(${group[0]})`;
+      const badges = group.map(idx => `<span class="exam-session-badge ${sessions[idx].done ? 'done' : 'pending'}">${sessions[idx].done ? '✓ ' : ''}Sessão ${sessions[idx].num}</span>`).join('');
+      const label = group.length > 1 ? `Sessões ${whiteGroupLabel(group)}` : `Sessão ${whiteGroupLabel(group)}`;
+
+      const exRow = document.createElement('div');
+      exRow.className = `exam-row ${isDone ? 'done' : ''}`;
+      exRow.innerHTML = `
+        <div class="exam-info">
+          <div class="exam-date">
+            <span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
+              ${fmtFull(s.examDate)}
+            </span>
+            <input type="date" class="date-input" value="${s.examDate}" onchange="updateExamPair(${group[0]}, this.value)">
+          </div>
+          <div class="exam-sub" style="margin-top:4px;">
+            Coleta para ${label}
+          </div>
+          <div class="exam-pair-badges">${badges}</div>
+          <div class="exam-editor-row">
+            <button class="mini-date-btn" onclick="shiftExamDate(${group[0]}, -1)">-1 dia</button>
+            <button class="mini-date-btn" onclick="shiftExamDate(${group[0]}, 1)">+1 dia</button>
+            <button class="mini-date-btn" onclick="resetExamToDefault(${group[0]})">48h antes</button>
+            <button class="mini-date-btn" onclick="openGoogleCalendarExam(${group[0]})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
+            <button class="mini-date-btn" onclick="downloadExamICS(${group[0]})"><i class="ph-bold ph-download-simple"></i> .ics</button>
+          </div>
+        </div>
+        <button class="pill-toggle ${isDone ? 'pill-done' : 'pill-pending'}" onclick="${toggleFn}" style="white-space:nowrap;min-width:104px;">
+          ${isDone ? '✓ Realizada' : 'Marcar feita'}
+        </button>`;
+      eG.appendChild(exRow);
+    });
+
+    for (let i = 12; i < sessions.length; i++) {
       const s = sessions[i];
-
-      if (s.phase === 1) {
-        if (i % 2 !== 0) continue;
-
-        const s2 = sessions[i + 1];
-        const isDone = s.examDone && (s2 ? s2.examDone : true);
-        const toggleFn = s2 ? `toggleExamDonePair(${i}, ${i + 1})` : `toggleExamDone(${i})`;
-
-        const badgeS1 = `<span class="exam-session-badge ${s.done ? 'done' : 'pending'}">${s.done ? '✓ ' : ''}Sessão ${s.num}</span>`;
-        const badgeS2 = s2 ? `<span class="exam-session-badge ${s2.done ? 'done' : 'pending'}">${s2.done ? '✓ ' : ''}Sessão ${s2.num}</span>` : '';
-
-        const exRow = document.createElement('div');
-        exRow.className = `exam-row ${isDone ? 'done' : ''}`;
-        exRow.innerHTML = `
-          <div class="exam-info">
-            <div class="exam-date">
-              <span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
-                ${fmtFull(s.examDate)}
-              </span>
-              <input type="date" class="date-input" value="${s.examDate}" onchange="updateExamPair(${i}, this.value)">
-            </div>
-            <div class="exam-sub" style="margin-top:4px;">
-              Coleta única para as Sessões ${s.num}${s2 ? ' e ' + s2.num : ''}
-            </div>
-            <div class="exam-pair-badges">${badgeS1}${badgeS2}</div>
-            <div class="exam-editor-row">
-              <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">-1 dia</button>
-              <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">+1 dia</button>
-              <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
-              <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
-              <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
-            </div>
+      const exRow = document.createElement('div');
+      exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
+      exRow.innerHTML = `
+        <div class="exam-info">
+          <div class="exam-date">
+            <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
+              ${fmtFull(s.examDate)}
+            </span>
+            <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
           </div>
-          <button class="pill-toggle ${isDone ? 'pill-done' : 'pill-pending'}" onclick="${toggleFn}" style="white-space:nowrap;min-width:104px;">
-            ${isDone ? '✓ Realizada' : 'Marcar feita'}
-          </button>`;
-        eG.appendChild(exRow);
-      } else {
-        const exRow = document.createElement('div');
-        exRow.className = `exam-row ${s.examDone ? 'done' : ''}`;
-        exRow.innerHTML = `
-          <div class="exam-info">
-            <div class="exam-date">
-              <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
-                ${fmtFull(s.examDate)}
-              </span>
-              <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
-            </div>
-            <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
-            <div class="exam-editor-row">
-              <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">-1 dia</button>
-              <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">+1 dia</button>
-              <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
-              <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
-              <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
-            </div>
+          <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
+          <div class="exam-editor-row">
+            <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">-1 dia</button>
+            <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">+1 dia</button>
+            <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
+            <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
+            <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
           </div>
-          <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
-            ${s.examDone ? '✓ Feito' : 'Pendente'}
-          </button>`;
-        eG.appendChild(exRow);
-      }
+        </div>
+        <button class="pill-toggle ${s.examDone ? 'pill-done' : 'pill-pending'}" onclick="toggleExamDone(${i})">
+          ${s.examDone ? '✓ Feito' : 'Pendente'}
+        </button>`;
+      eG.appendChild(exRow);
     }
   }
 
