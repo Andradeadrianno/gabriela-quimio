@@ -769,6 +769,15 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
         <button class="date-nav-btn" onclick="shiftLogDate(1)"><i class="ph-bold ph-caret-right"></i></button>
       </div>
 
+      <div class="card" style="border-left:4px solid var(--amber);">
+        <div class="card-title"><i class="ph-fill ph-stethoscope" style="color:var(--amber)"></i> Registro importante — tosse persistente</div>
+        <div class="card-body">
+          <strong>Tosse há cerca de 30 dias:</strong> Gabi foi ao pronto-socorro, foi examinada e recebeu prescrição de <strong>Codeína 30mg</strong>.<br><br>
+          <strong>Uso registrado:</strong> 1 comprimido de 12 em 12 horas, de <strong>sexta, 19/06/2026</strong> até <strong>quarta, 24/06/2026</strong>, conforme orientação recebida.<br><br>
+          <strong>Conduta combinada no PS:</strong> se a tosse não melhorar após esse período, retornar ao pronto-socorro para realizar <strong>tomografia</strong>.
+        </div>
+      </div>
+
       <h2 class="sec-title" style="padding-bottom:8px;border-bottom:1px solid var(--border)"><i class="ph-fill ph-thermometer"></i> Sinais Vitais</h2>
 
       <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;">
@@ -2056,6 +2065,7 @@ const MEDS_DEF = [
   { id: 'dexametasona',   name: 'Dexametasona (4mg)',    dose: 'conforme fase',       intervalH: 8,   desc: 'Branca: 1 comp às 08h e 16h, 1 dia antes e 2 dias após. Vermelha: 2 comp pela manhã por 3 dias, iniciando 1 dia depois.', warn: 'Atenção ao esquema da fase branca/vermelha.' },
   { id: 'fexofenadina',   name: 'Fexofenadina (120mg)',  dose: '1 comp à noite',      intervalH: 24,  desc: 'Preparo da quimio branca: 1 dia ANTES e 4 dias APÓS, sempre à noite.', warn: 'Preparo obrigatório da quimioterapia branca!' },
   { id: 'filgrastim',     name: 'Filgrastim (300mcg)',   dose: '1 seringa/dia',       intervalH: 24,  desc: 'Quimioterapia vermelha: iniciar 1 dia após a sessão e aplicar 1 vez ao dia por 5 dias. Trazer isopor no dia da quimioterapia.', warn: 'Uso após a quimioterapia vermelha, conforme receita.' },
+  { id: 'codeina',        name: 'Codeína (30mg)',        dose: '1 comp / 12h',        intervalH: 12,  desc: 'Tosse persistente: registrada prescrição do PS de 19/06/2026 até 24/06/2026. Se não melhorar, retornar ao PS para tomografia.', warn: 'Usar conforme prescrição recebida no pronto-socorro.' },
   { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 6h',         intervalH: 6,   desc: 'Tomar se dor ou febre. Febre ≥ 37,8°C deve ser avaliada no pronto-socorro.', warn: 'Não usar para mascarar febre!' },
 ];
 
@@ -2123,7 +2133,7 @@ function renderMedCards() {
       ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>`
       : '';
     const isMandatoryMed = ['dexametasona','fexofenadina','filgrastim'].includes(med.id);
-    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : isMandatoryMed ? 'border-color:#e6f0ff;' : '';
+    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : (med.id === 'codeina' ? 'border-color:#f5c84a;' : isMandatoryMed ? 'border-color:#e6f0ff;' : '');
 
     return `<div class="med-track-card" style="${borderStyle}">
       <div class="med-track-head">
@@ -3249,6 +3259,15 @@ function renderSmartAlerts() {
       alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: `Fexofenadina — Pós Sessão ${s.num} (D+${dPlus})`, text: `Tomar 1 comprimido esta noite.${isLast ? ' Último dia!' : ` Ainda faltam ${4 - dPlus} dia(s).`}` });
     }
   });
+
+  // Registro de PS por tosse persistente — Codeína 30mg de 12/12h (19/06 a 24/06)
+  const codeinaStart = '2026-06-19';
+  const codeinaEnd = '2026-06-24';
+  if (todayYMD >= codeinaStart && todayYMD <= codeinaEnd) {
+    alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: 'Codeína 30mg — tosse persistente', text: 'Tomar de 12 em 12 horas conforme prescrição do PS, até 24/06. Se não melhorar, retornar ao PS para tomografia.' });
+  } else if (todayYMD === '2026-06-25') {
+    alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-warning-circle', title: 'Reavaliar tosse', text: 'Se a tosse persistir após a Codeína, a orientação registrada foi retornar ao PS para tomografia.' });
+  }
 
   // Alertas da quimioterapia vermelha: dexametasona e filgrastim após a sessão
   const redSessions = sessions.filter(s => s.phase === 2);
