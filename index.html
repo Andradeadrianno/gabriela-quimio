@@ -750,9 +750,9 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <h2 class="sec-title"><i class="ph-fill ph-pill"></i> Farmácia de Suporte</h2>
       <div class="calendar-export-card">
         <div class="calendar-export-title"><i class="ph-fill ph-bell-ringing"></i> Lembretes no calendário</div>
-        <div class="calendar-export-text">Use os botões em cada remédio para adicionar dose do dia ou exportar o cronograma obrigatório da quimioterapia branca.</div>
+        <div class="calendar-export-text">Use os botões em cada remédio para adicionar dose do dia ou exportar o cronograma obrigatório da quimioterapia branca e vermelha.</div>
         <div class="calendar-actions">
-          <button class="btn-calendar dark" onclick="downloadMandatoryMedsICS()"><i class="ph-bold ph-download-simple"></i> Exportar dexametasona + fexofenadina (.ics)</button>
+          <button class="btn-calendar dark" onclick="downloadMandatoryMedsICS()"><i class="ph-bold ph-download-simple"></i> Exportar medicações obrigatórias (.ics)</button>
         </div>
       </div>
       <div id="med-cards-list"></div>
@@ -865,6 +865,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Exames Obrigatórios</h2>
       <div class="card"><div class="card-title">Hemograma Completo</div><div class="card-body">Avalia leucócitos (imunidade), neutrófilos, linfócitos, plaquetas e hemoglobina. Essencial para liberar a sessão.</div></div>
       <div class="card"><div class="card-title">Creatinina</div><div class="card-body">Avalia a função renal antes de cada sessão.</div></div>
+      <div id="post-chemo-exam-card"></div>
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-file-text"></i> Resultados do Laboratório</h2>
       <div class="status-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#2A6A2A"></div>Normal</div>
@@ -924,6 +925,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
           <button class="btn-calendar dark" onclick="downloadAppointmentsICS()"><i class="ph-bold ph-download-simple"></i> Exportar consultas (.ics)</button>
         </div>
       </div>
+      <div id="post-chemo-consult-card"></div>
       <div class="card">
         <div class="card-title">Agendar Compromisso</div>
         <div style="display:grid; gap:12px;">
@@ -1057,6 +1059,10 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
     <!-- TAB ORIENTAÇÕES -->
     <div id="tab-orientacoes" class="tab-pane">
       <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia (ANTES DA SESSÃO)</h2>
+      <div class="card" style="border-left:4px solid var(--sage-dark);">
+        <div class="card-title"><i class="ph-fill ph-calendar-check" style="color:var(--sage-dark)"></i> Pós-quimioterapia: próximos passos</div>
+        <div class="card-body">Após finalizar toda a parte da quimioterapia, deixar programado: refazer <strong>todos os exames solicitados</strong> em cerca de <strong>3 semanas após a última quimioterapia</strong>, passar em <strong>avaliação pré-anestésica/anestesista (APA)</strong>, retornar com a <strong>Mastologia</strong> para seguimento pré-operatório e agendar retorno com a <strong>Oncologia HM</strong>. As datas exatas devem ser confirmadas com a equipe no hospital.</div>
+      </div>
       <div class="card"><div class="card-title">1. Exames laboratoriais atualizados</div><div class="card-body">Certifique-se de que os exames de sangue (hemograma, função renal e hepática) estão feitos <strong>48 horas (2 dias) antes</strong> da quimioterapia, conforme orientação dada no dia da consulta.<br><br>Caso tenha exame de sangue recente (até 60 dias), não será necessário realização para a primeira quimioterapia, de acordo com o que o médico orientou na consulta.<br><br><strong>Os exames de sangue para quimioterapia não precisam de jejum.</strong><br><br>Os resultados são essenciais para avaliar se o corpo está pronto para receber a medicação.<br><br><span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;"><i class="ph-fill ph-hand"></i> <strong>Fortalecimento das veias:</strong> Aperte bolinhas de borracha (como as de fisioterapia) e faça compressas de chá de camomila (folhas e flores) ou apenas água morna 1 dia antes e 2 dias depois de usar o braço para receber a quimioterapia.</span></div></div>
       <div class="card"><div class="card-title">2. Jejum? Somente se indicado</div><div class="card-body">A maioria dos esquemas não exige jejum completo, mas é importante estar bem alimentado(a), com refeições leves antes da sessão. <strong>Pode trazer alimentação no dia da quimioterapia e se alimentar dentro da central de infusão.</strong><br><br><span style="color: var(--red-intense);"><i class="ph-fill ph-warning"></i></span> No início da quimioterapia não poderá mais fazer uso de:<br>• Bebidas alcoólicas<br>• Carnes cruas ou mal passadas<br>• Peixes crus<br><br>Frutas, verduras e legumes precisam estar bem higienizados. Evite comer fora de casa.<br><br>Evite ficar no mesmo ambiente na hora de cozinhar feijão e carne — pode piorar náusea e vômito.</div></div>
       <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio (a menos que o médico tenha restringido líquidos).<br><br>Uma boa hidratação ajuda a proteger os rins e facilita o acesso venoso.<br><br><strong>Meta: 3 litros/dia.</strong></div></div>
@@ -1239,7 +1245,9 @@ function buildAppointmentEvent(index) {
 function buildMandatoryMedEvents() {
   const events = [];
   const whiteSessions = sessions.filter(s => s.phase === 1);
+  const redSessions = sessions.filter(s => s.phase === 2);
   const addMed = (title, date, time, details) => events.push(calendarEvent(title, date, time, 10, details, ''));
+
   whiteSessions.forEach(s => {
     [addDaysYMD(s.date, -1), addDaysYMD(s.date, 1), addDaysYMD(s.date, 2)].forEach(d => {
       addMed(`Dexametasona 4mg - Sessão ${s.num}`, d, '08:00', `Preparo obrigatório da quimioterapia branca. Referente à Sessão ${s.num}.`);
@@ -1249,6 +1257,16 @@ function buildMandatoryMedEvents() {
       addMed(`Fexofenadina 120mg - Sessão ${s.num}`, addDaysYMD(s.date, offset), '21:00', `Preparo obrigatório da quimioterapia branca. Referente à Sessão ${s.num}.`);
     }
   });
+
+  redSessions.forEach(s => {
+    for (let offset = 1; offset <= 3; offset++) {
+      addMed(`Dexametasona 4mg - Sessão ${s.num} (vermelha)`, addDaysYMD(s.date, offset), '08:00', `Quimioterapia vermelha: tomar 2 comprimidos pela manhã por 3 dias, iniciando 1 dia após a sessão ${s.num}.`);
+    }
+    for (let offset = 1; offset <= 5; offset++) {
+      addMed(`Filgrastim 300mcg - Sessão ${s.num}`, addDaysYMD(s.date, offset), '10:00', `Quimioterapia vermelha: aplicar 1 seringa 1 vez ao dia por 5 dias, iniciando 1 dia após a sessão ${s.num}. Trazer isopor no dia da quimioterapia.`);
+    }
+  });
+
   return events;
 }
 function buildAllCalendarEvents() {
@@ -1593,7 +1611,6 @@ function loadDataFromCloud() {
   const cachedSessions = loadLocal('sessions', []);
   if (cachedSessions.length > 0) {
     sessions = cachedSessions;
-    applyGabiJuneHolidayAdjustment();
     dailyLogs = loadLocal('dailyLogs', {});
     diary = loadLocal('diary', []);
     generalDiary = loadLocal('generalDiary', []);
@@ -1679,6 +1696,7 @@ function renderAll() {
   renderAppointments();
   renderSmartAlerts();
   renderWeeklySummary();
+  renderPostChemoPlan();
   initTempTimeInput();
   currentMedDate = todayYMD;
   const medDateInput = document.getElementById('med-date-input');
@@ -1930,16 +1948,115 @@ window.calcNadir = function() {
 };
 
 // =============================================
+// PÓS-QUIMIOTERAPIA: EXAMES E RETORNOS
+// =============================================
+const POST_CHEMO_LABS = [
+  'Hemograma completo + HM', 'Creatinina', 'Ureia', 'Cálcio sérico', 'Magnésio', 'Potássio',
+  'Glicose', 'PCR - Proteína C Reativa', 'Fosfatase alcalina', 'Gama GT', 'TGO', 'TGP',
+  'Hepatite B anti-HBs', 'Hepatite C anti-HCV', 'HIV 1 e 2 antígeno e anticorpos'
+];
+const POST_CHEMO_IMAGING = [
+  'RX tórax - PA', 'USG transvaginal', 'USG abdômen total', 'Eletrocardiograma',
+  'US mamária', 'Mamografia bilateral para rastreamento', 'TC de tórax'
+];
+
+function getLastChemoSession() {
+  if (!Array.isArray(sessions) || sessions.length === 0) return null;
+  return [...sessions].filter(s => s.date).sort((a, b) => a.date.localeCompare(b.date)).pop() || null;
+}
+
+function getPostChemoExamDate() {
+  const last = getLastChemoSession();
+  return last ? addDaysYMD(last.date, 21) : '';
+}
+
+function renderPostChemoPlan() {
+  const last = getLastChemoSession();
+  const targetDate = getPostChemoExamDate();
+  const dateText = last
+    ? `Última sessão cadastrada: <strong>${fmtFull(last.date)}</strong>. Todos os exames solicitados devem ser feitos em <strong>${fmtFull(targetDate)}</strong> (3 semanas após a última quimioterapia).`
+    : 'Quando a última sessão estiver cadastrada, o app calcula automaticamente a data de 3 semanas depois.';
+
+  const labsHtml = POST_CHEMO_LABS.map(x => `<span class="week-sym-pill" style="background:var(--sage-bg);color:var(--sage-dark)">${x}</span>`).join('');
+  const imgHtml = POST_CHEMO_IMAGING.map(x => `<span class="week-sym-pill" style="background:var(--gold-bg);color:var(--amber)">${x}</span>`).join('');
+
+  const examCard = document.getElementById('post-chemo-exam-card');
+  if (examCard) {
+    examCard.innerHTML = `
+      <div class="card" style="border-left:4px solid var(--sage-dark);margin-top:1rem;">
+        <div class="card-title"><i class="ph-fill ph-clipboard-text" style="color:var(--sage-dark)"></i> Exames após finalizar a quimioterapia</div>
+        <div class="card-body">
+          <div style="background:var(--sage-bg);padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:10px;">${dateText}</div>
+          <strong>Laboratoriais:</strong>
+          <div class="week-sym-list" style="margin-bottom:10px;">${labsHtml}</div>
+          <strong>Imagem/outros:</strong>
+          <div class="week-sym-list">${imgHtml}</div>
+          <div style="margin-top:10px;font-size:12px;color:var(--red-intense);font-weight:700;">
+            <i class="ph-fill ph-warning-circle"></i> Todos os exames solicitados nos anexos devem ser feitos 3 semanas após a última sessão de quimioterapia.
+          </div>
+        </div>
+      </div>`;
+  }
+
+  const consultCard = document.getElementById('post-chemo-consult-card');
+  if (consultCard) {
+    consultCard.innerHTML = `
+      <div class="card" style="border-left:4px solid var(--gold);">
+        <div class="card-title"><i class="ph-fill ph-calendar-check" style="color:var(--amber)"></i> Pós-quimio: anestesista e retornos</div>
+        <div class="card-body">
+          <div style="background:var(--gold-bg);padding:10px 12px;border-radius:var(--radius-sm);margin-bottom:10px;">${dateText}</div>
+          <ul style="padding-left:18px;line-height:1.65;margin-bottom:12px;">
+            <li><strong>Avaliação pré-anestésica (APA/anestesista):</strong> passar após finalizar a quimioterapia.</li>
+            <li><strong>Mastologia:</strong> agendar retorno após a quimioterapia e após a APA, conforme pedido.</li>
+            <li><strong>Retorno mastologia pré-operatório:</strong> manter como etapa antes da cirurgia.</li>
+            <li><strong>Oncologia HM:</strong> agendar retorno conforme solicitação de interconsulta.</li>
+            <li><strong>Levar resultados:</strong> exames laboratoriais, imagem e documentos/receitas recentes.</li>
+          </ul>
+          <div class="calendar-actions">
+            <button class="btn-calendar dark" onclick="addPostChemoReminders()"><i class="ph-bold ph-plus"></i> Criar lembretes pós-quimio</button>
+          </div>
+        </div>
+      </div>`;
+  }
+}
+
+window.addPostChemoReminders = function() {
+  const last = getLastChemoSession();
+  if (!last) { alert('Cadastre a última sessão de quimioterapia para calcular os lembretes.'); return; }
+  const examDate = getPostChemoExamDate();
+  const items = [
+    { title: 'Refazer todos os exames pós-quimioterapia', date: examDate, time: '08:00', location: 'Hospital da Mulher', notes: 'Todos os exames solicitados nos anexos devem ser feitos 3 semanas após a última quimioterapia: laboratoriais, imagem/outros e TC de tórax.' },
+    { title: 'Avaliação pré-anestésica (APA/anestesista)', date: addDaysYMD(examDate, 1), time: '10:00', location: 'Hospital da Mulher', notes: 'Passar com anestesista após finalizar a quimioterapia. Confirmar data/horário no hospital.' },
+    { title: 'Retorno Mastologia', date: addDaysYMD(examDate, 7), time: '10:00', location: 'Hospital da Mulher', notes: 'Retorno após quimioterapia e APA / pré-operatório. Confirmar data/horário no hospital.' },
+    { title: 'Retorno Oncologia HM', date: addDaysYMD(examDate, 7), time: '11:00', location: 'Hospital da Mulher', notes: 'Agendar retorno conforme solicitação de interconsulta. Confirmar data/horário no hospital.' }
+  ];
+  let added = 0;
+  items.forEach(item => {
+    const exists = appointments.some(a => a.title === item.title && a.date === item.date);
+    if (!exists) { appointments.push({ id: Date.now() + Math.floor(Math.random() * 100000), ...item }); added++; }
+  });
+  appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  syncToCloud();
+  renderAppointments();
+  renderSmartAlerts();
+  renderPostChemoPlan();
+  alert(added ? 'Lembretes pós-quimio adicionados à agenda. Confira e ajuste as datas/horários conforme o hospital confirmar.' : 'Esses lembretes já estavam na agenda.');
+};
+
+// =============================================
 // MEDICAÇÕES
 // =============================================
 const MEDS_DEF = [
-  { id: 'ondansetrona',   name: 'Ondansetrona (8mg)',    dose: '1 comp / 8h',         intervalH: 8,   desc: 'Enquanto houver náuseas ou vômitos.',               warn: null },
-  { id: 'metoclopramida', name: 'Metoclopramida (10mg)', dose: '1 comp / 8h',         intervalH: 8,   desc: 'Se náuseas persistirem com Ondansetrona.',          warn: null },
-  { id: 'loperamida',     name: 'Loperamida (2mg)',      dose: '1 comp / evacuação',  intervalH: null, desc: 'Somente em caso de diarreia.',                     warn: null },
-  { id: 'lactulose',      name: 'Lactulose (667mg/mL)',  dose: '20mL / 8h',           intervalH: 8,   desc: 'Somente se o intestino prender.',                   warn: null },
-  { id: 'dexametasona',   name: 'Dexametasona (4mg)',    dose: '1 comp às 08h e 16h', intervalH: 8,   desc: 'Preparo da quimio branca: 1 dia ANTES (08h e 16h) e 2 dias APÓS (08h e 16h).', warn: 'Preparo obrigatório da quimioterapia branca!' },
+  { id: 'ondansetrona',   name: 'Ondansetrona (8mg)',    dose: '1 comp / 8h',         intervalH: 8,   desc: 'Tomar se houver náuseas ou vômitos.',               warn: null },
+  { id: 'dramin',         name: 'Dramin (100mg)',        dose: '1 comp / 8h',         intervalH: 8,   desc: 'Tomar se houver náuseas e vômitos, conforme receita.', warn: null },
+  { id: 'metoclopramida', name: 'Metoclopramida (10mg)', dose: '1 comp / 8h',         intervalH: 8,   desc: 'Se náuseas persistirem, usar somente conforme orientação médica.', warn: null },
+  { id: 'loperamida',     name: 'Loperamida (2mg)',      dose: '2 comp inicial',      intervalH: null, desc: 'Diarreia: 2 comprimidos no primeiro episódio e depois conforme orientação/receita.', warn: null },
+  { id: 'lactulose',      name: 'Lactulose',             dose: '15mL 1x/dia',         intervalH: 24,  desc: 'Tomar uma vez ao dia se intestino preso, conforme receita.', warn: null },
+  { id: 'nistatina',      name: 'Nistatina suspensão',   dose: '5mL / 8h',            intervalH: 8,   desc: 'Bochechar e engolir se houver lesões na boca, conforme receita.', warn: null },
+  { id: 'dexametasona',   name: 'Dexametasona (4mg)',    dose: 'conforme fase',       intervalH: 8,   desc: 'Branca: 1 comp às 08h e 16h, 1 dia antes e 2 dias após. Vermelha: 2 comp pela manhã por 3 dias, iniciando 1 dia depois.', warn: 'Atenção ao esquema da fase branca/vermelha.' },
   { id: 'fexofenadina',   name: 'Fexofenadina (120mg)',  dose: '1 comp à noite',      intervalH: 24,  desc: 'Preparo da quimio branca: 1 dia ANTES e 4 dias APÓS, sempre à noite.', warn: 'Preparo obrigatório da quimioterapia branca!' },
-  { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 1g',         intervalH: 6,   desc: 'Para dor. Não use para mascarar febre.',            warn: 'Não usar para mascarar febre!' },
+  { id: 'filgrastim',     name: 'Filgrastim (300mcg)',   dose: '1 seringa/dia',       intervalH: 24,  desc: 'Quimioterapia vermelha: iniciar 1 dia após a sessão e aplicar 1 vez ao dia por 5 dias. Trazer isopor no dia da quimioterapia.', warn: 'Uso após a quimioterapia vermelha, conforme receita.' },
+  { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 6h',         intervalH: 6,   desc: 'Tomar se dor ou febre. Febre ≥ 37,8°C deve ser avaliada no pronto-socorro.', warn: 'Não usar para mascarar febre!' },
 ];
 
 let currentMedDate = todayYMD;
@@ -2005,7 +2122,8 @@ function renderMedCards() {
     const warnHtml = med.warn
       ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>`
       : '';
-    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : (med.id === 'dexametasona' || med.id === 'fexofenadina') ? 'border-color:#e6f0ff;' : '';
+    const isMandatoryMed = ['dexametasona','fexofenadina','filgrastim'].includes(med.id);
+    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : isMandatoryMed ? 'border-color:#e6f0ff;' : '';
 
     return `<div class="med-track-card" style="${borderStyle}">
       <div class="med-track-head">
@@ -2020,7 +2138,7 @@ function renderMedCards() {
         <input type="time" class="med-time-input" id="med-time-${med.id}" value="${defaultTime}">
         <button class="btn-add-med" onclick="addMedTime('${med.id}')"><i class="ph-bold ph-plus"></i> Registrar dose</button>
         <button class="btn-calendar" onclick="openGoogleCalendarMedDose('${med.id}')"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
-        ${(med.id === 'dexametasona' || med.id === 'fexofenadina') ? `<button class="btn-calendar secondary" onclick="downloadMandatoryMedsICS()"><i class="ph-bold ph-download-simple"></i> Cronograma obrigatório</button>` : ''}
+        ${isMandatoryMed ? `<button class="btn-calendar secondary" onclick="downloadMandatoryMedsICS()"><i class="ph-bold ph-download-simple"></i> Cronograma obrigatório</button>` : ''}
       </div>
     </div>`;
   }).join('');
@@ -2360,6 +2478,7 @@ function renderSessions() {
   const pct = Math.round((doneCount / 16) * 100);
   document.getElementById('prog-val').textContent = pct + '%';
   document.getElementById('prog-fill').style.width = pct + '%';
+  renderPostChemoPlan();
 }
 
 // =============================================
@@ -3128,6 +3247,21 @@ function renderSmartAlerts() {
       const dPlus = [day1After, day2After, day3After, day4After].indexOf(todayYMD) + 1;
       const isLast = dPlus === 4;
       alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: `Fexofenadina — Pós Sessão ${s.num} (D+${dPlus})`, text: `Tomar 1 comprimido esta noite.${isLast ? ' Último dia!' : ` Ainda faltam ${4 - dPlus} dia(s).`}` });
+    }
+  });
+
+  // Alertas da quimioterapia vermelha: dexametasona e filgrastim após a sessão
+  const redSessions = sessions.filter(s => s.phase === 2);
+  redSessions.forEach(s => {
+    const redDaysDex = [1, 2, 3].map(offset => addDaysYMD(s.date, offset));
+    const redDaysFil = [1, 2, 3, 4, 5].map(offset => addDaysYMD(s.date, offset));
+    if (redDaysDex.includes(todayYMD)) {
+      const dPlus = redDaysDex.indexOf(todayYMD) + 1;
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Vermelha Sessão ${s.num} (D+${dPlus})`, text: `Tomar 2 comprimidos pela manhã. ${dPlus === 3 ? 'Último dia.' : `Faltam ${3 - dPlus} dia(s).`}` });
+    }
+    if (redDaysFil.includes(todayYMD)) {
+      const dPlus = redDaysFil.indexOf(todayYMD) + 1;
+      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-syringe', title: `Filgrastim — Sessão ${s.num} (D+${dPlus})`, text: `Aplicar 1 seringa hoje. ${dPlus === 5 ? 'Último dia.' : `Faltam ${5 - dPlus} dia(s).`}` });
     }
   });
 
