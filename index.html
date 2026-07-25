@@ -541,6 +541,18 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-add-med:hover { background: var(--ink); }
 .med-empty { font-size: 12px; color: var(--ink3); font-style: italic; }
 .med-warn { background: var(--red-bg); border: 1px solid rgba(214,69,69,0.2); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 12px; color: var(--red-intense); font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.med-site-select {
+  font-family: 'Inter';
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 6px 8px;
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  cursor: pointer;
+}
 
 /* ===== APPOINTMENT EDIT ===== */
 .appt-edit-form { background: var(--sage-bg); border: 1px solid var(--sage-light); border-radius: var(--radius-sm); padding: 14px; margin-top: 10px; display: grid; gap: 8px; }
@@ -1255,24 +1267,27 @@ function buildMandatoryMedEvents() {
   const events = [];
   const whiteSessions = sessions.filter(s => s.phase === 1);
   const redSessions = sessions.filter(s => s.phase === 2);
-  const addMed = (title, date, time, details) => events.push(calendarEvent(title, date, time, 10, details, ''));
 
+  // --- Fase Branca (Paclitaxel) ---
+  // Dexametasona: 1 comprimido às 8h e 16h, 1 dia antes e 2 dias após
   whiteSessions.forEach(s => {
     [addDaysYMD(s.date, -1), addDaysYMD(s.date, 1), addDaysYMD(s.date, 2)].forEach(d => {
-      addMed(`Dexametasona 4mg - Sessão ${s.num}`, d, '08:00', `Preparo obrigatório da quimioterapia branca. Referente à Sessão ${s.num}.`);
-      addMed(`Dexametasona 4mg - Sessão ${s.num}`, d, '16:00', `Preparo obrigatório da quimioterapia branca. Referente à Sessão ${s.num}.`);
+      events.push(calendarEvent(`Dexametasona 4mg - Sessão ${s.num} (Branca)`, d, '08:00', 10, `Preparo obrigatório da quimioterapia branca (Sessão ${s.num}). Tomar 1 comprimido.`));
+      events.push(calendarEvent(`Dexametasona 4mg - Sessão ${s.num} (Branca)`, d, '16:00', 10, `Preparo obrigatório da quimioterapia branca (Sessão ${s.num}). Tomar 1 comprimido.`));
     });
-    for (let offset = -1; offset <= 4; offset++) {
-      addMed(`Fexofenadina 120mg - Sessão ${s.num}`, addDaysYMD(s.date, offset), '21:00', `Preparo obrigatório da quimioterapia branca. Referente à Sessão ${s.num}.`);
-    }
   });
 
+  // --- Fase Vermelha (AC) ---
+  // Dexametasona: 2 comprimidos pela manhã por 3 dias, iniciando 1 dia após a sessão
   redSessions.forEach(s => {
     for (let offset = 1; offset <= 3; offset++) {
-      addMed(`Dexametasona 4mg - Sessão ${s.num} (vermelha)`, addDaysYMD(s.date, offset), '08:00', `Quimioterapia vermelha: tomar 2 comprimidos pela manhã por 3 dias, iniciando 1 dia após a sessão ${s.num}.`);
+      const d = addDaysYMD(s.date, offset);
+      events.push(calendarEvent(`Dexametasona 4mg (2 comp) - Sessão ${s.num} (Vermelha)`, d, '08:00', 10, `Quimioterapia vermelha: tomar 2 comprimidos pela manhã (Dia ${offset} de 3). Referente à Sessão ${s.num}.`));
     }
+    // Filgrastim: 1 seringa 1x/dia por 5 dias, iniciando 1 dia após a sessão
     for (let offset = 1; offset <= 5; offset++) {
-      addMed(`Filgrastim 300mcg - Sessão ${s.num}`, addDaysYMD(s.date, offset), '10:00', `Quimioterapia vermelha: aplicar 1 seringa 1 vez ao dia por 5 dias, iniciando 1 dia após a sessão ${s.num}. Trazer isopor no dia da quimioterapia.`);
+      const d = addDaysYMD(s.date, offset);
+      events.push(calendarEvent(`Filgrastim 300mcg - Sessão ${s.num} (Vermelha)`, d, '10:00', 10, `Quimioterapia vermelha: aplicar 1 seringa 1 vez ao dia (Dia ${offset} de 5). Trazer isopor no dia da quimioterapia. Referente à Sessão ${s.num}.`));
     }
   });
 
@@ -1302,7 +1317,9 @@ window.openGoogleCalendarMedDose = function(medId) {
   const med = MEDS_DEF.find(m => m.id === medId);
   const input = document.getElementById('med-time-' + medId);
   const time = input && input.value ? input.value : '09:00';
-  openGoogleEvent(calendarEvent(`${med ? med.name : 'Medicação'} - dose`, currentMedDate, time, 10, med ? med.desc : 'Dose registrada no Guia de Cuidados.', ''));
+  const site = document.getElementById('med-site-' + medId);
+  const siteText = site ? `\nLocal de aplicação: ${site.value}` : '';
+  openGoogleEvent(calendarEvent(`${med ? med.name : 'Medicação'} - dose`, currentMedDate, time, 10, (med ? med.desc : 'Dose registrada no Guia de Cuidados.') + siteText, ''));
 };
 
 
@@ -1734,7 +1751,7 @@ window.toggleEditMode = function(section) {
   } else if (section === 'exam') {
     document.body.classList.toggle('is-editing-exam');
     const isEditing = document.body.classList.contains('is-editing-exam');
-    if (examBtn) examBtn.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Datas';
+    if (examBtn) examBtn.innerHTML = isEditing ? '<i class="ph-bold ph-check"></i> Salvar' : '<i class="ph-bold ph-pencil-simple"></i> Ajustar Coletas';
   }
 };
 
@@ -2063,10 +2080,10 @@ const MEDS_DEF = [
   { id: 'lactulose',      name: 'Lactulose',             dose: '15mL 1x/dia',         intervalH: 24,  desc: 'Tomar uma vez ao dia se intestino preso, conforme receita.', warn: null },
   { id: 'nistatina',      name: 'Nistatina suspensão',   dose: '5mL / 8h',            intervalH: 8,   desc: 'Bochechar e engolir se houver lesões na boca, conforme receita.', warn: null },
   { id: 'dexametasona',   name: 'Dexametasona (4mg)',    dose: 'conforme fase',       intervalH: 8,   desc: 'Branca: 1 comp às 08h e 16h, 1 dia antes e 2 dias após. Vermelha: 2 comp pela manhã por 3 dias, iniciando 1 dia depois.', warn: 'Atenção ao esquema da fase branca/vermelha.' },
-  { id: 'fexofenadina',   name: 'Fexofenadina (120mg)',  dose: '1 comp à noite',      intervalH: 24,  desc: 'Preparo da quimio branca: 1 dia ANTES e 4 dias APÓS, sempre à noite.', warn: 'Preparo obrigatório da quimioterapia branca!' },
   { id: 'filgrastim',     name: 'Filgrastim (300mcg)',   dose: '1 seringa/dia',       intervalH: 24,  desc: 'Quimioterapia vermelha: iniciar 1 dia após a sessão e aplicar 1 vez ao dia por 5 dias. Trazer isopor no dia da quimioterapia.', warn: 'Uso após a quimioterapia vermelha, conforme receita.' },
   { id: 'codeina',        name: 'Codeína (30mg)',        dose: '1 comp / 12h',        intervalH: 12,  desc: 'Tosse persistente: registrada prescrição do PS de 19/06/2026 até 24/06/2026. Se não melhorar, retornar ao PS para tomografia.', warn: 'Usar conforme prescrição recebida no pronto-socorro.' },
   { id: 'dipirona',       name: 'Dipirona (500mg)',      dose: '2 comp / 6h',         intervalH: 6,   desc: 'Tomar se dor ou febre. Febre ≥ 37,8°C deve ser avaliada no pronto-socorro.', warn: 'Não usar para mascarar febre!' },
+  { id: 'ibuprofeno',     name: 'Ibuprofeno (300mg)',    dose: '2 comp / 8h',         intervalH: 8,   desc: 'Em caso de dor, tomar 2 comprimidos de 8 em 8 horas, conforme orientação médica.', warn: 'Não exceder a dose máxima diária de 6 comprimidos (1800mg).' },
 ];
 
 let currentMedDate = todayYMD;
@@ -2122,7 +2139,10 @@ function renderMedCards() {
     }
 
     const tagsHtml = times.length > 0
-      ? times.map((t, ti) => `<span class="med-log-tag"><i class="ph-fill ph-check-circle" style="font-size:12px"></i> ${t}<button onclick="deleteMedTime('${med.id}',${ti})" title="Remover">✕</button></span>`).join('')
+      ? times.map((t, ti) => {
+          const site = medLog[med.id + '_site'] && medLog[med.id + '_site'][ti] ? ` (${medLog[med.id + '_site'][ti]})` : '';
+          return `<span class="med-log-tag"><i class="ph-fill ph-check-circle" style="font-size:12px"></i> ${t}${site}<button onclick="deleteMedTime('${med.id}',${ti})" title="Remover">✕</button></span>`;
+        }).join('')
       : `<span class="med-empty">Nenhuma dose registrada neste dia.</span>`;
 
     const defaultTime = isToday
@@ -2132,8 +2152,26 @@ function renderMedCards() {
     const warnHtml = med.warn
       ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>`
       : '';
-    const isMandatoryMed = ['dexametasona','fexofenadina','filgrastim'].includes(med.id);
-    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : (med.id === 'codeina' ? 'border-color:#f5c84a;' : isMandatoryMed ? 'border-color:#e6f0ff;' : '');
+
+    const isFilgrastim = med.id === 'filgrastim';
+    const siteSelect = isFilgrastim ? `<select class="med-site-select" id="med-site-${med.id}">
+      <optgroup label="Braços">
+        <option value="Braço Esquerdo">Braço Esquerdo</option>
+        <option value="Braço Direito">Braço Direito</option>
+      </optgroup>
+      <optgroup label="Coxas">
+        <option value="Coxa Esquerda">Coxa Esquerda</option>
+        <option value="Coxa Direita">Coxa Direita</option>
+      </optgroup>
+      <optgroup label="Abdômen">
+        <option value="Abdômen (Lado Esquerdo)">Abdômen (Lado Esquerdo)</option>
+        <option value="Abdômen (Lado Direito)">Abdômen (Lado Direito)</option>
+        <option value="Abdômen (Centro)">Abdômen (Centro)</option>
+      </optgroup>
+    </select>` : '';
+
+    const isMandatoryMed = ['dexametasona','filgrastim'].includes(med.id);
+    const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : (med.id === 'codeina' ? 'border-color:#f5c84a;' : med.id === 'ibuprofeno' ? 'border-color:#f0f8ff;' : isMandatoryMed ? 'border-color:#e6f0ff;' : '');
 
     return `<div class="med-track-card" style="${borderStyle}">
       <div class="med-track-head">
@@ -2145,6 +2183,7 @@ function renderMedCards() {
       ${nextDoseHtml}
       <div class="med-log-list" id="med-log-${med.id}">${tagsHtml}</div>
       <div class="med-add-row">
+        ${siteSelect}
         <input type="time" class="med-time-input" id="med-time-${med.id}" value="${defaultTime}">
         <button class="btn-add-med" onclick="addMedTime('${med.id}')"><i class="ph-bold ph-plus"></i> Registrar dose</button>
         <button class="btn-calendar" onclick="openGoogleCalendarMedDose('${med.id}')"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
@@ -2161,11 +2200,21 @@ window.addMedTime = function(medId) {
     const now = new Date();
     timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
   }
+  const siteSelect = document.getElementById('med-site-' + medId);
+  const site = siteSelect ? siteSelect.value : '';
+
   const medLog = getMedLog(currentMedDate);
   if (!medLog[medId]) medLog[medId] = [];
+  if (!medLog[medId + '_site']) medLog[medId + '_site'] = [];
+
   if (!medLog[medId].includes(timeStr)) {
     medLog[medId].push(timeStr);
-    medLog[medId].sort();
+    medLog[medId + '_site'].push(site);
+    medLog[medId].sort((a, b) => a.localeCompare(b));
+    // Reordenar sites junto com os tempos
+    const sortedIndices = medLog[medId].map((_, i) => i).sort((a, b) => medLog[medId][a].localeCompare(medLog[medId][b]));
+    medLog[medId] = sortedIndices.map(i => medLog[medId][i]);
+    medLog[medId + '_site'] = sortedIndices.map(i => medLog[medId + '_site'][i]);
   }
   syncToCloud();
   renderMedCards();
@@ -2176,6 +2225,7 @@ window.deleteMedTime = function(medId, index) {
   const medLog = getMedLog(currentMedDate);
   if (!medLog[medId]) return;
   medLog[medId].splice(index, 1);
+  if (medLog[medId + '_site']) medLog[medId + '_site'].splice(index, 1);
   syncToCloud();
   renderMedCards();
 };
@@ -2502,7 +2552,7 @@ const symsDef = [
   { id: 'vomito', label: 'VÔMITO', opts: ['Nenhum', '1–2x/dia', '3–5x/dia', '> 5x/dia'], alert: 'Hidrate-se. Se muito frequente, vá ao PS.' },
   { id: 'diarreia', label: 'DIARREIA', opts: ['Nenhuma', '1–2x/dia', '3–4x/dia', '> 4x/dia'], alert: 'Use Loperamida após cada episódio.' },
   { id: 'constipacao', label: 'CONSTIPAÇÃO', opts: ['Nenhuma', '1 dia', '2–3 dias', '> 3 dias'], alert: 'Tome Lactulose.' },
-  { id: 'dor', label: 'DOR', opts: ['Nenhuma', 'Leve', 'Moderada', 'Intensa'], alert: 'Use Dipirona.' },
+  { id: 'dor', label: 'DOR', opts: ['Nenhuma', 'Leve', 'Moderada', 'Intensa'], alert: 'Use Dipirona ou Ibuprofeno.' },
   { id: 'fadiga', label: 'FADIGA', opts: ['Nenhuma', 'Leve', 'Moderada', 'Intensa'], alert: 'Descanse.' },
   { id: 'formig', label: 'FORMIGAMENTO', opts: ['Nenhum', 'Leve', 'Moderado', 'Intenso'], alert: 'Avise o médico na consulta.' },
   { id: 'febre', label: 'FEBRE', opts: ['< 37,8°C', '37,8–38°C', '38–38,5°C', '> 38,5°C'], alert: '🚨 FEBRE ALTA: PS IMEDIATAMENTE!' }
@@ -2942,7 +2992,7 @@ function renderExamChart() {
       },
       scales: {
         x: { ticks: { color: '#9CA3AF', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
-        y: { ticks: { color: '#9CA3AF', font: { size: 11 }, callback: (value) => { if (currentChartGroup === 'imunidade' || currentChartGroup === 'sangue') return (value / 1000).toFixed(0) + 'k'; return value; } }, grid: { color: 'rgba(0,0,0,0.05)' } }
+        y: { ticks: { color: '#9CA3AF', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } }
       }
     }
   });
@@ -3230,33 +3280,36 @@ function renderSmartAlerts() {
     if (diff === 0) alerts.push({cls:'ac-blue', icon:'ph-fill ph-calendar-check', title:`HOJE: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
     else if (diff === 1) alerts.push({cls:'ac-amber', icon:'ph-fill ph-calendar-plus', title:`AMANHÃ: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
   }
-  // Alertas de preparo da quimio branca (dexametasona e fexofenadina)
-  // Só aplica para sessões da fase branca
+  // Alertas de preparo da quimio branca (dexametasona)
   const whiteSessions = sessions.filter(s => s.phase === 1);
   whiteSessions.forEach(s => {
     const sessionDate = s.date;
     const dayBefore = addDaysYMD(sessionDate, -1);
     const day1After = addDaysYMD(sessionDate, 1);
     const day2After = addDaysYMD(sessionDate, 2);
-    const day3After = addDaysYMD(sessionDate, 3);
-    const day4After = addDaysYMD(sessionDate, 4);
 
     // Dexametasona: 1 dia antes e 2 dias após
     if (todayYMD === dayBefore) {
-      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Preparo Sessão ${s.num}`, text: `Tomar às 08h e às 16h. Amanhã é a Sessão ${s.num} (${fmtFull(sessionDate)}).` });
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Preparo Sessão ${s.num}`, text: `Tomar 1 comprimido às 08h e às 16h. Amanhã é a Sessão ${s.num} (${fmtFull(sessionDate)}).` });
     } else if (todayYMD === day1After) {
-      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+1)`, text: `Tomar às 08h e às 16h. Ainda há amanhã (D+2).` });
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+1)`, text: `Tomar 1 comprimido às 08h e às 16h. Ainda há amanhã (D+2).` });
     } else if (todayYMD === day2After) {
-      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+2)`, text: `Último dia — tomar às 08h e às 16h.` });
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+2)`, text: `Último dia — tomar 1 comprimido às 08h e às 16h.` });
     }
+  });
 
-    // Fexofenadina: 1 dia antes e 4 dias após, à noite
-    if (todayYMD === dayBefore) {
-      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: `Fexofenadina — Preparo Sessão ${s.num}`, text: `Tomar 1 comprimido esta noite. Amanhã é a Sessão ${s.num}.` });
-    } else if ([day1After, day2After, day3After, day4After].includes(todayYMD)) {
-      const dPlus = [day1After, day2After, day3After, day4After].indexOf(todayYMD) + 1;
-      const isLast = dPlus === 4;
-      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-pill', title: `Fexofenadina — Pós Sessão ${s.num} (D+${dPlus})`, text: `Tomar 1 comprimido esta noite.${isLast ? ' Último dia!' : ` Ainda faltam ${4 - dPlus} dia(s).`}` });
+  // Alertas da quimioterapia vermelha: dexametasona (2 comp pela manhã por 3 dias) e filgrastim
+  const redSessions = sessions.filter(s => s.phase === 2);
+  redSessions.forEach(s => {
+    const redDaysDex = [1, 2, 3].map(offset => addDaysYMD(s.date, offset));
+    const redDaysFil = [1, 2, 3, 4, 5].map(offset => addDaysYMD(s.date, offset));
+    if (redDaysDex.includes(todayYMD)) {
+      const dPlus = redDaysDex.indexOf(todayYMD) + 1;
+      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona (2 comp) — Vermelha Sessão ${s.num} (D+${dPlus})`, text: `Tomar 2 comprimidos pela manhã. ${dPlus === 3 ? 'Último dia.' : `Faltam ${3 - dPlus} dia(s).`}` });
+    }
+    if (redDaysFil.includes(todayYMD)) {
+      const dPlus = redDaysFil.indexOf(todayYMD) + 1;
+      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-syringe', title: `Filgrastim — Sessão ${s.num} (D+${dPlus})`, text: `Aplicar 1 seringa hoje. ${dPlus === 5 ? 'Último dia.' : `Faltam ${5 - dPlus} dia(s).`}` });
     }
   });
 
@@ -3268,21 +3321,6 @@ function renderSmartAlerts() {
   } else if (todayYMD === '2026-06-25') {
     alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-warning-circle', title: 'Reavaliar tosse', text: 'Se a tosse persistir após a Codeína, a orientação registrada foi retornar ao PS para tomografia.' });
   }
-
-  // Alertas da quimioterapia vermelha: dexametasona e filgrastim após a sessão
-  const redSessions = sessions.filter(s => s.phase === 2);
-  redSessions.forEach(s => {
-    const redDaysDex = [1, 2, 3].map(offset => addDaysYMD(s.date, offset));
-    const redDaysFil = [1, 2, 3, 4, 5].map(offset => addDaysYMD(s.date, offset));
-    if (redDaysDex.includes(todayYMD)) {
-      const dPlus = redDaysDex.indexOf(todayYMD) + 1;
-      alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Vermelha Sessão ${s.num} (D+${dPlus})`, text: `Tomar 2 comprimidos pela manhã. ${dPlus === 3 ? 'Último dia.' : `Faltam ${3 - dPlus} dia(s).`}` });
-    }
-    if (redDaysFil.includes(todayYMD)) {
-      const dPlus = redDaysFil.indexOf(todayYMD) + 1;
-      alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-syringe', title: `Filgrastim — Sessão ${s.num} (D+${dPlus})`, text: `Aplicar 1 seringa hoje. ${dPlus === 5 ? 'Último dia.' : `Faltam ${5 - dPlus} dia(s).`}` });
-    }
-  });
 
   addNutritionAlert(alerts);
   if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
