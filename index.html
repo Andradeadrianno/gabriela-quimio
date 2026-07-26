@@ -1158,8 +1158,6 @@ const addDaysYMD = (ymd, d) => { const r = fromYMD(ymd); r.setDate(r.getDate() +
 const todayYMD = toYMD(new Date());
 let currentLogDate = todayYMD;
 
-
-
 // =============================================
 // INTEGRAÇÃO COM GOOGLE AGENDA / ARQUIVO ICS
 // =============================================
@@ -1321,8 +1319,6 @@ window.openGoogleCalendarMedDose = function(medId) {
   const siteText = site ? `\nLocal de aplicação: ${site.value}` : '';
   openGoogleEvent(calendarEvent(`${med ? med.name : 'Medicação'} - dose`, currentMedDate, time, 10, (med ? med.desc : 'Dose registrada no Guia de Cuidados.') + siteText, ''));
 };
-
-
 
 // =============================================
 // NUTRIÇÃO — SUGESTÕES, REGISTROS E LEMBRETES
@@ -2193,6 +2189,7 @@ function renderMedCards() {
   }).join('');
 }
 
+// Função corrigida - agora definida no escopo global corretamente
 window.addMedTime = function(medId) {
   const input = document.getElementById('med-time-' + medId);
   let timeStr = input ? input.value : '';
@@ -2210,11 +2207,11 @@ window.addMedTime = function(medId) {
   if (!medLog[medId].includes(timeStr)) {
     medLog[medId].push(timeStr);
     medLog[medId + '_site'].push(site);
-    medLog[medId].sort((a, b) => a.localeCompare(b));
-    // Reordenar sites junto com os tempos
-    const sortedIndices = medLog[medId].map((_, i) => i).sort((a, b) => medLog[medId][a].localeCompare(medLog[medId][b]));
-    medLog[medId] = sortedIndices.map(i => medLog[medId][i]);
-    medLog[medId + '_site'] = sortedIndices.map(i => medLog[medId + '_site'][i]);
+    // Ordenar mantendo correspondência entre horário e local
+    const combined = medLog[medId].map((t, i) => ({ time: t, site: medLog[medId + '_site'][i] || '' }));
+    combined.sort((a, b) => a.time.localeCompare(b.time));
+    medLog[medId] = combined.map(item => item.time);
+    medLog[medId + '_site'] = combined.map(item => item.site);
   }
   syncToCloud();
   renderMedCards();
