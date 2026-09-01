@@ -89,6 +89,48 @@ header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 8vw
 .em-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 2px; }
 .em-text { font-size: 13px; color: rgba(255,255,255,0.95); line-height: 1.5; }
 
+/* ===== CELEBRAÇÃO DE MARCO CONCLUÍDO ===== */
+#celebration-layer { position: fixed; inset: 0; z-index: 99999; pointer-events: none; overflow: hidden; }
+.celebration-banner {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%) translateY(-140%);
+  max-width: 92vw; width: 420px;
+  background: linear-gradient(135deg, #2F5C48 0%, #1E2B25 100%);
+  color: #fff; border-radius: 18px; padding: 18px 20px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  display: flex; align-items: center; gap: 14px;
+  pointer-events: auto;
+  animation: celebrationDrop 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards, celebrationLift 0.5s ease-in forwards 5.5s;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+@keyframes celebrationDrop { to { transform: translateX(-50%) translateY(0); } }
+@keyframes celebrationLift { to { transform: translateX(-50%) translateY(-140%); opacity: 0; } }
+.celebration-bell {
+  font-size: 34px; color: #FFD97A; flex-shrink: 0;
+  animation: bellRing 0.5s ease-in-out 3 alternate;
+  transform-origin: top center;
+}
+@keyframes bellRing {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(18deg); }
+  40% { transform: rotate(-16deg); }
+  60% { transform: rotate(12deg); }
+  80% { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+.celebration-text-title { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; line-height: 1.25; margin-bottom: 3px; }
+.celebration-text-sub { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4; }
+.celebration-close { position: absolute; top: 8px; right: 10px; background: none; border: none; color: rgba(255,255,255,0.6); font-size: 14px; cursor: pointer; pointer-events: auto; padding: 4px; }
+.celebration-close:hover { color: #fff; }
+.confetti-piece {
+  position: fixed; top: -20px; width: 9px; height: 14px; opacity: 0.95;
+  animation-name: confettiFall; animation-timing-function: linear; animation-fill-mode: forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+
 /* ===== MAIN ===== */
 main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 
@@ -612,6 +654,58 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .nutri-source { font-size: 11px; color: var(--ink3); margin-top: 8px; font-style: italic; }
 @media (max-width: 600px) { .tab-nav { grid-template-columns: repeat(4, 1fr); } .nutri-grid { grid-template-columns: 1fr; } }
 
+/* ===== PÓS-QUIMIO: NOVAS ETAPAS ===== */
+.post-chemo-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+.post-chemo-step {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.post-chemo-step .step-info {
+  flex: 1;
+}
+.post-chemo-step .step-title {
+  font-weight: 700;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.post-chemo-step .step-desc {
+  font-size: 13px;
+  color: var(--ink2);
+  margin-top: 4px;
+}
+.post-chemo-step .step-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.post-chemo-step .step-date-input {
+  font-family: 'Inter';
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 5px 8px;
+  outline: none;
+  background: var(--surface);
+}
+.post-chemo-step .step-date-input:focus {
+  border-color: var(--sage-dark);
+}
+
 /* ===== FOOTER ===== */
 footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: var(--ink3); max-width: 700px; margin: 0 auto; }
 
@@ -636,6 +730,8 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
   .temp-time-input { width: 100%; }
   .btn-add-temp { justify-content: center; }
   .appt-edit-row { grid-template-columns: 1fr; }
+  .post-chemo-step { flex-direction: column; align-items: stretch; }
+  .post-chemo-step .step-actions { justify-content: flex-start; }
 }
 </style>
 </head>
@@ -658,6 +754,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
 <div id="offline-banner"><i class="ph-bold ph-wifi-slash"></i> Sem conexão — exibindo dados salvos localmente</div>
 
 <div id="app-content">
+  <div id="celebration-layer"></div>
   <header>
     <button class="btn-logout" onclick="logout()"><i class="ph-bold ph-sign-out"></i> Sair</button>
     <div class="header-inner">
@@ -689,6 +786,12 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
         </div>
         <div class="progress-track">
           <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; font-size:11px; color:var(--ink3);">
+          <span><span style="font-weight:700;color:var(--sage-dark)">■</span> Quimioterapia (50%)</span>
+          <span><span style="font-weight:700;color:#D4A373">■</span> Cirurgia (20%)</span>
+          <span><span style="font-weight:700;color:#7AAB96">■</span> Radioterapia (20%)</span>
+          <span><span style="font-weight:700;color:#C9822B">■</span> Hormonal (10%)</span>
         </div>
       </div>
       <div id="smart-alerts"></div>
@@ -746,6 +849,18 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <div id="grid-white"></div>
       <h3 style="font-size:14px; margin: 2rem 0 12px; color: var(--red-intense);">Fase 2: Vermelha (AC)</h3>
       <div id="grid-red"></div>
+
+      <h2 class="sec-title" style="margin-top: 2.5rem;"><i class="ph-fill ph-stethoscope"></i> Plano completo após a quimioterapia</h2>
+      <div class="card" style="border-left: 4px solid var(--gold);">
+        <div class="card-body" style="margin-bottom: 12px;">
+          <strong>Etapas seguintes:</strong> Cirurgia → Radioterapia → Terapia hormonal. Acompanhe o progresso de cada fase e marque as conclusões.
+        </div>
+        <div class="post-chemo-timeline" id="post-chemo-timeline"></div>
+        <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn-calendar dark" onclick="exportPostChemoICS()"><i class="ph-bold ph-download-simple"></i> Exportar lembretes .ics</button>
+          <button class="btn-calendar secondary" onclick="resetPostChemoDates()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Limpar datas</button>
+        </div>
+      </div>
     </div>
 
     <!-- TAB MEDICAÇÕES -->
@@ -972,8 +1087,6 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <div class="card hosp-emergency"><span class="hosp-option">3ª Opção</span><div class="card-title">Hospital Municipal Dr. Arthur Ribeiro de Saboya</div><div class="card-body">Av. Francisco de Paula Quintanilha Ribeiro, 860 – Jabaquara, São Paulo – SP, 04330-020<br><a href="https://maps.google.com/?cid=16510485783602391528" target="_blank" style="display:inline-block; margin-top:8px; color:var(--red-intense); font-weight:600; text-decoration:none;"><i class="ph-bold ph-map-pin"></i> Abrir no Mapa</a></div></div>
     </div>
 
-
-
     <!-- TAB NUTRIÇÃO -->
     <div id="tab-nutricao" class="tab-pane">
       <div class="sec-title">
@@ -1084,6 +1197,10 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
         <div class="card-title"><i class="ph-fill ph-calendar-check" style="color:var(--sage-dark)"></i> Pós-quimioterapia: próximos passos</div>
         <div class="card-body">Após finalizar toda a parte da quimioterapia, deixar programado: refazer <strong>todos os exames solicitados</strong> em cerca de <strong>3 semanas após a última quimioterapia</strong>, passar em <strong>avaliação pré-anestésica/anestesista (APA)</strong>, retornar com a <strong>Mastologia</strong> para seguimento pré-operatório e agendar retorno com a <strong>Oncologia HM</strong>. As datas exatas devem ser confirmadas com a equipe no hospital.</div>
       </div>
+
+      <!-- O plano interativo pós-quimioterapia (cirurgia, radioterapia, hormonal) foi movido para a aba Calendário,
+           junto com a grade de sessões, pois é uma ferramenta de acompanhamento diário e não uma orientação estática. -->
+
       <div class="card"><div class="card-title">1. Exames laboratoriais atualizados</div><div class="card-body">Certifique-se de que os exames de sangue (hemograma, função renal e hepática) estão feitos <strong>48 horas (2 dias) antes</strong> da quimioterapia, conforme orientação dada no dia da consulta.<br><br>Caso tenha exame de sangue recente (até 60 dias), não será necessário realização para a primeira quimioterapia, de acordo com o que o médico orientou na consulta.<br><br><strong>Os exames de sangue para quimioterapia não precisam de jejum.</strong><br><br>Os resultados são essenciais para avaliar se o corpo está pronto para receber a medicação.<br><br><span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;"><i class="ph-fill ph-hand"></i> <strong>Fortalecimento das veias:</strong> Aperte bolinhas de borracha (como as de fisioterapia) e faça compressas de chá de camomila (folhas e flores) ou apenas água morna 1 dia antes e 2 dias depois de usar o braço para receber a quimioterapia.</span></div></div>
       <div class="card"><div class="card-title">2. Jejum? Somente se indicado</div><div class="card-body">A maioria dos esquemas não exige jejum completo, mas é importante estar bem alimentado(a), com refeições leves antes da sessão. <strong>Pode trazer alimentação no dia da quimioterapia e se alimentar dentro da central de infusão.</strong><br><br><span style="color: var(--red-intense);"><i class="ph-fill ph-warning"></i></span> No início da quimioterapia não poderá mais fazer uso de:<br>• Bebidas alcoólicas<br>• Carnes cruas ou mal passadas<br>• Peixes crus<br><br>Frutas, verduras e legumes precisam estar bem higienizados. Evite comer fora de casa.<br><br>Evite ficar no mesmo ambiente na hora de cozinhar feijão e carne — pode piorar náusea e vômito.</div></div>
       <div class="card"><div class="card-title">3. Hidratação</div><div class="card-body">Beba bastante água no dia anterior e no dia da quimio (a menos que o médico tenha restringido líquidos).<br><br>Uma boa hidratação ajuda a proteger os rins e facilita o acesso venoso.<br><br><strong>Meta: 3 litros/dia.</strong></div></div>
@@ -1145,6 +1262,151 @@ let currentNutritionDate = null;
 let examChartInstance = null;
 let miniChartInstance = null;
 let currentChartGroup = 'imunidade';
+
+// NOVAS VARIÁVEIS PARA ETAPAS PÓS-QUIMIO
+// sessions (radioterapia) e logs (hormonal) permitem registrar o dia a dia de cada etapa
+function defaultPostChemo() {
+  return {
+    surgery: { done: false, date: '' },
+    // radiotherapy: além do "done" geral, permite registrar cada sessão individualmente (como na quimio)
+    radiotherapy: { done: false, date: '', totalPlanned: 20, sessions: [] }, // sessions: [{date:'YYYY-MM-DD', done:true}]
+    // hormonal: além do "done" (início marcado), permite registrar um log contínuo de controle (doses, consultas, efeitos)
+    hormonal: { done: false, date: '', logs: [] } // logs: [{date:'YYYY-MM-DD', note:'texto'}]
+  };
+}
+let postChemo = defaultPostChemo();
+
+// Garante que dados salvos antes desta versão ganhem os novos campos (sessions/logs/totalPlanned)
+function normalizePostChemo(pc) {
+  const def = defaultPostChemo();
+  const merged = {};
+  ['surgery', 'radiotherapy', 'hormonal'].forEach(id => {
+    merged[id] = { ...def[id], ...(pc && pc[id] ? pc[id] : {}) };
+    if (id === 'radiotherapy' && !Array.isArray(merged[id].sessions)) merged[id].sessions = [];
+    if (id === 'hormonal' && !Array.isArray(merged[id].logs)) merged[id].logs = [];
+  });
+  return merged;
+}
+
+// Controla quais marcos já tiveram a celebração (sino + confetes) exibida,
+// para não repetir a animação toda vez que a página recarrega.
+function defaultCelebrations() {
+  return { chemo: false, surgery: false, radiotherapy: false, hormonal: false };
+}
+let celebrationsShown = defaultCelebrations();
+function normalizeCelebrations(c) {
+  return { ...defaultCelebrations(), ...(c || {}) };
+}
+
+// =============================================
+// CELEBRAÇÃO DE MARCOS (sino + confetes)
+// =============================================
+function checkCelebrations({ chemoDone, radioDoneCount, radioTotal }) {
+  if (chemoDone && !celebrationsShown.chemo) {
+    celebrationsShown.chemo = true;
+    syncToCloud();
+    showCelebration('Quimioterapia concluída! 🎗️', 'Uma fase enorme e pesada ficou pra trás. Você foi muito forte até aqui!');
+  } else if (!chemoDone && celebrationsShown.chemo) {
+    celebrationsShown.chemo = false;
+    syncToCloud();
+  }
+
+  if (postChemo.surgery.done && !celebrationsShown.surgery) {
+    celebrationsShown.surgery = true;
+    syncToCloud();
+    showCelebration('Cirurgia concluída! 🎉', 'Mais uma etapa importante do tratamento vencida.');
+  } else if (!postChemo.surgery.done && celebrationsShown.surgery) {
+    celebrationsShown.surgery = false;
+    syncToCloud();
+  }
+
+  const radioComplete = radioTotal > 0 ? radioDoneCount >= radioTotal : postChemo.radiotherapy.done;
+  if (radioComplete && !celebrationsShown.radiotherapy) {
+    celebrationsShown.radiotherapy = true;
+    syncToCloud();
+    showCelebration('Radioterapia concluída! ✨', 'Todas as sessões previstas foram registradas. Parabéns pela dedicação!');
+  } else if (!radioComplete && celebrationsShown.radiotherapy) {
+    celebrationsShown.radiotherapy = false;
+    syncToCloud();
+  }
+
+  if (postChemo.hormonal.done && !celebrationsShown.hormonal) {
+    celebrationsShown.hormonal = true;
+    syncToCloud();
+    showCelebration('Terapia hormonal iniciada! 💛', 'Você entrou na fase de acompanhamento de longo prazo. Um passo de cada vez.');
+  } else if (!postChemo.hormonal.done && celebrationsShown.hormonal) {
+    celebrationsShown.hormonal = false;
+    syncToCloud();
+  }
+}
+
+function showCelebration(title, subtitle) {
+  const layer = document.getElementById('celebration-layer');
+  if (!layer) return;
+
+  spawnConfetti(layer);
+  playBellChime();
+
+  const banner = document.createElement('div');
+  banner.className = 'celebration-banner';
+  banner.innerHTML = `
+    <button class="celebration-close" aria-label="Fechar"><i class="ph-bold ph-x"></i></button>
+    <i class="ph-fill ph-bell-ringing celebration-bell"></i>
+    <div>
+      <div class="celebration-text-title">${title}</div>
+      <div class="celebration-text-sub">${subtitle}</div>
+    </div>
+  `;
+  layer.appendChild(banner);
+  banner.querySelector('.celebration-close').onclick = () => banner.remove();
+  setTimeout(() => { if (banner.parentNode) banner.remove(); }, 6200);
+}
+
+function spawnConfetti(layer) {
+  const colors = ['#7AAB96', '#D4A373', '#E8A0A0', '#FFD97A', '#B4D4C4', '#FFFFFF'];
+  const pieceCount = 60;
+  for (let i = 0; i < pieceCount; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const left = Math.random() * 100;
+    const delay = Math.random() * 0.6;
+    const duration = 2.4 + Math.random() * 1.6;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const rotate = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.left = left + 'vw';
+    piece.style.background = color;
+    piece.style.borderRadius = rotate;
+    piece.style.animationDelay = delay + 's';
+    piece.style.animationDuration = duration + 's';
+    layer.appendChild(piece);
+    setTimeout(() => { if (piece.parentNode) piece.remove(); }, (delay + duration) * 1000 + 200);
+  }
+}
+
+function playBellChime() {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    const freqs = [1318.5, 1568.0, 1975.5]; // um pequeno arpejo suave (E6, G6, B6)
+    freqs.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      const start = now + i * 0.14;
+      gain.gain.setValueAtTime(0, start);
+      gain.gain.linearRampToValueAtTime(0.18, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + 1.1);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + 1.2);
+    });
+    setTimeout(() => ctx.close(), 2000);
+  } catch (e) { /* som é apenas um bônus; ignora falhas silenciosamente */ }
+}
+
 
 // =============================================
 // UTILITÁRIOS DE DATA
@@ -1640,6 +1902,8 @@ function loadDataFromCloud() {
     appointments = loadLocal('appointments', []);
     nutritionLogs = loadLocal('nutritionLogs', {});
     nutritionSettings = loadLocal('nutritionSettings', {});
+    postChemo = normalizePostChemo(loadLocal('postChemo', defaultPostChemo()));
+    celebrationsShown = normalizeCelebrations(loadLocal('celebrationsShown', defaultCelebrations()));
     renderAll();
   }
   db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
@@ -1655,12 +1919,16 @@ function loadDataFromCloud() {
       appointments = data.appointments || [];
       nutritionLogs = data.nutritionLogs || {};
       nutritionSettings = data.nutritionSettings || {};
+      postChemo = normalizePostChemo(data.postChemo || defaultPostChemo());
+      celebrationsShown = normalizeCelebrations(data.celebrationsShown || defaultCelebrations());
       examResults.sort((a, b) => a.date.localeCompare(b.date));
       appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
     } else {
       sessions = generateDefaultSessions();
       applyGabiJuneHolidayAdjustment();
       dailyLogs = {}; diary = []; generalDiary = []; examResults = []; appointments = []; nutritionLogs = {}; nutritionSettings = {};
+      postChemo = defaultPostChemo();
+      celebrationsShown = defaultCelebrations();
       syncToCloud();
     }
     renderAll();
@@ -1676,8 +1944,10 @@ function syncToCloud() {
   saveLocal('appointments', appointments);
   saveLocal('nutritionLogs', nutritionLogs);
   saveLocal('nutritionSettings', nutritionSettings);
+  saveLocal('postChemo', postChemo);
+  saveLocal('celebrationsShown', celebrationsShown);
   if (!currentUser || !navigator.onLine) return;
-  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments, nutritionLogs, nutritionSettings }, { merge: true });
+  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments, nutritionLogs, nutritionSettings, postChemo, celebrationsShown }, { merge: true });
 }
 
 // =============================================
@@ -1698,6 +1968,7 @@ window.switchTab = function(n, b) {
   if (n === 'consultas') renderAppointments();
   if (n === 'medicacoes') { setMedDate(currentMedDate); scheduleNextRefresh(); }
   if (n === 'nutricao') renderNutritionTab();
+  if (n === 'calendario') renderPostChemoTimeline();
 };
 
 function renderAll() {
@@ -1719,6 +1990,7 @@ function renderAll() {
   renderSmartAlerts();
   renderWeeklySummary();
   renderPostChemoPlan();
+  renderPostChemoTimeline();
   initTempTimeInput();
   currentMedDate = todayYMD;
   const medDateInput = document.getElementById('med-date-input');
@@ -2066,6 +2338,286 @@ window.addPostChemoReminders = function() {
 };
 
 // =============================================
+// NOVAS ETAPAS PÓS-QUIMIO: CIRURGIA, RADIO, HORMONAL
+// =============================================
+function renderPostChemoTimeline() {
+  const container = document.getElementById('post-chemo-timeline');
+  if (!container) return;
+
+  const surgery = postChemo.surgery || { done: false, date: '' };
+  const radio = postChemo.radiotherapy || { done: false, date: '', totalPlanned: 20, sessions: [] };
+  const hormonal = postChemo.hormonal || { done: false, date: '', logs: [] };
+
+  const radioSessions = (radio.sessions || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const radioDoneCount = radioSessions.filter(s => s.done).length;
+  const radioTotal = radio.totalPlanned || 0;
+
+  const hormonalLogs = (hormonal.logs || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+
+  container.innerHTML = `
+    <div class="post-chemo-step" style="border-left: 4px solid ${surgery.done ? '#2A6A2A' : '#D4A373'};">
+      <div class="step-info">
+        <div class="step-title">
+          <i class="ph-fill ph-scalpel" style="color:#D4A373"></i>
+          Cirurgia
+          <span style="font-size:12px; font-weight:400; color:var(--ink3);">(20% do progresso)</span>
+        </div>
+        <div class="step-desc">Após a quimioterapia, a cirurgia é o próximo passo para remoção do tumor. Agende com a equipe de mastologia.</div>
+        <div style="font-size:12px; color:var(--ink3); margin-top:6px;">
+          <i class="ph-fill ph-calendar-blank"></i> <span id="post-surgery-date-display">${surgery.date ? fmtFull(surgery.date) : 'Data não definida'}</span>
+        </div>
+      </div>
+      <div class="step-actions">
+        <input type="date" class="step-date-input" id="post-surgery-date" value="${surgery.date || ''}" placeholder="Data prevista">
+        <button class="btn-calendar dark" onclick="updatePostChemo('surgery')" style="min-width:70px;">
+          <i class="ph-bold ph-floppy-disk"></i> Salvar
+        </button>
+        <button class="pill-toggle ${surgery.done ? 'pill-done' : 'pill-pending'}" onclick="togglePostChemoDone('surgery')" style="min-width:100px;">
+          ${surgery.done ? '✓ Concluído' : 'Marcar feito'}
+        </button>
+        <button class="btn-calendar secondary" onclick="openGooglePostChemo('surgery')"><i class="ph-bold ph-calendar-plus"></i> Agenda</button>
+      </div>
+    </div>
+
+    <div class="post-chemo-step" style="border-left: 4px solid ${radioDoneCount >= radioTotal && radioTotal > 0 ? '#2A6A2A' : '#7AAB96'}; flex-direction:column; align-items:stretch;">
+      <div class="step-info">
+        <div class="step-title">
+          <i class="ph-fill ph-radioactive" style="color:#7AAB96"></i>
+          Radioterapia
+          <span style="font-size:12px; font-weight:400; color:var(--ink3);">(20% do progresso — proporcional às sessões feitas)</span>
+        </div>
+        <div class="step-desc">Em geral, iniciada algumas semanas após a cirurgia. Registre cada sessão feita conforme forem acontecendo.</div>
+        <div style="font-size:12px; color:var(--ink3); margin-top:6px;">
+          <i class="ph-fill ph-calendar-blank"></i> Início previsto: <span id="post-radiotherapy-date-display">${radio.date ? fmtFull(radio.date) : 'Data não definida'}</span>
+        </div>
+      </div>
+      <div class="step-actions">
+        <input type="date" class="step-date-input" id="post-radiotherapy-date" value="${radio.date || ''}" placeholder="Data prevista de início">
+        <button class="btn-calendar dark" onclick="updatePostChemo('radiotherapy')" style="min-width:70px;">
+          <i class="ph-bold ph-floppy-disk"></i> Salvar
+        </button>
+        <button class="btn-calendar secondary" onclick="openGooglePostChemo('radiotherapy')"><i class="ph-bold ph-calendar-plus"></i> Agenda</button>
+      </div>
+
+      <div style="margin-top:14px; padding-top:12px; border-top:1px dashed var(--border);">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+          <strong style="font-size:13px;">Sessões de radioterapia: ${radioDoneCount} / ${radioTotal || '—'}</strong>
+          <span style="display:flex; align-items:center; gap:6px; font-size:12px; color:var(--ink3);">
+            Total previsto de sessões:
+            <input type="number" min="0" id="radio-total-planned" value="${radioTotal}" style="width:60px; padding:4px 6px; border:1px solid var(--border); border-radius:6px;">
+            <button class="btn-calendar secondary" onclick="updateRadioTotalPlanned()" style="padding:4px 10px; font-size:11px;">Salvar</button>
+          </span>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
+          <input type="date" id="radio-new-session-date" class="step-date-input" style="max-width:170px;">
+          <button class="btn-calendar dark" onclick="addRadioSession()" style="padding:8px 14px; font-size:12px;"><i class="ph-bold ph-plus"></i> Registrar sessão</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto;">
+          ${radioSessions.length === 0
+            ? '<span style="font-size:12px;color:var(--ink3);">Nenhuma sessão registrada ainda.</span>'
+            : radioSessions.map((s, i) => `
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; background:var(--surface-hover); padding:6px 10px; border-radius:8px;">
+                <span style="font-size:12px; display:flex; align-items:center; gap:8px;">
+                  <i class="${s.done ? 'ph-fill ph-check-circle' : 'ph-bold ph-circle'}" style="color:${s.done ? '#2A6A2A' : 'var(--ink3)'};"></i>
+                  ${fmtFull(s.date)}
+                </span>
+                <span style="display:flex; gap:6px;">
+                  <button class="pill-toggle ${s.done ? 'pill-done' : 'pill-pending'}" onclick="toggleRadioSessionDone('${s.date}')" style="padding:3px 10px; font-size:11px;">${s.done ? 'Feita' : 'Marcar feita'}</button>
+                  <button class="btn-calendar secondary" onclick="removeRadioSession('${s.date}')" style="padding:3px 8px; font-size:11px;"><i class="ph-bold ph-trash"></i></button>
+                </span>
+              </div>
+            `).join('')
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="post-chemo-step" style="border-left: 4px solid ${hormonal.done ? '#2A6A2A' : '#C9822B'}; flex-direction:column; align-items:stretch;">
+      <div class="step-info">
+        <div class="step-title">
+          <i class="ph-fill ph-dna" style="color:#C9822B"></i>
+          Terapia hormonal
+          <span style="font-size:12px; font-weight:400; color:var(--ink3);">(10% do progresso)</span>
+        </div>
+        <div class="step-desc">Tratamento adjuvante de longa duração, geralmente por 5 a 10 anos, com medicamentos orais. Use o log abaixo para controlar doses, consultas e efeitos ao longo do tempo.</div>
+        <div style="font-size:12px; color:var(--ink3); margin-top:6px;">
+          <i class="ph-fill ph-calendar-blank"></i> Início: <span id="post-hormonal-date-display">${hormonal.date ? fmtFull(hormonal.date) : 'Data não definida'}</span>
+        </div>
+      </div>
+      <div class="step-actions">
+        <input type="date" class="step-date-input" id="post-hormonal-date" value="${hormonal.date || ''}" placeholder="Data de início">
+        <button class="btn-calendar dark" onclick="updatePostChemo('hormonal')" style="min-width:70px;">
+          <i class="ph-bold ph-floppy-disk"></i> Salvar
+        </button>
+        <button class="pill-toggle ${hormonal.done ? 'pill-done' : 'pill-pending'}" onclick="togglePostChemoDone('hormonal')" style="min-width:100px;">
+          ${hormonal.done ? '✓ Iniciado' : 'Marcar iniciado'}
+        </button>
+        <button class="btn-calendar secondary" onclick="openGooglePostChemo('hormonal')"><i class="ph-bold ph-calendar-plus"></i> Agenda</button>
+      </div>
+
+      <div style="margin-top:14px; padding-top:12px; border-top:1px dashed var(--border);">
+        <strong style="font-size:13px; display:block; margin-bottom:10px;">Log de controle (doses, consultas, efeitos)</strong>
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px; flex-wrap:wrap;">
+          <input type="date" id="hormonal-log-date" class="step-date-input" style="max-width:150px;" value="${todayYMD}">
+          <input type="text" id="hormonal-log-note" placeholder="Ex: tomei tamoxifeno, consulta de retorno..." style="flex:1; min-width:160px; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:12px;">
+          <button class="btn-calendar dark" onclick="addHormonalLog()" style="padding:8px 14px; font-size:12px;"><i class="ph-bold ph-plus"></i> Registrar</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px; max-height:220px; overflow-y:auto;">
+          ${hormonalLogs.length === 0
+            ? '<span style="font-size:12px;color:var(--ink3);">Nenhum registro ainda.</span>'
+            : hormonalLogs.map(l => `
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; background:var(--surface-hover); padding:6px 10px; border-radius:8px;">
+                <span style="font-size:12px;"><strong>${fmtShort(l.date)}</strong> — ${l.note ? l.note.replace(/</g, '&lt;') : '<span style=\'color:var(--ink3)\'>sem nota</span>'}</span>
+                <button class="btn-calendar secondary" onclick="removeHormonalLog('${l.date}_${(l.note||'').replace(/'/g,"")}')" style="padding:3px 8px; font-size:11px;"><i class="ph-bold ph-trash"></i></button>
+              </div>
+            `).join('')
+          }
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ---- Radioterapia: sessões individuais ----
+window.updateRadioTotalPlanned = function() {
+  const input = document.getElementById('radio-total-planned');
+  if (!input) return;
+  const total = parseInt(input.value, 10);
+  if (isNaN(total) || total < 0) { alert('Informe um número válido.'); return; }
+  if (!postChemo.radiotherapy) postChemo.radiotherapy = { done: false, date: '', totalPlanned: 0, sessions: [] };
+  postChemo.radiotherapy.totalPlanned = total;
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.addRadioSession = function() {
+  const input = document.getElementById('radio-new-session-date');
+  if (!input || !input.value) { alert('Selecione uma data.'); return; }
+  const date = input.value;
+  if (!postChemo.radiotherapy) postChemo.radiotherapy = { done: false, date: '', totalPlanned: 20, sessions: [] };
+  if (!Array.isArray(postChemo.radiotherapy.sessions)) postChemo.radiotherapy.sessions = [];
+  if (postChemo.radiotherapy.sessions.some(s => s.date === date)) { alert('Já existe uma sessão registrada nessa data.'); return; }
+  postChemo.radiotherapy.sessions.push({ date, done: true });
+  // Se todas as sessões planejadas estiverem feitas, marca a etapa como concluída automaticamente
+  const doneCount = postChemo.radiotherapy.sessions.filter(s => s.done).length;
+  if (postChemo.radiotherapy.totalPlanned > 0 && doneCount >= postChemo.radiotherapy.totalPlanned) {
+    postChemo.radiotherapy.done = true;
+  }
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.toggleRadioSessionDone = function(date) {
+  const s = (postChemo.radiotherapy.sessions || []).find(x => x.date === date);
+  if (!s) return;
+  s.done = !s.done;
+  const doneCount = postChemo.radiotherapy.sessions.filter(x => x.done).length;
+  postChemo.radiotherapy.done = postChemo.radiotherapy.totalPlanned > 0 && doneCount >= postChemo.radiotherapy.totalPlanned;
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.removeRadioSession = function(date) {
+  if (!postChemo.radiotherapy || !postChemo.radiotherapy.sessions) return;
+  postChemo.radiotherapy.sessions = postChemo.radiotherapy.sessions.filter(s => s.date !== date);
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+// ---- Hormonioterapia: log de controle ----
+window.addHormonalLog = function() {
+  const dateInput = document.getElementById('hormonal-log-date');
+  const noteInput = document.getElementById('hormonal-log-note');
+  if (!dateInput || !dateInput.value) { alert('Selecione uma data.'); return; }
+  if (!postChemo.hormonal) postChemo.hormonal = { done: false, date: '', logs: [] };
+  if (!Array.isArray(postChemo.hormonal.logs)) postChemo.hormonal.logs = [];
+  postChemo.hormonal.logs.push({ date: dateInput.value, note: (noteInput.value || '').trim() });
+  noteInput.value = '';
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSmartAlerts();
+};
+
+window.removeHormonalLog = function(key) {
+  if (!postChemo.hormonal || !postChemo.hormonal.logs) return;
+  postChemo.hormonal.logs = postChemo.hormonal.logs.filter(l => `${l.date}_${l.note || ''}` !== key);
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSmartAlerts();
+};
+
+window.updatePostChemo = function(id) {
+  const input = document.getElementById('post-' + id + '-date');
+  if (!input) return;
+  const date = input.value;
+  if (!date) { alert('Selecione uma data.'); return; }
+  if (!postChemo[id]) postChemo[id] = { done: false, date: '' };
+  postChemo[id].date = date;
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();  // atualiza progresso
+  renderSmartAlerts();
+};
+
+window.togglePostChemoDone = function(id) {
+  if (!postChemo[id]) postChemo[id] = { done: false, date: '' };
+  postChemo[id].done = !postChemo[id].done;
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+window.openGooglePostChemo = function(id) {
+  const stepMap = {
+    surgery: { title: 'Cirurgia pós-quimioterapia', desc: 'Agendamento da cirurgia após término da quimioterapia. Confirmar com mastologia.' },
+    radiotherapy: { title: 'Radioterapia', desc: 'Início do tratamento radioterápico. Confirmar plano com radio-oncologia.' },
+    hormonal: { title: 'Terapia hormonal', desc: 'Início do tratamento hormonal adjuvante. Prescrição e orientações com oncologia.' }
+  };
+  const step = stepMap[id];
+  if (!step) return;
+  const data = postChemo[id] || { date: '' };
+  const date = data.date || addDaysYMD(todayYMD, 14);
+  const time = '09:00';
+  openGoogleEvent(calendarEvent(step.title, date, time, 60, step.desc, 'Hospital da Mulher'));
+};
+
+window.exportPostChemoICS = function() {
+  const events = [];
+  const steps = ['surgery', 'radiotherapy', 'hormonal'];
+  const titles = {
+    surgery: 'Cirurgia pós-quimioterapia',
+    radiotherapy: 'Radioterapia',
+    hormonal: 'Terapia hormonal'
+  };
+  steps.forEach(id => {
+    const data = postChemo[id] || { date: '' };
+    if (data.date) {
+      events.push(calendarEvent(titles[id] || id, data.date, '09:00', 60, `Etapa do tratamento: ${titles[id] || id}.`, ''));
+    }
+  });
+  if (events.length === 0) { alert('Nenhuma data definida para exportar.'); return; }
+  downloadICS(events, 'etapas-pos-quimio-gabi.ics');
+};
+
+window.resetPostChemoDates = function() {
+  if (!confirm('Limpar todas as datas e status das etapas pós-quimioterapia?')) return;
+  postChemo = defaultPostChemo();
+  syncToCloud();
+  renderPostChemoTimeline();
+  renderSessions();
+  renderSmartAlerts();
+};
+
+// =============================================
 // MEDICAÇÕES
 // =============================================
 const MEDS_DEF = [
@@ -2235,6 +2787,9 @@ function scheduleNextRefresh() {
   }, 60000);
 }
 
+// =============================================
+// RENDER SESSIONS (ATUALIZADO COM PROGRESSO PÓS-QUIMIO)
+// =============================================
 function renderSessions() {
   if (!sessions || sessions.length === 0) sessions = generateDefaultSessions();
 
@@ -2260,6 +2815,38 @@ function renderSessions() {
     if (s.done && isInNadir(s.date, todayYMD)) nadirSession = s;
     else if (s.done && isInRisk(s.date, todayYMD)) riskSession = s;
   });
+
+  // CALCULAR PROGRESSO POR ETAPA (peso fixo, modelo original)
+  // Quimio: 50% (cada sessão = 50/16 = 3.125%)
+  const quimioPct = (doneCount / 16) * 50;
+  // Cirurgia: 20%, tudo ou nada (evento único)
+  const surgeryPct = postChemo.surgery.done ? 20 : 0;
+  // Radioterapia: 20%, mas proporcional às sessões registradas quando houver sessões cadastradas
+  const radioSessions = postChemo.radiotherapy.sessions || [];
+  const radioDoneCount = radioSessions.filter(s => s.done).length;
+  const radioTotal = postChemo.radiotherapy.totalPlanned || 0;
+  const radioPct = radioTotal > 0
+    ? Math.min(20, (radioDoneCount / radioTotal) * 20)
+    : (postChemo.radiotherapy.done ? 20 : 0);
+  // Hormonal: 10%, marcado como "iniciado/em acompanhamento"
+  const hormonalPct = postChemo.hormonal.done ? 10 : 0;
+  const totalPct = Math.min(100, Math.round(quimioPct + surgeryPct + radioPct + hormonalPct));
+
+  checkCelebrations({ chemoDone: doneCount >= 16, radioDoneCount, radioTotal });
+
+  document.getElementById('prog-val').textContent = totalPct + '%';
+  document.getElementById('prog-fill').style.width = totalPct + '%';
+
+  // Atualizar métricas
+  document.getElementById('met-done').textContent = doneCount;
+  document.getElementById('met-end').textContent = fmtShort(endDate);
+
+  let nextDaysText = "—";
+  if (nextSessionDate) {
+    const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+    nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
+  }
+  document.getElementById('met-next').textContent = nextDaysText;
 
   const banner = document.getElementById('nadir-banner');
   if (banner) {
@@ -2292,6 +2879,7 @@ function renderSessions() {
     }
   }
 
+  // Construir cards (mesmo código anterior)
   if (gW) {
     const help = document.createElement('div');
     help.className = 'collection-help';
@@ -2437,8 +3025,7 @@ function renderSessions() {
     return row;
   }
 
-  // Fase branca em grupos visuais: normalmente 1 coleta para 2 sessões.
-  // Se houver quebra por feriado/adiamento, o grupo é recalculado automaticamente.
+  // Fase branca em grupos visuais
   getWhiteExamGroups().forEach(group => {
     const pairWrap = document.createElement('div');
     pairWrap.className = 'session-pair';
@@ -2521,20 +3108,6 @@ function renderSessions() {
     }
   }
 
-  document.getElementById('met-done').textContent = doneCount;
-  document.getElementById('met-end').textContent = fmtShort(endDate);
-
-  let nextDaysText = "—";
-  if (nextSessionDate) {
-    const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
-    nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
-  }
-
-  document.getElementById('met-next').textContent = nextDaysText;
-
-  const pct = Math.round((doneCount / 16) * 100);
-  document.getElementById('prog-val').textContent = pct + '%';
-  document.getElementById('prog-fill').style.width = pct + '%';
   renderPostChemoPlan();
 }
 
@@ -3318,6 +3891,26 @@ function renderSmartAlerts() {
   } else if (todayYMD === '2026-06-25') {
     alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-warning-circle', title: 'Reavaliar tosse', text: 'Se a tosse persistir após a Codeína, a orientação registrada foi retornar ao PS para tomografia.' });
   }
+
+  // Alertas para as novas etapas pós-quimio
+  const stepNames = {
+    surgery: 'Cirurgia',
+    radiotherapy: 'Radioterapia',
+    hormonal: 'Terapia hormonal'
+  };
+  ['surgery', 'radiotherapy', 'hormonal'].forEach(id => {
+    const data = postChemo[id];
+    if (data && data.date && !data.done) {
+      const diff = Math.ceil((fromYMD(data.date).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
+      if (diff === 0) {
+        alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-bell-ringing', title: `HOJE: ${stepNames[id]}`, text: `Data prevista para ${stepNames[id].toLowerCase()}. Confirme com a equipe.` });
+      } else if (diff >= 1 && diff <= 3) {
+        alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-calendar-plus', title: `${stepNames[id]} em ${diff} dia(s)`, text: `Previsto para ${fmtFull(data.date)}. Prepare-se e confirme agendamento.` });
+      } else if (diff < 0) {
+        alerts.unshift({ cls: 'ac-red', icon: 'ph-fill ph-warning-octagon', title: `${stepNames[id]} atrasada`, text: `A data prevista ${fmtFull(data.date)} já passou. Entre em contato com a equipe.` });
+      }
+    }
+  });
 
   addNutritionAlert(alerts);
   if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
