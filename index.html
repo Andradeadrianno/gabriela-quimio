@@ -66,7 +66,41 @@ body {
 .btn-login:hover { background: var(--ink); }
 .btn-register { width: 100%; background: transparent; color: var(--ink2); border: 1px solid var(--border); padding: 14px; font-size: 15px; font-weight: 600; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s; }
 .btn-register:hover { background: var(--surface-hover); }
-#login-error { color: var(--red-intense); font-size: 13px; margin-bottom: 12px; display: none; font-weight: 600; background: var(--red-bg); padding: 10px; border-radius: 6px; border: 1px solid rgba(214,69,69,0.2); }
+.btn-forgot {
+  width: 100%;
+  background: transparent;
+  color: var(--sage-dark);
+  border: none;
+  padding: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: color 0.2s, opacity 0.2s;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.btn-forgot:hover { color: var(--ink); opacity: 0.9; }
+.btn-forgot:disabled { opacity: 0.5; cursor: wait; text-decoration: none; }
+#login-error { color: var(--red-intense); font-size: 13px; margin-bottom: 12px; display: none; font-weight: 600; background: var(--red-bg); padding: 10px; border-radius: 6px; border: 1px solid rgba(214,69,69,0.2); line-height: 1.4; text-align: left; }
+#login-success {
+  color: #2A6A2A;
+  font-size: 13px;
+  margin-bottom: 12px;
+  display: none;
+  font-weight: 600;
+  background: #EAF5EA;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(42,106,42,0.2);
+  line-height: 1.4;
+  text-align: left;
+}
 .btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; cursor: pointer; z-index: 10; display: flex; align-items: center; gap: 4px; backdrop-filter: blur(4px); transition: all 0.2s; }
 .btn-logout:hover { background: rgba(0,0,0,0.3); }
 
@@ -743,10 +777,13 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
   <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 24px; color: var(--ink);">Guia de Cuidados</h2>
   <div class="login-box">
     <div id="login-error"></div>
+    <div id="login-success"></div>
     <input type="email" id="auth-email" class="login-input" placeholder="E-mail" value="">
     <input type="password" id="auth-password" class="login-input" placeholder="Senha">
     <button class="btn-login" onclick="login()">Entrar</button>
-    <button class="btn-register" onclick="register()">Criar nova conta</button>
+    <button type="button" class="btn-forgot" onclick="forgotPassword()">
+      <i class="ph-bold ph-key"></i> Esqueci minha senha
+    </button>
     <p style="font-size: 11px; color: var(--ink3); margin-top: 16px;">Seus dados ficam salvos na nuvem e apenas você tem acesso.</p>
   </div>
 </div>
@@ -1235,6 +1272,8 @@ const db = firebase.firestore();
 
 function showError(errorCode) {
   const errDiv = document.getElementById('login-error');
+  const successDiv = document.getElementById('login-success');
+  if (successDiv) successDiv.style.display = 'none';
   let msg = "Ocorreu um erro ao acessar.";
   if (errorCode === 'auth/invalid-credential' || errorCode === 'auth/wrong-password') msg = "E-mail ou senha incorretos. Tente novamente.";
   else if (errorCode === 'auth/user-not-found') msg = "Essa conta não existe. Clique em 'Criar nova conta'.";
@@ -1262,6 +1301,11 @@ let currentNutritionDate = null;
 let examChartInstance = null;
 let miniChartInstance = null;
 let currentChartGroup = 'imunidade';
+
+// === NOVAS TRAVAS DE SEGURANÇA (evitam perda de dados) ===
+let dataLoaded = false;      // impede syncToCloud() antes dos dados carregarem
+let loadToken = 0;           // evita race conditions entre loads concorrentes
+let lastModified = 0;        // timestamp usado para decidir cache local x nuvem
 
 // NOVAS VARIÁVEIS PARA ETAPAS PÓS-QUIMIO
 // sessions (radioterapia) e logs (hormonal) permitem registrar o dia a dia de cada etapa
@@ -1804,8 +1848,13 @@ auth.onAuthStateChanged((user) => {
   }
 });
 
-window.addEventListener('online', () => { document.getElementById('offline-banner').style.display = 'none'; syncToCloud(); });
-window.addEventListener('offline', () => { document.getElementById('offline-banner').style.display = 'block'; });
+window.addEventListener('online', () => {
+  document.getElementById('offline-banner').style.display = 'none';
+  syncToCloud();
+});
+window.addEventListener('offline', () => {
+  document.getElementById('offline-banner').style.display = 'block';
+});
 
 function saveLocal(key, val) { try { localStorage.setItem('gabi_' + key, JSON.stringify(val)); } catch (e) {} }
 function loadLocal(key, def) { try { const v = localStorage.getItem('gabi_' + key); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
@@ -1814,12 +1863,16 @@ window.login = function() {
   const e = document.getElementById('auth-email').value;
   const p = document.getElementById('auth-password').value;
   document.getElementById('login-error').style.display = 'none';
+  const successDiv = document.getElementById('login-success');
+  if (successDiv) successDiv.style.display = 'none';
   auth.signInWithEmailAndPassword(e, p).catch(error => showError(error.code));
 };
 window.register = function() {
   const e = document.getElementById('auth-email').value;
   const p = document.getElementById('auth-password').value;
   document.getElementById('login-error').style.display = 'none';
+  const successDiv = document.getElementById('login-success');
+  if (successDiv) successDiv.style.display = 'none';
   if (!e) { showErrorMsg('Digite um e-mail válido.'); return; }
   if (p.length < 6) { showErrorMsg('A senha precisa ter pelo menos 6 caracteres.'); return; }
   auth.createUserWithEmailAndPassword(e, p).catch(error => showError(error.code));
@@ -1827,9 +1880,65 @@ window.register = function() {
 
 function showErrorMsg(msg) {
   const errDiv = document.getElementById('login-error');
+  const successDiv = document.getElementById('login-success');
+  if (successDiv) successDiv.style.display = 'none';
   errDiv.textContent = msg;
   errDiv.style.display = 'block';
 }
+
+// =============================================
+// RECUPERAÇÃO DE SENHA
+// =============================================
+window.forgotPassword = function() {
+  const emailInput = document.getElementById('auth-email');
+  const errDiv = document.getElementById('login-error');
+  const successDiv = document.getElementById('login-success');
+  const email = (emailInput.value || '').trim();
+
+  errDiv.style.display = 'none';
+  if (successDiv) successDiv.style.display = 'none';
+
+  // Validação básica do e-mail
+  if (!email) {
+    showErrorMsg('Digite seu e-mail no campo acima para receber o link de recuperação.');
+    emailInput.focus();
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showErrorMsg('Digite um e-mail válido para receber o link de recuperação.');
+    emailInput.focus();
+    return;
+  }
+
+  // Bloqueia o botão para evitar cliques múltiplos
+  const btn = document.querySelector('.btn-forgot');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph-bold ph-hourglass"></i> Enviando...'; }
+
+  auth.sendPasswordResetEmail(email)
+    .then(() => {
+      // Mostra mensagem de sucesso
+      if (successDiv) {
+        successDiv.textContent = `✅ Link enviado para ${email}. Confira sua caixa de entrada (e a pasta de spam).`;
+        successDiv.style.display = 'block';
+      } else {
+        // Fallback caso o div de sucesso não exista no HTML
+        alert(`Link de recuperação enviado para ${email}.\n\nVerifique sua caixa de entrada e a pasta de spam.`);
+      }
+    })
+    .catch((error) => {
+      let msg = 'Não foi possível enviar o e-mail de recuperação.';
+      if (error.code === 'auth/user-not-found') msg = 'Não existe conta com esse e-mail. Verifique ou crie uma nova conta.';
+      else if (error.code === 'auth/invalid-email') msg = 'E-mail inválido. Confira e tente novamente.';
+      else if (error.code === 'auth/too-many-requests') msg = 'Muitas tentativas. Aguarde alguns minutos e tente novamente.';
+      else if (error.code === 'auth/network-request-failed') msg = 'Sem conexão. Verifique sua internet e tente novamente.';
+      showErrorMsg(msg);
+    })
+    .finally(() => {
+      if (btn) { btn.disabled = false; btn.innerHTML = '<i class="ph-bold ph-key"></i> Esqueci minha senha'; }
+    });
+};
+
 window.logout = function() { auth.signOut(); };
 
 // =============================================
@@ -1888,13 +1997,21 @@ function generateDefaultSessions() {
 }
 
 // =============================================
-// CLOUD
+// CLOUD — CARREGAMENTO ROBUSTO (corrigido)
 // =============================================
 function loadDataFromCloud() {
   if (!currentUser) return;
+
+  const myToken = ++loadToken;   // se outro load começar, este é ignorado
+  dataLoaded = false;
+
   const cachedSessions = loadLocal('sessions', []);
-  if (cachedSessions.length > 0) {
-    sessions = cachedSessions;
+  const cachedLastModified = loadLocal('lastModified', 0);
+  const hasCache = Array.isArray(cachedSessions) && cachedSessions.length > 0;
+
+  if (hasCache) {
+    // Carrega tudo do cache local imediatamente
+    sessions = cachedSessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
     dailyLogs = loadLocal('dailyLogs', {});
     diary = loadLocal('diary', []);
     generalDiary = loadLocal('generalDiary', []);
@@ -1904,38 +2021,94 @@ function loadDataFromCloud() {
     nutritionSettings = loadLocal('nutritionSettings', {});
     postChemo = normalizePostChemo(loadLocal('postChemo', defaultPostChemo()));
     celebrationsShown = normalizeCelebrations(loadLocal('celebrationsShown', defaultCelebrations()));
+    lastModified = cachedLastModified;
+
+    // Aplica migração também no cache (idempotente graças à flag juneHolidayAdjusted)
+    applyGabiJuneHolidayAdjustment();
+
+    dataLoaded = true;
     renderAll();
   }
-  db.collection("app_data").doc(currentUser.uid).get().then((docSnap) => {
-    if (docSnap.exists) {
-      const data = docSnap.data();
-      sessions = (data.sessions && data.sessions.length > 0) ? data.sessions : generateDefaultSessions();
-      sessions = sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
-      applyGabiJuneHolidayAdjustment();
-      dailyLogs = data.dailyLogs || {};
-      diary = data.diary || [];
-      generalDiary = data.generalDiary || [];
-      examResults = data.examResults || [];
-      appointments = data.appointments || [];
-      nutritionLogs = data.nutritionLogs || {};
-      nutritionSettings = data.nutritionSettings || {};
-      postChemo = normalizePostChemo(data.postChemo || defaultPostChemo());
-      celebrationsShown = normalizeCelebrations(data.celebrationsShown || defaultCelebrations());
-      examResults.sort((a, b) => a.date.localeCompare(b.date));
-      appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-    } else {
-      sessions = generateDefaultSessions();
-      applyGabiJuneHolidayAdjustment();
-      dailyLogs = {}; diary = []; generalDiary = []; examResults = []; appointments = []; nutritionLogs = {}; nutritionSettings = {};
-      postChemo = defaultPostChemo();
-      celebrationsShown = defaultCelebrations();
-      syncToCloud();
-    }
-    renderAll();
-  }).catch(error => { console.error("Erro ao carregar do Firebase:", error); sessions = generateDefaultSessions(); applyGabiJuneHolidayAdjustment(); renderAll(); });
+
+  db.collection("app_data").doc(currentUser.uid).get()
+    .then((docSnap) => {
+      if (myToken !== loadToken) return; // outro load substituiu este
+
+      if (docSnap.exists) {
+        const data = docSnap.data();
+        const cloudLastModified = data.lastModified || 0;
+
+        // === CACHE LOCAL É MAIS NOVO QUE A NUVEM ===
+        // (acontece quando o usuário editou offline; preserva o local)
+        if (hasCache && lastModified > cloudLastModified) {
+          dataLoaded = true;
+          syncToCloud();   // envia local para nuvem, resolve divergência
+          renderAll();
+          return;
+        }
+
+        // === NUVEM É MAIS NOVA (ou não há cache) → nuvem vence ===
+        if (data.sessions && data.sessions.length > 0) {
+          sessions = data.sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
+        } else if (!hasCache) {
+          sessions = generateDefaultSessions();
+        }
+        // Se hasCache e nuvem sem sessions, mantém sessions do cache
+
+        applyGabiJuneHolidayAdjustment();
+
+        dailyLogs = data.dailyLogs || (hasCache ? dailyLogs : {});
+        diary = data.diary || (hasCache ? diary : []);
+        generalDiary = data.generalDiary || (hasCache ? generalDiary : []);
+        examResults = data.examResults || (hasCache ? examResults : []);
+        appointments = data.appointments || (hasCache ? appointments : []);
+        nutritionLogs = data.nutritionLogs || (hasCache ? nutritionLogs : {});
+        nutritionSettings = data.nutritionSettings || (hasCache ? nutritionSettings : {});
+        postChemo = normalizePostChemo(data.postChemo || (hasCache ? postChemo : defaultPostChemo()));
+        celebrationsShown = normalizeCelebrations(data.celebrationsShown || (hasCache ? celebrationsShown : defaultCelebrations()));
+
+        examResults.sort((a, b) => a.date.localeCompare(b.date));
+        appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+
+        lastModified = cloudLastModified;
+        saveLocalOnly();   // espelha a nuvem no cache, sem alterar timestamp
+      } else {
+        // Documento ainda não existe
+        if (!hasCache) {
+          sessions = generateDefaultSessions();
+          applyGabiJuneHolidayAdjustment();
+          dailyLogs = {}; diary = []; generalDiary = []; examResults = [];
+          appointments = []; nutritionLogs = {}; nutritionSettings = {};
+          postChemo = defaultPostChemo();
+          celebrationsShown = defaultCelebrations();
+        }
+        // Se tinha cache, sobe o cache para a nuvem (não descarta)
+        dataLoaded = true;
+        syncToCloud();
+        renderAll();
+        return;
+      }
+
+      dataLoaded = true;
+      renderAll();
+    })
+    .catch((error) => {
+      console.error("Erro ao carregar do Firebase:", error);
+      if (myToken !== loadToken) return;
+
+      // ❌ ANTES: sessions = generateDefaultSessions() → APAGAVA TUDO
+      // ✅ AGORA: preserva o cache local; só cria defaults se realmente não havia nada
+      if (!hasCache) {
+        sessions = generateDefaultSessions();
+        applyGabiJuneHolidayAdjustment();
+      }
+      dataLoaded = true;
+      renderAll();
+    });
 }
 
-function syncToCloud() {
+// Salva SÓ no localStorage (usado ao espelhar dados da nuvem, sem alterar timestamp)
+function saveLocalOnly() {
   saveLocal('sessions', sessions);
   saveLocal('dailyLogs', dailyLogs);
   saveLocal('diary', diary);
@@ -1946,8 +2119,30 @@ function syncToCloud() {
   saveLocal('nutritionSettings', nutritionSettings);
   saveLocal('postChemo', postChemo);
   saveLocal('celebrationsShown', celebrationsShown);
-  if (!currentUser || !navigator.onLine) return;
-  db.collection("app_data").doc(currentUser.uid).set({ sessions, dailyLogs, diary, generalDiary, examResults, appointments, nutritionLogs, nutritionSettings, postChemo, celebrationsShown }, { merge: true });
+  saveLocal('lastModified', lastModified);
+}
+
+function syncToCloud() {
+  // Atualiza timestamp e cache local SEMPRE (mesmo offline)
+  lastModified = Date.now();
+  saveLocalOnly();
+
+  // Não envia para a nuvem se ainda não temos dados confiáveis
+  if (!dataLoaded) return;
+  if (!currentUser) return;
+
+  // Se estiver offline, o navegador dispara 'online' depois e chama syncToCloud de novo
+  if (!navigator.onLine) return;
+
+  db.collection("app_data").doc(currentUser.uid).set({
+    sessions, dailyLogs, diary, generalDiary, examResults,
+    appointments, nutritionLogs, nutritionSettings, postChemo,
+    celebrationsShown, lastModified
+  }, { merge: true })
+  .catch((error) => {
+    console.error("Falha ao salvar na nuvem (dados permanecem no cache local):", error);
+    // Não reverte nada — o cache local continua íntegro.
+  });
 }
 
 // =============================================
@@ -2791,7 +2986,12 @@ function scheduleNextRefresh() {
 // RENDER SESSIONS (ATUALIZADO COM PROGRESSO PÓS-QUIMIO)
 // =============================================
 function renderSessions() {
-  if (!sessions || sessions.length === 0) sessions = generateDefaultSessions();
+  // Defensivo: se por algum motivo sessions ficar vazio, recria em memória
+  // para a UI não quebrar. NÃO chamamos syncToCloud aqui — se dataLoaded=false,
+  // gravaríamos defaults por cima dos dados reais da nuvem.
+  if (!sessions || sessions.length === 0) {
+    sessions = generateDefaultSessions();
+  }
 
   const gW = document.getElementById('grid-white');
   const gR = document.getElementById('grid-red');
