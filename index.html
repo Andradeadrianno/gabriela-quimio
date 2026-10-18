@@ -177,7 +177,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius: 20px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
 /* ===== TABS ===== */
-.tab-nav { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 2rem; }
+.tab-nav { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; margin-bottom: 2rem; }
 .tab-btn { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 4px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink2); cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: var(--shadow-sm); }
 .tab-btn i { font-size: 22px; transition: transform 0.2s; }
 .tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); box-shadow: 0 8px 20px rgba(44,54,49,0.25); }
@@ -686,7 +686,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .recipe-body { font-size: 13px; color: var(--ink2); line-height: 1.55; }
 .nutri-alert-preview { background: #E6F1FB; border: 1px solid #B5D4F4; color: #042C53; border-radius: var(--radius-sm); padding: 12px; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; }
 .nutri-source { font-size: 11px; color: var(--ink3); margin-top: 8px; font-style: italic; }
-@media (max-width: 600px) { .tab-nav { grid-template-columns: repeat(4, 1fr); } .nutri-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .nutri-grid { grid-template-columns: 1fr; } }
 
 /* ===== PÓS-QUIMIO: NOVAS ETAPAS ===== */
 .post-chemo-timeline {
@@ -740,12 +740,252 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   border-color: var(--sage-dark);
 }
 
+/* ===== PÓS-OPERATÓRIO & PORTOVAC ===== */
+.postop-config-card {
+  background: linear-gradient(135deg, var(--sage-bg), #fff);
+  border: 1px solid var(--sage-light);
+  border-left: 4px solid var(--sage-dark);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 1rem;
+}
+.postop-config-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--sage-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.postop-config-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.postop-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.postop-field label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink3);
+}
+.postop-input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  background: var(--surface);
+  color: var(--ink);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+.postop-input:focus { border-color: var(--sage-dark); }
+.postop-textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  outline: none;
+  background: var(--surface);
+  color: var(--ink);
+}
+.postop-textarea:focus { border-color: var(--sage-dark); }
+
+.dpo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.drain-readings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.drain-readings-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink3);
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.drain-readings-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.drain-readings-table tr.drain-row-alert td { background: var(--red-bg); }
+.drain-readings-table tr.drain-row-ok td { background: #FAFDF9; }
+
+.drain-aspect-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.aspect-sanguinolento { background: #FDE8E8; color: #7A1F1F; }
+.aspect-serosanguinolento { background: #FEF0E0; color: #7A4A00; }
+.aspect-seroso { background: #FFF8E0; color: #7A6A00; }
+.aspect-turvo { background: #7A1F1F; color: #fff; }
+
+.drain-vacuum-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.vacuum-ok { background: #EAF5EA; color: #2A6A2A; }
+.vacuum-bad { background: var(--red-bg); color: var(--red-intense); }
+
+.drain-total-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.drain-total-card.ok { border-left: 4px solid #2A6A2A; background: linear-gradient(135deg, #EAF5EA, #fff); }
+.drain-total-card.warn { border-left: 4px solid var(--amber); background: linear-gradient(135deg, #FEF0E0, #fff); }
+.drain-total-card.alert { border-left: 4px solid var(--red-intense); background: linear-gradient(135deg, #FDE8E8, #fff); }
+.drain-total-icon { width: 40px; height: 40px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; border: 1px solid var(--border); }
+.drain-total-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink3); }
+.drain-total-value { font-size: 22px; font-weight: 800; color: var(--ink); line-height: 1; margin: 2px 0; }
+.drain-total-sub { font-size: 11px; color: var(--ink3); }
+
+.postop-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0;
+}
+.postop-guide-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.postop-guide-num {
+  background: var(--sage-dark);
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.postop-guide-text {
+  flex: 1;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.postop-guide-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.postop-question-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.postop-question-text { flex: 1; font-size: 13px; color: var(--ink); line-height: 1.5; }
+.postop-question-text.answered { text-decoration: line-through; color: var(--ink3); }
+
+@media (max-width: 600px) {
+  .postop-config-grid { grid-template-columns: 1fr; }
+  .drain-readings-table, .drain-readings-table thead, .drain-readings-table tbody, .drain-readings-table th, .drain-readings-table td, .drain-readings-table tr {
+    display: block;
+  }
+  .drain-readings-table thead { display: none; }
+  .drain-readings-table tr {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    margin-bottom: 8px;
+  }
+  .drain-readings-table tr.drain-row-alert,
+  .drain-readings-table tr.drain-row-ok { background: var(--surface); }
+  .drain-readings-table tr.drain-row-alert { border-color: #F5A4A4; }
+  .drain-readings-table tr.drain-row-ok { border-color: #BEE3C4; }
+  .drain-readings-table td {
+    border: none;
+    padding: 3px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+  }
+  .drain-readings-table td::before {
+    content: attr(data-label);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--ink3);
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+  }
+  .drain-readings-table td[colspan]::before { content: ''; display: none; }
+}
+
 /* ===== FOOTER ===== */
 footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: var(--ink3); max-width: 700px; margin: 0 auto; }
 
 /* ===== RESPONSIVE ===== */
-@media (max-width: 600px) { .tab-nav { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 600px) { .tab-nav { grid-template-columns: repeat(5, 1fr); } }
 @media (max-width: 500px) {
+  .tab-nav { grid-template-columns: repeat(4, 1fr); }
   .tab-btn span { display: none; }
   .tab-btn i { font-size: 24px; }
   .sec-title { flex-direction: column; align-items: flex-start; gap: 12px; }
@@ -855,6 +1095,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <button class="tab-btn" onclick="switchTab('consultas',this)"><i class="ph-fill ph-calendar-plus"></i><span>Consultas</span></button>
       <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Emergência</span></button>
       <button class="tab-btn" onclick="switchTab('nutricao',this)"><i class="ph-fill ph-bowl-food"></i><span>Nutrição</span></button>
+      <button class="tab-btn" onclick="switchTab('posop',this)"><i class="ph-fill ph-bandaids"></i><span>Pós-Op</span></button>
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
 
@@ -1227,6 +1468,174 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <div class="nutri-source">Fontes anexadas: Alimentação saudável no Diabetes; Alimentação saudável no tratamento oncológico; Orientações Gerais; Suplementação Caseira Diet.</div>
     </div>
 
+    <!-- TAB PÓS-OPERATÓRIO & PORTOVAC -->
+    <div id="tab-posop" class="tab-pane">
+      <div class="sec-title">
+        <div class="sec-title-left"><i class="ph-fill ph-bandaids"></i> Pós-Operatório & Portovac</div>
+        <span class="dpo-badge" id="dpo-badge"><i class="ph-fill ph-calendar-heart"></i> DPO: —</span>
+      </div>
+
+      <!-- A) Painel de Configuração Médica -->
+      <div class="postop-config-card">
+        <div class="postop-config-title">
+          <span><i class="ph-fill ph-sliders-horizontal"></i> Parâmetros Médicos do Dreno</span>
+          <span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--sage-dark);cursor:pointer;">
+              <input type="checkbox" id="postop-active-toggle" onchange="togglePostOpActive(this.checked)" style="width:16px;height:16px;cursor:pointer;">
+              Em uso
+            </label>
+            <button class="btn-edit" onclick="savePostOpConfig()"><i class="ph-bold ph-floppy-disk"></i> Salvar</button>
+          </span>
+        </div>
+        <div class="postop-config-grid">
+          <div class="postop-field">
+            <label>Data da Cirurgia</label>
+            <input type="date" class="postop-input" id="postop-surgery-date" value="">
+          </div>
+          <div class="postop-field">
+            <label>Data da Colocação do Dreno</label>
+            <input type="date" class="postop-input" id="postop-drain-placed-date" value="">
+          </div>
+          <div class="postop-field">
+            <label>Horários de Esvaziamento (separados por vírgula)</label>
+            <input type="text" class="postop-input" id="postop-emptying-times" value="08:00, 20:00" placeholder="Ex: 08:00, 14:00, 20:00">
+          </div>
+          <div class="postop-field">
+            <label>Meta de Volume para Retirada (ml / 24h)</label>
+            <input type="number" class="postop-input" id="postop-removal-target-ml" value="30" min="0" step="1">
+          </div>
+          <div class="postop-field">
+            <label>Dias Consecutivos na Meta</label>
+            <input type="number" class="postop-input" id="postop-removal-target-days" value="2" min="1" step="1">
+          </div>
+        </div>
+        <div class="postop-field" style="margin-top:10px;">
+          <label>Instruções Específicas do Médico</label>
+          <textarea class="postop-textarea" id="postop-instructions" placeholder="Ex: desprezar no copo medidor, anotar volume e cor, apertar a sanfona antes de fechar a tampa..."></textarea>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
+            <strong style="font-size:13px;color:var(--ink);"><i class="ph-fill ph-drop-half"></i> Drenos Ativos</strong>
+            <button class="btn-calendar" onclick="addNewDrain()"><i class="ph-bold ph-plus"></i> Adicionar Dreno</button>
+          </div>
+          <div id="postop-drains-list"></div>
+        </div>
+      </div>
+
+      <!-- B) Registro Rápido + Resumo 24h -->
+      <h2 class="sec-title"><i class="ph-fill ph-drop"></i> Monitoramento do Débito</h2>
+      <div id="drain-totals-container"></div>
+
+      <div class="card" style="border-left:4px solid var(--gold);">
+        <div class="card-title"><i class="ph-fill ph-pencil-simple" style="color:var(--amber)"></i> Registrar Medição</div>
+        <div class="postop-config-grid">
+          <div class="postop-field">
+            <label>Data</label>
+            <input type="date" class="postop-input" id="drain-read-date">
+          </div>
+          <div class="postop-field">
+            <label>Horário</label>
+            <input type="time" class="postop-input" id="drain-read-time">
+          </div>
+          <div class="postop-field">
+            <label>Dreno</label>
+            <select class="postop-input" id="drain-read-drain"></select>
+          </div>
+          <div class="postop-field">
+            <label>Volume Drenado (ml)</label>
+            <input type="number" class="postop-input" id="drain-read-volume" min="0" step="1" placeholder="Ex: 25">
+          </div>
+          <div class="postop-field">
+            <label>Aspecto / Cor</label>
+            <select class="postop-input" id="drain-read-aspect">
+              <option value="serosanguinolento">Serossanguinolento / Rosado</option>
+              <option value="sanguinolento">Sanguinolento / Vermelho vivo</option>
+              <option value="seroso">Seroso / Amarelo claro</option>
+              <option value="turvo">Turvo / Purulento - ALERTA</option>
+            </select>
+          </div>
+          <div class="postop-field">
+            <label>Status do Vácuo</label>
+            <select class="postop-input" id="drain-read-vacuum">
+              <option value="ok">Comprimido / Com vácuo</option>
+              <option value="bad">Expandido / Sem vácuo</option>
+            </select>
+          </div>
+        </div>
+        <div class="postop-field" style="margin-top:10px;">
+          <label>Anotações da Medição</label>
+          <input type="text" class="postop-input" id="drain-read-notes" placeholder="Ex: presença de pequenos coágulos, dor leve no óstio...">
+        </div>
+        <button class="btn-primary" style="margin-top:12px;" onclick="addDrainReading()"><i class="ph-bold ph-plus"></i> Salvar Medição</button>
+      </div>
+
+      <h2 class="sec-title" style="margin-top:2rem;"><i class="ph-fill ph-table"></i> Histórico de Medições</h2>
+      <div class="card" style="overflow-x:auto;">
+        <div id="drain-readings-table-container"></div>
+      </div>
+
+      <div class="chart-section" id="drain-chart-section" style="display:none;">
+        <h2 class="sec-title"><i class="ph-fill ph-chart-line"></i> Evolução do Débito (ml/24h)</h2>
+        <div class="chart-wrap"><canvas id="drain-chart"></canvas></div>
+      </div>
+
+      <!-- C) Guia Completo e Editável -->
+      <h2 class="sec-title" style="margin-top:2.5rem;"><i class="ph-fill ph-book-open-text"></i> Guia de Cuidados Pós-Operatórios</h2>
+
+      <div class="card" style="border-left:4px solid var(--sage-dark);">
+        <div class="card-title" style="justify-content:space-between;">
+          <span><i class="ph-fill ph-list-numbers" style="color:var(--sage-dark)"></i> Passo a Passo — Medir e Esvaziar o Portovac</span>
+          <button class="btn-edit" onclick="addGuideItem('steps')"><i class="ph-bold ph-plus"></i> Adicionar</button>
+        </div>
+        <div class="postop-guide-list" id="postop-guide-steps"></div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--sage);">
+        <div class="card-title" style="justify-content:space-between;">
+          <span><i class="ph-fill ph-heartbeat" style="color:var(--sage-dark)"></i> Cuidados com o Curativo e o Braço</span>
+          <button class="btn-edit" onclick="addGuideItem('woundCare')"><i class="ph-bold ph-plus"></i> Adicionar</button>
+        </div>
+        <div class="postop-guide-list" id="postop-guide-woundCare"></div>
+      </div>
+
+      <div class="card" style="border-left:4px solid var(--red-intense);">
+        <div class="card-title" style="justify-content:space-between;">
+          <span><i class="ph-fill ph-warning-octagon" style="color:var(--red-intense)"></i> Sinais de Alerta</span>
+          <button class="btn-edit" onclick="addGuideItem('alerts')"><i class="ph-bold ph-plus"></i> Adicionar</button>
+        </div>
+        <div class="postop-guide-list" id="postop-guide-alerts"></div>
+      </div>
+
+      <!-- D) Observações e Perguntas -->
+      <h2 class="sec-title" style="margin-top:2.5rem;"><i class="ph-fill ph-note-pencil"></i> Observações & Dúvidas</h2>
+      <div class="card">
+        <div class="postop-field">
+          <label>Observações Gerais do Pós-Operatório</label>
+          <textarea class="postop-textarea" id="postop-observations" onchange="saveObservations(this.value)" placeholder="Evolução da cicatrização, data prevista para retirar pontos, orientações da fisioterapia..."></textarea>
+        </div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--gold);">
+        <div class="card-title" style="justify-content:space-between;">
+          <span><i class="ph-fill ph-question" style="color:var(--amber)"></i> Perguntas para o Cirurgião</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <input type="text" class="postop-input" id="postop-new-question" placeholder="Escreva sua dúvida para levar na consulta..." style="flex:1;min-width:200px;">
+          <button class="btn-calendar dark" onclick="addQuestion()"><i class="ph-bold ph-plus"></i> Adicionar</button>
+        </div>
+        <div id="postop-questions-list"></div>
+      </div>
+
+      <!-- E) Exportação -->
+      <h2 class="sec-title" style="margin-top:2.5rem;"><i class="ph-fill ph-export"></i> Exportar Relatório</h2>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:13px;color:var(--ink2);margin-bottom:12px;">Gere um relatório completo do Portovac para levar na consulta ou enviar à equipe.</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <button class="btn-primary" style="background:var(--sage-dark);flex:1;min-width:200px;" onclick="copyPortovacReport()"><i class="ph-bold ph-copy"></i> Copiar Relatório (WhatsApp)</button>
+          <button class="btn-primary" style="background:var(--red-intense);flex:1;min-width:200px;" onclick="exportPortovacPDF()"><i class="ph-bold ph-file-pdf"></i> Exportar PDF</button>
+        </div>
+      </div>
+    </div>
+
     <!-- TAB ORIENTAÇÕES -->
     <div id="tab-orientacoes" class="tab-pane">
       <h2 class="sec-title" style="padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-book-open-text"></i> Orientações pré-quimioterapia (ANTES DA SESSÃO)</h2>
@@ -1234,9 +1643,6 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
         <div class="card-title"><i class="ph-fill ph-calendar-check" style="color:var(--sage-dark)"></i> Pós-quimioterapia: próximos passos</div>
         <div class="card-body">Após finalizar toda a parte da quimioterapia, deixar programado: refazer <strong>todos os exames solicitados</strong> em cerca de <strong>3 semanas após a última quimioterapia</strong>, passar em <strong>avaliação pré-anestésica/anestesista (APA)</strong>, retornar com a <strong>Mastologia</strong> para seguimento pré-operatório e agendar retorno com a <strong>Oncologia HM</strong>. As datas exatas devem ser confirmadas com a equipe no hospital.</div>
       </div>
-
-      <!-- O plano interativo pós-quimioterapia (cirurgia, radioterapia, hormonal) foi movido para a aba Calendário,
-           junto com a grade de sessões, pois é uma ferramenta de acompanhamento diário e não uma orientação estática. -->
 
       <div class="card"><div class="card-title">1. Exames laboratoriais atualizados</div><div class="card-body">Certifique-se de que os exames de sangue (hemograma, função renal e hepática) estão feitos <strong>48 horas (2 dias) antes</strong> da quimioterapia, conforme orientação dada no dia da consulta.<br><br>Caso tenha exame de sangue recente (até 60 dias), não será necessário realização para a primeira quimioterapia, de acordo com o que o médico orientou na consulta.<br><br><strong>Os exames de sangue para quimioterapia não precisam de jejum.</strong><br><br>Os resultados são essenciais para avaliar se o corpo está pronto para receber a medicação.<br><br><span style="background: var(--sage-bg); padding: 8px 12px; border-radius: var(--radius-sm); display: block; margin-top: 10px;"><i class="ph-fill ph-hand"></i> <strong>Fortalecimento das veias:</strong> Aperte bolinhas de borracha (como as de fisioterapia) e faça compressas de chá de camomila (folhas e flores) ou apenas água morna 1 dia antes e 2 dias depois de usar o braço para receber a quimioterapia.</span></div></div>
       <div class="card"><div class="card-title">2. Jejum? Somente se indicado</div><div class="card-body">A maioria dos esquemas não exige jejum completo, mas é importante estar bem alimentado(a), com refeições leves antes da sessão. <strong>Pode trazer alimentação no dia da quimioterapia e se alimentar dentro da central de infusão.</strong><br><br><span style="color: var(--red-intense);"><i class="ph-fill ph-warning"></i></span> No início da quimioterapia não poderá mais fazer uso de:<br>• Bebidas alcoólicas<br>• Carnes cruas ou mal passadas<br>• Peixes crus<br><br>Frutas, verduras e legumes precisam estar bem higienizados. Evite comer fora de casa.<br><br>Evite ficar no mesmo ambiente na hora de cozinhar feijão e carne — pode piorar náusea e vômito.</div></div>
@@ -1341,6 +1747,89 @@ let celebrationsShown = defaultCelebrations();
 function normalizeCelebrations(c) {
   return { ...defaultCelebrations(), ...(c || {}) };
 }
+
+// =============================================
+// PÓS-OPERATÓRIO & PORTOVAC — ESTADO
+// =============================================
+function defaultPostOpData() {
+  return {
+    active: true,
+    surgeryDate: '',
+    drains: [
+      { id: 'dreno_1', name: 'Dreno 1 - Mama/Axila', placedDate: '' }
+    ],
+    nextDrainId: 2,
+    emptyingTimes: ['08:00', '20:00'],
+    removalTargetMl: 30,
+    removalTargetDays: 2,
+    specificInstructions: 'Desprezar o líquido no copo medidor, anotar volume e cor, comprimir a sanfona antes de fechar a tampa para manter o vácuo.',
+    readings: [],
+    nextReadingId: 1,
+    guide: {
+      steps: [
+        { id: 'step_1', text: 'Lavar bem as mãos com água e sabão antes de qualquer manipulação;' },
+        { id: 'step_2', text: 'Pinçar (fechar) o clamp do tubo próximo ao reservatório antes de abrir a tampa;' },
+        { id: 'step_3', text: 'Abrir a tampa do reservatório sem encostar na parte interna;' },
+        { id: 'step_4', text: 'Despejar o líquido no copo medidor graduado (ou aspirar com seringa, se orientado) e observar o volume (ml) e a cor;' },
+        { id: 'step_5', text: 'Comprimir totalmente o reservatório (sanfona) com a mão sobre uma superfície firme;' },
+        { id: 'step_6', text: 'Fechar a tampa mantendo a sanfona apertada para refazer o vácuo;' },
+        { id: 'step_7', text: 'Soltar o clamp (despinçar) do tubo e verificar se a sanfona permanece contraída;' },
+        { id: 'step_8', text: 'Prender o dreno abaixo do nível da cirurgia (nunca elevar acima da cintura/tórax).' }
+      ],
+      nextStepId: 9,
+      woundCare: [
+        { id: 'wound_1', text: 'Proteger o curativo com plástico durante o banho; secar com toalha limpa, sem esfregar.' },
+        { id: 'wound_2', text: 'Usar sutiã cirúrgico/compressivo conforme orientação da equipe; manter por 30-60 dias se indicado.' },
+        { id: 'wound_3', text: 'Não levantar o braço do lado operado acima do ombro até liberação médica; não pegar peso.' },
+        { id: 'wound_4', text: 'Evitar aferir pressão arterial, colher sangue ou aplicar injeções no braço do lado operado.' },
+        { id: 'wound_5', text: 'Ordenha suave do tubo caso haja fibrina/coágulos obstruindo, somente se orientado pela equipe.' }
+      ],
+      nextWoundId: 6,
+      alerts: [
+        { id: 'alert_1', text: 'Perda súbita de vácuo (sanfona que enche de ar repetidamente).' },
+        { id: 'alert_2', text: 'Saída acidental ou deslocamento do tubo.' },
+        { id: 'alert_3', text: 'Vermelhidão intensa, calor local, inchaço súbito (hematoma/seroma) ou pus no corte/óstio do dreno.' },
+        { id: 'alert_4', text: 'Febre ≥ 37,8 °C ou dor intensa que não cede aos analgésicos.' }
+      ],
+      nextAlertId: 5
+    },
+    observations: '',
+    questions: [],
+    nextQuestionId: 1
+  };
+}
+
+function normalizePostOpData(d) {
+  const def = defaultPostOpData();
+  if (!d || typeof d !== 'object') return def;
+  const guide = d.guide || {};
+  return {
+    active: d.active !== undefined ? !!d.active : def.active,
+    surgeryDate: d.surgeryDate || '',
+    drains: Array.isArray(d.drains) && d.drains.length > 0 ? d.drains : def.drains,
+    nextDrainId: d.nextDrainId || def.nextDrainId,
+    emptyingTimes: Array.isArray(d.emptyingTimes) && d.emptyingTimes.length > 0 ? d.emptyingTimes : def.emptyingTimes,
+    removalTargetMl: (typeof d.removalTargetMl === 'number') ? d.removalTargetMl : def.removalTargetMl,
+    removalTargetDays: (typeof d.removalTargetDays === 'number') ? d.removalTargetDays : def.removalTargetDays,
+    specificInstructions: d.specificInstructions !== undefined ? d.specificInstructions : def.specificInstructions,
+    readings: Array.isArray(d.readings) ? d.readings : [],
+    nextReadingId: d.nextReadingId || 1,
+    guide: {
+      steps: Array.isArray(guide.steps) ? guide.steps : def.guide.steps,
+      nextStepId: guide.nextStepId || def.guide.nextStepId,
+      woundCare: Array.isArray(guide.woundCare) ? guide.woundCare : def.guide.woundCare,
+      nextWoundId: guide.nextWoundId || def.guide.nextWoundId,
+      alerts: Array.isArray(guide.alerts) ? guide.alerts : def.guide.alerts,
+      nextAlertId: guide.nextAlertId || def.guide.nextAlertId
+    },
+    observations: d.observations || '',
+    questions: Array.isArray(d.questions) ? d.questions : [],
+    nextQuestionId: d.nextQuestionId || 1
+  };
+}
+
+let postOpData = defaultPostOpData();
+let drainChartInstance = null;
 
 // =============================================
 // CELEBRAÇÃO DE MARCOS (sino + confetes)
@@ -2021,6 +2510,7 @@ function loadDataFromCloud() {
     nutritionSettings = loadLocal('nutritionSettings', {});
     postChemo = normalizePostChemo(loadLocal('postChemo', defaultPostChemo()));
     celebrationsShown = normalizeCelebrations(loadLocal('celebrationsShown', defaultCelebrations()));
+    postOpData = normalizePostOpData(loadLocal('postOpData', defaultPostOpData()));
     lastModified = cachedLastModified;
 
     // Aplica migração também no cache (idempotente graças à flag juneHolidayAdjusted)
@@ -2066,6 +2556,7 @@ function loadDataFromCloud() {
         nutritionSettings = data.nutritionSettings || (hasCache ? nutritionSettings : {});
         postChemo = normalizePostChemo(data.postChemo || (hasCache ? postChemo : defaultPostChemo()));
         celebrationsShown = normalizeCelebrations(data.celebrationsShown || (hasCache ? celebrationsShown : defaultCelebrations()));
+        postOpData = normalizePostOpData(data.postOpData || (hasCache ? postOpData : defaultPostOpData()));
 
         examResults.sort((a, b) => a.date.localeCompare(b.date));
         appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
@@ -2081,6 +2572,7 @@ function loadDataFromCloud() {
           appointments = []; nutritionLogs = {}; nutritionSettings = {};
           postChemo = defaultPostChemo();
           celebrationsShown = defaultCelebrations();
+          postOpData = defaultPostOpData();
         }
         // Se tinha cache, sobe o cache para a nuvem (não descarta)
         dataLoaded = true;
@@ -2101,6 +2593,7 @@ function loadDataFromCloud() {
       if (!hasCache) {
         sessions = generateDefaultSessions();
         applyGabiJuneHolidayAdjustment();
+        postOpData = defaultPostOpData();
       }
       dataLoaded = true;
       renderAll();
@@ -2119,6 +2612,7 @@ function saveLocalOnly() {
   saveLocal('nutritionSettings', nutritionSettings);
   saveLocal('postChemo', postChemo);
   saveLocal('celebrationsShown', celebrationsShown);
+  saveLocal('postOpData', postOpData);
   saveLocal('lastModified', lastModified);
 }
 
@@ -2137,7 +2631,7 @@ function syncToCloud() {
   db.collection("app_data").doc(currentUser.uid).set({
     sessions, dailyLogs, diary, generalDiary, examResults,
     appointments, nutritionLogs, nutritionSettings, postChemo,
-    celebrationsShown, lastModified
+    celebrationsShown, postOpData, lastModified
   }, { merge: true })
   .catch((error) => {
     console.error("Falha ao salvar na nuvem (dados permanecem no cache local):", error);
@@ -2164,6 +2658,7 @@ window.switchTab = function(n, b) {
   if (n === 'medicacoes') { setMedDate(currentMedDate); scheduleNextRefresh(); }
   if (n === 'nutricao') renderNutritionTab();
   if (n === 'calendario') renderPostChemoTimeline();
+  if (n === 'posop') renderPostOpTab();
 };
 
 function renderAll() {
@@ -2193,6 +2688,7 @@ function renderAll() {
   renderMedCards();
   currentNutritionDate = todayYMD;
   renderNutritionTab();
+  renderPostOpTab();
 }
 
 
@@ -4006,6 +4502,618 @@ window.deleteAppointment = function(index) {
 };
 
 // =============================================
+// PÓS-OPERATÓRIO & PORTOVAC — IMPLEMENTAÇÃO
+// =============================================
+function getDPO() {
+  if (!postOpData.surgeryDate) return null;
+  const diff = Math.round((fromYMD(todayYMD).getTime() - fromYMD(postOpData.surgeryDate).getTime()) / 86400000);
+  return diff;
+}
+
+function getTotal24hForDrain(drainId, referenceDate) {
+  return postOpData.readings
+    .filter(r => r.drainId === drainId && r.date === referenceDate)
+    .reduce((s, r) => s + (parseFloat(r.volumeMl) || 0), 0);
+}
+
+function getDailyTotalsForDrain(drainId) {
+  const byDate = {};
+  postOpData.readings.filter(r => r.drainId === drainId).forEach(r => {
+    if (!byDate[r.date]) byDate[r.date] = 0;
+    byDate[r.date] += parseFloat(r.volumeMl) || 0;
+  });
+  return byDate;
+}
+
+function getAspectLabel(aspect) {
+  const labels = {
+    'sanguinolento': 'Sanguinolento',
+    'serosanguinolento': 'Serossanguinolento',
+    'seroso': 'Seroso',
+    'turvo': 'Turvo/Purulento'
+  };
+  return labels[aspect] || aspect;
+}
+
+function renderPostOpTab() {
+  const dpoBadge = document.getElementById('dpo-badge');
+  const dpo = getDPO();
+  if (dpoBadge) {
+    dpoBadge.innerHTML = dpo !== null
+      ? `<i class="ph-fill ph-calendar-heart"></i> DPO ${dpo}`
+      : `<i class="ph-fill ph-calendar-heart"></i> DPO: —`;
+  }
+
+  const toggleEl = document.getElementById('postop-active-toggle');
+  if (toggleEl) toggleEl.checked = !!postOpData.active;
+
+  const sDateEl = document.getElementById('postop-surgery-date');
+  if (sDateEl) sDateEl.value = postOpData.surgeryDate || '';
+
+  const dDateEl = document.getElementById('postop-drain-placed-date');
+  if (dDateEl) dDateEl.value = (postOpData.drains[0] && postOpData.drains[0].placedDate) || '';
+
+  const emptyEl = document.getElementById('postop-emptying-times');
+  if (emptyEl) emptyEl.value = (postOpData.emptyingTimes || []).join(', ');
+
+  const targetEl = document.getElementById('postop-removal-target-ml');
+  if (targetEl) targetEl.value = postOpData.removalTargetMl;
+
+  const daysEl = document.getElementById('postop-removal-target-days');
+  if (daysEl) daysEl.value = postOpData.removalTargetDays;
+
+  const instrEl = document.getElementById('postop-instructions');
+  if (instrEl) instrEl.value = postOpData.specificInstructions || '';
+
+  const obsEl = document.getElementById('postop-observations');
+  if (obsEl) obsEl.value = postOpData.observations || '';
+
+  renderDrainsList();
+  renderDrainTotals();
+  renderDrainSelect();
+  renderDrainReadingsTable();
+  renderDrainChart();
+  renderGuideSection('steps');
+  renderGuideSection('woundCare');
+  renderGuideSection('alerts');
+  renderQuestions();
+
+  const readDate = document.getElementById('drain-read-date');
+  if (readDate && !readDate.value) readDate.value = todayYMD;
+  const readTime = document.getElementById('drain-read-time');
+  if (readTime && !readTime.value) {
+    const now = new Date();
+    readTime.value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  }
+}
+
+window.togglePostOpActive = function(checked) {
+  postOpData.active = !!checked;
+  syncToCloud();
+  renderSmartAlerts();
+};
+
+window.savePostOpConfig = function() {
+  const sDate = document.getElementById('postop-surgery-date').value;
+  const dDate = document.getElementById('postop-drain-placed-date').value;
+  const emptyStr = document.getElementById('postop-emptying-times').value;
+  const targetMl = parseFloat(document.getElementById('postop-removal-target-ml').value);
+  const targetDays = parseInt(document.getElementById('postop-removal-target-days').value, 10);
+  const instructions = document.getElementById('postop-instructions').value;
+
+  postOpData.surgeryDate = sDate || '';
+  if (postOpData.drains[0]) postOpData.drains[0].placedDate = dDate || '';
+  postOpData.emptyingTimes = emptyStr.split(',').map(t => t.trim()).filter(t => /^\d{1,2}:\d{2}$/.test(t));
+  if (postOpData.emptyingTimes.length === 0) postOpData.emptyingTimes = ['08:00', '20:00'];
+  postOpData.removalTargetMl = isNaN(targetMl) ? 30 : targetMl;
+  postOpData.removalTargetDays = isNaN(targetDays) ? 2 : targetDays;
+  postOpData.specificInstructions = instructions || '';
+  syncToCloud();
+  renderPostOpTab();
+  renderSmartAlerts();
+  alert('Parâmetros salvos!');
+};
+
+function renderDrainsList() {
+  const container = document.getElementById('postop-drains-list');
+  if (!container) return;
+  container.innerHTML = postOpData.drains.map((d, idx) => `
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">
+      <input type="text" class="postop-input" style="flex:2;min-width:150px;" value="${escapeHtml(d.name)}" onchange="renameDrain(${idx}, this.value)">
+      <input type="date" class="postop-input" style="flex:1;min-width:130px;" value="${d.placedDate || ''}" onchange="updateDrainPlacedDate(${idx}, this.value)" title="Data de colocação">
+      <button class="btn-del" style="width:32px;height:32px;" onclick="removeDrain(${idx})" title="Remover dreno"><i class="ph-bold ph-trash"></i></button>
+    </div>
+  `).join('') || '<div style="font-size:12px;color:var(--ink3);">Nenhum dreno cadastrado.</div>';
+}
+
+window.renameDrain = function(idx, val) {
+  if (!postOpData.drains[idx]) return;
+  postOpData.drains[idx].name = val || ('Dreno ' + (idx + 1));
+  syncToCloud();
+};
+
+window.updateDrainPlacedDate = function(idx, val) {
+  if (!postOpData.drains[idx]) return;
+  postOpData.drains[idx].placedDate = val || '';
+  syncToCloud();
+};
+
+window.addNewDrain = function() {
+  const newId = 'dreno_' + postOpData.nextDrainId;
+  postOpData.drains.push({
+    id: newId,
+    name: 'Dreno ' + postOpData.nextDrainId + ' - Mama/Axila',
+    placedDate: ''
+  });
+  postOpData.nextDrainId++;
+  syncToCloud();
+  renderPostOpTab();
+};
+
+window.removeDrain = function(idx) {
+  if (postOpData.drains.length <= 1) { alert('Deve haver pelo menos um dreno cadastrado.'); return; }
+  if (!confirm('Remover este dreno? As medições associadas a ele também serão excluídas.')) return;
+  const drainId = postOpData.drains[idx].id;
+  postOpData.drains.splice(idx, 1);
+  postOpData.readings = postOpData.readings.filter(r => r.drainId !== drainId);
+  syncToCloud();
+  renderPostOpTab();
+};
+
+function renderDrainSelect() {
+  const sel = document.getElementById('drain-read-drain');
+  if (!sel) return;
+  const currentVal = sel.value;
+  sel.innerHTML = postOpData.drains.map(d => `<option value="${d.id}">${escapeHtml(d.name)}</option>`).join('');
+  if (currentVal && postOpData.drains.some(d => d.id === currentVal)) sel.value = currentVal;
+}
+
+function renderDrainTotals() {
+  const container = document.getElementById('drain-totals-container');
+  if (!container) return;
+  if (postOpData.drains.length === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = postOpData.drains.map(d => {
+    const total = getTotal24hForDrain(d.id, todayYMD);
+    const targetMl = postOpData.removalTargetMl;
+    let cls = '', icon = 'ph-fill ph-drop';
+    if (total > 0) {
+      if (total <= targetMl) { cls = 'ok'; icon = 'ph-fill ph-check-circle'; }
+      else { cls = 'warn'; icon = 'ph-fill ph-drop'; }
+    }
+    const hasTurvo = postOpData.readings.some(r => r.drainId === d.id && r.date === todayYMD && r.aspect === 'turvo');
+    if (hasTurvo) { cls = 'alert'; icon = 'ph-fill ph-warning-octagon'; }
+    const colorIcon = cls === 'alert' ? 'var(--red-intense)' : cls === 'ok' ? '#2A6A2A' : cls === 'warn' ? 'var(--amber)' : 'var(--sage-dark)';
+    return `<div class="drain-total-card ${cls}">
+      <div class="drain-total-icon" style="color:${colorIcon};"><i class="${icon}"></i></div>
+      <div style="flex:1;">
+        <div class="drain-total-label">${escapeHtml(d.name)} — Hoje (${fmtFull(todayYMD)})</div>
+        <div class="drain-total-value">${total.toFixed(0)} ml</div>
+        <div class="drain-total-sub">Meta: ≤ ${targetMl} ml/24h ${total > 0 && total <= targetMl ? '— ✅ Dentro da meta' : ''}${hasTurvo ? ' — ⚠️ Aspecto alterado' : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.addDrainReading = function() {
+  const date = document.getElementById('drain-read-date').value;
+  const time = document.getElementById('drain-read-time').value;
+  const drainId = document.getElementById('drain-read-drain').value;
+  const volume = parseFloat(document.getElementById('drain-read-volume').value);
+  const aspect = document.getElementById('drain-read-aspect').value;
+  const vacuum = document.getElementById('drain-read-vacuum').value;
+  const notes = document.getElementById('drain-read-notes').value.trim();
+
+  if (!date || !time || !drainId) { alert('Preencha data, horário e dreno.'); return; }
+  if (isNaN(volume) || volume < 0) { alert('Informe um volume válido (ml).'); return; }
+
+  postOpData.readings.push({
+    id: postOpData.nextReadingId,
+    date, time, drainId, volumeMl: volume, aspect, vacuum, notes
+  });
+  postOpData.nextReadingId++;
+  syncToCloud();
+  document.getElementById('drain-read-volume').value = '';
+  document.getElementById('drain-read-notes').value = '';
+  document.getElementById('drain-read-aspect').value = 'serosanguinolento';
+  document.getElementById('drain-read-vacuum').value = 'ok';
+  renderPostOpTab();
+  renderSmartAlerts();
+};
+
+window.deleteDrainReading = function(idx) {
+  if (!confirm('Excluir esta medição?')) return;
+  postOpData.readings.splice(idx, 1);
+  syncToCloud();
+  renderPostOpTab();
+  renderSmartAlerts();
+};
+
+function renderDrainReadingsTable() {
+  const container = document.getElementById('drain-readings-table-container');
+  if (!container) return;
+  if (postOpData.readings.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:1.5rem;color:var(--ink3);font-size:13px;"><i class="ph ph-table" style="font-size:32px;display:block;margin-bottom:8px;"></i>Nenhuma medição registrada.</div>';
+    return;
+  }
+  const sorted = [...postOpData.readings].sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+
+  container.innerHTML = `<table class="drain-readings-table">
+    <thead>
+      <tr>
+        <th>Data/Hora</th>
+        <th>Dreno</th>
+        <th>Volume</th>
+        <th>Aspecto</th>
+        <th>Vácuo</th>
+        <th>Anotação</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${sorted.map((r) => {
+        const originalIndex = postOpData.readings.findIndex(x => x.id === r.id);
+        const drainName = (postOpData.drains.find(d => d.id === r.drainId) || {}).name || '—';
+        const rowClass = r.aspect === 'turvo' ? 'drain-row-alert' : (parseFloat(r.volumeMl) <= postOpData.removalTargetMl ? 'drain-row-ok' : '');
+        return `<tr id="drain-row-view-${originalIndex}" class="${rowClass}">
+          <td data-label="Data/Hora">${fmtShort(r.date)} ${r.time || ''}</td>
+          <td data-label="Dreno">${escapeHtml(drainName)}</td>
+          <td data-label="Volume"><strong>${parseFloat(r.volumeMl).toFixed(0)} ml</strong></td>
+          <td data-label="Aspecto"><span class="drain-aspect-pill aspect-${r.aspect}">${getAspectLabel(r.aspect)}</span></td>
+          <td data-label="Vácuo"><span class="drain-vacuum-pill ${r.vacuum === 'ok' ? 'vacuum-ok' : 'vacuum-bad'}">${r.vacuum === 'ok' ? '✓ Vácuo' : '⚠ Sem vácuo'}</span></td>
+          <td data-label="Anotação">${escapeHtml(r.notes || '—')}</td>
+          <td data-label="Ações">
+            <div style="display:flex;gap:4px;">
+              <button class="btn-edit-entry" style="width:28px;height:28px;" onclick="startDrainEdit(${originalIndex})"><i class="ph-bold ph-pencil-simple"></i></button>
+              <button class="btn-del" style="width:28px;height:28px;" onclick="deleteDrainReading(${originalIndex})"><i class="ph-bold ph-trash"></i></button>
+            </div>
+          </td>
+        </tr>
+        <tr id="drain-row-edit-${originalIndex}" style="display:none;">
+          <td colspan="7">
+            <div class="postop-config-grid">
+              <div class="postop-field"><label>Data</label><input type="date" class="postop-input" id="drain-edit-date-${originalIndex}" value="${r.date}"></div>
+              <div class="postop-field"><label>Hora</label><input type="time" class="postop-input" id="drain-edit-time-${originalIndex}" value="${r.time || ''}"></div>
+              <div class="postop-field"><label>Dreno</label>
+                <select class="postop-input" id="drain-edit-drain-${originalIndex}">
+                  ${postOpData.drains.map(d => `<option value="${d.id}" ${d.id === r.drainId ? 'selected' : ''}>${escapeHtml(d.name)}</option>`).join('')}
+                </select>
+              </div>
+              <div class="postop-field"><label>Volume (ml)</label><input type="number" class="postop-input" id="drain-edit-volume-${originalIndex}" value="${r.volumeMl}" min="0"></div>
+              <div class="postop-field"><label>Aspecto</label>
+                <select class="postop-input" id="drain-edit-aspect-${originalIndex}">
+                  <option value="serosanguinolento" ${r.aspect === 'serosanguinolento' ? 'selected' : ''}>Serossanguinolento / Rosado</option>
+                  <option value="sanguinolento" ${r.aspect === 'sanguinolento' ? 'selected' : ''}>Sanguinolento / Vermelho vivo</option>
+                  <option value="seroso" ${r.aspect === 'seroso' ? 'selected' : ''}>Seroso / Amarelo claro</option>
+                  <option value="turvo" ${r.aspect === 'turvo' ? 'selected' : ''}>Turvo / Purulento - ALERTA</option>
+                </select>
+              </div>
+              <div class="postop-field"><label>Vácuo</label>
+                <select class="postop-input" id="drain-edit-vacuum-${originalIndex}">
+                  <option value="ok" ${r.vacuum === 'ok' ? 'selected' : ''}>Comprimido / Com vácuo</option>
+                  <option value="bad" ${r.vacuum === 'bad' ? 'selected' : ''}>Expandido / Sem vácuo</option>
+                </select>
+              </div>
+            </div>
+            <div class="postop-field" style="margin-top:10px;">
+              <label>Anotação</label>
+              <input type="text" class="postop-input" id="drain-edit-notes-${originalIndex}" value="${escapeHtml(r.notes || '')}">
+            </div>
+            <div style="display:flex;gap:6px;margin-top:10px;">
+              <button class="btn-save-appt" onclick="saveDrainEdit(${originalIndex})"><i class="ph-bold ph-check"></i> Salvar</button>
+              <button class="btn-cancel-appt" onclick="cancelDrainEdit(${originalIndex})"><i class="ph-bold ph-x"></i> Cancelar</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('')}
+    </tbody>
+  </table>`;
+}
+
+window.startDrainEdit = function(idx) {
+  const view = document.getElementById('drain-row-view-' + idx);
+  const edit = document.getElementById('drain-row-edit-' + idx);
+  if (view) view.style.display = 'none';
+  if (edit) edit.style.display = 'table-row';
+};
+
+window.cancelDrainEdit = function(idx) {
+  const view = document.getElementById('drain-row-view-' + idx);
+  const edit = document.getElementById('drain-row-edit-' + idx);
+  if (view) view.style.display = '';
+  if (edit) edit.style.display = 'none';
+};
+
+window.saveDrainEdit = function(idx) {
+  if (!postOpData.readings[idx]) return;
+  const date = document.getElementById('drain-edit-date-' + idx).value;
+  const time = document.getElementById('drain-edit-time-' + idx).value;
+  const drainId = document.getElementById('drain-edit-drain-' + idx).value;
+  const volume = parseFloat(document.getElementById('drain-edit-volume-' + idx).value);
+  const aspect = document.getElementById('drain-edit-aspect-' + idx).value;
+  const vacuum = document.getElementById('drain-edit-vacuum-' + idx).value;
+  const notes = document.getElementById('drain-edit-notes-' + idx).value.trim();
+  if (!date || !time || !drainId || isNaN(volume)) { alert('Preencha todos os campos obrigatórios.'); return; }
+  postOpData.readings[idx] = {
+    ...postOpData.readings[idx],
+    date, time, drainId, volumeMl: volume, aspect, vacuum, notes
+  };
+  syncToCloud();
+  renderPostOpTab();
+  renderSmartAlerts();
+};
+
+function renderDrainChart() {
+  const section = document.getElementById('drain-chart-section');
+  const canvas = document.getElementById('drain-chart');
+  if (!section || !canvas) return;
+
+  if (postOpData.readings.length < 2) { section.style.display = 'none'; return; }
+  const allDates = [...new Set(postOpData.readings.map(r => r.date))].sort();
+  if (allDates.length < 2) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  const labels = allDates.map(d => fmtShort(d));
+  const colors = ['#7AAB96', '#D4A373', '#7F77DD', '#D4537E'];
+
+  const datasets = postOpData.drains.map((d, di) => {
+    const byDate = getDailyTotalsForDrain(d.id);
+    const data = allDates.map(date => byDate[date] || 0);
+    return {
+      type: 'bar',
+      label: d.name,
+      data,
+      backgroundColor: colors[di % colors.length] + '99',
+      borderColor: colors[di % colors.length],
+      borderWidth: 1,
+      yAxisID: 'y'
+    };
+  });
+
+  datasets.push({
+    type: 'line',
+    label: 'Meta médica (retirada)',
+    data: allDates.map(() => postOpData.removalTargetMl),
+    borderColor: '#D64545',
+    backgroundColor: 'transparent',
+    borderDash: [6, 4],
+    borderWidth: 1.5,
+    pointRadius: 0,
+    yAxisID: 'y'
+  });
+
+  if (drainChartInstance) { drainChartInstance.destroy(); drainChartInstance = null; }
+  drainChartInstance = new Chart(canvas, {
+    data: { labels, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { labels: { font: { size: 11, family: 'Inter' }, color: '#6B7280', boxWidth: 14, padding: 12 } },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(0)} ml` } }
+      },
+      scales: {
+        x: { ticks: { color: '#9CA3AF', font: { size: 11 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: { beginAtZero: true, ticks: { color: '#9CA3AF', font: { size: 11 }, callback: (v) => v + ' ml' }, grid: { color: 'rgba(0,0,0,0.05)' } }
+      }
+    }
+  });
+}
+
+// -------- Guia editável --------
+function renderGuideSection(sectionKey) {
+  const listEl = document.getElementById('postop-guide-' + sectionKey);
+  if (!listEl) return;
+  const items = postOpData.guide[sectionKey] || [];
+  const colorMap = { steps: 'sage-dark', woundCare: 'sage', alerts: 'red-intense' };
+  listEl.innerHTML = items.map((it, i) => `
+    <div class="postop-guide-item">
+      <div class="postop-guide-num" style="${sectionKey === 'alerts' ? 'background:var(--red-intense);' : sectionKey === 'woundCare' ? 'background:var(--sage);' : ''}">${i + 1}</div>
+      <div class="postop-guide-text" id="guide-text-${sectionKey}-${i}">${escapeHtml(it.text)}</div>
+      <div class="postop-guide-actions">
+        <button class="btn-edit-entry" style="width:28px;height:28px;" onclick="editGuideItem('${sectionKey}', ${i})" title="Editar"><i class="ph-bold ph-pencil-simple"></i></button>
+        <button class="btn-del" style="width:28px;height:28px;" onclick="removeGuideItem('${sectionKey}', ${i})" title="Excluir"><i class="ph-bold ph-trash"></i></button>
+      </div>
+    </div>
+  `).join('') || `<div style="font-size:12px;color:var(--ink3);">Nenhum item cadastrado.</div>`;
+}
+
+window.addGuideItem = function(sectionKey) {
+  const text = prompt('Digite o novo item:');
+  if (!text || !text.trim()) return;
+  const nextField = sectionKey === 'steps' ? 'nextStepId' : sectionKey === 'woundCare' ? 'nextWoundId' : 'nextAlertId';
+  const prefix = sectionKey === 'steps' ? 'step_' : sectionKey === 'woundCare' ? 'wound_' : 'alert_';
+  postOpData.guide[sectionKey].push({ id: prefix + postOpData.guide[nextField], text: text.trim() });
+  postOpData.guide[nextField]++;
+  syncToCloud();
+  renderGuideSection(sectionKey);
+};
+
+window.editGuideItem = function(sectionKey, i) {
+  const item = postOpData.guide[sectionKey][i];
+  if (!item) return;
+  const newText = prompt('Editar item:', item.text);
+  if (newText === null) return;
+  if (!newText.trim()) { alert('O texto não pode ficar vazio.'); return; }
+  item.text = newText.trim();
+  syncToCloud();
+  renderGuideSection(sectionKey);
+};
+
+window.removeGuideItem = function(sectionKey, i) {
+  if (!confirm('Excluir este item?')) return;
+  postOpData.guide[sectionKey].splice(i, 1);
+  syncToCloud();
+  renderGuideSection(sectionKey);
+};
+
+// -------- Observações --------
+window.saveObservations = function(val) {
+  postOpData.observations = val || '';
+  syncToCloud();
+};
+
+// -------- Perguntas --------
+function renderQuestions() {
+  const list = document.getElementById('postop-questions-list');
+  if (!list) return;
+  if (!postOpData.questions.length) {
+    list.innerHTML = '<div style="font-size:12px;color:var(--ink3);padding:8px 0;">Nenhuma pergunta cadastrada ainda.</div>';
+    return;
+  }
+  list.innerHTML = postOpData.questions.map((q, i) => `
+    <div class="postop-question-card">
+      <input type="checkbox" ${q.answered ? 'checked' : ''} onchange="toggleQuestion(${i})" style="margin-top:4px;width:16px;height:16px;cursor:pointer;">
+      <div class="postop-question-text ${q.answered ? 'answered' : ''}">${escapeHtml(q.text)}</div>
+      <button class="btn-del" style="width:28px;height:28px;" onclick="removeQuestion(${i})" title="Remover"><i class="ph-bold ph-trash"></i></button>
+    </div>
+  `).join('');
+}
+
+window.addQuestion = function() {
+  const input = document.getElementById('postop-new-question');
+  const text = input.value.trim();
+  if (!text) return;
+  postOpData.questions.push({ id: postOpData.nextQuestionId, text, answered: false });
+  postOpData.nextQuestionId++;
+  input.value = '';
+  syncToCloud();
+  renderQuestions();
+};
+
+window.toggleQuestion = function(i) {
+  if (!postOpData.questions[i]) return;
+  postOpData.questions[i].answered = !postOpData.questions[i].answered;
+  syncToCloud();
+  renderQuestions();
+};
+
+window.removeQuestion = function(i) {
+  if (!confirm('Remover esta pergunta?')) return;
+  postOpData.questions.splice(i, 1);
+  syncToCloud();
+  renderQuestions();
+};
+
+// -------- Relatório do Portovac --------
+function buildPortovacReportText() {
+  const dpo = getDPO();
+  const lines = [];
+  lines.push('*Relatório do Portovac — Gabi*');
+  if (dpo !== null) lines.push(`DPO atual: D${dpo} (${fmtFull(todayYMD)})`);
+  if (postOpData.surgeryDate) lines.push(`Cirurgia: ${fmtFull(postOpData.surgeryDate)}`);
+  const drainsInfo = postOpData.drains.map(d => d.name).join(', ');
+  if (drainsInfo) lines.push(`Drenos: ${drainsInfo}`);
+  lines.push(`Meta médica: ≤ ${postOpData.removalTargetMl} ml/24h por ${postOpData.removalTargetDays} dia(s)`);
+  if (postOpData.emptyingTimes && postOpData.emptyingTimes.length) {
+    lines.push(`Horários de esvaziamento: ${postOpData.emptyingTimes.join(', ')}`);
+  }
+  lines.push('');
+  lines.push('*Débito por dreno:*');
+  postOpData.drains.forEach(d => {
+    const byDate = getDailyTotalsForDrain(d.id);
+    const dates = Object.keys(byDate).sort();
+    if (!dates.length) {
+      lines.push(`- ${d.name}: sem registros`);
+      return;
+    }
+    lines.push(`- ${d.name}:`);
+    dates.slice(-10).forEach(date => {
+      lines.push(`   • ${fmtShort(date)}: ${byDate[date].toFixed(0)} ml`);
+    });
+    const todayTotal = byDate[todayYMD] || 0;
+    if (todayTotal <= postOpData.removalTargetMl) lines.push(`   ⚠️ ${fmtShort(todayYMD)}: dentro da meta (${todayTotal.toFixed(0)} ml)`);
+  });
+  lines.push('');
+  lines.push('*Últimas 5 medições:*');
+  const sorted = [...postOpData.readings].sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time)).slice(0, 5);
+  sorted.forEach(r => {
+    const dn = (postOpData.drains.find(d => d.id === r.drainId) || {}).name || '—';
+    const notesPart = r.notes ? ` — obs: ${r.notes}` : '';
+    lines.push(`- ${fmtShort(r.date)} ${r.time} | ${dn} | ${r.volumeMl}ml | ${getAspectLabel(r.aspect)} | ${r.vacuum === 'ok' ? 'com vácuo' : 'SEM vácuo'}${notesPart}`);
+  });
+  if (postOpData.observations) {
+    lines.push('');
+    lines.push('*Observações:*');
+    lines.push(postOpData.observations);
+  }
+  lines.push('');
+  lines.push('Gerado pelo Guia de Cuidados da Gabi');
+  return lines.join('\n');
+}
+
+window.copyPortovacReport = function() {
+  const txt = buildPortovacReportText();
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(txt).then(() => alert('Relatório copiado! Cole no WhatsApp da equipe médica.')).catch(() => copyFallback(txt));
+  } else {
+    copyFallback(txt);
+  }
+};
+
+window.exportPortovacPDF = function() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 18;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text('Relatório do Portovac — Gabi', 105, y, { align: 'center' }); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text('Gerado em ' + fmtFull(todayYMD), 105, y, { align: 'center' }); y += 10;
+
+  const dpo = getDPO();
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Parâmetros:', 14, y); y += 6;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+  if (dpo !== null) { doc.text(`- DPO: D${dpo}`, 18, y); y += 5; }
+  if (postOpData.surgeryDate) { doc.text(`- Cirurgia: ${fmtFull(postOpData.surgeryDate)}`, 18, y); y += 5; }
+  doc.text(`- Meta de retirada: <= ${postOpData.removalTargetMl} ml/24h por ${postOpData.removalTargetDays} dia(s)`, 18, y); y += 5;
+  if (postOpData.emptyingTimes && postOpData.emptyingTimes.length) {
+    doc.text(`- Horários: ${postOpData.emptyingTimes.join(', ')}`, 18, y); y += 5;
+  }
+  postOpData.drains.forEach(d => {
+    doc.text(`- Dreno: ${d.name}${d.placedDate ? ' (colocado em ' + fmtFull(d.placedDate) + ')' : ''}`, 18, y); y += 5;
+  });
+  y += 3;
+
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Débito diário por dreno:', 14, y); y += 6;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+  postOpData.drains.forEach(d => {
+    const byDate = getDailyTotalsForDrain(d.id);
+    const dates = Object.keys(byDate).sort();
+    if (!dates.length) { doc.text(`- ${d.name}: sem registros`, 18, y); y += 5; return; }
+    doc.text(`${d.name}:`, 18, y); y += 5;
+    dates.forEach(date => {
+      if (y > 265) { doc.addPage(); y = 18; }
+      doc.text(`   ${fmtShort(date)}: ${byDate[date].toFixed(0)} ml`, 20, y);
+      y += 4.5;
+    });
+    y += 2;
+  });
+
+  if (y > 250) { doc.addPage(); y = 18; }
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Medições:', 14, y); y += 6;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+  const sorted = [...postOpData.readings].sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+  sorted.forEach(r => {
+    if (y > 270) { doc.addPage(); y = 18; }
+    const dn = (postOpData.drains.find(d => d.id === r.drainId) || {}).name || '—';
+    const vacLabel = r.vacuum === 'ok' ? 'OK' : 'SEM VACUO';
+    let line = `${fmtShort(r.date)} ${r.time} | ${dn} | ${r.volumeMl}ml | ${getAspectLabel(r.aspect)} | ${vacLabel}`;
+    if (r.notes) line += ` | ${r.notes}`;
+    const splitLines = doc.splitTextToSize(line, 180);
+    splitLines.forEach(l => { if (y > 270) { doc.addPage(); y = 18; } doc.text(l, 15, y); y += 4; });
+    y += 1;
+  });
+
+  if (postOpData.observations) {
+    if (y > 250) { doc.addPage(); y = 18; }
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Observações:', 14, y); y += 6;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
+    const obsLines = doc.splitTextToSize(postOpData.observations, 180);
+    obsLines.forEach(l => { if (y > 270) { doc.addPage(); y = 18; } doc.text(l, 15, y); y += 4.5; });
+  }
+
+  doc.save('relatorio-portovac-gabi.pdf');
+};
+
+// =============================================
 // ALERTAS INTELIGENTES
 // =============================================
 function renderSmartAlerts() {
@@ -4111,6 +5219,27 @@ function renderSmartAlerts() {
       }
     }
   });
+
+  // Alerta do Portovac: se estiver em uso e houver drenos cadastrados
+  if (postOpData && postOpData.active && postOpData.drains.length > 0) {
+    const dpo = getDPO();
+    const timesStr = (postOpData.emptyingTimes || []).join(' e ');
+    const totals = postOpData.drains.map(d => {
+      const t = getTotal24hForDrain(d.id, todayYMD);
+      return `${d.name}: ${t.toFixed(0)} ml`;
+    }).join(' | ');
+    const dpoLabel = dpo !== null ? ` (DPO ${dpo})` : '';
+    alerts.unshift({
+      cls: 'ac-blue',
+      icon: 'ph-fill ph-bandaids',
+      title: `Portovac${dpoLabel} — débito de hoje`,
+      text: `Débito hoje: ${totals}. Horários programados: ${timesStr}. Meta: ≤ ${postOpData.removalTargetMl} ml/24h.`
+    });
+    const hasTurvoToday = postOpData.readings.some(r => r.date === todayYMD && r.aspect === 'turvo');
+    if (hasTurvoToday) {
+      alerts.unshift({ cls: 'ac-red', icon: 'ph-fill ph-warning-octagon', title: 'Portovac — aspecto alterado hoje', text: 'Registro com aspecto turvo/purulento. Comunique imediatamente a equipe cirúrgica.' });
+    }
+  }
 
   addNutritionAlert(alerts);
   if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
