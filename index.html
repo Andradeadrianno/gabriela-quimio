@@ -164,7 +164,6 @@ header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 8vw
   100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
 }
 
-
 /* ===== MAIN ===== */
 main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 
@@ -177,7 +176,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius: 20px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); }
 
 /* ===== TABS ===== */
-.tab-nav { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; margin-bottom: 2rem; }
+.tab-nav { display: grid; grid-template-columns: repeat(10, 1fr); gap: 4px; margin-bottom: 2rem; }
 .tab-btn { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 4px; font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: var(--ink2); cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; box-shadow: var(--shadow-sm); }
 .tab-btn i { font-size: 22px; transition: transform 0.2s; }
 .tab-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); box-shadow: 0 8px 20px rgba(44,54,49,0.25); }
@@ -210,7 +209,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .session-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; text-transform: lowercase; }
 .session-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 
-/* ===== COLETAS COMPARTILHADAS / EDITOR INTERATIVO ===== */
+/* ===== COLETAS COMPARTILHADAS ===== */
 .collection-help {
   background: linear-gradient(135deg, var(--gold-bg), #FFF8F0);
   border: 1px solid rgba(201,130,43,0.18);
@@ -357,7 +356,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   .date-mini-actions { width: 100%; justify-content: flex-start; }
 }
 
-
 /* ===== PILLS ===== */
 .pill-nadir { background: #FDE8E8; color: #C84646; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: none; display: inline-flex; align-items: center; gap: 4px; }
 .pill-exam { background: #FEF0E0; color: #A06828; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: none; display: inline-flex; align-items: center; gap: 4px; }
@@ -367,7 +365,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .session-card.done { opacity: 0.7; background: #FAFAFA; }
 .session-card.done .session-num { background: #EAF5EA; color: #2A6A2A; }
 
-/* ===== PILL ACTION BUTTONS ===== */
 .pill-action-btn {
   background: none; border: none; cursor: pointer; padding: 0 0 0 2px;
   font-size: 11px; font-weight: 900; line-height: 1;
@@ -380,8 +377,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .pill-add-exam { background: #F3F4F6; color: #9CA3AF; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; border: 1px dashed #D1D5DB; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s; }
 .pill-add-exam:hover { background: #FEF0E0; color: #A06828; border-color: #F5C84A; }
 .pill-date-edit { font-family: 'Inter'; font-size: 11px; font-weight: 700; border: none; background: transparent; color: inherit; outline: none; cursor: pointer; min-width: 70px; }
-
-
 
 /* ===== INTEGRAÇÃO COM GOOGLE AGENDA / ICS ===== */
 .calendar-actions { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; align-items:center; }
@@ -513,7 +508,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-del { background: var(--red-bg); border: none; width: 32px; height: 32px; border-radius: 8px; color: var(--red-intense); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
 .btn-del:hover { background: rgba(214,69,69,0.2); }
 
-/* ===== DIARY EDIT ===== */
 .diary-entry-actions { display: flex; gap: 6px; flex-shrink: 0; align-items: flex-start; }
 .btn-edit-entry { background: transparent; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 8px; color: var(--ink3); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.2s; }
 .btn-edit-entry:hover { background: var(--sage-bg); color: var(--sage-dark); border-color: var(--sage-light); }
@@ -521,16 +515,13 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-save-entry { background: var(--sage-dark); border: none; height: 32px; padding: 0 10px; border-radius: 8px; color: white; cursor: pointer; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px; transition: all 0.2s; white-space: nowrap; }
 .btn-save-entry:hover { background: var(--ink); }
 
-/* ===== GENERAL DIARY ===== */
 .general-diary-entry { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: var(--radius-sm); padding: 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .general-diary-entry .d-tag { color: var(--amber); }
 
-/* ===== HOSPITALS ===== */
 .hosp-emergency { border-left: 4px solid var(--red-intense); background: var(--red-bg); }
 .hosp-option { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--red-intense); margin-bottom: 4px; display: block; }
 .info-box { background: var(--sage-bg); border: 1px solid var(--border-focus); border-left: 4px solid var(--sage-dark); border-radius: var(--radius-sm); padding: 16px; font-size: 13px; color: var(--ink2); line-height: 1.6; margin-bottom: 1.5rem; display: flex; gap: 10px; }
 
-/* ===== HOME DASHBOARD ===== */
 .home-dashboard { margin-bottom: 1.5rem; }
 .alert-card { border-radius: var(--radius-sm); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; border: 1px solid transparent; }
 .alert-card-icon { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
@@ -546,7 +537,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .ac-blue { background: #E6F1FB; border-color: #B5D4F4; color: #042C53; }
 .ac-blue .alert-card-icon { background: #185FA5; color: white; }
 
-/* ===== WEEK SUMMARY ===== */
 .week-summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 1rem; }
 .week-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
 .week-stat { text-align: center; }
@@ -556,10 +546,8 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .week-sym-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 .mini-chart-wrap { height: 80px; position: relative; margin-top: 8px; }
 
-/* ===== OFFLINE ===== */
 #offline-banner { display: none; background: var(--amber); color: white; text-align: center; font-size: 12px; font-weight: 700; padding: 6px; position: fixed; top: 0; left: 0; right: 0; z-index: 10000; }
 
-/* ===== NADIR ===== */
 .nadir-alert { background: linear-gradient(135deg, #FDE8E8, #FFF0F0); border: 1px solid #F5A4A4; border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 1rem; display: flex; align-items: center; gap: 12px; }
 .nadir-alert-icon { width: 36px; height: 36px; background: #C84646; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; flex-shrink: 0; }
 .nadir-alert-text { font-size: 13px; color: #7A1F1F; line-height: 1.5; }
@@ -573,7 +561,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .nd-recovery { background: #FEF0E0; color: #A06828; }
 .nd-today { outline: 2px solid var(--sage-dark); outline-offset: 1px; }
 
-/* ===== SINAIS VITAIS ===== */
 .vitals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
 .vital-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; text-align: center; }
 .vital-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--ink3); margin-bottom: 6px; }
@@ -584,7 +571,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .vital-num-input:focus { border-color: var(--sage-dark); }
 .temp-fever { color: var(--red-intense) !important; }
 
-/* ===== TEMP LOG ===== */
 .temp-log-list { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
 .temp-log-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 7px 12px; font-size: 13px; }
 .temp-log-item.fever { background: var(--red-bg); border-color: rgba(214,69,69,0.3); }
@@ -597,7 +583,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-add-temp { background: var(--ink); color: white; border: none; border-radius: var(--radius-sm); padding: 7px 12px; font-family: 'Inter'; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: background 0.2s; white-space: nowrap; }
 .btn-add-temp:hover { background: var(--sage-dark); }
 
-/* ===== MEDICATION TRACKER ===== */
 .med-track-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px; margin-bottom: 14px; box-shadow: var(--shadow-sm); }
 .med-track-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
 .med-track-title { font-size: 14px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 6px; }
@@ -630,7 +615,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   cursor: pointer;
 }
 
-/* ===== APPOINTMENT EDIT ===== */
 .appt-edit-form { background: var(--sage-bg); border: 1px solid var(--sage-light); border-radius: var(--radius-sm); padding: 14px; margin-top: 10px; display: grid; gap: 8px; }
 .appt-edit-form .exam-input { font-size: 13px; padding: 8px 12px; }
 .appt-edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -639,8 +623,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .btn-save-appt:hover { background: var(--ink); }
 .btn-cancel-appt { background: transparent; color: var(--ink3); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-family: 'Inter'; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .btn-cancel-appt:hover { background: var(--surface-hover); color: var(--ink2); }
-
-
 
 /* ===== NUTRIÇÃO ===== */
 .nutri-hero { background: linear-gradient(135deg, #FFF8EF 0%, #F1F8F4 100%); border: 1px solid #F2D9B8; border-left: 4px solid var(--gold); border-radius: var(--radius); padding: 18px; margin-bottom: 1.2rem; }
@@ -688,7 +670,6 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .nutri-source { font-size: 11px; color: var(--ink3); margin-top: 8px; font-style: italic; }
 @media (max-width: 600px) { .nutri-grid { grid-template-columns: 1fr; } }
 
-/* ===== PÓS-QUIMIO: NOVAS ETAPAS ===== */
 .post-chemo-timeline {
   display: flex;
   flex-direction: column;
@@ -706,27 +687,10 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   gap: 12px;
   flex-wrap: wrap;
 }
-.post-chemo-step .step-info {
-  flex: 1;
-}
-.post-chemo-step .step-title {
-  font-weight: 700;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.post-chemo-step .step-desc {
-  font-size: 13px;
-  color: var(--ink2);
-  margin-top: 4px;
-}
-.post-chemo-step .step-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
+.post-chemo-step .step-info { flex: 1; }
+.post-chemo-step .step-title { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+.post-chemo-step .step-desc { font-size: 13px; color: var(--ink2); margin-top: 4px; }
+.post-chemo-step .step-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .post-chemo-step .step-date-input {
   font-family: 'Inter';
   font-size: 13px;
@@ -736,11 +700,8 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   outline: none;
   background: var(--surface);
 }
-.post-chemo-step .step-date-input:focus {
-  border-color: var(--sage-dark);
-}
+.post-chemo-step .step-date-input:focus { border-color: var(--sage-dark); }
 
-/* ===== PÓS-OPERATÓRIO & PORTOVAC ===== */
 .postop-config-card {
   background: linear-gradient(135deg, var(--sage-bg), #fff);
   border: 1px solid var(--sage-light);
@@ -765,11 +726,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-.postop-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+.postop-field { display: flex; flex-direction: column; gap: 4px; }
 .postop-field label {
   font-size: 11px;
   font-weight: 700;
@@ -888,12 +845,7 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
 .drain-total-value { font-size: 22px; font-weight: 800; color: var(--ink); line-height: 1; margin: 2px 0; }
 .drain-total-sub { font-size: 11px; color: var(--ink3); }
 
-.postop-guide-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 10px 0;
-}
+.postop-guide-list { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
 .postop-guide-item {
   display: flex;
   align-items: flex-start;
@@ -916,17 +868,8 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   font-weight: 800;
   flex-shrink: 0;
 }
-.postop-guide-text {
-  flex: 1;
-  font-size: 13px;
-  color: var(--ink);
-  line-height: 1.5;
-}
-.postop-guide-actions {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
-}
+.postop-guide-text { flex: 1; font-size: 13px; color: var(--ink); line-height: 1.5; }
+.postop-guide-actions { display: flex; gap: 4px; flex-shrink: 0; }
 
 .postop-question-card {
   background: var(--surface);
@@ -978,6 +921,164 @@ main { max-width: 700px; margin: 0 auto; padding: 0 1rem 5rem; }
   }
   .drain-readings-table td[colspan]::before { content: ''; display: none; }
 }
+
+/* ===== CHECKLIST DA CIRURGIA ===== */
+.checklist-overview {
+  background: linear-gradient(135deg, var(--sage-bg), #fff);
+  border: 1px solid var(--sage-light);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 1rem;
+}
+.checklist-overview-title {
+  font-size: 15px; font-weight: 800; color: var(--sage-dark);
+  display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
+}
+.checklist-overview-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+}
+.checklist-overview-stat { text-align: center; }
+.checklist-overview-val { font-size: 22px; font-weight: 800; color: var(--sage-dark); line-height: 1; }
+.checklist-overview-lbl { font-size: 11px; color: var(--ink3); margin-top: 3px; }
+
+.checklist-tabs {
+  display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 12px;
+  -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+}
+.checklist-tab {
+  flex-shrink: 0; padding: 8px 14px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--surface);
+  font-family: 'Inter'; font-size: 13px; font-weight: 700; color: var(--ink2);
+  cursor: pointer; transition: all .2s; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.checklist-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.checklist-tab-count {
+  font-size: 10px; background: rgba(0,0,0,0.1); padding: 1px 6px; border-radius: 10px; font-weight: 800;
+}
+.checklist-tab.active .checklist-tab-count { background: rgba(255,255,255,0.22); }
+
+.checklist-panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px; margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+.checklist-panel-head {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
+}
+.checklist-panel-title {
+  font-size: 16px; font-weight: 800; color: var(--ink);
+  display: flex; align-items: center; gap: 6px;
+}
+.checklist-progress-wrap { margin-bottom: 14px; }
+.checklist-progress-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 8px; gap: 8px; flex-wrap: wrap; }
+.checklist-progress-msg { font-size: 13px; color: var(--ink2); font-weight: 600; }
+.checklist-progress-val { font-size: 18px; font-weight: 800; color: var(--sage-dark); line-height: 1; }
+.checklist-progress-track { background: var(--sage-bg); border-radius: 20px; height: 10px; overflow: hidden; }
+.checklist-progress-fill { height: 100%; background: linear-gradient(90deg, var(--sage), var(--sage-dark)); border-radius: 20px; transition: width .4s ease; }
+.checklist-done-msg {
+  margin-top: 10px; padding: 10px 12px; background: #EAF5EA; color: #2A6A2A;
+  border-radius: var(--radius-sm); font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; gap: 6px;
+}
+.checklist-category { margin-bottom: 16px; }
+.checklist-category-head {
+  font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink3); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;
+}
+.checklist-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 4px; border-bottom: 1px solid var(--border);
+  transition: background .15s; min-height: 48px;
+}
+.checklist-item:hover { background: var(--surface-hover); }
+.checklist-item:last-child { border-bottom: none; }
+.checklist-item.done .checklist-item-text { text-decoration: line-through; color: var(--ink3); }
+.checklist-checkbox {
+  width: 26px; height: 26px; min-width: 26px; border-radius: 8px;
+  border: 2px solid var(--border-focus); background: var(--surface);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .2s; font-size: 15px; color: #fff; flex-shrink: 0; padding: 0;
+}
+.checklist-item.done .checklist-checkbox { background: var(--sage-dark); border-color: var(--sage-dark); }
+.checklist-item-text { flex: 1; font-size: 14px; color: var(--ink); line-height: 1.5; word-break: break-word; }
+.checklist-item-actions { display: flex; gap: 2px; flex-shrink: 0; }
+.checklist-item-actions button {
+  background: transparent; border: none; padding: 6px; cursor: pointer;
+  color: var(--ink3); font-size: 14px; border-radius: 6px; transition: all .2s;
+  display: flex; align-items: center; justify-content: center;
+  min-width: 32px; min-height: 32px;
+}
+.checklist-item-actions button:hover { background: var(--sage-bg); color: var(--sage-dark); }
+.checklist-item-actions button.delete:hover { background: var(--red-bg); color: var(--red-intense); }
+.checklist-add-row { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.checklist-add-input {
+  flex: 1; min-width: 140px; font-family: 'Inter'; font-size: 14px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 12px; background: var(--surface); outline: none; color: var(--ink);
+}
+.checklist-add-input:focus { border-color: var(--sage-dark); }
+.checklist-add-category-select {
+  font-family: 'Inter'; font-size: 12px; font-weight: 700;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 10px 8px; background: var(--surface); outline: none;
+  cursor: pointer; min-width: 130px; color: var(--ink);
+}
+.checklist-add-btn {
+  background: var(--ink); color: #fff; border: none;
+  border-radius: var(--radius-sm); padding: 10px 16px;
+  font-family: 'Inter'; font-size: 13px; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+  transition: background .2s; white-space: nowrap;
+}
+.checklist-add-btn:hover { background: var(--sage-dark); }
+.checklist-empty {
+  text-align: center; padding: 2rem 1rem; color: var(--ink3);
+  font-size: 13px; line-height: 1.5;
+}
+.checklist-empty i { font-size: 36px; display: block; margin-bottom: 10px; color: var(--sage-light); }
+.checklist-save-indicator {
+  position: fixed; bottom: 16px; right: 16px;
+  background: var(--sage-dark); color: #fff;
+  padding: 8px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 700;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  opacity: 0; transform: translateY(20px);
+  transition: all .3s; pointer-events: none; z-index: 9999;
+  display: flex; align-items: center; gap: 4px;
+}
+.checklist-save-indicator.show { opacity: 1; transform: translateY(0); }
+.checklist-save-indicator.error { background: var(--red-intense); }
+
+@media (max-width: 500px) {
+  .checklist-add-row { flex-direction: column; }
+  .checklist-add-input, .checklist-add-category-select, .checklist-add-btn { width: 100%; }
+}
+
+/* ===== PERGUNTAS PARA O CIRURGIÃO ===== */
+.question-checkbox {
+  width: 22px; height: 22px; min-width: 22px; border-radius: 6px;
+  border: 2px solid var(--border-focus); background: var(--surface);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .2s; font-size: 13px; color: #fff; flex-shrink: 0; padding: 0;
+}
+.question-checkbox.checked { background: var(--sage-dark); border-color: var(--sage-dark); }
+.question-checkbox:hover { border-color: var(--sage-dark); }
+.question-answer-input {
+  width: 100%; min-height: 46px; resize: vertical;
+  font-family: 'Inter'; font-size: 12px; padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: 8px;
+  outline: none; background: var(--surface); color: var(--ink);
+}
+.question-answer-input:focus { border-color: var(--sage-dark); }
+.question-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 4px solid var(--gold); border-radius: var(--radius-sm);
+  padding: 10px 12px; margin-bottom: 8px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.question-card.answered { border-left-color: var(--sage-dark); background: #FAFDF9; }
 
 /* ===== FOOTER ===== */
 footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: var(--ink3); max-width: 700px; margin: 0 auto; }
@@ -1096,6 +1197,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       <button class="tab-btn" onclick="switchTab('hospital',this)"><i class="ph-fill ph-first-aid-kit"></i><span>Emergência</span></button>
       <button class="tab-btn" onclick="switchTab('nutricao',this)"><i class="ph-fill ph-bowl-food"></i><span>Nutrição</span></button>
       <button class="tab-btn" onclick="switchTab('posop',this)"><i class="ph-fill ph-bandaids"></i><span>Pós-Op</span></button>
+      <button class="tab-btn" onclick="switchTab('checklist',this)"><i class="ph-fill ph-list-checks"></i><span>Checklist</span></button>
       <button class="tab-btn" onclick="switchTab('orientacoes',this)"><i class="ph-fill ph-book-open-text"></i><span>Orientações</span></button>
     </div>
 
@@ -1236,7 +1338,6 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
         <div><div class="em-title">Alerta de Febre!</div><div class="em-text">Pronto-socorro imediatamente.</div></div>
       </div>
 
-      <!-- DIÁRIO DE SINTOMAS -->
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);"><i class="ph-fill ph-notebook"></i> Diário de sintomas</h2>
       <div class="card">
         <div class="diary-row">
@@ -1247,7 +1348,6 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
       </div>
       <div id="diary-list"></div>
 
-      <!-- DIÁRIO GERAL -->
       <h2 class="sec-title" style="margin-top: 2.5rem; padding-bottom: 8px; border-bottom: 1px solid var(--border);">
         <div style="display:flex;align-items:center;gap:8px;">
           <i class="ph-fill ph-book-bookmark" style="color:var(--gold)"></i> Diário Geral
@@ -1606,7 +1706,7 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
         <div class="postop-guide-list" id="postop-guide-alerts"></div>
       </div>
 
-      <!-- D) Observações e Perguntas -->
+      <!-- D) Observações -->
       <h2 class="sec-title" style="margin-top:2.5rem;"><i class="ph-fill ph-note-pencil"></i> Observações & Dúvidas</h2>
       <div class="card">
         <div class="postop-field">
@@ -1614,19 +1714,30 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
           <textarea class="postop-textarea" id="postop-observations" onchange="saveObservations(this.value)" placeholder="Evolução da cicatrização, data prevista para retirar pontos, orientações da fisioterapia..."></textarea>
         </div>
       </div>
+
+      <!-- E) Perguntas para o Cirurgião (NOVO) -->
       <div class="card" style="border-left:4px solid var(--gold);">
         <div class="card-title" style="justify-content:space-between;">
           <span><i class="ph-fill ph-question" style="color:var(--amber)"></i> Perguntas para o Cirurgião</span>
         </div>
-        <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-          <input type="text" class="postop-input" id="postop-new-question" placeholder="Escreva sua dúvida para levar na consulta..." style="flex:1;min-width:200px;">
+        <div class="info-box" style="border-left:4px solid var(--gold); background:var(--gold-bg); margin-bottom:12px;">
+          <i class="ph-fill ph-info" style="color:var(--amber)"></i>
+          <div>As perguntas iniciais são sugestões. Edite, exclua ou adicione as suas. O que for respondido aqui fica salvo automaticamente.</div>
+        </div>
+        <div class="calendar-actions" style="margin-bottom:12px;">
+          <button class="btn-calendar dark" onclick="exportQuestionsPDF()"><i class="ph-bold ph-file-pdf"></i> Exportar PDF</button>
+          <button class="btn-calendar secondary" onclick="printQuestions()"><i class="ph-bold ph-printer"></i> Imprimir</button>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+          <input type="text" class="postop-input" id="postop-new-question" placeholder="Escreva uma nova dúvida..." style="flex:1;min-width:180px;">
+          <select class="postop-input" id="postop-new-question-cat" style="min-width:150px;"></select>
           <button class="btn-calendar dark" onclick="addQuestion()"><i class="ph-bold ph-plus"></i> Adicionar</button>
         </div>
         <div id="postop-questions-list"></div>
       </div>
 
-      <!-- E) Exportação -->
-      <h2 class="sec-title" style="margin-top:2.5rem;"><i class="ph-fill ph-export"></i> Exportar Relatório</h2>
+      <!-- F) Exportação -->
+      <h2 class="sec-title" style="margin-top:2.5rem;"><i class="ph-fill ph-export"></i> Exportar Relatório Portovac</h2>
       <div class="card" style="text-align:center;">
         <div style="font-size:13px;color:var(--ink2);margin-bottom:12px;">Gere um relatório completo do Portovac para levar na consulta ou enviar à equipe.</div>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
@@ -1634,6 +1745,23 @@ footer { text-align: center; padding: 2rem 1rem 3rem; font-size: 13px; color: va
           <button class="btn-primary" style="background:var(--red-intense);flex:1;min-width:200px;" onclick="exportPortovacPDF()"><i class="ph-bold ph-file-pdf"></i> Exportar PDF</button>
         </div>
       </div>
+    </div>
+
+    <!-- TAB CHECKLIST DA CIRURGIA -->
+    <div id="tab-checklist" class="tab-pane">
+      <div class="sec-title">
+        <div class="sec-title-left"><i class="ph-fill ph-list-checks"></i> Checklist da Cirurgia</div>
+        <button class="btn-edit" onclick="addChecklistPerson()"><i class="ph-bold ph-plus"></i> Adicionar Pessoa</button>
+      </div>
+
+      <div class="info-box" style="border-left:4px solid var(--gold); background:var(--gold-bg);">
+        <i class="ph-fill ph-info" style="color:var(--amber)"></i>
+        <div>Cada pessoa tem seu próprio checklist. Medicamentos, jejum e demais preparativos devem seguir as orientações da equipe responsável pela cirurgia.</div>
+      </div>
+
+      <div class="checklist-overview" id="checklist-overview"></div>
+      <div class="checklist-tabs" id="checklist-tabs"></div>
+      <div id="checklist-panel-container"></div>
     </div>
 
     <!-- TAB ORIENTAÇÕES -->
@@ -1707,26 +1835,22 @@ let currentNutritionDate = null;
 let examChartInstance = null;
 let miniChartInstance = null;
 let currentChartGroup = 'imunidade';
+let surgeryChecklists = [];
+let activeChecklistId = null;
 
-// === NOVAS TRAVAS DE SEGURANÇA (evitam perda de dados) ===
-let dataLoaded = false;      // impede syncToCloud() antes dos dados carregarem
-let loadToken = 0;           // evita race conditions entre loads concorrentes
-let lastModified = 0;        // timestamp usado para decidir cache local x nuvem
+let dataLoaded = false;
+let loadToken = 0;
+let lastModified = 0;
 
-// NOVAS VARIÁVEIS PARA ETAPAS PÓS-QUIMIO
-// sessions (radioterapia) e logs (hormonal) permitem registrar o dia a dia de cada etapa
 function defaultPostChemo() {
   return {
     surgery: { done: false, date: '' },
-    // radiotherapy: além do "done" geral, permite registrar cada sessão individualmente (como na quimio)
-    radiotherapy: { done: false, date: '', totalPlanned: 20, sessions: [] }, // sessions: [{date:'YYYY-MM-DD', done:true}]
-    // hormonal: além do "done" (início marcado), permite registrar um log contínuo de controle (doses, consultas, efeitos)
-    hormonal: { done: false, date: '', logs: [] } // logs: [{date:'YYYY-MM-DD', note:'texto'}]
+    radiotherapy: { done: false, date: '', totalPlanned: 20, sessions: [] },
+    hormonal: { done: false, date: '', logs: [] }
   };
 }
 let postChemo = defaultPostChemo();
 
-// Garante que dados salvos antes desta versão ganhem os novos campos (sessions/logs/totalPlanned)
 function normalizePostChemo(pc) {
   const def = defaultPostChemo();
   const merged = {};
@@ -1738,8 +1862,6 @@ function normalizePostChemo(pc) {
   return merged;
 }
 
-// Controla quais marcos já tiveram a celebração (sino + confetes) exibida,
-// para não repetir a animação toda vez que a página recarrega.
 function defaultCelebrations() {
   return { chemo: false, surgery: false, radiotherapy: false, hormonal: false };
 }
@@ -1749,8 +1871,71 @@ function normalizeCelebrations(c) {
 }
 
 // =============================================
-// PÓS-OPERATÓRIO & PORTOVAC — ESTADO
+// PÓS-OPERATÓRIO & PORTOVAC — ESTADO + PERGUNTAS
 // =============================================
+const QUESTION_CATEGORIES = [
+  { id: 'cirurgia',   label: 'Cirurgia',                          icon: 'ph-fill ph-scalpel' },
+  { id: 'valvula',    label: 'Válvula de hidrocefalia',           icon: 'ph-fill ph-brain' },
+  { id: 'anestesia',  label: 'Anestesia',                         icon: 'ph-fill ph-syringe' },
+  { id: 'internacao', label: 'Internação e recuperação',          icon: 'ph-fill ph-bed' },
+  { id: 'resultados', label: 'Resultados e tratamento posterior', icon: 'ph-fill ph-file-text' },
+  { id: 'outros',     label: 'Outros',                            icon: 'ph-fill ph-dots-three' }
+];
+
+function getInitialQuestions() {
+  const base = [
+    { text: 'Qual será o tipo de cirurgia (mastectomia, quadrantectomia)?', category: 'cirurgia' },
+    { text: 'Será feita linfadenectomia axilar ou biópsia do linfonodo sentinela?', category: 'cirurgia' },
+    { text: 'Será necessária reconstrução mamária? Em que momento?', category: 'cirurgia' },
+    { text: 'Qual o tempo estimado da cirurgia?', category: 'cirurgia' },
+    { text: 'Quais os riscos e complicações possíveis?', category: 'cirurgia' },
+    { text: 'A cirurgia pode afetar o funcionamento da válvula de hidrocefalia?', category: 'valvula' },
+    { text: 'É necessário algum cuidado especial com a válvula durante o procedimento?', category: 'valvula' },
+    { text: 'Devo comunicar algum médico específico (neurocirurgião) sobre a válvula?', category: 'valvula' },
+    { text: 'Há risco de alteração na pressão intracraniana durante a anestesia?', category: 'valvula' },
+    { text: 'Qual o tipo de anestesia será utilizada (geral, raquidiana, local)?', category: 'anestesia' },
+    { text: 'Preciso de avaliação pré-anestésica adicional?', category: 'anestesia' },
+    { text: 'Devo suspender alguma medicação antes da cirurgia?', category: 'anestesia' },
+    { text: 'Quantos dias de internação são esperados?', category: 'internacao' },
+    { text: 'Quais cuidados devo ter em casa nos primeiros dias?', category: 'internacao' },
+    { text: 'Quando poderei voltar às atividades normais?', category: 'internacao' },
+    { text: 'Que sinais de alerta devo observar em casa?', category: 'internacao' },
+    { text: 'Quando terei os resultados do exame anatomopatológico?', category: 'resultados' },
+    { text: 'Após a cirurgia, precisarei de radioterapia ou hormonioterapia?', category: 'resultados' },
+    { text: 'Quando será o retorno com o cirurgião?', category: 'resultados' },
+    { text: 'A válvula de hidrocefalia interfere no tratamento oncológico posterior?', category: 'resultados' }
+  ];
+  return base.map((q, i) => ({
+    id: 'q_default_' + (i + 1),
+    text: q.text,
+    category: q.category,
+    answered: false,
+    answer: '',
+    answeredAt: null
+  }));
+}
+
+function normalizeQuestionsForMigrate(questions, initialized) {
+  const wasInitialized = initialized !== undefined ? !!initialized : false;
+  let list = Array.isArray(questions) ? questions : [];
+  list = list.map((q, i) => ({
+    id: (q && q.id) ? q.id : ('q_legacy_' + Date.now() + '_' + i),
+    text: (q && q.text) ? String(q.text) : '',
+    category: (q && q.category) ? q.category : 'outros',
+    answered: !!(q && q.answered),
+    answer: (q && q.answer) ? String(q.answer) : '',
+    answeredAt: (q && q.answeredAt) ? q.answeredAt : null
+  }));
+  if (!wasInitialized) {
+    const initial = getInitialQuestions();
+    const existing = new Set(list.map(q => q.text.toLowerCase().trim()));
+    initial.forEach(q => {
+      if (!existing.has(q.text.toLowerCase().trim())) list.push(q);
+    });
+  }
+  return list;
+}
+
 function defaultPostOpData() {
   return {
     active: true,
@@ -1794,8 +1979,9 @@ function defaultPostOpData() {
       nextAlertId: 5
     },
     observations: '',
-    questions: [],
-    nextQuestionId: 1
+    questions: getInitialQuestions(),
+    nextQuestionId: 1,
+    questionsInitialized: true
   };
 }
 
@@ -1823,8 +2009,9 @@ function normalizePostOpData(d) {
       nextAlertId: guide.nextAlertId || def.guide.nextAlertId
     },
     observations: d.observations || '',
-    questions: Array.isArray(d.questions) ? d.questions : [],
-    nextQuestionId: d.nextQuestionId || 1
+    questions: normalizeQuestionsForMigrate(d.questions, d.questionsInitialized),
+    nextQuestionId: d.nextQuestionId || 1,
+    questionsInitialized: true
   };
 }
 
@@ -1832,54 +2019,40 @@ let postOpData = defaultPostOpData();
 let drainChartInstance = null;
 
 // =============================================
-// CELEBRAÇÃO DE MARCOS (sino + confetes)
+// CELEBRAÇÃO
 // =============================================
 function checkCelebrations({ chemoDone, radioDoneCount, radioTotal }) {
   if (chemoDone && !celebrationsShown.chemo) {
-    celebrationsShown.chemo = true;
-    syncToCloud();
+    celebrationsShown.chemo = true; syncToCloud();
     showCelebration('Quimioterapia concluída! 🎗️', 'Uma fase enorme e pesada ficou pra trás. Você foi muito forte até aqui!');
   } else if (!chemoDone && celebrationsShown.chemo) {
-    celebrationsShown.chemo = false;
-    syncToCloud();
+    celebrationsShown.chemo = false; syncToCloud();
   }
-
   if (postChemo.surgery.done && !celebrationsShown.surgery) {
-    celebrationsShown.surgery = true;
-    syncToCloud();
+    celebrationsShown.surgery = true; syncToCloud();
     showCelebration('Cirurgia concluída! 🎉', 'Mais uma etapa importante do tratamento vencida.');
   } else if (!postChemo.surgery.done && celebrationsShown.surgery) {
-    celebrationsShown.surgery = false;
-    syncToCloud();
+    celebrationsShown.surgery = false; syncToCloud();
   }
-
   const radioComplete = radioTotal > 0 ? radioDoneCount >= radioTotal : postChemo.radiotherapy.done;
   if (radioComplete && !celebrationsShown.radiotherapy) {
-    celebrationsShown.radiotherapy = true;
-    syncToCloud();
+    celebrationsShown.radiotherapy = true; syncToCloud();
     showCelebration('Radioterapia concluída! ✨', 'Todas as sessões previstas foram registradas. Parabéns pela dedicação!');
   } else if (!radioComplete && celebrationsShown.radiotherapy) {
-    celebrationsShown.radiotherapy = false;
-    syncToCloud();
+    celebrationsShown.radiotherapy = false; syncToCloud();
   }
-
   if (postChemo.hormonal.done && !celebrationsShown.hormonal) {
-    celebrationsShown.hormonal = true;
-    syncToCloud();
+    celebrationsShown.hormonal = true; syncToCloud();
     showCelebration('Terapia hormonal iniciada! 💛', 'Você entrou na fase de acompanhamento de longo prazo. Um passo de cada vez.');
   } else if (!postChemo.hormonal.done && celebrationsShown.hormonal) {
-    celebrationsShown.hormonal = false;
-    syncToCloud();
+    celebrationsShown.hormonal = false; syncToCloud();
   }
 }
 
 function showCelebration(title, subtitle) {
   const layer = document.getElementById('celebration-layer');
   if (!layer) return;
-
-  spawnConfetti(layer);
-  playBellChime();
-
+  spawnConfetti(layer); playBellChime();
   const banner = document.createElement('div');
   banner.className = 'celebration-banner';
   banner.innerHTML = `
@@ -1888,8 +2061,7 @@ function showCelebration(title, subtitle) {
     <div>
       <div class="celebration-text-title">${title}</div>
       <div class="celebration-text-sub">${subtitle}</div>
-    </div>
-  `;
+    </div>`;
   layer.appendChild(banner);
   banner.querySelector('.celebration-close').onclick = () => banner.remove();
   setTimeout(() => { if (banner.parentNode) banner.remove(); }, 6200);
@@ -1897,8 +2069,7 @@ function showCelebration(title, subtitle) {
 
 function spawnConfetti(layer) {
   const colors = ['#7AAB96', '#D4A373', '#E8A0A0', '#FFD97A', '#B4D4C4', '#FFFFFF'];
-  const pieceCount = 60;
-  for (let i = 0; i < pieceCount; i++) {
+  for (let i = 0; i < 60; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
     const left = Math.random() * 100;
@@ -1922,24 +2093,21 @@ function playBellChime() {
     if (!AudioCtx) return;
     const ctx = new AudioCtx();
     const now = ctx.currentTime;
-    const freqs = [1318.5, 1568.0, 1975.5]; // um pequeno arpejo suave (E6, G6, B6)
+    const freqs = [1318.5, 1568.0, 1975.5];
     freqs.forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.value = freq;
+      osc.type = 'sine'; osc.frequency.value = freq;
       const start = now + i * 0.14;
       gain.gain.setValueAtTime(0, start);
       gain.gain.linearRampToValueAtTime(0.18, start + 0.02);
       gain.gain.exponentialRampToValueAtTime(0.0001, start + 1.1);
       osc.connect(gain).connect(ctx.destination);
-      osc.start(start);
-      osc.stop(start + 1.2);
+      osc.start(start); osc.stop(start + 1.2);
     });
     setTimeout(() => ctx.close(), 2000);
-  } catch (e) { /* som é apenas um bônus; ignora falhas silenciosamente */ }
+  } catch (e) {}
 }
-
 
 // =============================================
 // UTILITÁRIOS DE DATA
@@ -1954,7 +2122,7 @@ const todayYMD = toYMD(new Date());
 let currentLogDate = todayYMD;
 
 // =============================================
-// INTEGRAÇÃO COM GOOGLE AGENDA / ARQUIVO ICS
+// INTEGRAÇÃO COM GOOGLE AGENDA / ICS
 // =============================================
 function pad2(n) { return String(n).padStart(2, '0'); }
 function sanitizeFileName(text) { return String(text || 'calendario').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9_-]+/gi, '_').replace(/^_+|_+$/g, '').toLowerCase(); }
@@ -1991,12 +2159,9 @@ function calendarEvent(title, date, time, durationMin, details, location) {
 function googleCalendarUrl(ev) {
   const se = eventStartEnd(ev);
   const params = new URLSearchParams({
-    action: 'TEMPLATE',
-    text: ev.title || 'Evento',
+    action: 'TEMPLATE', text: ev.title || 'Evento',
     dates: googleDate(se.start) + '/' + googleDate(se.end),
-    details: ev.details || '',
-    location: ev.location || '',
-    ctz: 'America/Sao_Paulo'
+    details: ev.details || '', location: ev.location || '', ctz: 'America/Sao_Paulo'
   });
   return 'https://calendar.google.com/calendar/render?' + params.toString();
 }
@@ -2014,11 +2179,8 @@ function makeICS(events) {
     lines.push('SUMMARY:' + icsEscape(ev.title));
     if (ev.details) lines.push('DESCRIPTION:' + icsEscape(ev.details));
     if (ev.location) lines.push('LOCATION:' + icsEscape(ev.location));
-    lines.push('BEGIN:VALARM');
-    lines.push('TRIGGER:-PT30M');
-    lines.push('ACTION:DISPLAY');
-    lines.push('DESCRIPTION:Lembrete: ' + icsEscape(ev.title));
-    lines.push('END:VALARM');
+    lines.push('BEGIN:VALARM'); lines.push('TRIGGER:-PT30M'); lines.push('ACTION:DISPLAY');
+    lines.push('DESCRIPTION:Lembrete: ' + icsEscape(ev.title)); lines.push('END:VALARM');
     lines.push('END:VEVENT');
   });
   lines.push('END:VCALENDAR');
@@ -2029,10 +2191,8 @@ function downloadICS(events, filename) {
   const blob = new Blob([makeICS(events)], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url;
-  a.download = filename || 'cronograma-gabi.ics';
-  document.body.appendChild(a);
-  a.click();
+  a.href = url; a.download = filename || 'cronograma-gabi.ics';
+  document.body.appendChild(a); a.click();
   setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 500);
 }
 function getPairStartIndex(index) { return index < 12 ? getWhitePairStartIndex(index) : index; }
@@ -2060,30 +2220,22 @@ function buildMandatoryMedEvents() {
   const events = [];
   const whiteSessions = sessions.filter(s => s.phase === 1);
   const redSessions = sessions.filter(s => s.phase === 2);
-
-  // --- Fase Branca (Paclitaxel) ---
-  // Dexametasona: 1 comprimido às 8h e 16h, 1 dia antes e 2 dias após
   whiteSessions.forEach(s => {
     [addDaysYMD(s.date, -1), addDaysYMD(s.date, 1), addDaysYMD(s.date, 2)].forEach(d => {
       events.push(calendarEvent(`Dexametasona 4mg - Sessão ${s.num} (Branca)`, d, '08:00', 10, `Preparo obrigatório da quimioterapia branca (Sessão ${s.num}). Tomar 1 comprimido.`));
       events.push(calendarEvent(`Dexametasona 4mg - Sessão ${s.num} (Branca)`, d, '16:00', 10, `Preparo obrigatório da quimioterapia branca (Sessão ${s.num}). Tomar 1 comprimido.`));
     });
   });
-
-  // --- Fase Vermelha (AC) ---
-  // Dexametasona: 2 comprimidos pela manhã por 3 dias, iniciando 1 dia após a sessão
   redSessions.forEach(s => {
     for (let offset = 1; offset <= 3; offset++) {
       const d = addDaysYMD(s.date, offset);
       events.push(calendarEvent(`Dexametasona 4mg (2 comp) - Sessão ${s.num} (Vermelha)`, d, '08:00', 10, `Quimioterapia vermelha: tomar 2 comprimidos pela manhã (Dia ${offset} de 3). Referente à Sessão ${s.num}.`));
     }
-    // Filgrastim: 1 seringa 1x/dia por 5 dias, iniciando 1 dia após a sessão
     for (let offset = 1; offset <= 5; offset++) {
       const d = addDaysYMD(s.date, offset);
       events.push(calendarEvent(`Filgrastim 300mcg - Sessão ${s.num} (Vermelha)`, d, '10:00', 10, `Quimioterapia vermelha: aplicar 1 seringa 1 vez ao dia (Dia ${offset} de 5). Trazer isopor no dia da quimioterapia. Referente à Sessão ${s.num}.`));
     }
   });
-
   return events;
 }
 function buildAllCalendarEvents() {
@@ -2116,7 +2268,7 @@ window.openGoogleCalendarMedDose = function(medId) {
 };
 
 // =============================================
-// NUTRIÇÃO — SUGESTÕES, REGISTROS E LEMBRETES
+// NUTRIÇÃO
 // =============================================
 const NUTRITION_MEALS = [
   { id:'cafe', time:'08:00', label:'Café da manhã', title:'Sugestão do dia — café da manhã', text:'Opção para controle glicêmico: 1 copo (200 ml) de leite desnatado ou iogurte desnatado + café para misturar no leite + 2 fatias de pão integral OU 2 colheres de sopa de aveia/granola sem açúcar e mel/com flakes/tapioca OU 1 pão francês sem miolo OU 4 bolachas cream cracker. Recheio: margarina cremosa light, manteiga, requeijão light ou geleia diet: 1 colher de café rasa; OU queijo branco/ricota: 1 fatia média. Opção durante o tratamento oncológico: 1 copo (200 ml) de leite semi/desnatado ou iogurte desnatado ou bebida com soja + 1 pão francês OU 6 bolachas OU 2 fatias de pão de forma OU 1 tapioca média. Opção: mingau de aveia, Maisena, arrozina ou milho.' },
@@ -2199,31 +2351,23 @@ window.shiftNutritionDate = function(delta) { currentNutritionDate = addDaysYMD(
 window.updateNutritionMealTime = function(id, val) {
   if (!val) return;
   nutritionSettings.mealTimes = { ...(nutritionSettings.mealTimes || {}), [id]: val };
-  syncToCloud();
-  renderNutritionTab();
-  renderSmartAlerts();
+  syncToCloud(); renderNutritionTab(); renderSmartAlerts();
 };
 window.resetNutritionTimes = function() {
   if (!confirm('Restaurar os horários padrão das refeições? Os registros do que foi consumido serão mantidos.')) return;
   nutritionSettings.mealTimes = {};
-  syncToCloud();
-  renderNutritionTab();
-  renderSmartAlerts();
+  syncToCloud(); renderNutritionTab(); renderSmartAlerts();
 };
 window.saveNutritionMeal = function(id, markDone) {
   const input = document.getElementById('consumed-' + id);
   const log = getNutritionLog(currentNutritionDate);
   log[id] = { ...(log[id] || {}), consumed: input ? input.value.trim() : '', done: markDone || !!(log[id] && log[id].done), savedAt: new Date().toISOString(), time: getMealTime(id) };
-  syncToCloud();
-  renderNutritionTab();
-  renderSmartAlerts();
+  syncToCloud(); renderNutritionTab(); renderSmartAlerts();
 };
 window.clearNutritionMeal = function(id) {
   const log = getNutritionLog(currentNutritionDate);
   delete log[id];
-  syncToCloud();
-  renderNutritionTab();
-  renderSmartAlerts();
+  syncToCloud(); renderNutritionTab(); renderSmartAlerts();
 };
 function buildNutritionMealEvent(meal, date) {
   const log = getNutritionLog(date || todayYMD)[meal.id] || {};
@@ -2375,43 +2519,30 @@ function showErrorMsg(msg) {
   errDiv.style.display = 'block';
 }
 
-// =============================================
-// RECUPERAÇÃO DE SENHA
-// =============================================
 window.forgotPassword = function() {
   const emailInput = document.getElementById('auth-email');
   const errDiv = document.getElementById('login-error');
   const successDiv = document.getElementById('login-success');
   const email = (emailInput.value || '').trim();
-
   errDiv.style.display = 'none';
   if (successDiv) successDiv.style.display = 'none';
-
-  // Validação básica do e-mail
   if (!email) {
     showErrorMsg('Digite seu e-mail no campo acima para receber o link de recuperação.');
-    emailInput.focus();
-    return;
+    emailInput.focus(); return;
   }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     showErrorMsg('Digite um e-mail válido para receber o link de recuperação.');
-    emailInput.focus();
-    return;
+    emailInput.focus(); return;
   }
-
-  // Bloqueia o botão para evitar cliques múltiplos
   const btn = document.querySelector('.btn-forgot');
   if (btn) { btn.disabled = true; btn.innerHTML = '<i class="ph-bold ph-hourglass"></i> Enviando...'; }
-
   auth.sendPasswordResetEmail(email)
     .then(() => {
-      // Mostra mensagem de sucesso
       if (successDiv) {
         successDiv.textContent = `✅ Link enviado para ${email}. Confira sua caixa de entrada (e a pasta de spam).`;
         successDiv.style.display = 'block';
       } else {
-        // Fallback caso o div de sucesso não exista no HTML
         alert(`Link de recuperação enviado para ${email}.\n\nVerifique sua caixa de entrada e a pasta de spam.`);
       }
     })
@@ -2435,71 +2566,41 @@ window.logout = function() { auth.signOut(); };
 // =============================================
 function generateDefaultSessions() {
   const arr = [];
-
-  // Fase Branca: 12 sessoes
-  // Sessao 1: 16/04/2026
-  // Sessao 2: 24/04/2026 (excecao: 8 dias depois)
-  // Sessoes 3-12: toda quinta, a cada 7 dias a partir de 01/05/2026
-  const whiteDates = [
-    '2026-04-16',
-    '2026-04-24',
-  ];
+  const whiteDates = ['2026-04-16', '2026-04-24'];
   const thirdSession = new Date(2026, 4, 1, 12, 0, 0);
   for (let i = 0; i < 10; i++) {
     const d = new Date(thirdSession);
     d.setDate(d.getDate() + (i * 7));
     whiteDates.push(toYMD(d));
   }
-
-  // Coleta 1: 05/03/2026 (fixa)
-  // Coletas 2-6: 48h antes da sessao impar de cada par
   const examDates = ['2026-03-05'];
   for (let i = 1; i < 6; i++) {
     examDates.push(addDaysYMD(whiteDates[i * 2], -2));
   }
-
   for (let i = 0; i < 12; i++) {
     const examDate = examDates[Math.floor(i / 2)];
-    arr.push({
-      id: i, num: i + 1, phaseNum: i + 1,
-      type: 'BRANCA', phase: 1,
-      date: whiteDates[i],
-      examDate,
-      done: false, examDone: false, nadirHidden: false, examHidden: false
-    });
+    arr.push({ id: i, num: i + 1, phaseNum: i + 1, type: 'BRANCA', phase: 1, date: whiteDates[i], examDate, done: false, examDone: false, nadirHidden: false, examHidden: false });
   }
-
-  // Fase Vermelha: 4 sessoes, 14 dias apos ultima branca, a cada 21 dias
   const lastWhite = fromYMD(arr[11].date);
   for (let i = 0; i < 4; i++) {
     const d = new Date(lastWhite);
     d.setDate(d.getDate() + 14 + (i * 21));
-    arr.push({
-      id: i + 12, num: i + 13, phaseNum: i + 1,
-      type: 'VERMELHA', phase: 2,
-      date: toYMD(d),
-      examDate: addDaysYMD(toYMD(d), -2),
-      done: false, examDone: false, nadirHidden: false, examHidden: false
-    });
+    arr.push({ id: i + 12, num: i + 13, phaseNum: i + 1, type: 'VERMELHA', phase: 2, date: toYMD(d), examDate: addDaysYMD(toYMD(d), -2), done: false, examDone: false, nadirHidden: false, examHidden: false });
   }
   return arr;
 }
 
 // =============================================
-// CLOUD — CARREGAMENTO ROBUSTO (corrigido)
+// CLOUD
 // =============================================
 function loadDataFromCloud() {
   if (!currentUser) return;
-
-  const myToken = ++loadToken;   // se outro load começar, este é ignorado
+  const myToken = ++loadToken;
   dataLoaded = false;
-
   const cachedSessions = loadLocal('sessions', []);
   const cachedLastModified = loadLocal('lastModified', 0);
   const hasCache = Array.isArray(cachedSessions) && cachedSessions.length > 0;
-
   if (hasCache) {
-    // Carrega tudo do cache local imediatamente
     sessions = cachedSessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
     dailyLogs = loadLocal('dailyLogs', {});
     diary = loadLocal('diary', []);
@@ -2511,42 +2612,30 @@ function loadDataFromCloud() {
     postChemo = normalizePostChemo(loadLocal('postChemo', defaultPostChemo()));
     celebrationsShown = normalizeCelebrations(loadLocal('celebrationsShown', defaultCelebrations()));
     postOpData = normalizePostOpData(loadLocal('postOpData', defaultPostOpData()));
+    surgeryChecklists = normalizeSurgeryChecklists(loadLocal('surgeryChecklists', defaultSurgeryChecklists()));
     lastModified = cachedLastModified;
-
-    // Aplica migração também no cache (idempotente graças à flag juneHolidayAdjusted)
     applyGabiJuneHolidayAdjustment();
-
     dataLoaded = true;
     renderAll();
   }
-
   db.collection("app_data").doc(currentUser.uid).get()
     .then((docSnap) => {
-      if (myToken !== loadToken) return; // outro load substituiu este
-
+      if (myToken !== loadToken) return;
       if (docSnap.exists) {
         const data = docSnap.data();
         const cloudLastModified = data.lastModified || 0;
-
-        // === CACHE LOCAL É MAIS NOVO QUE A NUVEM ===
-        // (acontece quando o usuário editou offline; preserva o local)
         if (hasCache && lastModified > cloudLastModified) {
           dataLoaded = true;
-          syncToCloud();   // envia local para nuvem, resolve divergência
+          syncToCloud();
           renderAll();
           return;
         }
-
-        // === NUVEM É MAIS NOVA (ou não há cache) → nuvem vence ===
         if (data.sessions && data.sessions.length > 0) {
           sessions = data.sessions.map(s => ({ nadirHidden: false, examHidden: false, ...s }));
         } else if (!hasCache) {
           sessions = generateDefaultSessions();
         }
-        // Se hasCache e nuvem sem sessions, mantém sessions do cache
-
         applyGabiJuneHolidayAdjustment();
-
         dailyLogs = data.dailyLogs || (hasCache ? dailyLogs : {});
         diary = data.diary || (hasCache ? diary : []);
         generalDiary = data.generalDiary || (hasCache ? generalDiary : []);
@@ -2557,14 +2646,12 @@ function loadDataFromCloud() {
         postChemo = normalizePostChemo(data.postChemo || (hasCache ? postChemo : defaultPostChemo()));
         celebrationsShown = normalizeCelebrations(data.celebrationsShown || (hasCache ? celebrationsShown : defaultCelebrations()));
         postOpData = normalizePostOpData(data.postOpData || (hasCache ? postOpData : defaultPostOpData()));
-
+        surgeryChecklists = normalizeSurgeryChecklists(data.surgeryChecklists || (hasCache ? surgeryChecklists : defaultSurgeryChecklists()));
         examResults.sort((a, b) => a.date.localeCompare(b.date));
         appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-
         lastModified = cloudLastModified;
-        saveLocalOnly();   // espelha a nuvem no cache, sem alterar timestamp
+        saveLocalOnly();
       } else {
-        // Documento ainda não existe
         if (!hasCache) {
           sessions = generateDefaultSessions();
           applyGabiJuneHolidayAdjustment();
@@ -2573,34 +2660,30 @@ function loadDataFromCloud() {
           postChemo = defaultPostChemo();
           celebrationsShown = defaultCelebrations();
           postOpData = defaultPostOpData();
+          surgeryChecklists = defaultSurgeryChecklists();
         }
-        // Se tinha cache, sobe o cache para a nuvem (não descarta)
         dataLoaded = true;
         syncToCloud();
         renderAll();
         return;
       }
-
       dataLoaded = true;
       renderAll();
     })
     .catch((error) => {
       console.error("Erro ao carregar do Firebase:", error);
       if (myToken !== loadToken) return;
-
-      // ❌ ANTES: sessions = generateDefaultSessions() → APAGAVA TUDO
-      // ✅ AGORA: preserva o cache local; só cria defaults se realmente não havia nada
       if (!hasCache) {
         sessions = generateDefaultSessions();
         applyGabiJuneHolidayAdjustment();
         postOpData = defaultPostOpData();
+        surgeryChecklists = defaultSurgeryChecklists();
       }
       dataLoaded = true;
       renderAll();
     });
 }
 
-// Salva SÓ no localStorage (usado ao espelhar dados da nuvem, sem alterar timestamp)
 function saveLocalOnly() {
   saveLocal('sessions', sessions);
   saveLocal('dailyLogs', dailyLogs);
@@ -2613,29 +2696,23 @@ function saveLocalOnly() {
   saveLocal('postChemo', postChemo);
   saveLocal('celebrationsShown', celebrationsShown);
   saveLocal('postOpData', postOpData);
+  saveLocal('surgeryChecklists', surgeryChecklists);
   saveLocal('lastModified', lastModified);
 }
 
 function syncToCloud() {
-  // Atualiza timestamp e cache local SEMPRE (mesmo offline)
   lastModified = Date.now();
   saveLocalOnly();
-
-  // Não envia para a nuvem se ainda não temos dados confiáveis
   if (!dataLoaded) return;
   if (!currentUser) return;
-
-  // Se estiver offline, o navegador dispara 'online' depois e chama syncToCloud de novo
   if (!navigator.onLine) return;
-
   db.collection("app_data").doc(currentUser.uid).set({
     sessions, dailyLogs, diary, generalDiary, examResults,
     appointments, nutritionLogs, nutritionSettings, postChemo,
-    celebrationsShown, postOpData, lastModified
+    celebrationsShown, postOpData, surgeryChecklists, lastModified
   }, { merge: true })
   .catch((error) => {
     console.error("Falha ao salvar na nuvem (dados permanecem no cache local):", error);
-    // Não reverte nada — o cache local continua íntegro.
   });
 }
 
@@ -2659,6 +2736,7 @@ window.switchTab = function(n, b) {
   if (n === 'nutricao') renderNutritionTab();
   if (n === 'calendario') renderPostChemoTimeline();
   if (n === 'posop') renderPostOpTab();
+  if (n === 'checklist') renderChecklistTab();
 };
 
 function renderAll() {
@@ -2689,8 +2767,8 @@ function renderAll() {
   currentNutritionDate = todayYMD;
   renderNutritionTab();
   renderPostOpTab();
+  renderChecklistTab();
 }
-
 
 function initTempTimeInput() {
   const ti = document.getElementById('temp-time-input');
@@ -2718,14 +2796,10 @@ function diffDaysYMD(a, b) {
   return Math.round((fromYMD(b).getTime() - fromYMD(a).getTime()) / 86400000);
 }
 
-// Na fase branca, a coleta normalmente vale para 2 sessões.
-// Quando há um intervalo maior que 8 dias entre sessões consecutivas,
-// o app entende que houve uma quebra no par, como aconteceu no feriado de 04/06.
 function getWhiteExamGroups() {
   const groups = [];
   for (let i = 0; i < 12; i++) {
     if (!sessions[i] || sessions[i].phase !== 1) continue;
-
     const next = sessions[i + 1];
     if (next && next.phase === 1 && diffDaysYMD(sessions[i].date, next.date) <= 8) {
       groups.push([i, i + 1]);
@@ -2763,67 +2837,40 @@ function setExamForSessionOrPair(index, val) {
 
 function applyGabiJuneHolidayAdjustment() {
   if (!Array.isArray(sessions) || sessions.length < 12) return;
-
   const s7 = sessions.find(s => s.phase === 1 && s.num === 7);
   const s8 = sessions.find(s => s.phase === 1 && s.num === 8);
   const s9 = sessions.find(s => s.phase === 1 && s.num === 9);
-
-  // Sessão 8 não foi feita em 04/06 por causa do feriado; foi realizada em 11/06
-  // com coleta em 09/06. Esta marca evita reaplicar a migração a cada carregamento.
   if (s8 && !s8.juneHolidayAdjusted) {
     s8.date = '2026-06-11';
     s8.examDate = '2026-06-09';
     s8.juneHolidayAdjusted = true;
   }
-
-  // Mantém a coleta de 26/05 ligada apenas à Sessão 7, quando essa data está no cronograma.
   if (s7 && s7.date === '2026-05-28') s7.examDate = '2026-05-26';
-
-  // Com a quebra do par 7-8, a coleta de 09/06 passa a abrir o novo grupo.
   if (s9 && s8 && s8.date === '2026-06-11') s9.examDate = '2026-06-09';
 }
 
 window.updateDate = function(index, val) {
   if (!val || !sessions[index]) return;
   sessions[index].date = val;
-
-  // Na fase branca, a coleta pertence ao par. Ao editar a primeira sessão do par,
-  // recalcula a coleta do par para 48h antes. Ao editar a segunda, mantém a coleta do par.
   if (sessions[index].phase === 1) {
     const p = getWhitePairStartIndex(index);
     if (index === p) setExamForSessionOrPair(index, addDaysYMD(val, -2));
   } else {
     sessions[index].examDate = addDaysYMD(val, -2);
   }
-
-  syncToCloud();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderSessions(); renderSmartAlerts();
 };
-
 window.shiftSessionDate = function(index, days) {
   if (!sessions[index]) return;
   window.updateDate(index, addDaysYMD(sessions[index].date, days));
 };
-
-window.updateExam = function(index, val) {
-  setExamForSessionOrPair(index, val);
-  syncToCloud();
-  renderSessions();
-};
-
-window.updateExamPair = function(index, val) {
-  setExamForSessionOrPair(index, val);
-  syncToCloud();
-  renderSessions();
-};
-
+window.updateExam = function(index, val) { setExamForSessionOrPair(index, val); syncToCloud(); renderSessions(); };
+window.updateExamPair = function(index, val) { setExamForSessionOrPair(index, val); syncToCloud(); renderSessions(); };
 window.shiftExamDate = function(index, days) {
   if (!sessions[index]) return;
   const p = sessions[index].phase === 1 ? getWhitePairStartIndex(index) : index;
   window.updateExam(p, addDaysYMD(sessions[p].examDate, days));
 };
-
 window.resetExamToDefault = function(index) {
   if (!sessions[index]) return;
   if (sessions[index].phase === 1) {
@@ -2832,26 +2879,19 @@ window.resetExamToDefault = function(index) {
   } else {
     sessions[index].examDate = addDaysYMD(sessions[index].date, -2);
   }
-  syncToCloud();
-  renderSessions();
+  syncToCloud(); renderSessions();
 };
-
 window.recalcularColetasBrancas = function() {
   getWhiteExamGroups().forEach(group => {
     const start = group[0];
     if (sessions[start]) setExamForSessionOrPair(start, addDaysYMD(sessions[start].date, -2));
   });
-  syncToCloud();
-  renderSessions();
+  syncToCloud(); renderSessions();
 };
-
 window.toggleDone = function(index) {
   sessions[index].done = !sessions[index].done;
-  syncToCloud();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderSessions(); renderSmartAlerts();
 };
-
 window.toggleExamDone = function(index) {
   if (!sessions[index]) return;
   if (sessions[index].phase === 1) {
@@ -2861,25 +2901,18 @@ window.toggleExamDone = function(index) {
   } else {
     sessions[index].examDone = !sessions[index].examDone;
   }
-  syncToCloud();
-  renderSessions();
+  syncToCloud(); renderSessions();
 };
-
-// Marca/desmarca coleta para um grupo de sessões da fase branca
 window.toggleExamDonePair = function(i1, i2) {
   const group = getWhiteExamGroupByIndex(i1);
   const newState = !group.every(idx => sessions[idx].examDone);
   group.forEach(idx => { sessions[idx].examDone = newState; });
-  syncToCloud();
-  renderSessions();
+  syncToCloud(); renderSessions();
 };
-
 window.toggleNadirHidden = function(index) {
   sessions[index].nadirHidden = !sessions[index].nadirHidden;
-  syncToCloud();
-  renderSessions();
+  syncToCloud(); renderSessions();
 };
-
 window.toggleExamHidden = function(index) {
   if (!sessions[index]) return;
   if (sessions[index].phase === 1) {
@@ -2889,17 +2922,13 @@ window.toggleExamHidden = function(index) {
   } else {
     sessions[index].examHidden = !sessions[index].examHidden;
   }
-  syncToCloud();
-  renderSessions();
+  syncToCloud(); renderSessions();
 };
 window.updateNadirDates = function(index, field, val) {
   if (!sessions[index].nadirOverride) sessions[index].nadirOverride = {};
   sessions[index].nadirOverride[field] = val;
   syncToCloud(); renderSessions();
 };
-
-
-// Alias mantido para botões antigos/agenda externa.
 window.recalcExamDate = function(index) { window.resetExamToDefault(index); };
 function isInNadir(sessionDate, checkDate) { return checkDate >= addDaysYMD(sessionDate, 7) && checkDate <= addDaysYMD(sessionDate, 10); }
 function isInRisk(sessionDate, checkDate) { return checkDate >= addDaysYMD(sessionDate, 5) && checkDate <= addDaysYMD(sessionDate, 14); }
@@ -2933,7 +2962,7 @@ window.calcNadir = function() {
 };
 
 // =============================================
-// PÓS-QUIMIOTERAPIA: EXAMES E RETORNOS
+// PÓS-QUIMIO: EXAMES E RETORNOS
 // =============================================
 const POST_CHEMO_LABS = [
   'Hemograma completo + HM', 'Creatinina', 'Ureia', 'Cálcio sérico', 'Magnésio', 'Potássio',
@@ -2949,7 +2978,6 @@ function getLastChemoSession() {
   if (!Array.isArray(sessions) || sessions.length === 0) return null;
   return [...sessions].filter(s => s.date).sort((a, b) => a.date.localeCompare(b.date)).pop() || null;
 }
-
 function getPostChemoExamDate() {
   const last = getLastChemoSession();
   return last ? addDaysYMD(last.date, 21) : '';
@@ -2961,10 +2989,8 @@ function renderPostChemoPlan() {
   const dateText = last
     ? `Última sessão cadastrada: <strong>${fmtFull(last.date)}</strong>. Todos os exames solicitados devem ser feitos em <strong>${fmtFull(targetDate)}</strong> (3 semanas após a última quimioterapia).`
     : 'Quando a última sessão estiver cadastrada, o app calcula automaticamente a data de 3 semanas depois.';
-
   const labsHtml = POST_CHEMO_LABS.map(x => `<span class="week-sym-pill" style="background:var(--sage-bg);color:var(--sage-dark)">${x}</span>`).join('');
   const imgHtml = POST_CHEMO_IMAGING.map(x => `<span class="week-sym-pill" style="background:var(--gold-bg);color:var(--amber)">${x}</span>`).join('');
-
   const examCard = document.getElementById('post-chemo-exam-card');
   if (examCard) {
     examCard.innerHTML = `
@@ -2982,7 +3008,6 @@ function renderPostChemoPlan() {
         </div>
       </div>`;
   }
-
   const consultCard = document.getElementById('post-chemo-consult-card');
   if (consultCard) {
     consultCard.innerHTML = `
@@ -3021,30 +3046,23 @@ window.addPostChemoReminders = function() {
     if (!exists) { appointments.push({ id: Date.now() + Math.floor(Math.random() * 100000), ...item }); added++; }
   });
   appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  syncToCloud();
-  renderAppointments();
-  renderSmartAlerts();
-  renderPostChemoPlan();
+  syncToCloud(); renderAppointments(); renderSmartAlerts(); renderPostChemoPlan();
   alert(added ? 'Lembretes pós-quimio adicionados à agenda. Confira e ajuste as datas/horários conforme o hospital confirmar.' : 'Esses lembretes já estavam na agenda.');
 };
 
 // =============================================
-// NOVAS ETAPAS PÓS-QUIMIO: CIRURGIA, RADIO, HORMONAL
+// ETAPAS PÓS-QUIMIO
 // =============================================
 function renderPostChemoTimeline() {
   const container = document.getElementById('post-chemo-timeline');
   if (!container) return;
-
   const surgery = postChemo.surgery || { done: false, date: '' };
   const radio = postChemo.radiotherapy || { done: false, date: '', totalPlanned: 20, sessions: [] };
   const hormonal = postChemo.hormonal || { done: false, date: '', logs: [] };
-
   const radioSessions = (radio.sessions || []).slice().sort((a, b) => a.date.localeCompare(b.date));
   const radioDoneCount = radioSessions.filter(s => s.done).length;
   const radioTotal = radio.totalPlanned || 0;
-
   const hormonalLogs = (hormonal.logs || []).slice().sort((a, b) => b.date.localeCompare(a.date));
-
   container.innerHTML = `
     <div class="post-chemo-step" style="border-left: 4px solid ${surgery.done ? '#2A6A2A' : '#D4A373'};">
       <div class="step-info">
@@ -3069,7 +3087,6 @@ function renderPostChemoTimeline() {
         <button class="btn-calendar secondary" onclick="openGooglePostChemo('surgery')"><i class="ph-bold ph-calendar-plus"></i> Agenda</button>
       </div>
     </div>
-
     <div class="post-chemo-step" style="border-left: 4px solid ${radioDoneCount >= radioTotal && radioTotal > 0 ? '#2A6A2A' : '#7AAB96'}; flex-direction:column; align-items:stretch;">
       <div class="step-info">
         <div class="step-title">
@@ -3089,7 +3106,6 @@ function renderPostChemoTimeline() {
         </button>
         <button class="btn-calendar secondary" onclick="openGooglePostChemo('radiotherapy')"><i class="ph-bold ph-calendar-plus"></i> Agenda</button>
       </div>
-
       <div style="margin-top:14px; padding-top:12px; border-top:1px dashed var(--border);">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
           <strong style="font-size:13px;">Sessões de radioterapia: ${radioDoneCount} / ${radioTotal || '—'}</strong>
@@ -3122,7 +3138,6 @@ function renderPostChemoTimeline() {
         </div>
       </div>
     </div>
-
     <div class="post-chemo-step" style="border-left: 4px solid ${hormonal.done ? '#2A6A2A' : '#C9822B'}; flex-direction:column; align-items:stretch;">
       <div class="step-info">
         <div class="step-title">
@@ -3145,7 +3160,6 @@ function renderPostChemoTimeline() {
         </button>
         <button class="btn-calendar secondary" onclick="openGooglePostChemo('hormonal')"><i class="ph-bold ph-calendar-plus"></i> Agenda</button>
       </div>
-
       <div style="margin-top:14px; padding-top:12px; border-top:1px dashed var(--border);">
         <strong style="font-size:13px; display:block; margin-bottom:10px;">Log de controle (doses, consultas, efeitos)</strong>
         <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px; flex-wrap:wrap;">
@@ -3169,7 +3183,6 @@ function renderPostChemoTimeline() {
   `;
 }
 
-// ---- Radioterapia: sessões individuais ----
 window.updateRadioTotalPlanned = function() {
   const input = document.getElementById('radio-total-planned');
   if (!input) return;
@@ -3177,12 +3190,8 @@ window.updateRadioTotalPlanned = function() {
   if (isNaN(total) || total < 0) { alert('Informe um número válido.'); return; }
   if (!postChemo.radiotherapy) postChemo.radiotherapy = { done: false, date: '', totalPlanned: 0, sessions: [] };
   postChemo.radiotherapy.totalPlanned = total;
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
-
 window.addRadioSession = function() {
   const input = document.getElementById('radio-new-session-date');
   if (!input || !input.value) { alert('Selecione uma data.'); return; }
@@ -3191,39 +3200,25 @@ window.addRadioSession = function() {
   if (!Array.isArray(postChemo.radiotherapy.sessions)) postChemo.radiotherapy.sessions = [];
   if (postChemo.radiotherapy.sessions.some(s => s.date === date)) { alert('Já existe uma sessão registrada nessa data.'); return; }
   postChemo.radiotherapy.sessions.push({ date, done: true });
-  // Se todas as sessões planejadas estiverem feitas, marca a etapa como concluída automaticamente
   const doneCount = postChemo.radiotherapy.sessions.filter(s => s.done).length;
   if (postChemo.radiotherapy.totalPlanned > 0 && doneCount >= postChemo.radiotherapy.totalPlanned) {
     postChemo.radiotherapy.done = true;
   }
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
-
 window.toggleRadioSessionDone = function(date) {
   const s = (postChemo.radiotherapy.sessions || []).find(x => x.date === date);
   if (!s) return;
   s.done = !s.done;
   const doneCount = postChemo.radiotherapy.sessions.filter(x => x.done).length;
   postChemo.radiotherapy.done = postChemo.radiotherapy.totalPlanned > 0 && doneCount >= postChemo.radiotherapy.totalPlanned;
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
-
 window.removeRadioSession = function(date) {
   if (!postChemo.radiotherapy || !postChemo.radiotherapy.sessions) return;
   postChemo.radiotherapy.sessions = postChemo.radiotherapy.sessions.filter(s => s.date !== date);
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
-
-// ---- Hormonioterapia: log de controle ----
 window.addHormonalLog = function() {
   const dateInput = document.getElementById('hormonal-log-date');
   const noteInput = document.getElementById('hormonal-log-note');
@@ -3232,19 +3227,13 @@ window.addHormonalLog = function() {
   if (!Array.isArray(postChemo.hormonal.logs)) postChemo.hormonal.logs = [];
   postChemo.hormonal.logs.push({ date: dateInput.value, note: (noteInput.value || '').trim() });
   noteInput.value = '';
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSmartAlerts();
 };
-
 window.removeHormonalLog = function(key) {
   if (!postChemo.hormonal || !postChemo.hormonal.logs) return;
   postChemo.hormonal.logs = postChemo.hormonal.logs.filter(l => `${l.date}_${l.note || ''}` !== key);
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSmartAlerts();
 };
-
 window.updatePostChemo = function(id) {
   const input = document.getElementById('post-' + id + '-date');
   if (!input) return;
@@ -3252,21 +3241,13 @@ window.updatePostChemo = function(id) {
   if (!date) { alert('Selecione uma data.'); return; }
   if (!postChemo[id]) postChemo[id] = { done: false, date: '' };
   postChemo[id].date = date;
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();  // atualiza progresso
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
-
 window.togglePostChemoDone = function(id) {
   if (!postChemo[id]) postChemo[id] = { done: false, date: '' };
   postChemo[id].done = !postChemo[id].done;
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
-
 window.openGooglePostChemo = function(id) {
   const stepMap = {
     surgery: { title: 'Cirurgia pós-quimioterapia', desc: 'Agendamento da cirurgia após término da quimioterapia. Confirmar com mastologia.' },
@@ -3277,35 +3258,23 @@ window.openGooglePostChemo = function(id) {
   if (!step) return;
   const data = postChemo[id] || { date: '' };
   const date = data.date || addDaysYMD(todayYMD, 14);
-  const time = '09:00';
-  openGoogleEvent(calendarEvent(step.title, date, time, 60, step.desc, 'Hospital da Mulher'));
+  openGoogleEvent(calendarEvent(step.title, date, '09:00', 60, step.desc, 'Hospital da Mulher'));
 };
-
 window.exportPostChemoICS = function() {
   const events = [];
   const steps = ['surgery', 'radiotherapy', 'hormonal'];
-  const titles = {
-    surgery: 'Cirurgia pós-quimioterapia',
-    radiotherapy: 'Radioterapia',
-    hormonal: 'Terapia hormonal'
-  };
+  const titles = { surgery: 'Cirurgia pós-quimioterapia', radiotherapy: 'Radioterapia', hormonal: 'Terapia hormonal' };
   steps.forEach(id => {
     const data = postChemo[id] || { date: '' };
-    if (data.date) {
-      events.push(calendarEvent(titles[id] || id, data.date, '09:00', 60, `Etapa do tratamento: ${titles[id] || id}.`, ''));
-    }
+    if (data.date) events.push(calendarEvent(titles[id] || id, data.date, '09:00', 60, `Etapa do tratamento: ${titles[id] || id}.`, ''));
   });
   if (events.length === 0) { alert('Nenhuma data definida para exportar.'); return; }
   downloadICS(events, 'etapas-pos-quimio-gabi.ics');
 };
-
 window.resetPostChemoDates = function() {
   if (!confirm('Limpar todas as datas e status das etapas pós-quimioterapia?')) return;
   postChemo = defaultPostChemo();
-  syncToCloud();
-  renderPostChemoTimeline();
-  renderSessions();
-  renderSmartAlerts();
+  syncToCloud(); renderPostChemoTimeline(); renderSessions(); renderSmartAlerts();
 };
 
 // =============================================
@@ -3348,10 +3317,8 @@ function renderMedCards() {
   const medLog = getMedLog(currentMedDate);
   const now = new Date();
   const isToday = currentMedDate === todayYMD;
-
   container.innerHTML = MEDS_DEF.map(med => {
     const times = (medLog[med.id] || []).slice().sort();
-
     let nextDoseHtml = '';
     if (med.intervalH && times.length > 0) {
       const last = times[times.length - 1];
@@ -3361,11 +3328,9 @@ function renderMedCards() {
       if (isToday) {
         const diffMin = Math.round((nextDt - now) / 60000);
         let cls = 'med-next-ok', icon = 'ph-fill ph-clock', msg = '';
-        if (diffMin <= 0) {
-          cls = 'med-next-now'; icon = 'ph-fill ph-bell-ringing'; msg = 'Tomar agora!';
-        } else if (diffMin <= 30) {
-          cls = 'med-next-soon'; icon = 'ph-fill ph-bell'; msg = `em ${diffMin} min (${nextStr})`;
-        } else {
+        if (diffMin <= 0) { cls = 'med-next-now'; icon = 'ph-fill ph-bell-ringing'; msg = 'Tomar agora!'; }
+        else if (diffMin <= 30) { cls = 'med-next-soon'; icon = 'ph-fill ph-bell'; msg = `em ${diffMin} min (${nextStr})`; }
+        else {
           const h = Math.floor(diffMin / 60); const m = diffMin % 60;
           msg = `às ${nextStr}` + (h > 0 ? ` (em ${h}h${m > 0 ? m + 'min' : ''})` : ` (em ${diffMin}min)`);
         }
@@ -3376,22 +3341,14 @@ function renderMedCards() {
     } else if (med.intervalH && times.length === 0 && isToday) {
       nextDoseHtml = `<div class="med-next-dose med-next-ok" style="opacity:0.55"><i class="ph-fill ph-clock"></i> Registre a 1ª dose para ver o próximo horário</div>`;
     }
-
     const tagsHtml = times.length > 0
       ? times.map((t, ti) => {
           const site = medLog[med.id + '_site'] && medLog[med.id + '_site'][ti] ? ` (${medLog[med.id + '_site'][ti]})` : '';
           return `<span class="med-log-tag"><i class="ph-fill ph-check-circle" style="font-size:12px"></i> ${t}${site}<button onclick="deleteMedTime('${med.id}',${ti})" title="Remover">✕</button></span>`;
         }).join('')
       : `<span class="med-empty">Nenhuma dose registrada neste dia.</span>`;
-
-    const defaultTime = isToday
-      ? now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0')
-      : '';
-
-    const warnHtml = med.warn
-      ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>`
-      : '';
-
+    const defaultTime = isToday ? now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0') : '';
+    const warnHtml = med.warn ? `<div class="med-warn"><i class="ph-fill ph-warning-octagon"></i> ${med.warn}</div>` : '';
     const isFilgrastim = med.id === 'filgrastim';
     const siteSelect = isFilgrastim ? `<select class="med-site-select" id="med-site-${med.id}">
       <optgroup label="Braços">
@@ -3408,10 +3365,8 @@ function renderMedCards() {
         <option value="Abdômen (Centro)">Abdômen (Centro)</option>
       </optgroup>
     </select>` : '';
-
     const isMandatoryMed = ['dexametasona','filgrastim'].includes(med.id);
     const borderStyle = med.id === 'dipirona' ? 'border-color:#fde8e8;' : (med.id === 'codeina' ? 'border-color:#f5c84a;' : med.id === 'ibuprofeno' ? 'border-color:#f0f8ff;' : isMandatoryMed ? 'border-color:#e6f0ff;' : '');
-
     return `<div class="med-track-card" style="${borderStyle}">
       <div class="med-track-head">
         <div class="med-track-title"><i class="ph-fill ph-pill" style="color:var(--sage-dark)"></i> ${med.name}</div>
@@ -3432,7 +3387,6 @@ function renderMedCards() {
   }).join('');
 }
 
-// Função corrigida - agora definida no escopo global corretamente
 window.addMedTime = function(medId) {
   const input = document.getElementById('med-time-' + medId);
   let timeStr = input ? input.value : '';
@@ -3442,108 +3396,78 @@ window.addMedTime = function(medId) {
   }
   const siteSelect = document.getElementById('med-site-' + medId);
   const site = siteSelect ? siteSelect.value : '';
-
   const medLog = getMedLog(currentMedDate);
   if (!medLog[medId]) medLog[medId] = [];
   if (!medLog[medId + '_site']) medLog[medId + '_site'] = [];
-
   if (!medLog[medId].includes(timeStr)) {
     medLog[medId].push(timeStr);
     medLog[medId + '_site'].push(site);
-    // Ordenar mantendo correspondência entre horário e local
     const combined = medLog[medId].map((t, i) => ({ time: t, site: medLog[medId + '_site'][i] || '' }));
     combined.sort((a, b) => a.time.localeCompare(b.time));
     medLog[medId] = combined.map(item => item.time);
     medLog[medId + '_site'] = combined.map(item => item.site);
   }
-  syncToCloud();
-  renderMedCards();
+  syncToCloud(); renderMedCards();
   if (currentMedDate === todayYMD) scheduleNextRefresh();
 };
-
 window.deleteMedTime = function(medId, index) {
   const medLog = getMedLog(currentMedDate);
   if (!medLog[medId]) return;
   medLog[medId].splice(index, 1);
   if (medLog[medId + '_site']) medLog[medId + '_site'].splice(index, 1);
-  syncToCloud();
-  renderMedCards();
+  syncToCloud(); renderMedCards();
 };
-
 let _medRefreshTimer = null;
 function scheduleNextRefresh() {
   if (_medRefreshTimer) clearTimeout(_medRefreshTimer);
-  _medRefreshTimer = setTimeout(() => {
-    if (currentMedDate === todayYMD) renderMedCards();
-  }, 60000);
+  _medRefreshTimer = setTimeout(() => { if (currentMedDate === todayYMD) renderMedCards(); }, 60000);
 }
 
 // =============================================
-// RENDER SESSIONS (ATUALIZADO COM PROGRESSO PÓS-QUIMIO)
+// RENDER SESSIONS
 // =============================================
 function renderSessions() {
-  // Defensivo: se por algum motivo sessions ficar vazio, recria em memória
-  // para a UI não quebrar. NÃO chamamos syncToCloud aqui — se dataLoaded=false,
-  // gravaríamos defaults por cima dos dados reais da nuvem.
   if (!sessions || sessions.length === 0) {
     sessions = generateDefaultSessions();
   }
-
   const gW = document.getElementById('grid-white');
   const gR = document.getElementById('grid-red');
   const eG = document.getElementById('exam-grid');
-
   if (gW) gW.innerHTML = '';
   if (gR) gR.innerHTML = '';
   if (eG) eG.innerHTML = '';
-
   let doneCount = 0;
   let nextSessionDate = null;
   const endDate = sessions[sessions.length - 1].date;
-
   let nadirSession = null;
   let riskSession = null;
-
   sessions.forEach(s => {
     if (s.done) doneCount++;
     if (!s.done && !nextSessionDate && s.date >= todayYMD) nextSessionDate = s.date;
-
     if (s.done && isInNadir(s.date, todayYMD)) nadirSession = s;
     else if (s.done && isInRisk(s.date, todayYMD)) riskSession = s;
   });
-
-  // CALCULAR PROGRESSO POR ETAPA (peso fixo, modelo original)
-  // Quimio: 50% (cada sessão = 50/16 = 3.125%)
   const quimioPct = (doneCount / 16) * 50;
-  // Cirurgia: 20%, tudo ou nada (evento único)
   const surgeryPct = postChemo.surgery.done ? 20 : 0;
-  // Radioterapia: 20%, mas proporcional às sessões registradas quando houver sessões cadastradas
   const radioSessions = postChemo.radiotherapy.sessions || [];
   const radioDoneCount = radioSessions.filter(s => s.done).length;
   const radioTotal = postChemo.radiotherapy.totalPlanned || 0;
   const radioPct = radioTotal > 0
     ? Math.min(20, (radioDoneCount / radioTotal) * 20)
     : (postChemo.radiotherapy.done ? 20 : 0);
-  // Hormonal: 10%, marcado como "iniciado/em acompanhamento"
   const hormonalPct = postChemo.hormonal.done ? 10 : 0;
   const totalPct = Math.min(100, Math.round(quimioPct + surgeryPct + radioPct + hormonalPct));
-
   checkCelebrations({ chemoDone: doneCount >= 16, radioDoneCount, radioTotal });
-
   document.getElementById('prog-val').textContent = totalPct + '%';
   document.getElementById('prog-fill').style.width = totalPct + '%';
-
-  // Atualizar métricas
   document.getElementById('met-done').textContent = doneCount;
   document.getElementById('met-end').textContent = fmtShort(endDate);
-
   let nextDaysText = "—";
   if (nextSessionDate) {
     const diffDays = Math.ceil((fromYMD(nextSessionDate).getTime() - fromYMD(todayYMD).getTime()) / 86400000);
     nextDaysText = diffDays === 0 ? "Hoje" : (diffDays === 1 ? "Amanhã" : `${diffDays} dias`);
   }
   document.getElementById('met-next').textContent = nextDaysText;
-
   const banner = document.getElementById('nadir-banner');
   if (banner) {
     if (nadirSession) {
@@ -3574,8 +3498,6 @@ function renderSessions() {
       banner.innerHTML = '';
     }
   }
-
-  // Construir cards (mesmo código anterior)
   if (gW) {
     const help = document.createElement('div');
     help.className = 'collection-help';
@@ -3585,7 +3507,7 @@ function renderSessions() {
         <div class="collection-help-title">Fase branca: 1 coleta vale para 2 sessões</div>
         <div class="collection-help-text">
           Edite a coleta no primeiro card de cada grupo. Quando houver feriado ou adiamento, o app quebra o par e reorganiza as coletas automaticamente.
-          Use “Ajustar Datas” para liberar os campos de edição e os botões rápidos.
+          Use "Ajustar Datas" para liberar os campos de edição e os botões rápidos.
         </div>
         <div class="date-mini-actions" style="display:flex;margin-top:8px">
           <button class="mini-date-btn" onclick="toggleEditMode('cal')">Editar datas das sessões</button>
@@ -3595,45 +3517,31 @@ function renderSessions() {
       </div>`;
     gW.appendChild(help);
   }
-
   function buildNadirPill(s, i) {
     const nadirS_ymd = (s.nadirOverride && s.nadirOverride.nadirStart) ? s.nadirOverride.nadirStart : addDaysYMD(s.date, 7);
     const nadirE_ymd = (s.nadirOverride && s.nadirOverride.nadirEnd) ? s.nadirOverride.nadirEnd : addDaysYMD(s.date, 10);
-
     if (s.nadirHidden) {
-      return `
-        <button class="pill-add-nadir" onclick="toggleNadirHidden(${i})" title="Adicionar Nadir novamente">
-          <i class="ph-bold ph-plus" style="font-size:10px;"></i> Nadir
-        </button>`;
+      return `<button class="pill-add-nadir" onclick="toggleNadirHidden(${i})" title="Adicionar Nadir novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Nadir</button>`;
     }
-
     return `
       <span class="pill-nadir">
         Nadir&nbsp;
-        <input type="date" class="pill-date-edit" value="${nadirS_ymd}" title="Editar início do nadir"
-          onchange="updateNadirDates(${i},'nadirStart',this.value)" style="width:85px;">
+        <input type="date" class="pill-date-edit" value="${nadirS_ymd}" title="Editar início do nadir" onchange="updateNadirDates(${i},'nadirStart',this.value)" style="width:85px;">
         –
-        <input type="date" class="pill-date-edit" value="${nadirE_ymd}" title="Editar fim do nadir"
-          onchange="updateNadirDates(${i},'nadirEnd',this.value)" style="width:85px;">
+        <input type="date" class="pill-date-edit" value="${nadirE_ymd}" title="Editar fim do nadir" onchange="updateNadirDates(${i},'nadirEnd',this.value)" style="width:85px;">
         <button class="pill-action-btn" onclick="toggleNadirHidden(${i})" title="Remover Nadir">✕</button>
       </span>`;
   }
-
   function buildExamPill(s, i) {
     if (s.phase === 1) {
       const group = getWhiteExamGroupByIndex(i);
       const p = group[0];
       const pairFirst = sessions[p];
       const pairSecond = group.length > 1 ? sessions[group[1]] : null;
-
       if (i === p) {
         if (pairFirst.examHidden) {
-          return `
-            <button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar coleta novamente">
-              <i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta do par
-            </button>`;
+          return `<button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar coleta novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta do par</button>`;
         }
-
         return `
           <span class="shared-exam-pill" title="Esta coleta vale para as sessões ${pairFirst.num}${pairSecond ? ' e ' + pairSecond.num : ''}">
             <i class="ph-fill ph-drop"></i>
@@ -3647,11 +3555,10 @@ function renderSessions() {
             <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">coleta -1d</button>
             <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">coleta +1d</button>
             <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
-              <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
-              <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
+            <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
+            <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
           </div>`;
       }
-
       return `
         <span class="pill-exam-covered" title="Esta sessão usa a mesma coleta da sessão ${pairFirst.num}">
           <i class="ph-fill ph-check-circle"></i>
@@ -3661,18 +3568,13 @@ function renderSessions() {
           <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">coleta -1d</button>
           <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">coleta +1d</button>
           <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
-              <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
-              <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
+          <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
+          <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
         </div>`;
     }
-
     if (s.examHidden) {
-      return `
-        <button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar data de coleta novamente">
-          <i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta
-        </button>`;
+      return `<button class="pill-add-exam" onclick="toggleExamHidden(${i})" title="Adicionar data de coleta novamente"><i class="ph-bold ph-plus" style="font-size:10px;"></i> Coleta</button>`;
     }
-
     return `
       <span class="pill-exam">
         <i class="ph-fill ph-drop"></i>
@@ -3684,15 +3586,13 @@ function renderSessions() {
         <button class="mini-date-btn" onclick="shiftExamDate(${i}, -1)">coleta -1d</button>
         <button class="mini-date-btn" onclick="shiftExamDate(${i}, 1)">coleta +1d</button>
         <button class="mini-date-btn" onclick="resetExamToDefault(${i})">48h antes</button>
-              <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
-              <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
+        <button class="mini-date-btn" onclick="openGoogleCalendarExam(${i})"><i class="ph-bold ph-calendar-plus"></i> Google Agenda</button>
+        <button class="mini-date-btn" onclick="downloadExamICS(${i})"><i class="ph-bold ph-download-simple"></i> .ics</button>
       </div>`;
   }
-
   function buildSessionCard(s, i, pairClass = '') {
     const row = document.createElement('div');
     row.className = `session-card ${pairClass} ${s.done ? 'done' : ''} ${(s.done && isInNadir(s.date, todayYMD)) ? 'nadir-active' : ''}`;
-
     row.innerHTML = `
       <div class="session-left">
         <div class="session-num">${s.num}</div>
@@ -3717,29 +3617,20 @@ function renderSessions() {
           ${s.done ? '✓ Feito' : 'Pendente'}
         </button>
       </div>`;
-
     return row;
   }
-
-  // Fase branca em grupos visuais
   getWhiteExamGroups().forEach(group => {
     const pairWrap = document.createElement('div');
     pairWrap.className = 'session-pair';
-
     group.forEach((idx, pos) => {
       const pairClass = group.length > 1 ? (pos === 0 ? 'pair-first' : 'pair-second') : '';
       pairWrap.appendChild(buildSessionCard(sessions[idx], idx, pairClass));
     });
-
     if (gW) gW.appendChild(pairWrap);
   });
-
-  // Fase vermelha individual.
   for (let i = 12; i < sessions.length; i++) {
     if (gR) gR.appendChild(buildSessionCard(sessions[i], i));
   }
-
-  // Aba Exames: fase branca em grupos editáveis; fase vermelha individual.
   if (eG) {
     getWhiteExamGroups().forEach(group => {
       const s = sessions[group[0]];
@@ -3747,20 +3638,15 @@ function renderSessions() {
       const toggleFn = group.length > 1 ? `toggleExamDonePair(${group[0]}, ${group[1]})` : `toggleExamDone(${group[0]})`;
       const badges = group.map(idx => `<span class="exam-session-badge ${sessions[idx].done ? 'done' : 'pending'}">${sessions[idx].done ? '✓ ' : ''}Sessão ${sessions[idx].num}</span>`).join('');
       const label = group.length > 1 ? `Sessões ${whiteGroupLabel(group)}` : `Sessão ${whiteGroupLabel(group)}`;
-
       const exRow = document.createElement('div');
       exRow.className = `exam-row ${isDone ? 'done' : ''}`;
       exRow.innerHTML = `
         <div class="exam-info">
           <div class="exam-date">
-            <span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
-              ${fmtFull(s.examDate)}
-            </span>
+            <span class="date-text" style="${isDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
             <input type="date" class="date-input" value="${s.examDate}" onchange="updateExamPair(${group[0]}, this.value)">
           </div>
-          <div class="exam-sub" style="margin-top:4px;">
-            Coleta para ${label}
-          </div>
+          <div class="exam-sub" style="margin-top:4px;">Coleta para ${label}</div>
           <div class="exam-pair-badges">${badges}</div>
           <div class="exam-editor-row">
             <button class="mini-date-btn" onclick="shiftExamDate(${group[0]}, -1)">-1 dia</button>
@@ -3775,7 +3661,6 @@ function renderSessions() {
         </button>`;
       eG.appendChild(exRow);
     });
-
     for (let i = 12; i < sessions.length; i++) {
       const s = sessions[i];
       const exRow = document.createElement('div');
@@ -3783,9 +3668,7 @@ function renderSessions() {
       exRow.innerHTML = `
         <div class="exam-info">
           <div class="exam-date">
-            <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">
-              ${fmtFull(s.examDate)}
-            </span>
+            <span class="date-text" style="${s.examDone ? 'text-decoration:line-through;color:var(--ink3);' : ''}">${fmtFull(s.examDate)}</span>
             <input type="date" class="date-input" value="${s.examDate}" onchange="updateExam(${i}, this.value)">
           </div>
           <div class="exam-sub">Coleta para a Sessão ${s.num}</div>
@@ -3803,12 +3686,11 @@ function renderSessions() {
       eG.appendChild(exRow);
     }
   }
-
   renderPostChemoPlan();
 }
 
 // =============================================
-// HIDRATAÇÃO
+// HIDRATAÇÃO / SINTOMAS / SINAIS VITAIS
 // =============================================
 const TOTAL_GLASSES = 15;
 const ML_PER_GLASS = 200;
@@ -3911,9 +3793,6 @@ function updateVisualSymState(id, v) {
   document.getElementById('fever-alert').style.display = fv >= 1 ? 'flex' : 'none';
 }
 
-// =============================================
-// SINAIS VITAIS
-// =============================================
 window.addTempReading = function() {
   const timeInput = document.getElementById('temp-time-input');
   const valInput  = document.getElementById('temp-input');
@@ -3935,28 +3814,20 @@ window.addTempReading = function() {
   valInput.value = '';
   const now = new Date();
   timeInput.value = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-  renderVitals();
-  renderSmartAlerts();
-  renderWeeklySummary();
+  renderVitals(); renderSmartAlerts(); renderWeeklySummary();
 };
 
 window.deleteTempReading = function(dateStr, index) {
   const log = getDailyLog(dateStr);
   if (!log.temps) return;
   log.temps.splice(index, 1);
-  syncToCloud();
-  renderVitals();
-  renderSmartAlerts();
-  renderWeeklySummary();
+  syncToCloud(); renderVitals(); renderSmartAlerts(); renderWeeklySummary();
 };
 
 window.saveVital = function(type, val) {
   const log = getDailyLog(currentLogDate);
   log[type] = val;
-  syncToCloud();
-  renderVitals();
-  renderSmartAlerts();
-  renderWeeklySummary();
+  syncToCloud(); renderVitals(); renderSmartAlerts(); renderWeeklySummary();
 };
 
 function renderVitals() {
@@ -4012,8 +3883,12 @@ function renderVitals() {
 }
 
 // =============================================
-// DIÁRIO DE SINTOMAS (com edição)
+// DIÁRIOS
 // =============================================
+function escapeHtml(text) {
+  return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
 function renderDiary() {
   const list = document.getElementById('diary-list');
   list.innerHTML = '';
@@ -4046,10 +3921,6 @@ function renderDiary() {
   });
 }
 
-function escapeHtml(text) {
-  return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
 window.startDiaryEdit = function(i) {
   document.getElementById('diary-text-' + i).style.display = 'none';
   document.getElementById('diary-edit-' + i).style.display = 'block';
@@ -4057,21 +3928,17 @@ window.startDiaryEdit = function(i) {
   const inp = document.getElementById('diary-edit-input-' + i);
   if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
 };
-
 window.cancelDiaryEdit = function(i) {
   document.getElementById('diary-text-' + i).style.display = 'block';
   document.getElementById('diary-edit-' + i).style.display = 'none';
   document.getElementById('diary-edit-btn-' + i).style.display = 'flex';
 };
-
 window.saveDiaryEdit = function(i) {
   const newText = document.getElementById('diary-edit-input-' + i).value.trim();
   if (!newText) { alert('O texto não pode estar vazio.'); return; }
   diary[i].text = newText;
-  syncToCloud();
-  renderDiary();
+  syncToCloud(); renderDiary();
 };
-
 window.addDiary = function() {
   const date = document.getElementById('d-date').value;
   const text = document.getElementById('d-text').value.trim();
@@ -4080,16 +3947,12 @@ window.addDiary = function() {
   document.getElementById('d-text').value = '';
   renderDiary();
 };
-
 window.delDiary = function(i) {
   if (confirm('Excluir esta anotação?')) {
     diary.splice(i, 1); syncToCloud(); renderDiary();
   }
 };
 
-// =============================================
-// DIÁRIO GERAL (com edição e exclusão)
-// =============================================
 function renderGeneralDiary() {
   const list = document.getElementById('general-diary-list');
   if (!list) return;
@@ -4130,21 +3993,17 @@ window.startGdEdit = function(i) {
   const inp = document.getElementById('gd-edit-input-' + i);
   if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
 };
-
 window.cancelGdEdit = function(i) {
   document.getElementById('gd-text-' + i).style.display = 'block';
   document.getElementById('gd-edit-' + i).style.display = 'none';
   document.getElementById('gd-edit-btn-' + i).style.display = 'flex';
 };
-
 window.saveGdEdit = function(i) {
   const newText = document.getElementById('gd-edit-input-' + i).value.trim();
   if (!newText) { alert('O texto não pode estar vazio.'); return; }
   generalDiary[i].text = newText;
-  syncToCloud();
-  renderGeneralDiary();
+  syncToCloud(); renderGeneralDiary();
 };
-
 window.addGeneralDiary = function() {
   const date = document.getElementById('gd-date').value;
   const text = document.getElementById('gd-text').value.trim();
@@ -4155,7 +4014,6 @@ window.addGeneralDiary = function() {
   document.getElementById('gd-text').value = '';
   renderGeneralDiary();
 };
-
 window.delGeneralDiary = function(i) {
   if (confirm('Excluir esta anotação geral?')) {
     generalDiary.splice(i, 1); syncToCloud(); renderGeneralDiary();
@@ -4221,7 +4079,6 @@ window.addExamResult = function() {
   renderExamResults(); renderSmartAlerts();
 };
 window.delExamResult = function(i) { if (confirm("Apagar este registro de exame?")) { examResults.splice(i, 1); syncToCloud(); renderExamResults(); } };
-
 window.setChartGroup = function(group, btnElement) {
   if (!group) return;
   currentChartGroup = group;
@@ -4267,6 +4124,15 @@ function renderExamChart() {
 // =============================================
 // RELATÓRIOS
 // =============================================
+function copyFallback(text) {
+  let ta = document.createElement("textarea");
+  ta.value = text; ta.style.position = "fixed"; ta.style.left = "-999999px";
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico."); }
+  catch (err) { alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela."); }
+  ta.remove();
+}
+
 window.copiarRelatorioExames = function() {
   if (!examResults.length) { alert('Nenhum exame registrado.'); return; }
   const sorted = [...examResults].sort((a, b) => b.date.localeCompare(a.date));
@@ -4359,17 +4225,8 @@ window.gerarRelatorio = function() {
   else copyFallback(r);
 };
 
-function copyFallback(text) {
-  let ta = document.createElement("textarea");
-  ta.value = text; ta.style.position = "fixed"; ta.style.left = "-999999px";
-  document.body.appendChild(ta); ta.focus(); ta.select();
-  try { document.execCommand('copy'); alert("Relatório copiado com sucesso! Agora é só colar no WhatsApp do médico."); }
-  catch (err) { alert("Seu navegador não suporta cópia automática. Você pode tirar um print da tela."); }
-  ta.remove();
-}
-
 // =============================================
-// CONSULTAS — com edição inline
+// CONSULTAS
 // =============================================
 window.addAppointment = function() {
   const title = document.getElementById('appt-title').value;
@@ -4423,35 +4280,16 @@ function renderAppointments() {
       </div>
       <div id="appt-edit-${originalIndex}" style="display:none;">
         <div class="appt-edit-form">
-          <div>
-            <label class="exam-label">Título</label>
-            <input type="text" id="appt-edit-title-${originalIndex}" class="exam-input" value="${escapeHtml(a.title)}">
-          </div>
+          <div><label class="exam-label">Título</label><input type="text" id="appt-edit-title-${originalIndex}" class="exam-input" value="${escapeHtml(a.title)}"></div>
           <div class="appt-edit-row">
-            <div>
-              <label class="exam-label">Data</label>
-              <input type="date" id="appt-edit-date-${originalIndex}" class="exam-input" value="${a.date}">
-            </div>
-            <div>
-              <label class="exam-label">Hora</label>
-              <input type="time" id="appt-edit-time-${originalIndex}" class="exam-input" value="${a.time}">
-            </div>
+            <div><label class="exam-label">Data</label><input type="date" id="appt-edit-date-${originalIndex}" class="exam-input" value="${a.date}"></div>
+            <div><label class="exam-label">Hora</label><input type="time" id="appt-edit-time-${originalIndex}" class="exam-input" value="${a.time}"></div>
           </div>
-          <div>
-            <label class="exam-label">Local</label>
-            <input type="text" id="appt-edit-location-${originalIndex}" class="exam-input" value="${escapeHtml(a.location || '')}">
-          </div>
-          <div>
-            <label class="exam-label">Notas</label>
-            <input type="text" id="appt-edit-notes-${originalIndex}" class="exam-input" value="${escapeHtml(a.notes || '')}">
-          </div>
+          <div><label class="exam-label">Local</label><input type="text" id="appt-edit-location-${originalIndex}" class="exam-input" value="${escapeHtml(a.location || '')}"></div>
+          <div><label class="exam-label">Notas</label><input type="text" id="appt-edit-notes-${originalIndex}" class="exam-input" value="${escapeHtml(a.notes || '')}"></div>
           <div class="appt-edit-actions">
-            <button class="btn-save-appt" onclick="saveApptEdit(${originalIndex})">
-              <i class="ph-bold ph-check"></i> Salvar
-            </button>
-            <button class="btn-cancel-appt" onclick="cancelApptEdit(${originalIndex})">
-              <i class="ph-bold ph-x"></i> Cancelar
-            </button>
+            <button class="btn-save-appt" onclick="saveApptEdit(${originalIndex})"><i class="ph-bold ph-check"></i> Salvar</button>
+            <button class="btn-cancel-appt" onclick="cancelApptEdit(${originalIndex})"><i class="ph-bold ph-x"></i> Cancelar</button>
           </div>
         </div>
       </div>`;
@@ -4465,12 +4303,10 @@ window.startApptEdit = function(index) {
   const titleInput = document.getElementById('appt-edit-title-' + index);
   if (titleInput) { titleInput.focus(); titleInput.setSelectionRange(titleInput.value.length, titleInput.value.length); }
 };
-
 window.cancelApptEdit = function(index) {
   document.getElementById('appt-view-' + index).style.display = 'block';
   document.getElementById('appt-edit-' + index).style.display = 'none';
 };
-
 window.saveApptEdit = function(index) {
   const newTitle    = document.getElementById('appt-edit-title-' + index).value.trim();
   const newDate     = document.getElementById('appt-edit-date-' + index).value;
@@ -4478,44 +4314,30 @@ window.saveApptEdit = function(index) {
   const newLocation = document.getElementById('appt-edit-location-' + index).value.trim();
   const newNotes    = document.getElementById('appt-edit-notes-' + index).value.trim();
   if (!newTitle || !newDate || !newTime) { alert('Preencha título, data e hora.'); return; }
-  appointments[index] = {
-    ...appointments[index],
-    title: newTitle,
-    date: newDate,
-    time: newTime,
-    location: newLocation,
-    notes: newNotes
-  };
+  appointments[index] = { ...appointments[index], title: newTitle, date: newDate, time: newTime, location: newLocation, notes: newNotes };
   appointments.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-  syncToCloud();
-  renderAppointments();
-  renderSmartAlerts();
+  syncToCloud(); renderAppointments(); renderSmartAlerts();
 };
-
 window.deleteAppointment = function(index) {
   if(confirm("Remover este compromisso?")) {
     appointments.splice(index, 1);
-    syncToCloud();
-    renderAppointments();
-    renderSmartAlerts();
+    syncToCloud(); renderAppointments(); renderSmartAlerts();
   }
 };
 
 // =============================================
-// PÓS-OPERATÓRIO & PORTOVAC — IMPLEMENTAÇÃO
+// PÓS-OPERATÓRIO & PORTOVAC
 // =============================================
 function getDPO() {
   if (!postOpData.surgeryDate) return null;
   const diff = Math.round((fromYMD(todayYMD).getTime() - fromYMD(postOpData.surgeryDate).getTime()) / 86400000);
   return diff;
 }
-
 function getTotal24hForDrain(drainId, referenceDate) {
   return postOpData.readings
     .filter(r => r.drainId === drainId && r.date === referenceDate)
     .reduce((s, r) => s + (parseFloat(r.volumeMl) || 0), 0);
 }
-
 function getDailyTotalsForDrain(drainId) {
   const byDate = {};
   postOpData.readings.filter(r => r.drainId === drainId).forEach(r => {
@@ -4524,14 +4346,8 @@ function getDailyTotalsForDrain(drainId) {
   });
   return byDate;
 }
-
 function getAspectLabel(aspect) {
-  const labels = {
-    'sanguinolento': 'Sanguinolento',
-    'serosanguinolento': 'Serossanguinolento',
-    'seroso': 'Seroso',
-    'turvo': 'Turvo/Purulento'
-  };
+  const labels = { 'sanguinolento': 'Sanguinolento', 'serosanguinolento': 'Serossanguinolento', 'seroso': 'Seroso', 'turvo': 'Turvo/Purulento' };
   return labels[aspect] || aspect;
 }
 
@@ -4539,35 +4355,24 @@ function renderPostOpTab() {
   const dpoBadge = document.getElementById('dpo-badge');
   const dpo = getDPO();
   if (dpoBadge) {
-    dpoBadge.innerHTML = dpo !== null
-      ? `<i class="ph-fill ph-calendar-heart"></i> DPO ${dpo}`
-      : `<i class="ph-fill ph-calendar-heart"></i> DPO: —`;
+    dpoBadge.innerHTML = dpo !== null ? `<i class="ph-fill ph-calendar-heart"></i> DPO ${dpo}` : `<i class="ph-fill ph-calendar-heart"></i> DPO: —`;
   }
-
   const toggleEl = document.getElementById('postop-active-toggle');
   if (toggleEl) toggleEl.checked = !!postOpData.active;
-
   const sDateEl = document.getElementById('postop-surgery-date');
   if (sDateEl) sDateEl.value = postOpData.surgeryDate || '';
-
   const dDateEl = document.getElementById('postop-drain-placed-date');
   if (dDateEl) dDateEl.value = (postOpData.drains[0] && postOpData.drains[0].placedDate) || '';
-
   const emptyEl = document.getElementById('postop-emptying-times');
   if (emptyEl) emptyEl.value = (postOpData.emptyingTimes || []).join(', ');
-
   const targetEl = document.getElementById('postop-removal-target-ml');
   if (targetEl) targetEl.value = postOpData.removalTargetMl;
-
   const daysEl = document.getElementById('postop-removal-target-days');
   if (daysEl) daysEl.value = postOpData.removalTargetDays;
-
   const instrEl = document.getElementById('postop-instructions');
   if (instrEl) instrEl.value = postOpData.specificInstructions || '';
-
   const obsEl = document.getElementById('postop-observations');
   if (obsEl) obsEl.value = postOpData.observations || '';
-
   renderDrainsList();
   renderDrainTotals();
   renderDrainSelect();
@@ -4577,7 +4382,6 @@ function renderPostOpTab() {
   renderGuideSection('woundCare');
   renderGuideSection('alerts');
   renderQuestions();
-
   const readDate = document.getElementById('drain-read-date');
   if (readDate && !readDate.value) readDate.value = todayYMD;
   const readTime = document.getElementById('drain-read-time');
@@ -4589,10 +4393,8 @@ function renderPostOpTab() {
 
 window.togglePostOpActive = function(checked) {
   postOpData.active = !!checked;
-  syncToCloud();
-  renderSmartAlerts();
+  syncToCloud(); renderSmartAlerts();
 };
-
 window.savePostOpConfig = function() {
   const sDate = document.getElementById('postop-surgery-date').value;
   const dDate = document.getElementById('postop-drain-placed-date').value;
@@ -4600,7 +4402,6 @@ window.savePostOpConfig = function() {
   const targetMl = parseFloat(document.getElementById('postop-removal-target-ml').value);
   const targetDays = parseInt(document.getElementById('postop-removal-target-days').value, 10);
   const instructions = document.getElementById('postop-instructions').value;
-
   postOpData.surgeryDate = sDate || '';
   if (postOpData.drains[0]) postOpData.drains[0].placedDate = dDate || '';
   postOpData.emptyingTimes = emptyStr.split(',').map(t => t.trim()).filter(t => /^\d{1,2}:\d{2}$/.test(t));
@@ -4608,12 +4409,9 @@ window.savePostOpConfig = function() {
   postOpData.removalTargetMl = isNaN(targetMl) ? 30 : targetMl;
   postOpData.removalTargetDays = isNaN(targetDays) ? 2 : targetDays;
   postOpData.specificInstructions = instructions || '';
-  syncToCloud();
-  renderPostOpTab();
-  renderSmartAlerts();
+  syncToCloud(); renderPostOpTab(); renderSmartAlerts();
   alert('Parâmetros salvos!');
 };
-
 function renderDrainsList() {
   const container = document.getElementById('postop-drains-list');
   if (!container) return;
@@ -4625,41 +4423,30 @@ function renderDrainsList() {
     </div>
   `).join('') || '<div style="font-size:12px;color:var(--ink3);">Nenhum dreno cadastrado.</div>';
 }
-
 window.renameDrain = function(idx, val) {
   if (!postOpData.drains[idx]) return;
   postOpData.drains[idx].name = val || ('Dreno ' + (idx + 1));
   syncToCloud();
 };
-
 window.updateDrainPlacedDate = function(idx, val) {
   if (!postOpData.drains[idx]) return;
   postOpData.drains[idx].placedDate = val || '';
   syncToCloud();
 };
-
 window.addNewDrain = function() {
   const newId = 'dreno_' + postOpData.nextDrainId;
-  postOpData.drains.push({
-    id: newId,
-    name: 'Dreno ' + postOpData.nextDrainId + ' - Mama/Axila',
-    placedDate: ''
-  });
+  postOpData.drains.push({ id: newId, name: 'Dreno ' + postOpData.nextDrainId + ' - Mama/Axila', placedDate: '' });
   postOpData.nextDrainId++;
-  syncToCloud();
-  renderPostOpTab();
+  syncToCloud(); renderPostOpTab();
 };
-
 window.removeDrain = function(idx) {
   if (postOpData.drains.length <= 1) { alert('Deve haver pelo menos um dreno cadastrado.'); return; }
   if (!confirm('Remover este dreno? As medições associadas a ele também serão excluídas.')) return;
   const drainId = postOpData.drains[idx].id;
   postOpData.drains.splice(idx, 1);
   postOpData.readings = postOpData.readings.filter(r => r.drainId !== drainId);
-  syncToCloud();
-  renderPostOpTab();
+  syncToCloud(); renderPostOpTab();
 };
-
 function renderDrainSelect() {
   const sel = document.getElementById('drain-read-drain');
   if (!sel) return;
@@ -4667,7 +4454,6 @@ function renderDrainSelect() {
   sel.innerHTML = postOpData.drains.map(d => `<option value="${d.id}">${escapeHtml(d.name)}</option>`).join('');
   if (currentVal && postOpData.drains.some(d => d.id === currentVal)) sel.value = currentVal;
 }
-
 function renderDrainTotals() {
   const container = document.getElementById('drain-totals-container');
   if (!container) return;
@@ -4693,7 +4479,6 @@ function renderDrainTotals() {
     </div>`;
   }).join('');
 }
-
 window.addDrainReading = function() {
   const date = document.getElementById('drain-read-date').value;
   const time = document.getElementById('drain-read-time').value;
@@ -4702,32 +4487,22 @@ window.addDrainReading = function() {
   const aspect = document.getElementById('drain-read-aspect').value;
   const vacuum = document.getElementById('drain-read-vacuum').value;
   const notes = document.getElementById('drain-read-notes').value.trim();
-
   if (!date || !time || !drainId) { alert('Preencha data, horário e dreno.'); return; }
   if (isNaN(volume) || volume < 0) { alert('Informe um volume válido (ml).'); return; }
-
-  postOpData.readings.push({
-    id: postOpData.nextReadingId,
-    date, time, drainId, volumeMl: volume, aspect, vacuum, notes
-  });
+  postOpData.readings.push({ id: postOpData.nextReadingId, date, time, drainId, volumeMl: volume, aspect, vacuum, notes });
   postOpData.nextReadingId++;
   syncToCloud();
   document.getElementById('drain-read-volume').value = '';
   document.getElementById('drain-read-notes').value = '';
   document.getElementById('drain-read-aspect').value = 'serosanguinolento';
   document.getElementById('drain-read-vacuum').value = 'ok';
-  renderPostOpTab();
-  renderSmartAlerts();
+  renderPostOpTab(); renderSmartAlerts();
 };
-
 window.deleteDrainReading = function(idx) {
   if (!confirm('Excluir esta medição?')) return;
   postOpData.readings.splice(idx, 1);
-  syncToCloud();
-  renderPostOpTab();
-  renderSmartAlerts();
+  syncToCloud(); renderPostOpTab(); renderSmartAlerts();
 };
-
 function renderDrainReadingsTable() {
   const container = document.getElementById('drain-readings-table-container');
   if (!container) return;
@@ -4736,19 +4511,8 @@ function renderDrainReadingsTable() {
     return;
   }
   const sorted = [...postOpData.readings].sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
-
   container.innerHTML = `<table class="drain-readings-table">
-    <thead>
-      <tr>
-        <th>Data/Hora</th>
-        <th>Dreno</th>
-        <th>Volume</th>
-        <th>Aspecto</th>
-        <th>Vácuo</th>
-        <th>Anotação</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
+    <thead><tr><th>Data/Hora</th><th>Dreno</th><th>Volume</th><th>Aspecto</th><th>Vácuo</th><th>Anotação</th><th>Ações</th></tr></thead>
     <tbody>
       ${sorted.map((r) => {
         const originalIndex = postOpData.readings.findIndex(x => x.id === r.id);
@@ -4808,21 +4572,18 @@ function renderDrainReadingsTable() {
     </tbody>
   </table>`;
 }
-
 window.startDrainEdit = function(idx) {
   const view = document.getElementById('drain-row-view-' + idx);
   const edit = document.getElementById('drain-row-edit-' + idx);
   if (view) view.style.display = 'none';
   if (edit) edit.style.display = 'table-row';
 };
-
 window.cancelDrainEdit = function(idx) {
   const view = document.getElementById('drain-row-view-' + idx);
   const edit = document.getElementById('drain-row-edit-' + idx);
   if (view) view.style.display = '';
   if (edit) edit.style.display = 'none';
 };
-
 window.saveDrainEdit = function(idx) {
   if (!postOpData.readings[idx]) return;
   const date = document.getElementById('drain-edit-date-' + idx).value;
@@ -4833,60 +4594,30 @@ window.saveDrainEdit = function(idx) {
   const vacuum = document.getElementById('drain-edit-vacuum-' + idx).value;
   const notes = document.getElementById('drain-edit-notes-' + idx).value.trim();
   if (!date || !time || !drainId || isNaN(volume)) { alert('Preencha todos os campos obrigatórios.'); return; }
-  postOpData.readings[idx] = {
-    ...postOpData.readings[idx],
-    date, time, drainId, volumeMl: volume, aspect, vacuum, notes
-  };
-  syncToCloud();
-  renderPostOpTab();
-  renderSmartAlerts();
+  postOpData.readings[idx] = { ...postOpData.readings[idx], date, time, drainId, volumeMl: volume, aspect, vacuum, notes };
+  syncToCloud(); renderPostOpTab(); renderSmartAlerts();
 };
-
 function renderDrainChart() {
   const section = document.getElementById('drain-chart-section');
   const canvas = document.getElementById('drain-chart');
   if (!section || !canvas) return;
-
   if (postOpData.readings.length < 2) { section.style.display = 'none'; return; }
   const allDates = [...new Set(postOpData.readings.map(r => r.date))].sort();
   if (allDates.length < 2) { section.style.display = 'none'; return; }
   section.style.display = 'block';
-
   const labels = allDates.map(d => fmtShort(d));
   const colors = ['#7AAB96', '#D4A373', '#7F77DD', '#D4537E'];
-
   const datasets = postOpData.drains.map((d, di) => {
     const byDate = getDailyTotalsForDrain(d.id);
     const data = allDates.map(date => byDate[date] || 0);
-    return {
-      type: 'bar',
-      label: d.name,
-      data,
-      backgroundColor: colors[di % colors.length] + '99',
-      borderColor: colors[di % colors.length],
-      borderWidth: 1,
-      yAxisID: 'y'
-    };
+    return { type: 'bar', label: d.name, data, backgroundColor: colors[di % colors.length] + '99', borderColor: colors[di % colors.length], borderWidth: 1, yAxisID: 'y' };
   });
-
-  datasets.push({
-    type: 'line',
-    label: 'Meta médica (retirada)',
-    data: allDates.map(() => postOpData.removalTargetMl),
-    borderColor: '#D64545',
-    backgroundColor: 'transparent',
-    borderDash: [6, 4],
-    borderWidth: 1.5,
-    pointRadius: 0,
-    yAxisID: 'y'
-  });
-
+  datasets.push({ type: 'line', label: 'Meta médica (retirada)', data: allDates.map(() => postOpData.removalTargetMl), borderColor: '#D64545', backgroundColor: 'transparent', borderDash: [6, 4], borderWidth: 1.5, pointRadius: 0, yAxisID: 'y' });
   if (drainChartInstance) { drainChartInstance.destroy(); drainChartInstance = null; }
   drainChartInstance = new Chart(canvas, {
     data: { labels, datasets },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
         legend: { labels: { font: { size: 11, family: 'Inter' }, color: '#6B7280', boxWidth: 14, padding: 12 } },
@@ -4900,12 +4631,10 @@ function renderDrainChart() {
   });
 }
 
-// -------- Guia editável --------
 function renderGuideSection(sectionKey) {
   const listEl = document.getElementById('postop-guide-' + sectionKey);
   if (!listEl) return;
   const items = postOpData.guide[sectionKey] || [];
-  const colorMap = { steps: 'sage-dark', woundCare: 'sage', alerts: 'red-intense' };
   listEl.innerHTML = items.map((it, i) => `
     <div class="postop-guide-item">
       <div class="postop-guide-num" style="${sectionKey === 'alerts' ? 'background:var(--red-intense);' : sectionKey === 'woundCare' ? 'background:var(--sage);' : ''}">${i + 1}</div>
@@ -4917,7 +4646,6 @@ function renderGuideSection(sectionKey) {
     </div>
   `).join('') || `<div style="font-size:12px;color:var(--ink3);">Nenhum item cadastrado.</div>`;
 }
-
 window.addGuideItem = function(sectionKey) {
   const text = prompt('Digite o novo item:');
   if (!text || !text.trim()) return;
@@ -4925,10 +4653,8 @@ window.addGuideItem = function(sectionKey) {
   const prefix = sectionKey === 'steps' ? 'step_' : sectionKey === 'woundCare' ? 'wound_' : 'alert_';
   postOpData.guide[sectionKey].push({ id: prefix + postOpData.guide[nextField], text: text.trim() });
   postOpData.guide[nextField]++;
-  syncToCloud();
-  renderGuideSection(sectionKey);
+  syncToCloud(); renderGuideSection(sectionKey);
 };
-
 window.editGuideItem = function(sectionKey, i) {
   const item = postOpData.guide[sectionKey][i];
   if (!item) return;
@@ -4936,66 +4662,226 @@ window.editGuideItem = function(sectionKey, i) {
   if (newText === null) return;
   if (!newText.trim()) { alert('O texto não pode ficar vazio.'); return; }
   item.text = newText.trim();
-  syncToCloud();
-  renderGuideSection(sectionKey);
+  syncToCloud(); renderGuideSection(sectionKey);
 };
-
 window.removeGuideItem = function(sectionKey, i) {
   if (!confirm('Excluir este item?')) return;
   postOpData.guide[sectionKey].splice(i, 1);
-  syncToCloud();
-  renderGuideSection(sectionKey);
+  syncToCloud(); renderGuideSection(sectionKey);
 };
-
-// -------- Observações --------
 window.saveObservations = function(val) {
   postOpData.observations = val || '';
   syncToCloud();
 };
 
-// -------- Perguntas --------
+// =============================================
+// PERGUNTAS PARA O CIRURGIÃO — RENDER + AÇÕES
+// =============================================
 function renderQuestions() {
   const list = document.getElementById('postop-questions-list');
   if (!list) return;
-  if (!postOpData.questions.length) {
-    list.innerHTML = '<div style="font-size:12px;color:var(--ink3);padding:8px 0;">Nenhuma pergunta cadastrada ainda.</div>';
-    return;
+  // Preenche o select de categorias se ainda não estiver preenchido
+  const catSelect = document.getElementById('postop-new-question-cat');
+  if (catSelect && catSelect.options.length === 0) {
+    catSelect.innerHTML = QUESTION_CATEGORIES.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
   }
-  list.innerHTML = postOpData.questions.map((q, i) => `
-    <div class="postop-question-card">
-      <input type="checkbox" ${q.answered ? 'checked' : ''} onchange="toggleQuestion(${i})" style="margin-top:4px;width:16px;height:16px;cursor:pointer;">
-      <div class="postop-question-text ${q.answered ? 'answered' : ''}">${escapeHtml(q.text)}</div>
-      <button class="btn-del" style="width:28px;height:28px;" onclick="removeQuestion(${i})" title="Remover"><i class="ph-bold ph-trash"></i></button>
+  const questions = postOpData.questions || [];
+  const total = questions.length;
+  const answered = questions.filter(q => q.answered).length;
+  const pending = total - answered;
+  const pct = total > 0 ? Math.round((answered / total) * 100) : 0;
+  let html = `
+    <div style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;gap:8px;flex-wrap:wrap;">
+        <span style="font-size:13px;font-weight:600;color:var(--ink2);">
+          ${answered} de ${total} respondida${total !== 1 ? 's' : ''}${pending > 0 ? ` — ${pending} pendente${pending !== 1 ? 's' : ''}` : ''}
+        </span>
+        <span style="font-size:18px;font-weight:800;color:var(--sage-dark);">${pct}%</span>
+      </div>
+      <div class="checklist-progress-track"><div class="checklist-progress-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  if (total === 0) {
+    html += `<div style="text-align:center;padding:1.5rem;color:var(--ink3);font-size:13px;">
+      <i class="ph-fill ph-question" style="font-size:32px;display:block;margin-bottom:8px;color:var(--sage-light);"></i>
+      Nenhuma pergunta cadastrada. Adicione a primeira acima.
+    </div>`;
+  } else {
+    QUESTION_CATEGORIES.forEach(cat => {
+      const catQs = questions.filter(q => q.category === cat.id);
+      if (!catQs.length) return;
+      const catAnswered = catQs.filter(q => q.answered).length;
+      html += `<div style="margin-bottom:18px;">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <i class="${cat.icon}"></i> ${cat.label}
+          <span style="font-size:10px;background:var(--sage-bg);color:var(--sage-dark);padding:1px 8px;border-radius:10px;font-weight:800;">${catAnswered}/${catQs.length}</span>
+        </div>
+        ${catQs.map(q => renderQuestionCard(q)).join('')}
+      </div>`;
+    });
+  }
+  list.innerHTML = html;
+}
+
+function renderQuestionCard(q) {
+  const globalIndex = postOpData.questions.findIndex(x => x.id === q.id);
+  const safeId = String(q.id).replace(/[^a-zA-Z0-9_]/g, '_');
+  return `<div class="question-card ${q.answered ? 'answered' : ''}">
+    <div style="display:flex;align-items:flex-start;gap:8px;">
+      <button type="button" class="question-checkbox ${q.answered ? 'checked' : ''}"
+        role="checkbox" aria-checked="${q.answered}"
+        aria-label="${q.answered ? 'Marcar como pendente' : 'Marcar como respondida'}"
+        onclick="toggleQuestion(${globalIndex})">
+        ${q.answered ? '<i class="ph-bold ph-check"></i>' : ''}
+      </button>
+      <div class="postop-question-text ${q.answered ? 'answered' : ''}" style="flex:1;font-weight:600;">${escapeHtml(q.text)}</div>
+      <button class="btn-edit-entry" style="width:28px;height:28px;" onclick="editQuestion(${globalIndex})" title="Editar pergunta"><i class="ph-bold ph-pencil-simple"></i></button>
+      <button class="btn-del" style="width:28px;height:28px;" onclick="removeQuestion(${globalIndex})" title="Excluir pergunta"><i class="ph-bold ph-trash"></i></button>
     </div>
-  `).join('');
+    <div>
+      <label style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink3);display:block;margin-bottom:4px;">
+        <i class="ph-fill ph-note-pencil" style="font-size:11px;"></i> Resposta do cirurgião
+      </label>
+      <textarea class="question-answer-input" id="q-answer-${safeId}"
+        placeholder="Anote aqui a resposta recebida..."
+        onchange="saveQuestionAnswer(${globalIndex}, this.value)">${escapeHtml(q.answer || '')}</textarea>
+    </div>
+  </div>`;
 }
 
 window.addQuestion = function() {
   const input = document.getElementById('postop-new-question');
-  const text = input.value.trim();
-  if (!text) return;
-  postOpData.questions.push({ id: postOpData.nextQuestionId, text, answered: false });
-  postOpData.nextQuestionId++;
+  const catSelect = document.getElementById('postop-new-question-cat');
+  const text = (input.value || '').trim();
+  if (!text) { if (input) input.focus(); return; }
+  const category = catSelect && catSelect.value ? catSelect.value : 'outros';
+  postOpData.questions.push({
+    id: 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+    text, category, answered: false, answer: '', answeredAt: null
+  });
   input.value = '';
-  syncToCloud();
-  renderQuestions();
+  syncToCloud(); renderQuestions();
 };
-
+window.editQuestion = function(i) {
+  const q = postOpData.questions[i];
+  if (!q) return;
+  const newText = prompt('Editar pergunta:', q.text);
+  if (newText === null) return;
+  if (!newText.trim()) { alert('O texto não pode ficar vazio.'); return; }
+  q.text = newText.trim();
+  syncToCloud(); renderQuestions();
+};
 window.toggleQuestion = function(i) {
-  if (!postOpData.questions[i]) return;
-  postOpData.questions[i].answered = !postOpData.questions[i].answered;
-  syncToCloud();
-  renderQuestions();
+  const q = postOpData.questions[i];
+  if (!q) return;
+  q.answered = !q.answered;
+  q.answeredAt = q.answered ? new Date().toISOString() : null;
+  syncToCloud(); renderQuestions();
 };
-
 window.removeQuestion = function(i) {
-  if (!confirm('Remover esta pergunta?')) return;
+  if (!postOpData.questions[i]) return;
+  if (!confirm('Remover esta pergunta? A resposta anotada também será perdida.')) return;
   postOpData.questions.splice(i, 1);
+  syncToCloud(); renderQuestions();
+};
+window.saveQuestionAnswer = function(i, text) {
+  const q = postOpData.questions[i];
+  if (!q) return;
+  q.answer = text || '';
   syncToCloud();
-  renderQuestions();
 };
 
-// -------- Relatório do Portovac --------
+window.exportQuestionsPDF = function() {
+  const questions = postOpData.questions || [];
+  if (!questions.length) { alert('Nenhuma pergunta cadastrada.'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  let y = 18;
+  const total = questions.length;
+  const answered = questions.filter(q => q.answered).length;
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(15);
+  doc.text('Perguntas para o Cirurgião — Gabi', 105, y, { align: 'center' }); y += 7;
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(100);
+  doc.text('Gerado em ' + fmtFull(todayYMD) + ' • Respondidas: ' + answered + ' de ' + total, 105, y, { align: 'center' });
+  y += 12; doc.setTextColor(0, 0, 0);
+  QUESTION_CATEGORIES.forEach(cat => {
+    const catQs = questions.filter(q => q.category === cat.id);
+    if (!catQs.length) return;
+    if (y > 260) { doc.addPage(); y = 18; }
+    doc.setFont('helvetica', 'bold'); doc.setFontSize(11);
+    doc.setTextColor(47, 92, 72);
+    doc.text(cat.label, 14, y); y += 6;
+    doc.setTextColor(0, 0, 0);
+    catQs.forEach(q => {
+      if (y > 265) { doc.addPage(); y = 18; }
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(10);
+      const statusMark = q.answered ? '[X]' : '[ ]';
+      const qLines = doc.splitTextToSize(statusMark + ' ' + q.text, 180);
+      qLines.forEach(l => { if (y > 270) { doc.addPage(); y = 18; } doc.text(l, 15, y); y += 5; });
+      if (q.answer && q.answer.trim()) {
+        doc.setFont('helvetica', 'italic'); doc.setFontSize(9);
+        doc.setTextColor(75, 85, 99);
+        const aLines = doc.splitTextToSize('Resposta: ' + q.answer, 175);
+        aLines.forEach(l => { if (y > 270) { doc.addPage(); y = 18; } doc.text(l, 20, y); y += 4.5; });
+        doc.setTextColor(0, 0, 0);
+      } else if (q.answered) {
+        doc.setFont('helvetica', 'italic'); doc.setFontSize(9);
+        doc.setTextColor(120);
+        doc.text('Respondida (sem anotação)', 20, y); y += 4.5;
+        doc.setTextColor(0, 0, 0);
+      }
+      y += 2;
+    });
+    y += 4;
+  });
+  doc.save('perguntas-cirurgiao-gabi.pdf');
+};
+
+window.printQuestions = function() {
+  const questions = postOpData.questions || [];
+  if (!questions.length) { alert('Nenhuma pergunta cadastrada.'); return; }
+  const total = questions.length;
+  const answered = questions.filter(q => q.answered).length;
+  let content = `<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+    <title>Perguntas para o Cirurgião — Gabi</title>
+    <style>
+      body { font-family: 'Helvetica Neue', Arial, sans-serif; padding: 24px; max-width: 820px; margin: 0 auto; color: #1F2937; }
+      h1 { font-size: 20px; color: #2F5C48; border-bottom: 2px solid #2F5C48; padding-bottom: 8px; }
+      .meta { font-size: 12px; color: #6B7280; margin-bottom: 22px; }
+      .category { margin-bottom: 20px; }
+      .category h2 { font-size: 14px; color: #2F5C48; margin-bottom: 8px; border-bottom: 1px solid #E5E7EB; padding-bottom: 4px; }
+      .question { margin-bottom: 12px; padding: 8px 12px; border-left: 3px solid #E5E7EB; }
+      .question.answered { border-left-color: #2A6A2A; background: #F7FBF7; }
+      .q-text { font-weight: bold; font-size: 13px; line-height: 1.4; }
+      .q-status { font-size: 11px; color: #6B7280; margin-top: 2px; }
+      .q-answer { font-size: 12px; margin-top: 4px; font-style: italic; color: #374151; background: #FAFAFA; padding: 6px 8px; border-radius: 4px; }
+      @media print { body { padding: 0; } .no-print { display: none; } }
+    </style></head><body>
+    <h1>Perguntas para o Cirurgião — Gabi</h1>
+    <div class="meta">Gerado em ${fmtFull(todayYMD)} • Respondidas: ${answered} de ${total}</div>`;
+  QUESTION_CATEGORIES.forEach(cat => {
+    const catQs = questions.filter(q => q.category === cat.id);
+    if (!catQs.length) return;
+    content += `<div class="category"><h2>${cat.label}</h2>`;
+    catQs.forEach(q => {
+      content += `<div class="question ${q.answered ? 'answered' : ''}">
+        <div class="q-text">${q.answered ? '☑' : '☐'} ${escapeHtml(q.text)}</div>
+        <div class="q-status">${q.answered ? 'Respondida' : 'Pendente'}</div>
+        ${q.answer ? `<div class="q-answer"><strong>Resposta:</strong> ${escapeHtml(q.answer)}</div>` : ''}
+      </div>`;
+    });
+    content += `</div>`;
+  });
+  content += `</body></html>`;
+  const win = window.open('', '_blank');
+  if (!win) { alert('Permita pop-ups para imprimir.'); return; }
+  win.document.write(content);
+  win.document.close();
+  setTimeout(() => { win.focus(); win.print(); }, 350);
+};
+
+// =============================================
+// RELATÓRIO PORTOVAC (mantido)
+// =============================================
 function buildPortovacReportText() {
   const dpo = getDPO();
   const lines = [];
@@ -5013,10 +4899,7 @@ function buildPortovacReportText() {
   postOpData.drains.forEach(d => {
     const byDate = getDailyTotalsForDrain(d.id);
     const dates = Object.keys(byDate).sort();
-    if (!dates.length) {
-      lines.push(`- ${d.name}: sem registros`);
-      return;
-    }
+    if (!dates.length) { lines.push(`- ${d.name}: sem registros`); return; }
     lines.push(`- ${d.name}:`);
     dates.slice(-10).forEach(date => {
       lines.push(`   • ${fmtShort(date)}: ${byDate[date].toFixed(0)} ml`);
@@ -5046,9 +4929,7 @@ window.copyPortovacReport = function() {
   const txt = buildPortovacReportText();
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(txt).then(() => alert('Relatório copiado! Cole no WhatsApp da equipe médica.')).catch(() => copyFallback(txt));
-  } else {
-    copyFallback(txt);
-  }
+  } else { copyFallback(txt); }
 };
 
 window.exportPortovacPDF = function() {
@@ -5057,7 +4938,6 @@ window.exportPortovacPDF = function() {
   let y = 18;
   doc.setFont('helvetica', 'bold'); doc.setFontSize(15); doc.text('Relatório do Portovac — Gabi', 105, y, { align: 'center' }); y += 7;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.text('Gerado em ' + fmtFull(todayYMD), 105, y, { align: 'center' }); y += 10;
-
   const dpo = getDPO();
   doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Parâmetros:', 14, y); y += 6;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
@@ -5071,7 +4951,6 @@ window.exportPortovacPDF = function() {
     doc.text(`- Dreno: ${d.name}${d.placedDate ? ' (colocado em ' + fmtFull(d.placedDate) + ')' : ''}`, 18, y); y += 5;
   });
   y += 3;
-
   doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Débito diário por dreno:', 14, y); y += 6;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(9);
   postOpData.drains.forEach(d => {
@@ -5086,7 +4965,6 @@ window.exportPortovacPDF = function() {
     });
     y += 2;
   });
-
   if (y > 250) { doc.addPage(); y = 18; }
   doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Medições:', 14, y); y += 6;
   doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
@@ -5101,7 +4979,6 @@ window.exportPortovacPDF = function() {
     splitLines.forEach(l => { if (y > 270) { doc.addPage(); y = 18; } doc.text(l, 15, y); y += 4; });
     y += 1;
   });
-
   if (postOpData.observations) {
     if (y > 250) { doc.addPage(); y = 18; }
     doc.setFont('helvetica', 'bold'); doc.setFontSize(11); doc.text('Observações:', 14, y); y += 6;
@@ -5109,7 +4986,6 @@ window.exportPortovacPDF = function() {
     const obsLines = doc.splitTextToSize(postOpData.observations, 180);
     obsLines.forEach(l => { if (y > 270) { doc.addPage(); y = 18; } doc.text(l, 15, y); y += 4.5; });
   }
-
   doc.save('relatorio-portovac-gabi.pdf');
 };
 
@@ -5158,15 +5034,12 @@ function renderSmartAlerts() {
     if (diff === 0) alerts.push({cls:'ac-blue', icon:'ph-fill ph-calendar-check', title:`HOJE: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
     else if (diff === 1) alerts.push({cls:'ac-amber', icon:'ph-fill ph-calendar-plus', title:`AMANHÃ: ${next.title}`, text:`Às ${next.time}${next.location ? ' - ' + next.location : ''}`});
   }
-  // Alertas de preparo da quimio branca (dexametasona)
   const whiteSessions = sessions.filter(s => s.phase === 1);
   whiteSessions.forEach(s => {
     const sessionDate = s.date;
     const dayBefore = addDaysYMD(sessionDate, -1);
     const day1After = addDaysYMD(sessionDate, 1);
     const day2After = addDaysYMD(sessionDate, 2);
-
-    // Dexametasona: 1 dia antes e 2 dias após
     if (todayYMD === dayBefore) {
       alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Preparo Sessão ${s.num}`, text: `Tomar 1 comprimido às 08h e às 16h. Amanhã é a Sessão ${s.num} (${fmtFull(sessionDate)}).` });
     } else if (todayYMD === day1After) {
@@ -5175,8 +5048,6 @@ function renderSmartAlerts() {
       alerts.unshift({ cls: 'ac-blue', icon: 'ph-fill ph-pill', title: `Dexametasona — Pós Sessão ${s.num} (D+2)`, text: `Último dia — tomar 1 comprimido às 08h e às 16h.` });
     }
   });
-
-  // Alertas da quimioterapia vermelha: dexametasona (2 comp pela manhã por 3 dias) e filgrastim
   const redSessions = sessions.filter(s => s.phase === 2);
   redSessions.forEach(s => {
     const redDaysDex = [1, 2, 3].map(offset => addDaysYMD(s.date, offset));
@@ -5190,8 +5061,6 @@ function renderSmartAlerts() {
       alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-syringe', title: `Filgrastim — Sessão ${s.num} (D+${dPlus})`, text: `Aplicar 1 seringa hoje. ${dPlus === 5 ? 'Último dia.' : `Faltam ${5 - dPlus} dia(s).`}` });
     }
   });
-
-  // Registro de PS por tosse persistente — Codeína 30mg de 12/12h (19/06 a 24/06)
   const codeinaStart = '2026-06-19';
   const codeinaEnd = '2026-06-24';
   if (todayYMD >= codeinaStart && todayYMD <= codeinaEnd) {
@@ -5199,13 +5068,7 @@ function renderSmartAlerts() {
   } else if (todayYMD === '2026-06-25') {
     alerts.unshift({ cls: 'ac-amber', icon: 'ph-fill ph-warning-circle', title: 'Reavaliar tosse', text: 'Se a tosse persistir após a Codeína, a orientação registrada foi retornar ao PS para tomografia.' });
   }
-
-  // Alertas para as novas etapas pós-quimio
-  const stepNames = {
-    surgery: 'Cirurgia',
-    radiotherapy: 'Radioterapia',
-    hormonal: 'Terapia hormonal'
-  };
+  const stepNames = { surgery: 'Cirurgia', radiotherapy: 'Radioterapia', hormonal: 'Terapia hormonal' };
   ['surgery', 'radiotherapy', 'hormonal'].forEach(id => {
     const data = postChemo[id];
     if (data && data.date && !data.done) {
@@ -5219,8 +5082,6 @@ function renderSmartAlerts() {
       }
     }
   });
-
-  // Alerta do Portovac: se estiver em uso e houver drenos cadastrados
   if (postOpData && postOpData.active && postOpData.drains.length > 0) {
     const dpo = getDPO();
     const timesStr = (postOpData.emptyingTimes || []).join(' e ');
@@ -5230,8 +5091,7 @@ function renderSmartAlerts() {
     }).join(' | ');
     const dpoLabel = dpo !== null ? ` (DPO ${dpo})` : '';
     alerts.unshift({
-      cls: 'ac-blue',
-      icon: 'ph-fill ph-bandaids',
+      cls: 'ac-blue', icon: 'ph-fill ph-bandaids',
       title: `Portovac${dpoLabel} — débito de hoje`,
       text: `Débito hoje: ${totals}. Horários programados: ${timesStr}. Meta: ≤ ${postOpData.removalTargetMl} ml/24h.`
     });
@@ -5240,7 +5100,6 @@ function renderSmartAlerts() {
       alerts.unshift({ cls: 'ac-red', icon: 'ph-fill ph-warning-octagon', title: 'Portovac — aspecto alterado hoje', text: 'Registro com aspecto turvo/purulento. Comunique imediatamente a equipe cirúrgica.' });
     }
   }
-
   addNutritionAlert(alerts);
   if (alerts.length === 0) alerts.push({ cls: 'ac-green', icon: 'ph-fill ph-check-circle', title: 'Tudo em ordem hoje', text: 'Nenhum alerta ativo. Continue com a hidratação e o monitoramento diário.' });
   container.innerHTML = alerts.map(a => `<div class="alert-card ${a.cls}"><div class="alert-card-icon"><i class="${a.icon}"></i></div><div class="alert-card-body"><div class="alert-card-title">${a.title}</div><div class="alert-card-text">${a.text}</div></div></div>`).join('');
@@ -5306,6 +5165,279 @@ function renderWeeklySummary() {
     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { ticks: { font: { size: 9 }, color: '#9CA3AF' }, grid: { display: false } }, y: { display: false, min: 0, max: 4000 }, y2: { display: false, min: 35, max: 40, position: 'right' } } }
   });
 }
+
+// =============================================
+// CHECKLIST DA CIRURGIA
+// =============================================
+const CHECKLIST_CATEGORIES = [
+  { id: 'documentos',   label: 'Documentos e identificação',    icon: 'ph-fill ph-identification-card' },
+  { id: 'exames',       label: 'Exames e documentos médicos',   icon: 'ph-fill ph-file-text' },
+  { id: 'roupas',       label: 'Roupas e itens pessoais',       icon: 'ph-fill ph-t-shirt' },
+  { id: 'higiene',      label: 'Higiene pessoal',               icon: 'ph-fill ph-first-aid' },
+  { id: 'medicamentos', label: 'Medicamentos e orientações',    icon: 'ph-fill ph-pill' },
+  { id: 'eletronicos',  label: 'Eletrônicos e acessórios',      icon: 'ph-fill ph-device-mobile' },
+  { id: 'outros',       label: 'Outros',                        icon: 'ph-fill ph-dots-three' }
+];
+
+function defaultSurgeryChecklists() {
+  const now = Date.now();
+  return [{
+    id: 'list_' + now,
+    name: 'Gabi',
+    items: [
+      { id: 'item_' + now + '_1', text: 'Documento de identidade (RG/CPF)', category: 'documentos', done: false },
+      { id: 'item_' + now + '_2', text: 'Cartão do convênio / guia hospitalar', category: 'documentos', done: false },
+      { id: 'item_' + now + '_3', text: 'Exames e laudos recentes', category: 'exames', done: false },
+      { id: 'item_' + now + '_4', text: 'Receitas e lista de medicamentos em uso', category: 'medicamentos', done: false },
+      { id: 'item_' + now + '_5', text: 'Roupas confortáveis e sutiã cirúrgico', category: 'roupas', done: false },
+      { id: 'item_' + now + '_6', text: 'Itens de higiene pessoal', category: 'higiene', done: false },
+      { id: 'item_' + now + '_7', text: 'Carregador de celular', category: 'eletronicos', done: false }
+    ]
+  }];
+}
+
+function normalizeSurgeryChecklists(data) {
+  if (!Array.isArray(data)) return defaultSurgeryChecklists();
+  return data.map(list => ({
+    id: list.id || ('list_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6)),
+    name: list.name || 'Sem nome',
+    items: Array.isArray(list.items) ? list.items.map(it => ({
+      id: it.id || ('item_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6)),
+      text: it.text || '',
+      category: it.category || 'outros',
+      done: !!it.done
+    })) : []
+  }));
+}
+
+function getActiveChecklist() {
+  return surgeryChecklists.find(l => l.id === activeChecklistId) || surgeryChecklists[0];
+}
+
+function showChecklistSaveFeedback(success) {
+  let el = document.getElementById('checklist-save-indicator');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'checklist-save-indicator';
+    el.className = 'checklist-save-indicator';
+    document.body.appendChild(el);
+  }
+  el.innerHTML = success
+    ? '<i class="ph-bold ph-cloud-check"></i> Salvo'
+    : '<i class="ph-bold ph-warning-circle"></i> Erro ao salvar';
+  el.classList.toggle('error', !success);
+  el.classList.add('show');
+  clearTimeout(showChecklistSaveFeedback._t);
+  showChecklistSaveFeedback._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+function renderChecklistTab() {
+  if (!Array.isArray(surgeryChecklists)) surgeryChecklists = [];
+  if (!activeChecklistId || !surgeryChecklists.some(l => l.id === activeChecklistId)) {
+    activeChecklistId = surgeryChecklists[0] ? surgeryChecklists[0].id : null;
+  }
+  const overview = document.getElementById('checklist-overview');
+  if (overview) {
+    let totalItems = 0, doneItems = 0;
+    surgeryChecklists.forEach(list => {
+      list.items.forEach(it => { totalItems++; if (it.done) doneItems++; });
+    });
+    const pendingItems = totalItems - doneItems;
+    const personLines = surgeryChecklists.map(list => {
+      const total = list.items.length;
+      const done = list.items.filter(i => i.done).length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+      return `<div style="display:flex;align-items:center;gap:8px;font-size:12px;">
+        <span style="min-width:80px;font-weight:700;color:var(--ink);">${escapeHtml(list.name)}</span>
+        <div class="checklist-progress-track" style="flex:1;height:6px;"><div class="checklist-progress-fill" style="width:${pct}%"></div></div>
+        <span style="color:var(--ink3);font-weight:700;min-width:38px;text-align:right;">${pct}%</span>
+      </div>`;
+    }).join('');
+    overview.innerHTML = `
+      <div class="checklist-overview-title"><i class="ph-fill ph-list-checks"></i> Visão geral</div>
+      <div class="checklist-overview-grid">
+        <div class="checklist-overview-stat">
+          <div class="checklist-overview-val">${surgeryChecklists.length}</div>
+          <div class="checklist-overview-lbl">Pessoa${surgeryChecklists.length !== 1 ? 's' : ''}</div>
+        </div>
+        <div class="checklist-overview-stat">
+          <div class="checklist-overview-val" style="color:var(--amber)">${pendingItems}</div>
+          <div class="checklist-overview-lbl">Pendentes</div>
+        </div>
+        <div class="checklist-overview-stat">
+          <div class="checklist-overview-val" style="color:#2A6A2A">${doneItems}</div>
+          <div class="checklist-overview-lbl">Concluídos</div>
+        </div>
+      </div>
+      ${personLines ? `<div style="margin-top:14px;display:flex;flex-direction:column;gap:6px;">${personLines}</div>` : ''}
+    `;
+  }
+  const tabsEl = document.getElementById('checklist-tabs');
+  if (tabsEl) {
+    tabsEl.innerHTML = surgeryChecklists.map(list => {
+      const total = list.items.length;
+      const done = list.items.filter(i => i.done).length;
+      return `<button class="checklist-tab ${list.id === activeChecklistId ? 'active' : ''}" onclick="setActiveChecklist('${list.id}')">
+        ${escapeHtml(list.name)}
+        <span class="checklist-tab-count">${done}/${total}</span>
+      </button>`;
+    }).join('');
+  }
+  const panelContainer = document.getElementById('checklist-panel-container');
+  if (!panelContainer) return;
+  const active = getActiveChecklist();
+  if (!active) {
+    panelContainer.innerHTML = `<div class="checklist-panel">
+      <div class="checklist-empty">
+        <i class="ph-fill ph-user-plus"></i>
+        Adicione uma pessoa para começar.
+      </div>
+    </div>`;
+    return;
+  }
+  const total = active.items.length;
+  const done = active.items.filter(i => i.done).length;
+  const pending = total - done;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+  const allDone = total > 0 && done === total;
+  const grouped = {};
+  CHECKLIST_CATEGORIES.forEach(c => { grouped[c.id] = []; });
+  active.items.forEach(it => {
+    const cat = it.category && grouped[it.category] ? it.category : 'outros';
+    grouped[cat].push(it);
+  });
+  let itemsHtml = '';
+  CHECKLIST_CATEGORIES.forEach(cat => {
+    const catItems = grouped[cat.id];
+    if (!catItems.length) return;
+    itemsHtml += `<div class="checklist-category">
+      <div class="checklist-category-head"><i class="${cat.icon}"></i> ${cat.label}</div>
+      ${catItems.map(it => `
+        <div class="checklist-item ${it.done ? 'done' : ''}">
+          <button class="checklist-checkbox" role="checkbox" aria-checked="${it.done}"
+            aria-label="${it.done ? 'Desmarcar' : 'Marcar'}: ${escapeHtml(it.text)}"
+            onclick="toggleChecklistItem('${active.id}','${it.id}')">
+            ${it.done ? '<i class="ph-bold ph-check"></i>' : ''}
+          </button>
+          <span class="checklist-item-text">${escapeHtml(it.text)}</span>
+          <div class="checklist-item-actions">
+            <button onclick="editChecklistItem('${active.id}','${it.id}')" title="Editar" aria-label="Editar item"><i class="ph-bold ph-pencil-simple"></i></button>
+            <button class="delete" onclick="deleteChecklistItem('${active.id}','${it.id}')" title="Excluir" aria-label="Excluir item"><i class="ph-bold ph-trash"></i></button>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+  });
+  if (!itemsHtml) {
+    itemsHtml = `<div class="checklist-empty">
+      <i class="ph-fill ph-list-checks"></i>
+      Nenhum item ainda. Adicione o primeiro abaixo.
+    </div>`;
+  }
+  panelContainer.innerHTML = `
+    <div class="checklist-panel">
+      <div class="checklist-panel-head">
+        <div class="checklist-panel-title"><i class="ph-fill ph-user"></i> ${escapeHtml(active.name)}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn-edit" onclick="renameChecklistPerson('${active.id}')"><i class="ph-bold ph-pencil-simple"></i> Renomear</button>
+          <button class="btn-edit" style="color:var(--red-intense);border-color:rgba(214,69,69,0.3);" onclick="deleteChecklistPerson('${active.id}')"><i class="ph-bold ph-trash"></i> Excluir</button>
+        </div>
+      </div>
+      <div class="checklist-progress-wrap">
+        <div class="checklist-progress-header">
+          <span class="checklist-progress-msg">${done} de ${total} itens separados${pending > 0 ? ` — ${pending} pendente${pending !== 1 ? 's' : ''}` : ''}</span>
+          <span class="checklist-progress-val">${pct}%</span>
+        </div>
+        <div class="checklist-progress-track"><div class="checklist-progress-fill" style="width:${pct}%"></div></div>
+        ${allDone ? `<div class="checklist-done-msg"><i class="ph-fill ph-check-circle"></i> Tudo conferido para esta lista!</div>` : ''}
+      </div>
+      <div>${itemsHtml}</div>
+      <div class="checklist-add-row">
+        <input type="text" class="checklist-add-input" id="checklist-new-item-input"
+          placeholder="Novo item (ex: carteirinha do convênio)"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();addChecklistItem('${active.id}');}">
+        <select class="checklist-add-category-select" id="checklist-new-item-cat">
+          ${CHECKLIST_CATEGORIES.map(c => `<option value="${c.id}">${c.label}</option>`).join('')}
+        </select>
+        <button class="checklist-add-btn" onclick="addChecklistItem('${active.id}')"><i class="ph-bold ph-plus"></i> Adicionar</button>
+      </div>
+    </div>
+  `;
+}
+
+window.setActiveChecklist = function(id) {
+  activeChecklistId = id;
+  renderChecklistTab();
+};
+window.addChecklistPerson = function() {
+  const name = prompt('Nome da nova lista (ex: Gabi, Adriano, Acompanhante):');
+  if (!name || !name.trim()) return;
+  const newList = { id: 'list_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6), name: name.trim(), items: [] };
+  surgeryChecklists.push(newList);
+  activeChecklistId = newList.id;
+  syncToCloud(); renderChecklistTab(); showChecklistSaveFeedback(true);
+};
+window.renameChecklistPerson = function(id) {
+  const list = surgeryChecklists.find(l => l.id === id);
+  if (!list) return;
+  const newName = prompt('Novo nome:', list.name);
+  if (newName === null) return;
+  if (!newName.trim()) { alert('O nome não pode ser vazio.'); return; }
+  list.name = newName.trim();
+  syncToCloud(); renderChecklistTab(); showChecklistSaveFeedback(true);
+};
+window.deleteChecklistPerson = function(id) {
+  const list = surgeryChecklists.find(l => l.id === id);
+  if (!list) return;
+  if (!confirm(`Excluir a lista "${list.name}" e todos os seus itens?`)) return;
+  surgeryChecklists = surgeryChecklists.filter(l => l.id !== id);
+  if (activeChecklistId === id) activeChecklistId = surgeryChecklists[0] ? surgeryChecklists[0].id : null;
+  syncToCloud(); renderChecklistTab(); showChecklistSaveFeedback(true);
+};
+window.addChecklistItem = function(listId) {
+  const list = surgeryChecklists.find(l => l.id === listId);
+  if (!list) return;
+  const input = document.getElementById('checklist-new-item-input');
+  const catSelect = document.getElementById('checklist-new-item-cat');
+  const text = input ? input.value.trim() : '';
+  if (!text) { if (input) input.focus(); return; }
+  list.items.push({
+    id: 'item_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+    text, category: catSelect ? catSelect.value : 'outros', done: false
+  });
+  if (input) input.value = '';
+  syncToCloud(); renderChecklistTab(); showChecklistSaveFeedback(true);
+  setTimeout(() => { const inp = document.getElementById('checklist-new-item-input'); if (inp) inp.focus(); }, 50);
+};
+window.toggleChecklistItem = function(listId, itemId) {
+  const list = surgeryChecklists.find(l => l.id === listId);
+  if (!list) return;
+  const item = list.items.find(i => i.id === itemId);
+  if (!item) return;
+  item.done = !item.done;
+  syncToCloud(); renderChecklistTab();
+};
+window.editChecklistItem = function(listId, itemId) {
+  const list = surgeryChecklists.find(l => l.id === listId);
+  if (!list) return;
+  const item = list.items.find(i => i.id === itemId);
+  if (!item) return;
+  const newText = prompt('Editar item:', item.text);
+  if (newText === null) return;
+  if (!newText.trim()) { alert('O texto não pode ser vazio.'); return; }
+  item.text = newText.trim();
+  syncToCloud(); renderChecklistTab(); showChecklistSaveFeedback(true);
+};
+window.deleteChecklistItem = function(listId, itemId) {
+  const list = surgeryChecklists.find(l => l.id === listId);
+  if (!list) return;
+  const item = list.items.find(i => i.id === itemId);
+  if (!item) return;
+  if (!confirm(`Excluir "${item.text}"?`)) return;
+  list.items = list.items.filter(i => i.id !== itemId);
+  syncToCloud(); renderChecklistTab(); showChecklistSaveFeedback(true);
+};
+
 setTimeout(renderNutritionTab, 0);
 </script>
 
